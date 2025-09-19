@@ -1,131 +1,107 @@
-# FitZone - Fitness Equipment E-commerce
+# VietAuEdu - Overseas Education Promotion Website
 
-FitZone is an e-commerce application for fitness equipment and
-accessories, featuring full functionality such as product management,
-shopping cart, order processing, and payment.
+VietAuEdu is a web application designed to promote overseas study
+programs for Vietnamese students. It provides detailed information about
+study opportunities abroad, program highlights, and contact options for
+interested students.
 
 ## Project Structure
 
-\- client: Frontend built with Next.js and TypeScript
+-   client: Frontend built with Next.js and TypeScript
 
-\- server: Backend built with ASP.NET Core (C#)
+-   server: Backend built with Express (Node.js)
 
 ## Requirements
 
-### Backend (.NET)
+### Backend (Express)
 
-\- .NET 9.0 SDK
-
-\- MySQL Server
-
-\- Redis Server
+*To be completed...*
 
 ### Frontend (Next.js)
 
-\- Node.js (version 18 or later)
+-   Node.js (version 18 or later)
 
-\- npm or yarn
+-   npm or yarn
 
 ## Installation Guide
 
 ### 1. Clone the project
 
-git clone https://github.com/Hai1205/FitZone.git\
-cd FitZone
+``` bash
+git clone https://github.com/Hai1205/VietAuEdu.git
+cd VietAuEdu
+```
 
 ### 2. Setup and Run Backend
 
-#### Install required services (MySQL & Redis) using Docker
-
-cd server\
-docker-compose up -d
-
-#### Create .env file in the server folder
-
-Create a \`.env\` file inside the \`server\` directory using the
-\`.env.example\` as reference and adjust values accordingly.
-
-#### Restore packages and run migrations
-
-dotnet restore\
-dotnet ef database update\
-dotnet run
-
-The backend will run at http://localhost:4040
+*To be completed...*
 
 ### 3. Setup and Run Frontend
 
-cd client\
-npm install\
-\# or\
-yarn install\
-\
-\# Run in development mode\
-npm run dev\
-\# or\
+``` bash
+cd client
+npm install
+# or
+yarn install
+
+# Run in development mode
+npm run dev
+# or
 yarn dev
+```
 
 The frontend will run at http://localhost:3000
 
 ## Key Features
 
-### 1. Authentication System
+### 1. Program Information
 
-- Register, login, forgot password
-- JWT authentication
-- Login with Google (OAuth)
+-   Browse available study abroad programs
+-   Detailed program descriptions
+-   Search and filter by country, field, or level of study
 
-### 2. Product Management
+### 2. Student Services
 
-- Product listing
-- Product details
-- Search, filter, and categorization
+-   Guidance on application process
+-   Scholarship information
+-   Frequently Asked Questions (FAQ)
 
-### 3. Cart & Ordering
+### 3. Contact & Support
 
-- Add products to cart
-- Manage cart
-- Checkout and order placement
+-   Inquiry forms
+-   Contact information for advisors
+-   Newsletter subscription
 
-### 4. User Management
+### 4. Admin Panel
 
-- Personal information
-- Order history
-- Shipping addresses
-
-### 5. Admin Panel
-
-- Manage products
-- Manage orders
-- Manage users
-- Statistics and reports
+-   Manage study programs
+-   Manage inquiries and contacts
+-   Content management
 
 ## Technologies Used
 
 ### Backend
 
-- ASP.NET Core 9.0
-- Entity Framework Core
-- MySQL
-- Redis (cache)
-- JWT Authentication
-- Cloudinary (image storage)
-- MailKit (email sending)
+-   Express (Node.js)
+-   MongoDB (planned)
+-   JWT Authentication (planned)
+-   Nodemailer (planned)
 
 ### Frontend
 
-- Next.js 15
-- React 19
-- TypeScript
-- Tailwind CSS
-- React Query
-- Zod (validation)
-- React Hook Form
+-   Next.js 15
+-   React 19
+-   TypeScript
+-   Tailwind CSS
+-   React Query
+-   Zod (validation)
+-   React Hook Form
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License. See the
+[LICENSE](LICENSE) file for details.
 
----
+------------------------------------------------------------------------
 
 ## Author: [Hai1205](https://github.com/hai1205)
