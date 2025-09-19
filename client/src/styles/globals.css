@@ -1,0 +1,72 @@
+/* app/globals.css */
+@import "tailwindcss";
+
+@theme {
+  --color-primary-50: #E8F7F6;
+  --color-primary-100: #CCEEEB;
+  --color-primary-500: #4FB7B3;
+  --color-primary-600: #3A9693;
+  --color-primary-700: #2B7572;
+  --color-primary: #4FB7B3;
+
+  --color-secondary-50: #F0F3FF;
+  --color-secondary-100: #E0E7FF;
+  --color-secondary-500: #637AB9;
+  --color-secondary-600: #4A5B9E;
+  --color-secondary-700: #3A4785;
+  --color-secondary: #637AB9;
+
+  --radius: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+}
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --primary: 184 72% 52%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 224 53% 60%;
+  --secondary-foreground: 222.2 84% 4.9%;
+  --muted: 210 40% 96%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --accent: 210 40% 96%;
+  --accent-foreground: 222.2 84% 4.9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 184 72% 52%;
+  --radius: 0.5rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4FB7B3;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3A9693;
+}
