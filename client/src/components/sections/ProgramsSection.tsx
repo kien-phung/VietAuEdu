@@ -3,7 +3,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import ProgramCard from "@/components/common/ProgramCard";
+import ProgramCard from "@/components/common/programs/ProgramCard";
 import Link from "next/link";
 import { mockData } from "@/utils/services/mockData";
 

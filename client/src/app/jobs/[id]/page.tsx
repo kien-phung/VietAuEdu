@@ -75,9 +75,9 @@ export default function JobDetailPage() {
 
   if (!job) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center transition-colors">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             Không tìm thấy việc làm
           </h1>
           <Link href="/jobs" className="text-primary hover:underline">
@@ -183,7 +183,7 @@ export default function JobDetailPage() {
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
               {/* Job Description */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border dark:border-gray-700 transition-colors">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Mô Tả Công Việc
                 </h2>
@@ -231,7 +231,7 @@ export default function JobDetailPage() {
               </div>
 
               {/* Requirements */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border dark:border-gray-700 transition-colors">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Yêu Cầu Ứng Viên
                 </h2>
@@ -248,7 +248,7 @@ export default function JobDetailPage() {
               </div>
 
               {/* Benefits */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border dark:border-gray-700 transition-colors">
                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Quyền Lợi & Phúc Lợi
                 </h2>
@@ -268,7 +268,7 @@ export default function JobDetailPage() {
             {/* Sidebar */}
             <div className="space-y-6">
               {/* Quick Apply */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border dark:border-gray-700 transition-colors">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   Ứng Tuyển Nhanh
                 </h3>
@@ -296,7 +296,7 @@ export default function JobDetailPage() {
               </div>
 
               {/* Job Info */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border dark:border-gray-700 transition-colors">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   Thông Tin Việc Làm
                 </h3>
@@ -331,7 +331,7 @@ export default function JobDetailPage() {
               </div>
 
               {/* Contact */}
-              <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-6">
+              <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-6 transition-colors">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   Cần Hỗ Trợ?
                 </h3>

@@ -4,10 +4,18 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Play } from "lucide-react";
 import Link from "next/link";
-import VideoModal from "@/components/common/VideoModal";
+import VideoModal from "@/components/layout/VideoModal";
 import Image from "next/image";
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  stats?: {
+    studentsCount: number;
+    countriesCount: number;
+    successRate: number;
+  };
+}
+
+export default function HeroSection({ stats }: HeroSectionProps) {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
 
   const handleVideoButtonClick = () => {
@@ -75,19 +83,25 @@ export default function HeroSection() {
             {/* Stats */}
             <div className="grid grid-cols-3 gap-4 pt-8">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">500+</div>
+                <div className="text-2xl font-bold text-primary">
+                  {stats?.studentsCount || 500}+
+                </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">
                   Học sinh thành công
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">6</div>
+                <div className="text-2xl font-bold text-primary">
+                  {stats?.countriesCount || 6}
+                </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">
                   Quốc gia
                 </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">98%</div>
+                <div className="text-2xl font-bold text-primary">
+                  {stats?.successRate || 98}%
+                </div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">
                   Tỷ lệ visa thành công
                 </div>

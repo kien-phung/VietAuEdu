@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import {
@@ -13,105 +11,126 @@ import {
   MapPin,
   Star,
 } from "lucide-react";
+import { Metadata } from "next";
 
+// SEO optimization for About page
+export const metadata: Metadata = {
+  title: "Về Chúng Tôi - VietAuEdu | Công Ty Giáo Dục Quốc Tế Việt Âu",
+  description:
+    "Công ty Giáo dục Quốc tế Việt Âu - Đơn vị hàng đầu trong lĩnh vực tư vấn du học với hơn 10 năm kinh nghiệm. Đã hỗ trợ hàng ngàn học sinh thành công tại các quốc gia phát triển.",
+  keywords:
+    "về VietAuEdu, công ty giáo dục quốc tế Việt Âu, tư vấn du học, kinh nghiệm du học, dịch vụ du học",
+  openGraph: {
+    title: "Về Chúng Tôi - VietAuEdu",
+    description:
+      "Tìm hiểu về VietAuEdu - Đơn vị tư vấn du học hàng đầu với 10+ năm kinh nghiệm",
+    type: "website",
+  },
+};
+
+// Static data - moved to build time for instant loading
+const getAboutPageData = () => {
+  return {
+    stats: [
+      { number: "10+", label: "Năm kinh nghiệm", icon: Award },
+      { number: "5000+", label: "Học viên thành công", icon: Users },
+      { number: "6", label: "Quốc gia đối tác", icon: Globe },
+      { number: "99%", label: "Tỷ lệ hài lòng", icon: Star },
+    ],
+    whyChooseUs: [
+      {
+        title: "Chuyên Môn Cao",
+        description:
+          "Đội ngũ tư vấn viên của Việt Âu đều là những chuyên gia có kiến thức sâu rộng về hệ thống giáo dục, thị trường lao động và các thủ tục hành chính tại nhiều quốc gia.",
+        icon: GraduationCap,
+      },
+      {
+        title: "Mạng Lưới Đối Tác Rộng Khắp",
+        description:
+          "Việt Âu có quan hệ hợp tác chặt chẽ với các trường đại học, tổ chức giáo dục, doanh nghiệp lớn tại Nhật Bản, Hàn Quốc, Đức, Úc, và Đài Loan.",
+        icon: Globe,
+      },
+      {
+        title: "Dịch Vụ Trọn Gói",
+        description:
+          "Chúng tôi cung cấp dịch vụ trọn gói từ tư vấn chọn trường, hỗ trợ xin visa, đặt vé máy bay, sắp xếp chỗ ở cho đến định hướng nghề nghiệp.",
+        icon: CheckCircle,
+      },
+      {
+        title: "Cam Kết Chất Lượng",
+        description:
+          "Việt Âu luôn đặt chất lượng dịch vụ lên hàng đầu. Chúng tôi không ngừng cải tiến và nâng cao chất lượng dịch vụ nhằm đáp ứng tối đa nhu cầu của học viên.",
+        icon: Award,
+      },
+      {
+        title: "Chi Phí Hợp Lý",
+        description:
+          "Hiểu rõ những lo lắng về chi phí của học viên và gia đình, Việt Âu cam kết cung cấp các gói dịch vụ với chi phí cạnh tranh nhất trên thị trường.",
+        icon: Heart,
+      },
+      {
+        title: "Hỗ Trợ 24/7",
+        description:
+          "Đội ngũ tư vấn viên của Việt Âu luôn làm việc với tinh thần trách nhiệm cao, tận tâm hỗ trợ khách hàng 24/7.",
+        icon: Users,
+      },
+    ],
+    services: [
+      {
+        title: "Tư Vấn Du Học",
+        features: [
+          "Lựa chọn trường và ngành học phù hợp",
+          "Hỗ trợ xin học bổng",
+          "Hướng dẫn thủ tục xin visa",
+          "Chuẩn bị hồ sơ du học",
+        ],
+      },
+      {
+        title: "Tư Vấn Việc Làm Quốc Tế",
+        features: [
+          "Cập nhật thông tin thị trường lao động",
+          "Kết nối nhà tuyển dụng uy tín",
+          "Hỗ trợ tìm việc làm nước ngoài",
+          "Định hướng nghề nghiệp",
+        ],
+      },
+      {
+        title: "Đào Tạo Ngoại Ngữ",
+        features: [
+          "Khóa học tiếng Nhật, Hàn, Đức, Anh",
+          "Đào tạo kỹ năng mềm",
+          "Luyện thi chứng chỉ quốc tế",
+          "Giao tiếp thực tế",
+        ],
+      },
+    ],
+    commitments: [
+      {
+        title: "Minh Bạch",
+        description:
+          "Mọi thông tin về quy trình và chi phí đều được công khai rõ ràng",
+      },
+      {
+        title: "Chuyên Nghiệp",
+        description:
+          "Đội ngũ tư vấn viên luôn làm việc với tinh thần trách nhiệm cao",
+      },
+      {
+        title: "Hiệu Quả",
+        description: "Cam kết giúp bạn đạt được mục tiêu nhanh chóng, hiệu quả",
+      },
+      {
+        title: "Uy Tín",
+        description:
+          "Với nhiều năm hoạt động, đã xây dựng được uy tín vững chắc trên thị trường",
+      },
+    ],
+  };
+};
+
+// SSG: This page will be pre-rendered at build time
 export default function AboutPage() {
-  const stats = [
-    { number: "10+", label: "Năm kinh nghiệm", icon: Award },
-    { number: "5000+", label: "Học viên thành công", icon: Users },
-    { number: "6", label: "Quốc gia đối tác", icon: Globe },
-    { number: "99%", label: "Tỷ lệ hài lòng", icon: Star },
-  ];
-
-  const whyChooseUs = [
-    {
-      title: "Chuyên Môn Cao",
-      description:
-        "Đội ngũ tư vấn viên của Việt Âu đều là những chuyên gia có kiến thức sâu rộng về hệ thống giáo dục, thị trường lao động và các thủ tục hành chính tại nhiều quốc gia.",
-      icon: GraduationCap,
-    },
-    {
-      title: "Mạng Lưới Đối Tác Rộng Khắp",
-      description:
-        "Việt Âu có quan hệ hợp tác chặt chẽ với các trường đại học, tổ chức giáo dục, doanh nghiệp lớn tại Nhật Bản, Hàn Quốc, Đức, Úc, và Đài Loan.",
-      icon: Globe,
-    },
-    {
-      title: "Dịch Vụ Trọn Gói",
-      description:
-        "Chúng tôi cung cấp dịch vụ trọn gói từ tư vấn chọn trường, hỗ trợ xin visa, đặt vé máy bay, sắp xếp chỗ ở cho đến định hướng nghề nghiệp.",
-      icon: CheckCircle,
-    },
-    {
-      title: "Cam Kết Chất Lượng",
-      description:
-        "Việt Âu luôn đặt chất lượng dịch vụ lên hàng đầu. Chúng tôi không ngừng cải tiến và nâng cao chất lượng dịch vụ nhằm đáp ứng tối đa nhu cầu của học viên.",
-      icon: Award,
-    },
-    {
-      title: "Chi Phí Hợp Lý",
-      description:
-        "Hiểu rõ những lo lắng về chi phí của học viên và gia đình, Việt Âu cam kết cung cấp các gói dịch vụ với chi phí cạnh tranh nhất trên thị trường.",
-      icon: Heart,
-    },
-    {
-      title: "Hỗ Trợ 24/7",
-      description:
-        "Đội ngũ tư vấn viên của Việt Âu luôn làm việc với tinh thần trách nhiệm cao, tận tâm hỗ trợ khách hàng 24/7.",
-      icon: Users,
-    },
-  ];
-
-  const services = [
-    {
-      title: "Tư Vấn Du Học",
-      features: [
-        "Lựa chọn trường và ngành học phù hợp",
-        "Hỗ trợ xin học bổng",
-        "Hướng dẫn thủ tục xin visa",
-        "Chuẩn bị hồ sơ du học",
-      ],
-    },
-    {
-      title: "Tư Vấn Việc Làm Quốc Tế",
-      features: [
-        "Cập nhật thông tin thị trường lao động",
-        "Kết nối nhà tuyển dụng uy tín",
-        "Hỗ trợ tìm việc làm nước ngoài",
-        "Định hướng nghề nghiệp",
-      ],
-    },
-    {
-      title: "Đào Tạo Ngoại Ngữ",
-      features: [
-        "Khóa học tiếng Nhật, Hàn, Đức, Anh",
-        "Đào tạo kỹ năng mềm",
-        "Luyện thi chứng chỉ quốc tế",
-        "Giao tiếp thực tế",
-      ],
-    },
-  ];
-
-  const commitments = [
-    {
-      title: "Minh Bạch",
-      description:
-        "Mọi thông tin về quy trình và chi phí đều được công khai rõ ràng",
-    },
-    {
-      title: "Chuyên Nghiệp",
-      description:
-        "Đội ngũ tư vấn viên luôn làm việc với tinh thần trách nhiệm cao",
-    },
-    {
-      title: "Hiệu Quả",
-      description: "Cam kết giúp bạn đạt được mục tiêu nhanh chóng, hiệu quả",
-    },
-    {
-      title: "Uy Tín",
-      description:
-        "Với nhiều năm hoạt động, đã xây dựng được uy tín vững chắc trên thị trường",
-    },
-  ];
+  const { stats, whyChooseUs, services, commitments } = getAboutPageData();
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">

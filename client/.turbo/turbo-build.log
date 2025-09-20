@@ -10,7 +10,7 @@
    Linting and checking validity of types ...
 Failed to compile.
 
-.next/types/app/blog/[id]/page.ts:34:29
+.next/types/app/blogs/[id]/page.ts:34:29
 Type error: Type 'PostPageProps' does not satisfy the constraint 'PageProps'.
   Types of property 'params' are incompatible.
     Type '{ id: string; }' is missing the following properties from type 'Promise<any>': then, catch, finally, [Symbol.toStringTag]

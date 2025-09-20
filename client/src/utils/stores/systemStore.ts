@@ -3,6 +3,8 @@ import { IBaseStore, createStore } from "../../lib/initialStore";
 import { ETheme } from "../types/enum";
 
 interface IContactDataResponse {
+	message?: string;
+	status?: string;
 }
 
 export interface ISystemStore extends IBaseStore {
@@ -13,7 +15,7 @@ export interface ISystemStore extends IBaseStore {
 	faqs: IFAQ[];
 
 	submitContact: (
-		data: any
+		data: Record<string, string | number | boolean>
 	) => Promise<IApiResponse<IContactDataResponse>>;
 
 	handleSetUser: (user: IUser | null) => void;
@@ -40,9 +42,14 @@ export const useSystemStore = createStore<ISystemStore>(
 	storeName,
 	initialState,
 	(set, get) => ({
-		submitContact: async (data: any): Promise<IApiResponse<IContactDataResponse>> => {
+		submitContact: async (data: Record<string, string | number | boolean>): Promise<IApiResponse<IContactDataResponse>> => {
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.POST, '/contact', data);
+				// Convert object to FormData for API compatibility
+				const formData = new FormData();
+				Object.entries(data).forEach(([key, value]) => {
+					formData.append(key, String(value));
+				});
+				return await handleRequest(EHttpType.POST, '/contact', formData);
 			});
 		},
 

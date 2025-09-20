@@ -1,10 +1,7 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Phone, Mail } from "lucide-react";
-import MobileMenu from "./MobileMenu";
+import { Phone, Mail } from "lucide-react";
 import Image from "next/image";
 import { ThemeToggleButton } from "./ThemeToggleButton";
 
@@ -19,16 +16,9 @@ const navigation = [
 ];
 
 export default function Navbar() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   return (
     <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50 transition-colors">
-      {/* Top bar */}
+      {/* Top bar - SSR only for faster rendering */}
       <div className="bg-primary dark:bg-primary text-white py-2">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center text-sm">
@@ -49,17 +39,18 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Main navbar */}
+      {/* Main navbar - Pure SSR for instant loading */}
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          {/* Logo */}
+          {/* Logo - SSR */}
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src={"/images/logo1.png"}
-              alt={`Japan flag`}
+              src="/images/logo1.png"
+              alt="VietAuEdu Logo"
               width={40}
               height={30}
               className="object-contain"
+              priority
             />
             <div>
               <h1 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -71,12 +62,13 @@ export default function Navbar() {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - SSR */}
           <div className="hidden lg:flex items-center space-x-8">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
+                prefetch={true}
                 className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium"
               >
                 {item.name}
@@ -84,7 +76,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Right side: Theme Toggle + CTA Button */}
+          {/* Right side - SSR CTA button and theme toggle */}
           <div className="hidden lg:flex items-center space-x-4">
             <ThemeToggleButton />
             <Button size="lg" className="bg-secondary hover:bg-secondary/90">
@@ -92,24 +84,15 @@ export default function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile: Theme Toggle + Menu Button */}
+          {/* Mobile controls - theme toggle and menu */}
           <div className="lg:hidden flex items-center space-x-2">
             <ThemeToggleButton />
-            <button
-              type="button"
-              className="p-2 text-gray-700 dark:text-gray-300"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            <Button variant="ghost" size="sm">
+              Menu
+            </Button>
           </div>
         </div>
       </nav>
-
-      {/* Mobile Menu */}
-      {mounted && (
-        <MobileMenu isOpen={mobileMenuOpen} setIsOpen={setMobileMenuOpen} />
-      )}
     </header>
   );
 }

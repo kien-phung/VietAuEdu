@@ -176,7 +176,7 @@ export default function JobOpportunitiesPage() {
       <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Việc Làm <span className="text-primary">Nổi Bật</span>
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
@@ -188,7 +188,7 @@ export default function JobOpportunitiesPage() {
             {featuredJobs.map((job) => (
               <div
                 key={job.id}
-                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 relative"
+                className="bg-white dark:bg-gray-700 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-600 relative"
               >
                 <div className="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">
                   Nổi bật
@@ -207,22 +207,22 @@ export default function JobOpportunitiesPage() {
                   </div>
 
                   <div className="w-2/3 p-6">
-                    <h3 className="font-bold text-xl text-gray-900 mb-3">
+                    <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-3">
                       {job.title} - {job.country}
                     </h3>
 
                     <div className="space-y-2 mb-4">
-                      <div className="flex items-center text-gray-700 text-sm">
+                      <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
                         <Users className="w-4 h-4 text-primary mr-2" />
                         <span>Số lượng: {job.positions}</span>
                       </div>
 
-                      <div className="flex items-center text-gray-700 text-sm">
+                      <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
                         <MapPin className="w-4 h-4 text-primary mr-2" />
                         <span>Khu vực: {job.location}</span>
                       </div>
 
-                      <div className="flex items-center text-gray-700 text-sm">
+                      <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
                         <DollarSign className="w-4 h-4 text-primary mr-2" />
                         <span>Lương: {job.salary}</span>
                       </div>
@@ -243,26 +243,29 @@ export default function JobOpportunitiesPage() {
       </section>
 
       {/* Search and Filter Section */}
-      <section id="jobs" className="py-16 bg-gray-50">
+      <section
+        id="jobs"
+        className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors"
+      >
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Tìm Kiếm <span className="text-primary">Việc Làm</span>
             </h2>
           </div>
 
           {/* Filters */}
-          <div className="bg-white rounded-2xl shadow-lg p-6 mb-8 max-w-6xl mx-auto">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-8 max-w-6xl mx-auto border dark:border-gray-700 transition-colors">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               {/* Search */}
               <div className="relative">
-                <Search className="w-5 h-5 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                <Search className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-1/2 transform -translate-y-1/2" />
                 <input
                   type="text"
                   placeholder="Tìm kiếm việc làm..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
                 />
               </div>
 
@@ -271,7 +274,7 @@ export default function JobOpportunitiesPage() {
                 <select
                   value={selectedCountry}
                   onChange={(e) => setSelectedCountry(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
                 >
                   {countries.map((country) => (
                     <option key={country} value={country}>
@@ -286,7 +289,7 @@ export default function JobOpportunitiesPage() {
                 <select
                   value={selectedWorkType}
                   onChange={(e) => setSelectedWorkType(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-colors"
                 >
                   {workTypes.map((type) => (
                     <option key={type} value={type}>
@@ -313,7 +316,7 @@ export default function JobOpportunitiesPage() {
 
           {/* Results Count */}
           <div className="text-center mb-8">
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-300">
               Tìm thấy{" "}
               <span className="font-bold text-primary">
                 {filteredJobs.length}
@@ -327,7 +330,7 @@ export default function JobOpportunitiesPage() {
             {filteredJobs.map((job) => (
               <div
                 key={job.id}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700"
               >
                 <div className="relative h-48">
                   <Image
@@ -342,28 +345,30 @@ export default function JobOpportunitiesPage() {
                 </div>
 
                 <div className="p-6">
-                  <h3 className="font-bold text-xl text-gray-900 mb-2">
+                  <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-2">
                     {job.title}
                   </h3>
-                  <p className="text-gray-600 text-sm mb-4">{job.company}</p>
+                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">
+                    {job.company}
+                  </p>
 
                   <div className="space-y-2 mb-4">
-                    <div className="flex items-center text-gray-700 text-sm">
+                    <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
                       <MapPin className="w-4 h-4 text-primary mr-2" />
                       <span>{job.location}</span>
                     </div>
 
-                    <div className="flex items-center text-gray-700 text-sm">
+                    <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
                       <DollarSign className="w-4 h-4 text-primary mr-2" />
                       <span>{job.salary}</span>
                     </div>
 
-                    <div className="flex items-center text-gray-700 text-sm">
+                    <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
                       <Calendar className="w-4 h-4 text-primary mr-2" />
                       <span>Hạn: {job.applicationDeadline}</span>
                     </div>
 
-                    <div className="flex items-center text-gray-700 text-sm">
+                    <div className="flex items-center text-gray-700 dark:text-gray-300 text-sm">
                       <Clock className="w-4 h-4 text-primary mr-2" />
                       <span>{job.workType}</span>
                     </div>
@@ -373,7 +378,7 @@ export default function JobOpportunitiesPage() {
                     {job.benefits.slice(0, 2).map((benefit, index) => (
                       <span
                         key={index}
-                        className="inline-block bg-primary/10 text-primary text-xs px-2 py-1 rounded-full"
+                        className="inline-block bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary text-xs px-2 py-1 rounded-full"
                       >
                         {benefit}
                       </span>
@@ -393,10 +398,12 @@ export default function JobOpportunitiesPage() {
 
           {filteredJobs.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-gray-500 text-lg">
+              <p className="text-gray-500 dark:text-gray-400 text-lg">
                 Không tìm thấy việc làm phù hợp
               </p>
-              <p className="text-gray-400">Hãy thử thay đổi bộ lọc tìm kiếm</p>
+              <p className="text-gray-400 dark:text-gray-500">
+                Hãy thử thay đổi bộ lọc tìm kiếm
+              </p>
             </div>
           )}
         </div>
@@ -431,41 +438,53 @@ export default function JobOpportunitiesPage() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Liên Hệ <span className="text-primary">Tư Vấn</span>
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 dark:text-gray-300">
               Đội ngũ chuyên viên sẵn sàng hỗ trợ bạn 24/7
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center p-6 bg-gray-50 rounded-2xl">
+            <div className="text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl transition-colors">
               <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">Hotline</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                Hotline
+              </h3>
               <p className="text-primary font-semibold">0902 020 050</p>
-              <p className="text-gray-600 text-sm">24/7 - Miễn phí tư vấn</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                24/7 - Miễn phí tư vấn
+              </p>
             </div>
 
-            <div className="text-center p-6 bg-gray-50 rounded-2xl">
+            <div className="text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl transition-colors">
               <Mail className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">Email</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                Email
+              </h3>
               <p className="text-primary font-semibold">
                 info@giaoducvietau.com
               </p>
-              <p className="text-gray-600 text-sm">Phản hồi trong 24h</p>
+              <p className="text-gray-600 dark:text-gray-400 text-sm">
+                Phản hồi trong 24h
+              </p>
             </div>
 
-            <div className="text-center p-6 bg-gray-50 rounded-2xl">
+            <div className="text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl transition-colors">
               <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">Văn Phòng</h3>
-              <p className="text-gray-700 text-sm">
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                Văn Phòng
+              </h3>
+              <p className="text-gray-700 dark:text-gray-300 text-sm">
                 287 Khuông Việt, P. Phú Trung
               </p>
-              <p className="text-gray-700 text-sm">Q. Tân Phú, TP. HCM</p>
+              <p className="text-gray-700 dark:text-gray-300 text-sm">
+                Q. Tân Phú, TP. HCM
+              </p>
             </div>
           </div>
         </div>

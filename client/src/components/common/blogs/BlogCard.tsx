@@ -43,7 +43,7 @@ export default function BlogCard({ post }: BlogCardProps) {
       <CardContent>
         <p className="text-gray-600 line-clamp-3 mb-4">{post.excerpt}</p>
         <Link
-          href={`/blog/${post.slug}`}
+          href={`/blogs/${post.slug}`}
           className="inline-flex items-center text-primary hover:text-primary/80 font-medium"
         >
           Đọc thêm

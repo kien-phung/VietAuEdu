@@ -1,117 +1,85 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  ArrowLeft,
-  Calendar,
-  User,
-  Clock,
-  Facebook,
-  Twitter,
-  Link2,
-  BookOpen,
-  MessageCircle,
-  Heart,
-} from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { ArrowLeft, Calendar, User, Clock, BookOpen } from "lucide-react";
+import { notFound } from "next/navigation";
 import { mockData } from "@/utils/services/mockData";
 import Link from "next/link";
 import Image from "next/image";
+import { Metadata } from "next";
+import BlogInteractions from "@/components/common/blogs/BlogInteractions";
 
-export default function BlogDetailPage() {
-  const params = useParams();
-  const router = useRouter();
-  const [blog, setBlog] = useState<IBlog | null>(null);
-  const [relatedPosts, setRelatedPosts] = useState<IBlog[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [likes, setLikes] = useState(42);
-  const [isLiked, setIsLiked] = useState(false);
+interface BlogDetailPageProps {
+  params: Promise<{ slug: string }>;
+}
 
-  useEffect(() => {
-    const slug = params.slug as string;
-    const foundPost = mockData.blogs.find((p) => p.slug === slug);
+// SSG: Generate static pages for all blog posts
+export async function generateStaticParams() {
+  const blogs = mockData.blogs;
 
-    if (foundPost) {
-      setBlog(foundPost);
-      // Get related posts from same category
-      const related = mockData.blogs
-        .filter(
-          (p) => p.category === foundPost.category && p.id !== foundPost.id
-        )
-        .slice(0, 3);
-      setRelatedPosts(related);
-    }
+  return blogs.map((blog) => ({
+    slug: blog.slug,
+  }));
+}
 
-    setIsLoading(false);
-  }, [params.slug]);
-
-  const handleLike = () => {
-    setIsLiked(!isLiked);
-    setLikes((prev) => (isLiked ? prev - 1 : prev + 1));
-  };
-
-  const handleShare = (platform: string) => {
-    const url = window.location.href;
-    const title = blog?.title || "";
-
-    switch (platform) {
-      case "facebook":
-        window.open(
-          `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-          "_blank"
-        );
-        break;
-      case "twitter":
-        window.open(
-          `https://twitter.com/intent/tweet?url=${url}&text=${title}`,
-          "_blank"
-        );
-        break;
-      case "copy":
-        navigator.clipboard.writeText(url);
-        alert("Link đã được sao chép!");
-        break;
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
-      </div>
-    );
-  }
+// Generate metadata for each blog post (SEO)
+export async function generateMetadata({
+  params,
+}: BlogDetailPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const blog = mockData.blogs.find((p) => p.slug === slug);
 
   if (!blog) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">
-            Không tìm thấy bài viết
-          </h1>
-          <Link href="/blog">
-            <Button>Quay lại blog</Button>
-          </Link>
-        </div>
-      </div>
-    );
+    return {
+      title: "Bài viết không tôn tại - VietAuEdu",
+    };
   }
+
+  return {
+    title: `${blog.title} - VietAuEdu Blog`,
+    description: blog.excerpt,
+    keywords: `${blog.category}, du học, VietAuEdu, ${blog.title}`,
+    openGraph: {
+      title: blog.title,
+      description: blog.excerpt,
+      type: "article",
+      publishedTime: blog.publishedAt,
+      authors: [blog.author],
+      images: [blog.image],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: blog.title,
+      description: blog.excerpt,
+      images: [blog.image],
+    },
+  };
+}
+
+export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
+  const { slug } = await params;
+  const blog = mockData.blogs.find((p) => p.slug === slug);
+
+  if (!blog) {
+    notFound();
+  }
+
+  // Get related posts from same category
+  const relatedPosts = mockData.blogs
+    .filter((p) => p.category === blog.category && p.id !== blog.id)
+    .slice(0, 3);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
-      {/* Header */}
+      {/* Header - SSR for SEO */}
       <section className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 transition-colors">
         <div className="container mx-auto px-4 py-6">
-          <Button
-            variant="ghost"
-            onClick={() => router.back()}
-            className="mb-4"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Quay lại
-          </Button>
+          <Link href="/blogs">
+            <Button variant="ghost" className="mb-4">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Quay lại
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -229,51 +197,8 @@ export default function BlogDetailPage() {
                   </div>
                 </div>
 
-                {/* Social Actions */}
-                <div className="flex items-center justify-between pt-8 border-t border-gray-200 mt-8">
-                  <div className="flex items-center space-x-4">
-                    <button
-                      onClick={handleLike}
-                      className={`flex items-center space-x-1 px-3 py-2 rounded-full transition-colors ${
-                        isLiked
-                          ? "bg-red-50 text-red-600"
-                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                      }`}
-                    >
-                      <Heart
-                        className={`w-4 h-4 ${isLiked ? "fill-current" : ""}`}
-                      />
-                      <span>{likes}</span>
-                    </button>
-
-                    <div className="flex items-center space-x-1 text-gray-600">
-                      <MessageCircle className="w-4 h-4" />
-                      <span>24 bình luận</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center space-x-2">
-                    <span className="text-sm text-gray-600 mr-2">Chia sẻ:</span>
-                    <button
-                      onClick={() => handleShare("facebook")}
-                      className="p-2 bg-blue-50 text-blue-600 rounded-full hover:bg-blue-100"
-                    >
-                      <Facebook className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleShare("twitter")}
-                      className="p-2 bg-sky-50 text-sky-600 rounded-full hover:bg-sky-100"
-                    >
-                      <Twitter className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => handleShare("copy")}
-                      className="p-2 bg-gray-50 text-gray-600 rounded-full hover:bg-gray-100"
-                    >
-                      <Link2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
+                {/* Social Actions - Client Component */}
+                <BlogInteractions initialLikes={42} blogTitle={blog.title} />
               </CardContent>
             </Card>
           </article>
@@ -327,7 +252,7 @@ export default function BlogDetailPage() {
                     {relatedPosts.map((relatedPost) => (
                       <Link
                         key={relatedPost.id}
-                        href={`/blog/${relatedPost.slug}`}
+                        href={`/blogs/${relatedPost.slug}`}
                       >
                         <div className="flex space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
                           <Image

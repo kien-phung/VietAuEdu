@@ -2,6 +2,9 @@ import { EHttpType, handleRequest, IApiResponse } from "../../lib/axiosInstance"
 import { IBaseStore, createStore } from "../../lib/initialStore";
 
 interface IFAQDataResponse {
+	faqs?: IFAQ[];
+	message?: string;
+	status?: string;
 }
 
 export interface IFAQStore extends IBaseStore {
