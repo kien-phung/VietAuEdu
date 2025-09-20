@@ -2,7 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import { Phone, MessageCircle } from "lucide-react";
+import { Phone } from "lucide-react";
+import Image from "next/image";
 
 export default function FloatingContactButtons() {
   return (
@@ -12,10 +13,20 @@ export default function FloatingContactButtons() {
         href="https://zalo.me/0782748863"
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative w-14 h-14 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
+        className="group relative w-16 h-16 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
       >
-        <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-          <MessageCircle className="w-5 h-5 text-blue-500" />
+        {/* Animated red border */}
+        <div className="absolute inset-0 rounded-full border-2 border-red-500 animate-ping opacity-75"></div>
+        <div className="absolute inset-0 rounded-full border-2 border-red-400 animate-pulse"></div>
+
+        <div className="relative w-12 h-12 bg-white rounded-full flex items-center justify-center z-10">
+          <Image
+            src="/images/zalo_icon.png"
+            alt="Zalo"
+            width={36}
+            height={36}
+            className="w-9 h-9 object-contain"
+          />
         </div>
 
         {/* Tooltip */}
@@ -30,7 +41,11 @@ export default function FloatingContactButtons() {
         href="tel:0782748863"
         className="group relative w-14 h-14 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
       >
-        <Phone className="w-6 h-6 text-white" />
+        {/* Animated red border */}
+        <div className="absolute inset-0 rounded-full border-2 border-red-500 animate-ping opacity-75"></div>
+        <div className="absolute inset-0 rounded-full border-2 border-red-400 animate-pulse"></div>
+
+        <Phone className="relative w-6 h-6 text-white z-10" />
 
         {/* Tooltip */}
         <div className="absolute right-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white px-3 py-2 rounded-lg text-sm whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">

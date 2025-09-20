@@ -4,6 +4,8 @@ import "@/styles/globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
+import FloatingContactButtons from "@/components/layout/FloatingContactButtons";
+import { Slide, ToastContainer } from "react-toastify";
 
 // Optimize font loading with display swap
 const inter = Inter({
@@ -83,6 +85,23 @@ export default function RootLayout({
 
           {/* Footer - can be SSR since it's below fold */}
           <Footer />
+
+          {/* Floating contact buttons */}
+          <FloatingContactButtons />
+
+          <ToastContainer
+            position="bottom-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+            transition={Slide}
+          />
         </ThemeProvider>
       </body>
     </html>

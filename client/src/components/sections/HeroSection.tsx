@@ -172,7 +172,7 @@ export default function HeroSection({ stats }: HeroSectionProps) {
         isOpen={isVideoModalOpen}
         onClose={handleCloseVideoModal}
         videoSrc="/videos/gioi_thieu.mp4"
-        title="Video Giới Thiệu VietAu Academy"
+        title="VietAu Academy"
       />
     </section>
   );
