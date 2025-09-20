@@ -110,6 +110,8 @@ export default function ProgramDetailPage() {
               <Image
                 src={program.image}
                 alt={program.title}
+                width={400}
+                height={300}
                 className="w-full h-64 lg:h-80 object-cover rounded-lg shadow-lg"
               />
             </div>

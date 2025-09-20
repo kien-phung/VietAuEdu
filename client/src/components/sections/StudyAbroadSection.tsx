@@ -177,7 +177,7 @@ export default function StudyAbroadSection() {
 
                   <Link
                     href="/contact"
-                    className="bg-yellow-400 hover:bg-yellow-500 text-secondary font-bold py-3 px-6 rounded-full text-center transition-colors duration-300 w-fit"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-full text-center transition-colors duration-300 w-fit"
                   >
                     Đăng Ký Ngay
                   </Link>

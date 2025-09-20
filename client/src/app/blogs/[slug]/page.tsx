@@ -8,7 +8,6 @@ import {
   Calendar,
   User,
   Clock,
-  Share2,
   Facebook,
   Twitter,
   Link2,
@@ -17,15 +16,14 @@ import {
   Heart,
 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { IBlog } from "@/lib/types";
 import { mockData } from "@/utils/services/mockData";
 import Link from "next/link";
-import BlogCard from "@/components/common/BlogCard";
+import Image from "next/image";
 
 export default function BlogDetailPage() {
   const params = useParams();
   const router = useRouter();
-  const [post, setPost] = useState<IBlog | null>(null);
+  const [blog, setBlog] = useState<IBlog | null>(null);
   const [relatedPosts, setRelatedPosts] = useState<IBlog[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [likes, setLikes] = useState(42);
@@ -36,7 +34,7 @@ export default function BlogDetailPage() {
     const foundPost = mockData.blogs.find((p) => p.slug === slug);
 
     if (foundPost) {
-      setPost(foundPost);
+      setBlog(foundPost);
       // Get related posts from same category
       const related = mockData.blogs
         .filter(
@@ -56,7 +54,7 @@ export default function BlogDetailPage() {
 
   const handleShare = (platform: string) => {
     const url = window.location.href;
-    const title = post?.title || "";
+    const title = blog?.title || "";
 
     switch (platform) {
       case "facebook":
@@ -86,7 +84,7 @@ export default function BlogDetailPage() {
     );
   }
 
-  if (!post) {
+  if (!blog) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -123,13 +121,15 @@ export default function BlogDetailPage() {
           <article className="lg:col-span-3">
             <Card>
               <div className="relative">
-                <img
-                  src={post.image}
-                  alt={post.title}
+                <Image
+                  src={blog.image}
+                  alt={blog.title}
                   className="w-full h-64 md:h-96 object-cover rounded-t-lg"
+                  width={400}
+                  height={300}
                 />
                 <div className="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                  {post.category}
+                  {blog.category}
                 </div>
               </div>
 
@@ -139,12 +139,12 @@ export default function BlogDetailPage() {
                   <div className="flex items-center space-x-1">
                     <Calendar className="w-4 h-4" />
                     <span>
-                      {new Date(post.publishedAt).toLocaleDateString("vi-VN")}
+                      {new Date(blog.publishedAt).toLocaleDateString("vi-VN")}
                     </span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <User className="w-4 h-4" />
-                    <span>{post.author}</span>
+                    <span>{blog.author}</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     <Clock className="w-4 h-4" />
@@ -154,12 +154,12 @@ export default function BlogDetailPage() {
 
                 {/* Title */}
                 <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-                  {post.title}
+                  {blog.title}
                 </h1>
 
                 {/* Excerpt */}
                 <div className="text-lg text-gray-600 mb-8 p-4 bg-gray-50 rounded-lg border-l-4 border-primary">
-                  {post.excerpt}
+                  {blog.excerpt}
                 </div>
 
                 {/* Content */}
@@ -287,14 +287,16 @@ export default function BlogDetailPage() {
               </CardHeader>
               <CardContent>
                 <div className="flex items-center space-x-3 mb-3">
-                  <img
+                  <Image
                     src="/api/placeholder/60/60"
-                    alt={post.author}
+                    alt={blog.author}
                     className="w-12 h-12 rounded-full object-cover"
+                    width={60}
+                    height={60}
                   />
                   <div>
                     <h4 className="font-semibold text-gray-900">
-                      {post.author}
+                      {blog.author}
                     </h4>
                     <p className="text-sm text-gray-600">
                       Chuyên gia tư vấn du học
@@ -328,9 +330,11 @@ export default function BlogDetailPage() {
                         href={`/blog/${relatedPost.slug}`}
                       >
                         <div className="flex space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
-                          <img
+                          <Image
                             src={relatedPost.image}
                             alt={relatedPost.title}
+                            width={64}
+                            height={64}
                             className="w-16 h-16 object-cover rounded-lg"
                           />
                           <div>

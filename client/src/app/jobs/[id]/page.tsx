@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -14,15 +14,16 @@ import {
   Mail,
   Building,
 } from "lucide-react";
+import { useParams } from "next/navigation";
 
 // This would normally come from an API or database
-const getJobById = (id: string) => {
-  const jobs = [
+const getJobById = (id: string): IJob => {
+  const jobs: IJob[] = [
     {
       id: "1",
       title: "Chế Biến Nông Sản",
       country: "Japan",
-      image: "/images/jobs/agricultural-processing.jpg",
+      imageUrl: "/images/jobs/agricultural-processing.jpg",
       positions: 3,
       location: "KAGOSHIMA",
       salary: "147.715 Yên/Tháng",
@@ -55,15 +56,23 @@ const getJobById = (id: string) => {
     // Add more jobs as needed
   ];
 
-  return jobs.find((job) => job.id === id);
+  return jobs.find((job) => job.id === id) as IJob;
 };
 
-interface JobDetailPageProps {
-  params: { id: string };
-}
+export default function JobDetailPage() {
+  const params = useParams();
+  const [job, setJob] = useState<IJob | null>(null);
 
-export default function JobDetailPage({ params }: JobDetailPageProps) {
-  const job = getJobById(params.id);
+  useEffect(() => {
+      const id = params.id as string;
+      const foundJob = getJobById(id);
+  
+      if (foundJob) {
+        setJob(foundJob);
+      }
+  
+    }, [params.id, params.slug]);
+  // const job = getJobById(params.id);
 
   if (!job) {
     return (
@@ -97,7 +106,7 @@ export default function JobDetailPage({ params }: JobDetailPageProps) {
             <div className="lg:w-1/3">
               <div className="relative h-64 rounded-2xl overflow-hidden">
                 <Image
-                  src={job.image}
+                  src={job.imageUrl}
                   alt={job.title}
                   fill
                   className="object-cover"

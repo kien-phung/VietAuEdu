@@ -4,7 +4,6 @@ import React, { useEffect } from "react";
 import HeroSection from "@/components/sections/HeroSection";
 import ProgramsSection from "@/components/sections/ProgramsSection";
 import AboutSection from "@/components/sections/AboutSection";
-import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import CTASection from "@/components/sections/CTASection";
 import { mockData } from "@/utils/services/mockData";
 import { useSystemStore } from "@/utils/stores/systemStore";
@@ -65,7 +64,6 @@ export default function HomePage() {
       <JobOpportunitiesSection />
       <ProgramsSection programs={programs.filter((p) => p.featured)} />
       <LanguageTrainingSection />
-      <TestimonialsSection />
       <CTASection />
     </>
   );
