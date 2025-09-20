@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white">
+    <footer className="bg-gray-900 dark:bg-gray-950 text-white transition-colors">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
@@ -20,17 +20,19 @@ export default function Footer() {
               />
               <div>
                 <h3 className="text-xl font-bold">Việt Âu</h3>
-                <p className="text-sm text-gray-400">Giáo dục quốc tế</p>
+                <p className="text-sm text-gray-400 dark:text-gray-500">
+                  Giáo dục quốc tế
+                </p>
               </div>
             </div>
-            <p className="text-gray-300 mb-4">
+            <p className="text-gray-300 dark:text-gray-400 mb-4">
               Kết nối giáo dục & nâng tầm cuộc sống. Chúng tôi mang đến cơ hội
               du học chất lượng cao tại các nước phát triển.
             </p>
             <div className="flex space-x-3">
-              <Facebook className="w-5 h-5 text-gray-400 hover:text-primary cursor-pointer" />
-              <Youtube className="w-5 h-5 text-gray-400 hover:text-primary cursor-pointer" />
-              <Linkedin className="w-5 h-5 text-gray-400 hover:text-primary cursor-pointer" />
+              <Facebook className="w-5 h-5 text-gray-400 dark:text-gray-500 hover:text-primary cursor-pointer transition-colors" />
+              <Youtube className="w-5 h-5 text-gray-400 dark:text-gray-500 hover:text-primary cursor-pointer transition-colors" />
+              <Linkedin className="w-5 h-5 text-gray-400 dark:text-gray-500 hover:text-primary cursor-pointer transition-colors" />
             </div>
           </div>
 
@@ -41,25 +43,31 @@ export default function Footer() {
               <li>
                 <Link
                   href="/programs"
-                  className="text-gray-300 hover:text-primary"
+                  className="text-gray-300 dark:text-gray-400 hover:text-primary transition-colors"
                 >
                   Chương trình du học
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-gray-300 hover:text-primary">
+                <Link
+                  href="/blogs"
+                  className="text-gray-300 dark:text-gray-400 hover:text-primary transition-colors"
+                >
                   Tin tức - Blog
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-gray-300 hover:text-primary">
+                <Link
+                  href="/faq"
+                  className="text-gray-300 dark:text-gray-400 hover:text-primary transition-colors"
+                >
                   Câu hỏi thường gặp
                 </Link>
               </li>
               <li>
                 <Link
                   href="/contact"
-                  className="text-gray-300 hover:text-primary"
+                  className="text-gray-300 dark:text-gray-400 hover:text-primary transition-colors"
                 >
                   Liên hệ tư vấn
                 </Link>
@@ -74,7 +82,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/programs?country=Hàn Quốc"
-                  className="text-gray-300 hover:text-primary"
+                  className="text-gray-300 dark:text-gray-400 hover:text-primary transition-colors"
                 >
                   Du học Hàn Quốc
                 </Link>
@@ -82,7 +90,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/programs?country=Nhật Bản"
-                  className="text-gray-300 hover:text-primary"
+                  className="text-gray-300 dark:text-gray-400 hover:text-primary transition-colors"
                 >
                   Du học Nhật Bản
                 </Link>
@@ -90,7 +98,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/programs?country=Đài Loan"
-                  className="text-gray-300 hover:text-primary"
+                  className="text-gray-300 dark:text-gray-400 hover:text-primary transition-colors"
                 >
                   Du học Đài Loan
                 </Link>
@@ -98,7 +106,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/programs?country=Đức"
-                  className="text-gray-300 hover:text-primary"
+                  className="text-gray-300 dark:text-gray-400 hover:text-primary transition-colors"
                 >
                   Du học Đức
                 </Link>
@@ -106,7 +114,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/programs?country=Úc"
-                  className="text-gray-300 hover:text-primary"
+                  className="text-gray-300 dark:text-gray-400 hover:text-primary transition-colors"
                 >
                   Du học Úc
                 </Link>
@@ -120,17 +128,19 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-center space-x-2">
                 <Phone className="w-4 h-4 text-primary" />
-                <span className="text-gray-300">0782 748 863</span>
+                <span className="text-gray-300 dark:text-gray-400">
+                  0782 748 863
+                </span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4 text-primary" />
-                <span className="text-gray-300">
+                <span className="text-gray-300 dark:text-gray-400">
                   hainguyenhoang1205@gmail.com
                 </span>
               </div>
               <div className="flex items-start space-x-2">
                 <MapPin className="w-4 h-4 text-primary mt-1" />
-                <span className="text-gray-300">
+                <span className="text-gray-300 dark:text-gray-400">
                   Tầng 1, Trường đại học Sài Gòn, 273 An Dương Vương, Q.5,
                   TP.HCM
                 </span>
@@ -139,21 +149,21 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8">
+        <div className="border-t border-gray-800 dark:border-gray-700 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 dark:text-gray-500 text-sm">
               © 2024 Giáo Dục Quốc Tế Việt Âu. Tất cả quyền được bảo lưu.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link
                 href="/privacy"
-                className="text-gray-400 hover:text-primary text-sm"
+                className="text-gray-400 dark:text-gray-500 hover:text-primary text-sm transition-colors"
               >
                 Chính sách bảo mật
               </Link>
               <Link
                 href="/terms"
-                className="text-gray-400 hover:text-primary text-sm"
+                className="text-gray-400 dark:text-gray-500 hover:text-primary text-sm transition-colors"
               >
                 Điều khoản sử dụng
               </Link>

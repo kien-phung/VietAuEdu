@@ -49,7 +49,7 @@ const languagePrograms: LanguageProgram[] = [
 
 export default function LanguageTrainingSection() {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
@@ -60,12 +60,12 @@ export default function LanguageTrainingSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Trung Tâm Ngoại Ngữ{" "}
             <span className="text-primary">Tại Việt Âu.</span>
           </h2>
 
-          <p className="text-gray-600 text-lg max-w-4xl mx-auto">
+          <p className="text-gray-600 dark:text-gray-300 text-lg max-w-4xl mx-auto">
             Chúng tôi sở hữu đa dạng chương trình đào tạo ngôn ngữ bài tư cơ bản
             đến nâng cao.
           </p>
@@ -76,7 +76,7 @@ export default function LanguageTrainingSection() {
           {languagePrograms.map((program) => (
             <div
               key={program.id}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 p-6"
+              className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 p-6"
             >
               <div className="flex gap-6">
                 {/* Image */}
@@ -96,7 +96,7 @@ export default function LanguageTrainingSection() {
                 <div className="flex-1">
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                         {program.title}
                       </h3>
                       <div className="w-12 h-1 bg-primary rounded-full"></div>
@@ -125,7 +125,7 @@ export default function LanguageTrainingSection() {
                     </div>
                   </div>
 
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed">
                     {program.description}
                   </p>
                 </div>

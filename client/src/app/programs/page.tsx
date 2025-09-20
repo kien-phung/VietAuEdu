@@ -108,7 +108,7 @@ export default function ProgramsPage({ searchParams }: ProgramsPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
       <section className="bg-gradient-to-r from-primary to-secondary py-16">
         <div className="container mx-auto px-4">
@@ -125,9 +125,9 @@ export default function ProgramsPage({ searchParams }: ProgramsPageProps) {
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-white border-b">
+      <section className="py-8 bg-white dark:bg-gray-800 border-b dark:border-gray-700 transition-colors">
         <div className="container mx-auto px-4">
-          <Card>
+          <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
             <CardContent className="pt-6">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                 {/* Search */}
@@ -138,7 +138,7 @@ export default function ProgramsPage({ searchParams }: ProgramsPageProps) {
                     placeholder="Tìm kiếm chương trình..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                   />
                 </div>
 
@@ -148,7 +148,7 @@ export default function ProgramsPage({ searchParams }: ProgramsPageProps) {
                   <select
                     value={selectedCountry}
                     onChange={(e) => setSelectedCountry(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 appearance-none bg-white"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 appearance-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   >
                     {countries.map((country) => (
                       <option key={country.value} value={country.value}>
@@ -164,7 +164,7 @@ export default function ProgramsPage({ searchParams }: ProgramsPageProps) {
                   <select
                     value={selectedTuition}
                     onChange={(e) => setSelectedTuition(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 appearance-none bg-white"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 appearance-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
                   >
                     {tuitionRanges.map((range) => (
                       <option key={range.value} value={range.value}>
@@ -194,7 +194,7 @@ export default function ProgramsPage({ searchParams }: ProgramsPageProps) {
         <div className="container mx-auto px-4">
           {/* Results Count */}
           <div className="mb-8">
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-300">
               Tìm thấy{" "}
               <span className="font-semibold text-primary">
                 {filteredPrograms.length}

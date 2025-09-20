@@ -81,21 +81,21 @@ export default function WorkingProcessSection() {
           {processSteps.map((step) => (
             <div
               key={step.number}
-              className="flex items-center bg-white/90 backdrop-blur-sm rounded-full p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/95"
+              className="flex items-center bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/95 dark:hover:bg-gray-800/95"
             >
               {/* Content */}
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                   {step.title}
                 </h3>
-                <p className="text-gray-700 text-sm leading-relaxed">
+                <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
                   {step.description}
                 </p>
               </div>
 
               {/* Number Circle */}
               <div className="ml-6 flex-shrink-0">
-                <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg border-4 border-primary">
+                <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg border-4 border-primary">
                   <span className="text-2xl font-bold text-primary">
                     {step.number}
                   </span>

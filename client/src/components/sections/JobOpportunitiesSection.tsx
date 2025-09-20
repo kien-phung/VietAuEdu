@@ -73,7 +73,7 @@ export default function JobOpportunitiesSection() {
   );
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-12">
@@ -84,7 +84,7 @@ export default function JobOpportunitiesSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-8">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-8">
             Cơ Hội Việc Làm <span className="text-primary">Tại Các Nước.</span>
           </h2>
 
@@ -111,7 +111,7 @@ export default function JobOpportunitiesSection() {
           {filteredJobs.map((job) => (
             <div
               key={job.id}
-              className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100"
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700"
             >
               <div className="flex">
                 {/* Image */}
@@ -128,31 +128,31 @@ export default function JobOpportunitiesSection() {
 
                 {/* Content */}
                 <div className="w-2/3 p-6">
-                  <h3 className="font-bold text-xl text-gray-900 mb-4">
+                  <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-4">
                     {job.title}
                   </h3>
 
                   <div className="space-y-3">
                     {/* Positions */}
-                    <div className="flex items-center text-gray-700">
+                    <div className="flex items-center text-gray-700 dark:text-gray-300">
                       <span className="text-primary mr-2">👥</span>
                       <span className="text-sm">Số lượng: {job.positions}</span>
                     </div>
 
                     {/* Location */}
-                    <div className="flex items-center text-gray-700">
+                    <div className="flex items-center text-gray-700 dark:text-gray-300">
                       <span className="text-primary mr-2">📍</span>
                       <span className="text-sm">Khu vực: {job.location}</span>
                     </div>
 
                     {/* Salary */}
-                    <div className="flex items-center text-gray-700">
+                    <div className="flex items-center text-gray-700 dark:text-gray-300">
                       <span className="text-primary mr-2">💰</span>
                       <span className="text-sm">Lương: {job.salary}</span>
                     </div>
 
                     {/* Deadline */}
-                    <div className="flex items-center text-gray-700">
+                    <div className="flex items-center text-gray-700 dark:text-gray-300">
                       <span className="text-primary mr-2">⏰</span>
                       <span className="text-sm">
                         Ngày thi tuyển: {job.applicationDeadline}
@@ -160,7 +160,7 @@ export default function JobOpportunitiesSection() {
                     </div>
 
                     {/* Departure */}
-                    <div className="flex items-start text-gray-700">
+                    <div className="flex items-start text-gray-700 dark:text-gray-300">
                       <span className="text-primary mr-2 mt-0.5">✈️</span>
                       <span className="text-sm">
                         Dự kiến bay: {job.estimatedDeparture}

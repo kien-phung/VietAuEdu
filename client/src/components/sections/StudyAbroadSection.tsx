@@ -47,7 +47,7 @@ const studyPrograms: StudyProgram[] = [
 
 export default function StudyAbroadSection() {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Left Content */}
@@ -60,13 +60,13 @@ export default function StudyAbroadSection() {
                 </span>
               </div>
 
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                 Du Học Việt Âu
                 <br />
                 Mở Ra <span className="text-primary">Chân Trời Mới.</span>
               </h2>
 
-              <p className="text-gray-600 text-lg leading-relaxed mb-8">
+              <p className="text-gray-600 dark:text-gray-300 text-lg leading-relaxed mb-8">
                 Việt Âu luôn là đơn vị hàng đầu trong việc đưa ra những chính
                 sách hỗ trợ du học sinh khi lựa chọn du học tại các nước.
               </p>

@@ -52,13 +52,13 @@ const countries: Country[] = [
 
 export default function CountryFlagsSection() {
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Các Quốc Gia Đối Tác
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             Khám phá các chương trình du học tại 6 quốc gia hàng đầu với nhiều
             cơ hội phát triển
           </p>
@@ -88,8 +88,8 @@ export default function CountryFlagsSection() {
                 </div>
 
                 {/* Country name label at bottom */}
-                <div className="bg-white/95 backdrop-blur-sm rounded-full px-4 py-2 mt-auto">
-                  <span className="text-sm font-semibold text-gray-800">
+                <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-full px-4 py-2 mt-auto">
+                  <span className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                     {country.englishName}
                   </span>
                 </div>

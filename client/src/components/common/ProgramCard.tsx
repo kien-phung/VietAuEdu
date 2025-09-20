@@ -18,7 +18,7 @@ interface ProgramCardProps {
 
 export default function ProgramCard({ program }: ProgramCardProps) {
   return (
-    <Card className="h-full hover:shadow-lg transition-shadow duration-300 flex flex-col">
+    <Card className="h-full hover:shadow-lg transition-shadow duration-300 flex flex-col bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
       <div className="relative">
         <Image
           src={program.image}
@@ -35,32 +35,38 @@ export default function ProgramCard({ program }: ProgramCardProps) {
       </div>
 
       <CardHeader className="pb-4">
-        <div className="flex items-center space-x-2 text-sm text-gray-600 mb-2">
+        <div className="flex items-center space-x-2 text-sm text-gray-600 dark:text-gray-400 mb-2">
           <MapPin className="w-4 h-4" />
           <span>{program.country}</span>
         </div>
-        <h3 className="text-xl font-bold text-gray-900 mb-2">
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
           {program.title}
         </h3>
-        <p className="text-gray-600 line-clamp-2">{program.description}</p>
+        <p className="text-gray-600 dark:text-gray-300 line-clamp-2">
+          {program.description}
+        </p>
       </CardHeader>
 
       <CardContent className="space-y-3 flex-grow">
         <div className="flex items-center space-x-2 text-sm">
-          <Clock className="w-4 h-4 text-gray-500" />
-          <span className="text-gray-600">Thời gian: {program.duration}</span>
+          <Clock className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+          <span className="text-gray-600 dark:text-gray-300">
+            Thời gian: {program.duration}
+          </span>
         </div>
 
         <div className="flex items-center space-x-2 text-sm">
-          <DollarSign className="w-4 h-4 text-gray-500" />
-          <span className="text-gray-600">Học phí: {program.tuition}</span>
+          <DollarSign className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+          <span className="text-gray-600 dark:text-gray-300">
+            Học phí: {program.tuition}
+          </span>
         </div>
 
         <div className="flex flex-wrap gap-1">
           {program.benefits.slice(0, 2).map((benefit, index) => (
             <span
               key={index}
-              className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary/10 text-primary"
+              className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary/10 dark:bg-primary/20 text-primary"
             >
               <Award className="w-3 h-3 mr-1" />
               {benefit}

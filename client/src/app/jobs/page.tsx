@@ -171,15 +171,15 @@ export default function JobOpportunitiesPage() {
   const featuredJobs = jobOpportunities.filter((job) => job.featured);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Featured Jobs Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
               Việc Làm <span className="text-primary">Nổi Bật</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Các vị trí việc làm được ưu tiên và có mức lương hấp dẫn nhất
             </p>
           </div>
@@ -188,7 +188,7 @@ export default function JobOpportunitiesPage() {
             {featuredJobs.map((job) => (
               <div
                 key={job.id}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 relative"
+                className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 relative"
               >
                 <div className="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">
                   Nổi bật

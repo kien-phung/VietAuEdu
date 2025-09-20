@@ -110,7 +110,7 @@ export default function FAQPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-primary to-primary/80 text-white py-20">
         <div className="absolute inset-0 bg-black/20"></div>
@@ -130,7 +130,7 @@ export default function FAQPage() {
                 placeholder="Tìm kiếm câu hỏi..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 rounded-full text-gray-900 text-lg focus:ring-4 focus:ring-white/20 focus:outline-none"
+                className="w-full pl-12 pr-4 py-4 rounded-full text-gray-900 dark:text-white bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-lg focus:ring-4 focus:ring-white/20 focus:outline-none placeholder:text-gray-500 dark:placeholder:text-gray-400"
               />
             </div>
           </div>
@@ -138,7 +138,7 @@ export default function FAQPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -149,7 +149,9 @@ export default function FAQPage() {
                 <div className="text-3xl font-bold text-primary mb-2">
                   {stat.number}
                 </div>
-                <div className="text-gray-600">{stat.label}</div>
+                <div className="text-gray-600 dark:text-gray-400">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
@@ -157,12 +159,12 @@ export default function FAQPage() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Category Filter */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                 Danh Mục <span className="text-primary">Câu Hỏi</span>
               </h2>
               <div className="flex flex-wrap justify-center gap-3">
@@ -173,7 +175,7 @@ export default function FAQPage() {
                     className={`px-4 py-2 rounded-full font-medium transition-all duration-300 text-sm ${
                       selectedCategory === category
                         ? "bg-primary text-white shadow-lg"
-                        : "bg-white text-gray-700 hover:bg-primary/10 hover:text-primary border border-gray-200"
+                        : "bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-primary/10 dark:hover:bg-primary/20 hover:text-primary border border-gray-200 dark:border-gray-600"
                     }`}
                   >
                     {category}
@@ -184,7 +186,7 @@ export default function FAQPage() {
 
             {/* Results Count */}
             <div className="text-center mb-8">
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-300">
                 Tìm thấy{" "}
                 <span className="font-bold text-primary">
                   {filteredFAQs.length}
@@ -198,24 +200,26 @@ export default function FAQPage() {
               {filteredFAQs.map((faq) => (
                 <div
                   key={faq.id}
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-100"
+                  className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden border border-gray-100 dark:border-gray-700"
                 >
                   <button
                     onClick={() => toggleFAQ(faq.id)}
-                    className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-300"
+                    className="w-full px-6 py-6 text-left flex items-center justify-between hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300"
                   >
                     <div className="flex-1">
                       <div className="flex items-center mb-2">
                         <span className="text-sm text-primary font-medium">
                           {faq.category}
                         </span>
-                        <span className="text-sm text-gray-400 ml-2">•</span>
-                        <span className="text-sm text-gray-400 ml-2 flex items-center">
+                        <span className="text-sm text-gray-400 dark:text-gray-500 ml-2">
+                          •
+                        </span>
+                        <span className="text-sm text-gray-400 dark:text-gray-500 ml-2 flex items-center">
                           <Calendar className="w-4 h-4 mr-1" />
                           {faq.publishedAt}
                         </span>
                       </div>
-                      <h3 className="text-lg font-bold text-gray-900 leading-tight">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-tight">
                         {faq.question}
                       </h3>
                     </div>
@@ -223,15 +227,15 @@ export default function FAQPage() {
                       {openFAQ === faq.id ? (
                         <ChevronUp className="w-6 h-6 text-primary" />
                       ) : (
-                        <ChevronDown className="w-6 h-6 text-gray-400" />
+                        <ChevronDown className="w-6 h-6 text-gray-400 dark:text-gray-500" />
                       )}
                     </div>
                   </button>
 
                   {openFAQ === faq.id && (
                     <div className="px-6 pb-6">
-                      <div className="pt-4 border-t border-gray-100">
-                        <p className="text-gray-700 leading-relaxed">
+                      <div className="pt-4 border-t border-gray-100 dark:border-gray-700">
+                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                           {faq.answer}
                         </p>
                       </div>
@@ -274,36 +278,48 @@ export default function FAQPage() {
       </section>
 
       {/* Contact Support Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Cần Hỗ Trợ <span className="text-primary">Thêm?</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center p-6 bg-gray-50 rounded-2xl">
+            <div className="text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl">
               <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">Hotline</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                Hotline
+              </h3>
               <p className="text-primary font-semibold text-lg">0902 020 050</p>
-              <p className="text-gray-600 text-sm">24/7 - Miễn phí tư vấn</p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                24/7 - Miễn phí tư vấn
+              </p>
             </div>
 
-            <div className="text-center p-6 bg-gray-50 rounded-2xl">
+            <div className="text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl">
               <Mail className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">Email</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                Email
+              </h3>
               <p className="text-primary font-semibold">
                 info@giaoducvietau.com
               </p>
-              <p className="text-gray-600 text-sm">Phản hồi trong 24h</p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                Phản hồi trong 24h
+              </p>
             </div>
 
-            <div className="text-center p-6 bg-gray-50 rounded-2xl">
+            <div className="text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl">
               <MessageCircle className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">Chat Online</h3>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                Chat Online
+              </h3>
               <p className="text-primary font-semibold">Tư vấn trực tuyến</p>
-              <p className="text-gray-600 text-sm">Thứ 2 - CN: 8:30 - 21:00</p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                Thứ 2 - CN: 8:30 - 21:00
+              </p>
             </div>
           </div>
         </div>

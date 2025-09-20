@@ -100,9 +100,9 @@ export default function BlogDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
-      <section className="bg-white border-b">
+      <section className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 transition-colors">
         <div className="container mx-auto px-4 py-6">
           <Button
             variant="ghost"
@@ -153,12 +153,12 @@ export default function BlogDetailPage() {
                 </div>
 
                 {/* Title */}
-                <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6 leading-tight">
                   {blog.title}
                 </h1>
 
                 {/* Excerpt */}
-                <div className="text-lg text-gray-600 mb-8 p-4 bg-gray-50 rounded-lg border-l-4 border-primary">
+                <div className="text-lg text-gray-600 dark:text-gray-300 mb-8 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg border-l-4 border-primary">
                   {blog.excerpt}
                 </div>
 
@@ -185,7 +185,7 @@ export default function BlogDetailPage() {
                     Giấy tờ học vấn
                   </h3>
 
-                  <ul className="list-disc list-inside text-gray-700 mb-6 space-y-2">
+                  <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-6 space-y-2">
                     <li>
                       Bằng tốt nghiệp và bảng điểm đã được công chứng, hợp pháp
                       hóa lãnh sự
@@ -221,7 +221,7 @@ export default function BlogDetailPage() {
                     <h4 className="font-semibold text-primary mb-2">
                       💡 Mẹo từ chuyên gia:
                     </h4>
-                    <p className="text-gray-700">
+                    <p className="text-gray-700 dark:text-gray-300">
                       Nên chuẩn bị hồ sơ trước ít nhất 3 tháng so với thời điểm
                       dự kiến nhập học. Điều này giúp bạn có đủ thời gian để bổ
                       sung các giấy tờ còn thiếu nếu cần.

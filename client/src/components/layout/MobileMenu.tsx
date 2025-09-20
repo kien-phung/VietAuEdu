@@ -7,9 +7,11 @@ import { cn } from "@/lib/utils";
 
 const navigation = [
   { name: "Trang chủ", href: "/" },
+  { name: "Giới thiệu", href: "/about" },
   { name: "Chương trình", href: "/programs" },
-  { name: "Tin tức", href: "/blog" },
-  { name: "FAQ", href: "/faq" },
+  { name: "Việc làm", href: "/jobs" },
+  { name: "Tin tức", href: "/blogs" },
+  { name: "Hỏi đáp", href: "/faq" },
   { name: "Liên hệ", href: "/contact" },
 ];
 
@@ -38,7 +40,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
     >
       <div
         className={cn(
-          "fixed right-0 top-0 h-full w-64 bg-white shadow-lg transform transition-transform",
+          "fixed right-0 top-0 h-full w-64 bg-white dark:bg-gray-900 shadow-lg transform transition-transform",
           isOpen ? "translate-x-0" : "translate-x-full"
         )}
       >
@@ -48,7 +50,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-primary transition-colors font-medium py-2"
+                className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium py-2"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}

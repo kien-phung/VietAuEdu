@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X, Phone, Mail } from "lucide-react";
 import MobileMenu from "./MobileMenu";
 import Image from "next/image";
+import { ThemeToggleButton } from "./ThemeToggleButton";
 
 const navigation = [
   { name: "Trang chủ", href: "/" },
@@ -26,9 +27,9 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="bg-white shadow-sm sticky top-0 z-50">
+    <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50 transition-colors">
       {/* Top bar */}
-      <div className="bg-primary text-white py-2">
+      <div className="bg-primary dark:bg-primary text-white py-2">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-4">
@@ -61,8 +62,12 @@ export default function Navbar() {
               className="object-contain"
             />
             <div>
-              <h1 className="text-xl font-bold text-gray-900">Việt Âu Edu</h1>
-              <p className="text-xs text-gray-600">Giáo dục quốc tế</p>
+              <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+                Việt Âu Edu
+              </h1>
+              <p className="text-xs text-gray-600 dark:text-gray-300">
+                Giáo dục quốc tế
+              </p>
             </div>
           </Link>
 
@@ -72,28 +77,32 @@ export default function Navbar() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 hover:text-primary transition-colors font-medium"
+                className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium"
               >
                 {item.name}
               </Link>
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:block">
+          {/* Right side: Theme Toggle + CTA Button */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <ThemeToggleButton />
             <Button size="lg" className="bg-secondary hover:bg-secondary/90">
               Tư vấn miễn phí
             </Button>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            type="button"
-            className="lg:hidden p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile: Theme Toggle + Menu Button */}
+          <div className="lg:hidden flex items-center space-x-2">
+            <ThemeToggleButton />
+            <button
+              type="button"
+              className="p-2 text-gray-700 dark:text-gray-300"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </nav>
 

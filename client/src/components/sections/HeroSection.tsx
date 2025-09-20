@@ -19,17 +19,17 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative bg-gradient-to-br from-primary/10 via-white to-secondary/10 py-20 lg:py-32">
+    <section className="relative bg-gradient-to-br from-primary/10 via-white to-secondary/10 dark:from-primary/20 dark:via-gray-900 dark:to-secondary/20 py-20 lg:py-32 transition-colors">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <div className="space-y-8">
             <div>
-              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
+              <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
                 Kết Nối Giáo Dục &{" "}
                 <span className="text-primary">Nâng Tầm</span> Cuộc Sống
               </h1>
-              <p className="text-xl text-gray-600 mt-6">
+              <p className="text-xl text-gray-600 dark:text-gray-300 mt-6">
                 Bạn đang mơ ước học tiếp Thạc sĩ tại Hàn Quốc và có cơ hội phát
                 triển sự nghiệp trong môi trường quốc tế hiện đại? Giáo Dục Quốc
                 Tế Việt Âu mang đến cho bạn những cơ hội du học chưa từng có!
@@ -37,12 +37,16 @@ export default function HeroSection() {
             </div>
 
             <div className="flex items-center space-x-4">
-              <div className="bg-primary/10 p-4 rounded-full">
+              <div className="bg-primary/10 dark:bg-primary/20 p-4 rounded-full">
                 <span className="text-2xl font-bold text-primary">12+</span>
               </div>
               <div>
-                <p className="font-semibold text-gray-900">Năm Kinh Nghiệm</p>
-                <p className="text-gray-600">Trong Ngành Giáo Dục</p>
+                <p className="font-semibold text-gray-900 dark:text-white">
+                  Năm Kinh Nghiệm
+                </p>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Trong Ngành Giáo Dục
+                </p>
               </div>
             </div>
 
@@ -60,7 +64,7 @@ export default function HeroSection() {
               <Button
                 variant="outline"
                 size="lg"
-                className="text-lg px-8 border-2 hover:bg-gray-50 flex items-center"
+                className="text-lg px-8 border-2 hover:bg-gray-50 dark:hover:bg-gray-800 dark:border-gray-600 dark:text-white flex items-center"
                 onClick={handleVideoButtonClick}
               >
                 <Play className="mr-2 w-5 h-5" />
@@ -72,15 +76,19 @@ export default function HeroSection() {
             <div className="grid grid-cols-3 gap-4 pt-8">
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">500+</div>
-                <div className="text-sm text-gray-600">Học sinh thành công</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  Học sinh thành công
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">6</div>
-                <div className="text-sm text-gray-600">Quốc gia</div>
+                <div className="text-sm text-gray-600 dark:text-gray-400">
+                  Quốc gia
+                </div>
               </div>
               <div className="text-center">
                 <div className="text-2xl font-bold text-primary">98%</div>
-                <div className="text-sm text-gray-600">
+                <div className="text-sm text-gray-600 dark:text-gray-400">
                   Tỷ lệ visa thành công
                 </div>
               </div>
@@ -98,7 +106,7 @@ export default function HeroSection() {
                 className="rounded-2xl shadow-2xl w-full h-auto"
               />
               {/* Floating cards */}
-              <div className="absolute -top-4 -left-4 bg-white p-4 rounded-lg shadow-lg">
+              <div className="absolute -top-4 -left-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
                 <div className="flex items-center space-x-2">
                   <div className="group-hover:scale-110 transition-transform duration-300 mt-2">
                     <Image
@@ -109,11 +117,13 @@ export default function HeroSection() {
                       className="object-contain"
                     />
                   </div>
-                  <span className="font-medium text-sm">Hàn Quốc</span>
+                  <span className="font-medium text-sm dark:text-white">
+                    Hàn Quốc
+                  </span>
                 </div>
               </div>
 
-              <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-lg shadow-lg">
+              <div className="absolute -bottom-4 -right-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-lg">
                 <div className="flex items-center space-x-2">
                   <div className="group-hover:scale-110 transition-transform duration-300 mt-2">
                     <Image
@@ -124,21 +134,23 @@ export default function HeroSection() {
                       className="object-contain"
                     />
                   </div>
-                  <span className="font-medium text-sm">Nhật Bản</span>
+                  <span className="font-medium text-sm dark:text-white">
+                    Nhật Bản
+                  </span>
                 </div>
               </div>
             </div>
 
             {/* Background decoration */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-2xl transform rotate-6 scale-105 -z-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 dark:from-primary/30 dark:to-secondary/30 rounded-2xl transform rotate-6 scale-105 -z-10"></div>
           </div>
         </div>
       </div>
 
       {/* Background Pattern */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 rounded-full"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/5 rounded-full"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 bg-primary/5 dark:bg-primary/10 rounded-full"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-secondary/5 dark:bg-secondary/10 rounded-full"></div>
       </div>
 
       {/* Video Modal */}

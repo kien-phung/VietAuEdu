@@ -50,18 +50,17 @@ export default function RootLayout({
 }) {
   return (
     <html lang="vi" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange
-        >
+      <body
+        className={`${inter.className} bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors`}
+      >
+        <ThemeProvider>
           <OnlyClientSide>
             <Navbar />
           </OnlyClientSide>
 
-          <main className="min-h-screen">{children}</main>
+          <main className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+            {children}
+          </main>
 
           <OnlyClientSide>
             <Footer />

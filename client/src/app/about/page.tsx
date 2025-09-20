@@ -114,20 +114,22 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <stat.icon className="w-8 h-8 text-primary" />
                 </div>
                 <div className="text-3xl font-bold text-primary mb-2">
                   {stat.number}
                 </div>
-                <div className="text-gray-600">{stat.label}</div>
+                <div className="text-gray-600 dark:text-gray-400">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
@@ -135,13 +137,13 @@ export default function AboutPage() {
       </section>
 
       {/* Main Introduction */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">
               Về Chúng Tôi
             </h2>
-            <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+            <div className="prose prose-lg max-w-none text-gray-700 dark:text-gray-300 leading-relaxed">
               <p className="text-xl mb-6">
                 Công ty Giáo dục Quốc tế Việt Âu là đơn vị hàng đầu trong lĩnh
                 vực đào tạo, tuyển chọn và chuyển giao nguồn nhân lực chất lượng
@@ -164,13 +166,13 @@ export default function AboutPage() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Tại Sao Nên Chọn <span className="text-primary">Việt Âu?</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Chúng tôi mang đến những lợi thế vượt trội giúp bạn thành công
               trong hành trình du học và làm việc quốc tế
             </p>
@@ -180,15 +182,15 @@ export default function AboutPage() {
             {whyChooseUs.map((item, index) => (
               <div
                 key={index}
-                className="bg-gray-50 rounded-2xl p-6 hover:shadow-lg transition-shadow duration-300"
+                className="bg-gray-50 dark:bg-gray-700 rounded-2xl p-6 hover:shadow-lg transition-shadow duration-300"
               >
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                <div className="w-12 h-12 bg-primary/10 dark:bg-primary/20 rounded-lg flex items-center justify-center mb-4">
                   <item.icon className="w-6 h-6 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                   {item.title}
                 </h3>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   {item.description}
                 </p>
               </div>
@@ -198,13 +200,13 @@ export default function AboutPage() {
       </section>
 
       {/* Services Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Các Dịch Vụ <span className="text-primary">Chính</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
               Dịch vụ toàn diện từ tư vấn đến hỗ trợ thực hiện giấc mơ du học và
               làm việc nước ngoài
             </p>
@@ -214,16 +216,18 @@ export default function AboutPage() {
             {services.map((service, index) => (
               <div
                 key={index}
-                className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+                className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
               >
-                <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
                   {service.title}
                 </h3>
                 <ul className="space-y-3">
                   {service.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">{feature}</span>
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {feature}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -234,10 +238,10 @@ export default function AboutPage() {
       </section>
 
       {/* Commitments Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-white dark:bg-gray-800 transition-colors">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Cam Kết Của <span className="text-primary">Việt Âu</span>
             </h2>
           </div>
@@ -246,15 +250,15 @@ export default function AboutPage() {
             {commitments.map((commitment, index) => (
               <div
                 key={index}
-                className="text-center p-6 bg-gray-50 rounded-2xl hover:bg-primary/5 transition-colors duration-300"
+                className="text-center p-6 bg-gray-50 dark:bg-gray-700 rounded-2xl hover:bg-primary/5 dark:hover:bg-primary/10 transition-colors duration-300"
               >
-                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-primary/10 dark:bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="w-8 h-8 text-primary" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
                   {commitment.title}
                 </h3>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
                   {commitment.description}
                 </p>
               </div>
@@ -293,40 +297,46 @@ export default function AboutPage() {
       </section>
 
       {/* Contact Info */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 transition-colors">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
               Thông Tin <span className="text-primary">Liên Hệ</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center">
               <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">
                 Trụ Sở Chính Hà Nội
               </h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
                 Tòa nhà E38 Yên Hòa, Vũ Phạm Hàm, Yên Hòa, Cầu Giấy, Hà Nội
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center">
               <MapPin className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">
                 Trụ Sở Chính TP.HCM
               </h3>
-              <p className="text-gray-600 text-sm">
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
                 287 Khuông Việt, P. Phú Trung, Q. Tân Phú, TP. HCM
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 shadow-lg text-center">
+            <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg text-center">
               <Phone className="w-8 h-8 text-primary mx-auto mb-4" />
-              <h3 className="font-bold text-gray-900 mb-2">Hotline</h3>
-              <p className="text-gray-600 text-sm">0902 020 050</p>
-              <p className="text-gray-600 text-sm">24/7 - Miễn phí tư vấn</p>
+              <h3 className="font-bold text-gray-900 dark:text-white mb-2">
+                Hotline
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                0902 020 050
+              </p>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">
+                24/7 - Miễn phí tư vấn
+              </p>
             </div>
           </div>
         </div>

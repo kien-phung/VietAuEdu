@@ -64,14 +64,13 @@ export default function JobDetailPage() {
   const [job, setJob] = useState<IJob | null>(null);
 
   useEffect(() => {
-      const id = params.id as string;
-      const foundJob = getJobById(id);
-  
-      if (foundJob) {
-        setJob(foundJob);
-      }
-  
-    }, [params.id, params.slug]);
+    const id = params.id as string;
+    const foundJob = getJobById(id);
+
+    if (foundJob) {
+      setJob(foundJob);
+    }
+  }, [params.id, params.slug]);
   // const job = getJobById(params.id);
 
   if (!job) {
@@ -90,9 +89,9 @@ export default function JobDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
-      <section className="bg-white border-b">
+      <section className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 transition-colors">
         <div className="container mx-auto px-4 py-6">
           <Link
             href="/jobs"
@@ -117,10 +116,10 @@ export default function JobDetailPage() {
             <div className="lg:w-2/3">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                  <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
                     {job.title}
                   </h1>
-                  <div className="flex items-center text-gray-600 mb-4">
+                  <div className="flex items-center text-gray-600 dark:text-gray-300 mb-4">
                     <Building className="w-5 h-5 mr-2" />
                     <span className="text-lg">{job.company}</span>
                   </div>
@@ -133,7 +132,7 @@ export default function JobDetailPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                <div className="flex items-center text-gray-700">
+                <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <MapPin className="w-5 h-5 text-primary mr-3" />
                   <div>
                     <div className="font-medium">{job.location}</div>
@@ -141,7 +140,7 @@ export default function JobDetailPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center text-gray-700">
+                <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <DollarSign className="w-5 h-5 text-primary mr-3" />
                   <div>
                     <div className="font-medium">{job.salary}</div>
@@ -149,7 +148,7 @@ export default function JobDetailPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center text-gray-700">
+                <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <Users className="w-5 h-5 text-primary mr-3" />
                   <div>
                     <div className="font-medium">{job.positions} vị trí</div>
@@ -157,7 +156,7 @@ export default function JobDetailPage() {
                   </div>
                 </div>
 
-                <div className="flex items-center text-gray-700">
+                <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <Calendar className="w-5 h-5 text-primary mr-3" />
                   <div>
                     <div className="font-medium">{job.applicationDeadline}</div>
@@ -184,66 +183,82 @@ export default function JobDetailPage() {
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-8">
               {/* Job Description */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Mô Tả Công Việc
                 </h2>
-                <p className="text-gray-700 leading-relaxed mb-6">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
                   {job.description}
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-3">
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-3">
                       Thời gian làm việc
                     </h3>
-                    <p className="text-gray-700">{job.workingHours}</p>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      {job.workingHours}
+                    </p>
                   </div>
 
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-3">
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-3">
                       Làm thêm giờ
                     </h3>
-                    <p className="text-gray-700">{job.overtime}</p>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      {job.overtime}
+                    </p>
                   </div>
 
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-3">Chỗ ở</h3>
-                    <p className="text-gray-700">{job.accommodation}</p>
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-3">
+                      Chỗ ở
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      {job.accommodation}
+                    </p>
                   </div>
 
                   <div>
-                    <h3 className="font-bold text-gray-900 mb-3">Đào tạo</h3>
-                    <p className="text-gray-700">{job.trainingPeriod}</p>
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-3">
+                      Đào tạo
+                    </h3>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      {job.trainingPeriod}
+                    </p>
                   </div>
                 </div>
               </div>
 
               {/* Requirements */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Yêu Cầu Ứng Viên
                 </h2>
                 <ul className="space-y-3">
                   {job.requirements.map((requirement, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">{requirement}</span>
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {requirement}
+                      </span>
                     </li>
                   ))}
                 </ul>
               </div>
 
               {/* Benefits */}
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                   Quyền Lợi & Phúc Lợi
                 </h2>
                 <ul className="space-y-3">
                   {job.benefits.map((benefit, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
-                      <span className="text-gray-700">{benefit}</span>
+                      <span className="text-gray-700 dark:text-gray-300">
+                        {benefit}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -253,8 +268,8 @@ export default function JobDetailPage() {
             {/* Sidebar */}
             <div className="space-y-6">
               {/* Quick Apply */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   Ứng Tuyển Nhanh
                 </h3>
                 <div className="space-y-4">
@@ -266,7 +281,7 @@ export default function JobDetailPage() {
                   </Link>
 
                   <div className="text-center">
-                    <div className="flex items-center justify-center text-gray-600 mb-2">
+                    <div className="flex items-center justify-center text-gray-600 dark:text-gray-300 mb-2">
                       <Phone className="w-4 h-4 mr-2" />
                       <span>Hoặc gọi trực tiếp</span>
                     </div>
@@ -281,26 +296,34 @@ export default function JobDetailPage() {
               </div>
 
               {/* Job Info */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   Thông Tin Việc Làm
                 </h3>
                 <div className="space-y-4">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Loại hình:</span>
-                    <span className="font-medium">{job.workType}</span>
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Loại hình:
+                    </span>
+                    <span className="font-medium text-gray-900 dark:text-white">
+                      {job.workType}
+                    </span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Xuất cảnh:</span>
-                    <span className="font-medium text-sm">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Xuất cảnh:
+                    </span>
+                    <span className="font-medium text-sm text-gray-900 dark:text-white">
                       {job.estimatedDeparture}
                     </span>
                   </div>
 
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Môi trường:</span>
-                    <span className="font-medium text-sm">
+                    <span className="text-gray-600 dark:text-gray-400">
+                      Môi trường:
+                    </span>
+                    <span className="font-medium text-sm text-gray-900 dark:text-white">
                       {job.workEnvironment}
                     </span>
                   </div>
@@ -308,21 +331,23 @@ export default function JobDetailPage() {
               </div>
 
               {/* Contact */}
-              <div className="bg-primary/5 rounded-2xl p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">
+              <div className="bg-primary/5 dark:bg-primary/10 rounded-2xl p-6">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
                   Cần Hỗ Trợ?
                 </h3>
-                <p className="text-gray-600 mb-4">
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
                   Đội ngũ tư vấn viên của chúng tôi sẵn sàng hỗ trợ bạn 24/7
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-center">
                     <Phone className="w-4 h-4 text-primary mr-3" />
-                    <span className="text-gray-700">0902 020 050</span>
+                    <span className="text-gray-700 dark:text-gray-300">
+                      0902 020 050
+                    </span>
                   </div>
                   <div className="flex items-center">
                     <Mail className="w-4 h-4 text-primary mr-3" />
-                    <span className="text-gray-700">
+                    <span className="text-gray-700 dark:text-gray-300">
                       info@giaoducvietau.com
                     </span>
                   </div>

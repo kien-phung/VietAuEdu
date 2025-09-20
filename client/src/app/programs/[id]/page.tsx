@@ -61,9 +61,9 @@ export default function ProgramDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
-      <section className="bg-white border-b">
+      <section className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 transition-colors">
         <div className="container mx-auto px-4 py-6">
           <Button
             variant="ghost"
@@ -85,10 +85,10 @@ export default function ProgramDetailPage() {
                   </span>
                 )}
               </div>
-              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
                 {program.title}
               </h1>
-              <p className="text-lg text-gray-600 mb-6">
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
                 {program.description}
               </p>
 
@@ -136,7 +136,9 @@ export default function ProgramDetailPage() {
                   {program.requirements.map((requirement, index) => (
                     <li key={index} className="flex items-start space-x-3">
                       <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-gray-600">{requirement}</span>
+                      <span className="text-gray-600 dark:text-gray-300">
+                        {requirement}
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -159,7 +161,7 @@ export default function ProgramDetailPage() {
                       className="flex items-center space-x-3 p-3 bg-primary/5 rounded-lg"
                     >
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0" />
-                      <span className="text-gray-700 font-medium">
+                      <span className="text-gray-700 dark:text-gray-300 font-medium">
                         {benefit}
                       </span>
                     </div>
@@ -171,7 +173,9 @@ export default function ProgramDetailPage() {
             {/* IProgram Details */}
             <Card>
               <CardHeader>
-                <CardTitle>Thông Tin Chi Tiết</CardTitle>
+                <CardTitle className="text-gray-900 dark:text-white">
+                  Thông Tin Chi Tiết
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>

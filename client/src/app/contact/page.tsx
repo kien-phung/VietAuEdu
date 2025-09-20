@@ -64,16 +64,16 @@ export default function ContactPage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Card className="max-w-md mx-4">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center transition-colors">
+        <Card className="max-w-md mx-4 bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
           <CardContent className="text-center pt-12 pb-8">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <CheckCircle className="w-8 h-8 text-green-600" />
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
               Cảm ơn bạn đã liên hệ!
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 dark:text-gray-300 mb-6">
               Chúng tôi đã nhận được thông tin của bạn và sẽ liên hệ lại trong
               vòng 24 giờ.
             </p>
@@ -87,7 +87,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
       <section className="bg-gradient-to-r from-primary to-secondary py-16">
         <div className="container mx-auto px-4">
@@ -107,10 +107,12 @@ export default function ContactPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Contact Form */}
           <div className="lg:col-span-2">
-            <Card>
+            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
               <CardHeader>
-                <CardTitle>Gửi thông tin tư vấn</CardTitle>
-                <p className="text-gray-600">
+                <CardTitle className="text-gray-900 dark:text-white">
+                  Gửi thông tin tư vấn
+                </CardTitle>
+                <p className="text-gray-600 dark:text-gray-300">
                   Vui lòng điền thông tin chi tiết để chúng tôi có thể tư vấn
                   tốt nhất cho bạn
                 </p>
@@ -121,7 +123,7 @@ export default function ContactPage() {
                     <div>
                       <label
                         htmlFor="name"
-                        className="block text-sm font-medium text-gray-700 mb-2"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                       >
                         Họ và tên *
                       </label>
@@ -132,7 +134,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                         placeholder="Nguyễn Văn A"
                       />
                     </div>
@@ -140,7 +142,7 @@ export default function ContactPage() {
                     <div>
                       <label
                         htmlFor="phone"
-                        className="block text-sm font-medium text-gray-700 mb-2"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
                       >
                         Số điện thoại *
                       </label>
@@ -151,7 +153,7 @@ export default function ContactPage() {
                         value={formData.phone}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
                         placeholder="0987 654 321"
                       />
                     </div>
@@ -251,17 +253,21 @@ export default function ContactPage() {
           {/* Contact Information */}
           <div className="space-y-6">
             {/* Quick Contact */}
-            <Card>
+            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
               <CardHeader>
-                <CardTitle>Thông tin liên hệ</CardTitle>
+                <CardTitle className="text-gray-900 dark:text-white">
+                  Thông tin liên hệ
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex items-start space-x-3">
                   <Phone className="w-5 h-5 text-primary mt-1" />
                   <div>
-                    <h4 className="font-medium text-gray-900">Hotline 24/7</h4>
+                    <h4 className="font-medium text-gray-900 dark:text-white">
+                      Hotline 24/7
+                    </h4>
                     <p className="text-primary font-semibold">0782 748 863</p>
-                    <p className="text-sm text-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
                       Tư vấn miễn phí mọi lúc
                     </p>
                   </div>
@@ -270,19 +276,25 @@ export default function ContactPage() {
                 <div className="flex items-start space-x-3">
                   <Mail className="w-5 h-5 text-primary mt-1" />
                   <div>
-                    <h4 className="font-medium text-gray-900">Email</h4>
-                    <p className="text-gray-700">
+                    <h4 className="font-medium text-gray-900 dark:text-white">
+                      Email
+                    </h4>
+                    <p className="text-gray-700 dark:text-gray-300">
                       hainguyenhoang1205@gmail.com
                     </p>
-                    <p className="text-sm text-gray-600">Phản hồi trong 24h</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                      Phản hồi trong 24h
+                    </p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-3">
                   <MapPin className="w-5 h-5 text-primary mt-1" />
                   <div>
-                    <h4 className="font-medium text-gray-900">Văn phòng</h4>
-                    <p className="text-gray-700">
+                    <h4 className="font-medium text-gray-900 dark:text-white">
+                      Văn phòng
+                    </h4>
+                    <p className="text-gray-700 dark:text-gray-300">
                       Tầng 1, Trường đại học Sài Gòn
                       <br />
                       273 An Dương Vương, Q.5, TP.HCM
@@ -293,8 +305,10 @@ export default function ContactPage() {
                 <div className="flex items-start space-x-3">
                   <Clock className="w-5 h-5 text-primary mt-1" />
                   <div>
-                    <h4 className="font-medium text-gray-900">Giờ làm việc</h4>
-                    <p className="text-gray-700">
+                    <h4 className="font-medium text-gray-900 dark:text-white">
+                      Giờ làm việc
+                    </h4>
+                    <p className="text-gray-700 dark:text-gray-300">
                       Thứ 2 - Thứ 6: 8:00 - 18:00
                       <br />
                       Thứ 7: 8:00 - 12:00
@@ -307,9 +321,11 @@ export default function ContactPage() {
             </Card>
 
             {/* Quick Actions */}
-            <Card>
+            <Card className="bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
               <CardHeader>
-                <CardTitle>Kết nối nhanh</CardTitle>
+                <CardTitle className="text-gray-900 dark:text-white">
+                  Kết nối nhanh
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <Button variant="outline" className="w-full justify-start">
