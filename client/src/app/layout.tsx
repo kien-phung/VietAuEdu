@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/layout/ThemeProvider";
 import FloatingContactButtons from "@/components/layout/FloatingContactButtons";
+import { LinkProgressProvider } from "@/components/layout/LinkProgressBar";
 import { Slide, ToastContainer } from "react-toastify";
 
 // Optimize font loading with display swap
@@ -75,34 +76,36 @@ export default function RootLayout({
       <body
         className={`${inter.className} bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors`}
       >
-        <ThemeProvider>
-          {/* Critical above-fold content - SSR */}
-          <Navbar />
+        <LinkProgressProvider>
+          <ThemeProvider>
+            {/* Critical above-fold content - SSR */}
+            <Navbar />
 
-          <main className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
-            {children}
-          </main>
+            <main className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
+              {children}
+            </main>
 
-          {/* Footer - can be SSR since it's below fold */}
-          <Footer />
+            {/* Footer - can be SSR since it's below fold */}
+            <Footer />
 
-          {/* Floating contact buttons */}
-          <FloatingContactButtons />
+            {/* Floating contact buttons */}
+            <FloatingContactButtons />
 
-          <ToastContainer
-            position="bottom-right"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            transition={Slide}
-          />
-        </ThemeProvider>
+            <ToastContainer
+              position="bottom-right"
+              autoClose={5000}
+              hideProgressBar={false}
+              newestOnTop
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"
+              transition={Slide}
+            />
+          </ThemeProvider>
+        </LinkProgressProvider>
       </body>
     </html>
   );
