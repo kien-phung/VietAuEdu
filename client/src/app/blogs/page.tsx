@@ -1,11 +1,11 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { TrendingUp } from "lucide-react";
-import { mockData } from "@/utils/services/mockData";
 import Image from "next/image";
 import { Metadata } from "next";
 import BlogFilters from "@/components/common/blogs/BlogFilters";
+import { useBlogStore } from "@/utils/stores/blogStore";
 
 export const metadata: Metadata = {
   title: "Tin Tức & Blog Du Học - VietAuEdu | Chia Sẻ Kinh Nghiệm Du Học",
@@ -18,29 +18,38 @@ export const metadata: Metadata = {
 // ISR: Revalidate every hour for fresh content
 export const revalidate = 3600;
 
-// Generate static blog data (ISR)
-async function getBlogData() {
-  // In real app, this would fetch from API
-  const blogs = mockData.blogs;
-  const featuredPost = blogs[0];
+const categories = [
+  { value: "", label: "Tất cả danh mục" },
+  { value: "Visa & Thủ tục", label: "Visa & Thủ tục" },
+  { value: "Chương trình học", label: "Chương trình học" },
+  { value: "Chi phí du học", label: "Chi phí du học" },
+  { value: "Học bổng", label: "Học bổng" },
+  { value: "Kinh nghiệm", label: "Kinh nghiệm" },
+  { value: "Hồ sơ du học", label: "Hồ sơ du học" },
+];
 
-  return {
-    blogs,
-    featuredPost,
-    categories: [
-      { value: "", label: "Tất cả danh mục" },
-      { value: "Visa & Thủ tục", label: "Visa & Thủ tục" },
-      { value: "Chương trình học", label: "Chương trình học" },
-      { value: "Chi phí du học", label: "Chi phí du học" },
-      { value: "Học bổng", label: "Học bổng" },
-      { value: "Kinh nghiệm", label: "Kinh nghiệm" },
-      { value: "Hồ sơ du học", label: "Hồ sơ du học" },
-    ],
-  };
-}
+export default function BlogPage() {
+  const { getAllBlogs } = useBlogStore();
 
-export default async function BlogPage() {
-  const { blogs, featuredPost, categories } = await getBlogData();
+  const [blogs, setBlogs] = useState<IBlog[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getAllBlogs();
+      const data = response.data?.blogs;
+      setBlogs(data || []);
+    };
+
+    fetchData();
+  }, [getAllBlogs]);
+
+  const featuredPost = useMemo(() => {
+    if (blogs.length > 0) {
+      return blogs[0];
+    }
+
+    return null;
+  }, [blogs]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
@@ -74,7 +83,7 @@ export default async function BlogPage() {
               <div className="grid grid-cols-1 lg:grid-cols-2">
                 <div className="relative">
                   <Image
-                    src={featuredPost.image}
+                    src={featuredPost.imageUrl}
                     alt={featuredPost.title}
                     width={500}
                     height={300}

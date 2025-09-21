@@ -17,25 +17,27 @@ import {
 } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { mockData } from "@/utils/services/mockData";
 import Image from "next/image";
+import { useProgramStore } from "@/utils/stores/programStore";
 
 export default function ProgramDetailPage() {
+  const { getProgram, isLoading } = useProgramStore();
+
   const params = useParams();
   const router = useRouter();
   const [program, setProgram] = useState<IProgram | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
   const [showContactForm, setShowContactForm] = useState(false);
 
   useEffect(() => {
-    const programId = params.id as string;
-    const foundProgram = mockData.programs.find((p) => p.id === programId);
+    const fetchData = async () => {
+      const programId = params.id as string;
+      const response = await getProgram(programId);
+      const data = response.data?.program;
+      setProgram(data || null);
+    };
 
-    setTimeout(() => {
-      setProgram(foundProgram || null);
-      setIsLoading(false);
-    }, 500);
-  }, [params.id]);
+    fetchData();
+  }, [getProgram, params.id]);
 
   if (isLoading) {
     return (
@@ -108,7 +110,7 @@ export default function ProgramDetailPage() {
 
             <div>
               <Image
-                src={program.image}
+                src={program.imageUrl}
                 alt={program.title}
                 width={400}
                 height={300}

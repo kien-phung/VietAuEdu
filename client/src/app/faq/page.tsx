@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { MessageCircle, Phone, Users, BookOpen } from "lucide-react";
 import { Metadata } from "next";
 import FAQContent from "@/components/faq/FAQContent";
+import { useFAQStore } from "@/utils/stores/faqStore";
 
 // SEO optimization for FAQ page
 export const metadata: Metadata = {
@@ -19,91 +20,38 @@ export const metadata: Metadata = {
   },
 };
 
-interface FAQ {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  publishedAt: string;
-}
+const categories = [
+  "Tất cả",
+  "Hỗ trợ sau du học",
+  "Visa và thủ tục",
+  "Yêu cầu học tập",
+  "Học bổng",
+  "Chi phí",
+  "Thủ tục hồ sơ",
+];
 
-// Static data for SSG
-const getFAQData = () => {
-  const faqs: FAQ[] = [
-    {
-      id: "1",
-      question:
-        "Sau Khi Du Học Xong, Có Hỗ Trợ Việc Làm Tại Nước Sở Tại Không?",
-      answer:
-        "Giáo Dục Quốc Tế Việt Âu tự hào là đơn vị cung cấp các dịch vụ hỗ trợ du học toàn diện, không chỉ giúp sinh viên tìm được cơ hội học tập tốt mà còn hỗ trợ họ trong việc tìm kiếm việc làm sau khi du học xong. Chúng tôi có mạng lưới đối tác doanh nghiệp tại các quốc gia như Nhật Bản, Hàn Quốc, Đức, Úc và Canada.",
-      category: "Hỗ trợ sau du học",
-      publishedAt: "03/12/2024",
-    },
-    {
-      id: "2",
-      question: "Việt Âu Hỗ Trợ Những Gì Trong Quá Trình Xin Visa Du Học?",
-      answer:
-        "Xin visa du học là một trong những bước quan trọng nhất trong hành trình du học. Chúng tôi hỗ trợ chuẩn bị hồ sơ, hướng dẫn phỏng vấn, và theo dõi tiến trình xử lý visa cho đến khi bạn nhận được kết quả.",
-      category: "Visa và thủ tục",
-      publishedAt: "03/12/2024",
-    },
-    {
-      id: "3",
-      question: "Có Cần Chứng Chỉ Ngôn Ngữ Khi Du Học Không?",
-      answer:
-        "Câu trả lời phụ thuộc vào quốc gia bạn dự định du học và yêu cầu của trường. Đối với các nước như Mỹ, Úc, Canada thì cần IELTS/TOEFL, còn Nhật Bản cần JLPT, Hàn Quốc cần TOPIK.",
-      category: "Yêu cầu học tập",
-      publishedAt: "03/12/2024",
-    },
-    {
-      id: "4",
-      question: "Điều Kiện Để Nhận Học Bổng Du Học Là Gì?",
-      answer:
-        "Điều kiện thường bao gồm: GPA cao (từ 3.0 trở lên), chứng chỉ ngôn ngữ quốc tế, thư giới thiệu từ giáo viên, và hoạt động ngoại khóa phong phú.",
-      category: "Học bổng",
-      publishedAt: "03/12/2024",
-    },
-    {
-      id: "5",
-      question: "Chi Phí Du Học Khoảng Bao Nhiêu?",
-      answer:
-        "Chi phí du học khác nhau tùy quốc gia: Úc (25-45k USD/năm), Mỹ (30-70k USD/năm), Canada (20-40k USD/năm), Đức (0-3k EUR/năm), Nhật Bản (8-15k USD/năm).",
-      category: "Chi phí",
-      publishedAt: "03/12/2024",
-    },
-    {
-      id: "6",
-      question: "Quy Trình Làm Hồ Sơ Du Học Như Thế Nào?",
-      answer:
-        "Quy trình gồm: Tư vấn và đánh giá hồ sơ → Chuẩn bị giấy tờ → Dịch thuật và công chứng → Nộp hồ sơ → Phỏng vấn → Nhận kết quả.",
-      category: "Thủ tục hồ sơ",
-      publishedAt: "03/12/2024",
-    },
-  ];
-
-  const categories = [
-    "Tất cả",
-    "Hỗ trợ sau du học",
-    "Visa và thủ tục",
-    "Yêu cầu học tập",
-    "Học bổng",
-    "Chi phí",
-    "Thủ tục hồ sơ",
-  ];
-
-  const stats = [
-    { number: "500+", label: "Câu hỏi đã trả lời", icon: MessageCircle },
-    { number: "24/7", label: "Hỗ trợ tư vấn", icon: Phone },
-    { number: "100%", label: "Miễn phí tư vấn", icon: Users },
-    { number: "10+", label: "Năm kinh nghiệm", icon: BookOpen },
-  ];
-
-  return { faqs, categories, stats };
-};
+const stats = [
+  { number: "500+", label: "Câu hỏi đã trả lời", icon: MessageCircle },
+  { number: "24/7", label: "Hỗ trợ tư vấn", icon: Phone },
+  { number: "100%", label: "Miễn phí tư vấn", icon: Users },
+  { number: "10+", label: "Năm kinh nghiệm", icon: BookOpen },
+];
 
 // SSG: This page will be pre-rendered at build time
 export default function FAQPage() {
-  const { faqs, categories, stats } = getFAQData();
+  const { getAllFAQs } = useFAQStore();
+
+  const [faqs, setFaqs] = useState<IFAQ[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getAllFAQs();
+      const data = response.data?.faqs;
+      setFaqs(data || []);
+    };
+
+    fetchData();
+  }, [getAllFAQs]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">

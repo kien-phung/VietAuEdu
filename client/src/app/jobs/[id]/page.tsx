@@ -15,63 +15,24 @@ import {
   Building,
 } from "lucide-react";
 import { useParams } from "next/navigation";
-
-// This would normally come from an API or database
-const getJobById = (id: string): IJob => {
-  const jobs: IJob[] = [
-    {
-      id: "1",
-      title: "Chế Biến Nông Sản",
-      country: "Japan",
-      imageUrl: "/images/jobs/agricultural-processing.jpg",
-      positions: 3,
-      location: "KAGOSHIMA",
-      salary: "147.715 Yên/Tháng",
-      applicationDeadline: "26/09/2025",
-      estimatedDeparture: "4 - 6 tháng sau khi thi đỗ phỏng vấn",
-      requirements: [
-        "Nam/Nữ 18-35 tuổi",
-        "Sức khỏe tốt",
-        "Không yêu cầu kinh nghiệm",
-        "Có thể làm việc ca đêm",
-      ],
-      benefits: [
-        "Lương ổn định",
-        "Bảo hiểm y tế",
-        "Nhà ở miễn phí",
-        "Ăn trưa miễn phí",
-        "Thưởng cuối năm",
-      ],
-      description:
-        "Làm việc tại nhà máy chế biến nông sản hiện đại với công nghệ tiên tiến. Công việc bao gồm kiểm tra chất lượng, đóng gói và vận chuyển sản phẩm.",
-      company: "ABC Foods Co., Ltd",
-      workType: "Toàn thời gian",
-      featured: true,
-      workingHours: "8:00 - 17:00 (Thứ 2 - Thứ 6)",
-      overtime: "1.25x lương cơ bản",
-      accommodation: "Ký túc xá công ty hoặc hỗ trợ thuê nhà",
-      workEnvironment: "Nhà máy hiện đại, điều hòa không khí",
-      trainingPeriod: "2 tuần đào tạo có lương",
-    },
-    // Add more jobs as needed
-  ];
-
-  return jobs.find((job) => job.id === id) as IJob;
-};
+import { useJobStore } from "@/utils/stores/jobStore";
 
 export default function JobDetailPage() {
+  const { getJob } = useJobStore();
+
   const params = useParams();
   const [job, setJob] = useState<IJob | null>(null);
 
   useEffect(() => {
-    const id = params.id as string;
-    const foundJob = getJobById(id);
+    const fetchData = async () => {
+      const programId = params.id as string;
+      const response = await getJob(programId);
+      const data = response.data?.job;
+      setJob(data || null);
+    };
 
-    if (foundJob) {
-      setJob(foundJob);
-    }
-  }, [params.id, params.slug]);
-  // const job = getJobById(params.id);
+    fetchData();
+  }, [getJob, params.id]);
 
   if (!job) {
     return (

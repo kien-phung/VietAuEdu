@@ -1,17 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Calendar, User, Clock, BookOpen } from "lucide-react";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { mockData } from "@/utils/services/mockData";
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
 import BlogInteractions from "@/components/common/blogs/BlogInteractions";
-
-interface BlogDetailPageProps {
-  params: Promise<{ slug: string }>;
-}
+import { useBlogStore } from "@/utils/stores/blogStore";
 
 // SSG: Generate static pages for all blog posts
 export async function generateStaticParams() {
@@ -25,40 +22,76 @@ export async function generateStaticParams() {
 // Generate metadata for each blog post (SEO)
 export async function generateMetadata({
   params,
-}: BlogDetailPageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const blog = mockData.blogs.find((p) => p.slug === slug);
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  try {
+    const { getBlogsBySlug } = useBlogStore.getState();
+    const response = await getBlogsBySlug(`/blogs/${params.slug}`);
 
-  if (!blog) {
+    if (!response.data?.blog) {
+      return {
+        title: "Bài viết không tồn tại - VietAuEdu",
+      };
+    }
+
+    const blog = response.data.blog as IBlog;
+
     return {
-      title: "Bài viết không tôn tại - VietAuEdu",
+      title: `${blog.title} - VietAuEdu Blog`,
+      description: blog.excerpt,
+      keywords: `${blog.category}, du học, VietAuEdu, ${blog.title}`,
+      openGraph: {
+        title: blog.title,
+        description: blog.excerpt,
+        type: "article",
+        publishedTime: blog.publishedAt,
+        authors: [blog.author],
+        images: [blog.imageUrl],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: blog.title,
+        description: blog.excerpt,
+        images: [blog.imageUrl],
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching blog metadata:", error);
+    // Fallback to default metadata if API call fails
+    return {
+      title: "Bài viết - VietAuEdu Blog",
+      description: "Khám phá các bài viết về du học và học bổng tại VietAuEdu",
     };
   }
-
-  return {
-    title: `${blog.title} - VietAuEdu Blog`,
-    description: blog.excerpt,
-    keywords: `${blog.category}, du học, VietAuEdu, ${blog.title}`,
-    openGraph: {
-      title: blog.title,
-      description: blog.excerpt,
-      type: "article",
-      publishedTime: blog.publishedAt,
-      authors: [blog.author],
-      images: [blog.image],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: blog.title,
-      description: blog.excerpt,
-      images: [blog.image],
-    },
-  };
 }
 
-export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
-  const { slug } = await params;
-  const blog = mockData.blogs.find((p) => p.slug === slug);
+export default function BlogDetailPage() {
+  const { getBlogsBySlug } = useBlogStore();
+
+  const params = useParams();
+  const [blog, setBlog] = useState<IBlog | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const programId = params.slug as string;
+      const response = await getBlogsBySlug(programId);
+      const data = response.data?.blog;
+      setBlog(data || null);
+      setIsLoading(false);
+    };
+
+    fetchData();
+  }, [getBlogsBySlug, params.slug]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   if (!blog) {
     notFound();
@@ -90,7 +123,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
             <Card>
               <div className="relative">
                 <Image
-                  src={blog.image}
+                  src={blog.imageUrl}
                   alt={blog.title}
                   className="w-full h-64 md:h-96 object-cover rounded-t-lg"
                   width={400}
@@ -256,7 +289,7 @@ export default async function BlogDetailPage({ params }: BlogDetailPageProps) {
                       >
                         <div className="flex space-x-3 p-3 rounded-lg hover:bg-gray-50 transition-colors">
                           <Image
-                            src={relatedPost.image}
+                            src={relatedPost.imageUrl}
                             alt={relatedPost.title}
                             width={64}
                             height={64}

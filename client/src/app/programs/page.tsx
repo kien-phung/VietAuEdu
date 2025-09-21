@@ -1,8 +1,8 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import ProgramCard from "@/components/common/programs/ProgramCard";
-import { mockData } from "@/utils/services/mockData";
 import ProgramFilters from "@/components/programs/ProgramFilters";
 import { Metadata } from "next";
+import { useProgramStore } from "@/utils/stores/programStore";
 
 export const metadata: Metadata = {
   title:
@@ -16,41 +16,53 @@ export const metadata: Metadata = {
 // ISR: Revalidate every 2 hours for program updates
 export const revalidate = 7200;
 
-// Generate static program data (SSG + ISR)
-async function getProgramsData() {
-  // In real app, this would fetch from API
-  const programs = mockData.programs;
+const countries = [
+  { value: "", label: "Tất cả quốc gia" },
+  { value: "Hàn Quốc", label: "Hàn Quốc" },
+  { value: "Nhật Bản", label: "Nhật Bản" },
+  { value: "Đài Loan", label: "Đài Loan" },
+  { value: "Đức", label: "Đức" },
+  { value: "Úc", label: "Úc" },
+  { value: "Mỹ", label: "Mỹ" },
+];
 
-  return {
-    programs,
-    countries: [
-      { value: "", label: "Tất cả quốc gia" },
-      { value: "Hàn Quốc", label: "Hàn Quốc" },
-      { value: "Nhật Bản", label: "Nhật Bản" },
-      { value: "Đài Loan", label: "Đài Loan" },
-      { value: "Đức", label: "Đức" },
-      { value: "Úc", label: "Úc" },
-      { value: "Mỹ", label: "Mỹ" },
-    ],
-    tuitionRanges: [
-      { value: "", label: "Tất cả mức học phí" },
-      { value: "0-10000", label: "Dưới 10,000 USD" },
-      { value: "10000-20000", label: "10,000 - 20,000 USD" },
-      { value: "20000-30000", label: "20,000 - 30,000 USD" },
-      { value: "30000+", label: "Trên 30,000 USD" },
-    ],
-  };
-}
+const tuitionRanges = [
+  { value: "", label: "Tất cả mức học phí" },
+  { value: "0-10000", label: "Dưới 10,000 USD" },
+  { value: "10000-20000", label: "10,000 - 20,000 USD" },
+  { value: "20000-30000", label: "20,000 - 30,000 USD" },
+  { value: "30000+", label: "Trên 30,000 USD" },
+];
 
 interface ProgramsPageProps {
   searchParams: Promise<{ country?: string }>;
 }
 
-export default async function ProgramsPage({
-  searchParams,
-}: ProgramsPageProps) {
-  const resolvedSearchParams = await searchParams;
-  const { programs, countries, tuitionRanges } = await getProgramsData();
+export default function ProgramsPage({ searchParams }: ProgramsPageProps) {
+  const { getAllPrograms } = useProgramStore();
+
+  const [resolvedSearchParams, setResolvedSearchParams] = useState<{
+    country?: string;
+  }>({});
+  const [programs, setPrograms] = useState<IProgram[]>([]);
+
+  useEffect(() => {
+    const resolveParams = async () => {
+      const params = await searchParams;
+      setResolvedSearchParams(params);
+    };
+    resolveParams();
+  }, [searchParams]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getAllPrograms();
+      const data = response.data?.programs;
+      setPrograms(data || []);
+    };
+
+    fetchData();
+  }, [getAllPrograms]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">

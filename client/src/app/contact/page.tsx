@@ -13,27 +13,31 @@ import {
   Calendar,
   CheckCircle,
 } from "lucide-react";
+import { useContactStore } from "@/utils/stores/contactStore";
+
+const initialContact = {
+  name: "",
+  email: "",
+  phone: "",
+  program: "",
+  message: "",
+};
+
+const programs = [
+  "Du học Hàn Quốc",
+  "Du học Nhật Bản",
+  "Du học Đài Loan",
+  "Du học Đức",
+  "Du học Úc",
+  "Du học Mỹ",
+  "Khác",
+];
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    program: "",
-    message: "",
-  });
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+const {isLoading, submitContact} = useContactStore();
 
-  const programs = [
-    "Du học Hàn Quốc",
-    "Du học Nhật Bản",
-    "Du học Đài Loan",
-    "Du học Đức",
-    "Du học Úc",
-    "Du học Mỹ",
-    "Khác",
-  ];
+  const [formData, setFormData] = useState(initialContact);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -46,20 +50,11 @@ export default function ContactPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await submitContact(formData.name, formData.email, formData.phone, formData.program, formData.message);
 
-    setIsLoading(false);
     setIsSubmitted(true);
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      program: "",
-      message: "",
-    });
+    setFormData(initialContact);
   };
 
   if (isSubmitted) {

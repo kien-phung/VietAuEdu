@@ -16,7 +16,7 @@ declare global {
         tuition: string;
         requirements: string[];
         benefits: string[];
-        image: string;
+        imageUrl: string;
         featured: boolean;
     }
 
@@ -27,11 +27,11 @@ declare global {
         content: string;
         author: string;
         publishedAt: string;
-        image: string;
+        imageUrl: string;
         category: string;
         slug: string;
     }
-    
+
     interface IJob {
         id: string;
         title: string;
@@ -56,7 +56,8 @@ declare global {
 
     }
 
-    interface IContactForm {
+    interface IContact {
+        id: string;
         name: string;
         email: string;
         phone: string;
@@ -69,6 +70,7 @@ declare global {
         question: string;
         answer: string;
         category: string;
+        publishedAt: string;
     }
 
     interface IAppState {

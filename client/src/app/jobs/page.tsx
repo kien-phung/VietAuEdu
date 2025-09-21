@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -15,129 +15,7 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
-
-interface JobOpportunity {
-  id: string;
-  title: string;
-  country: string;
-  image: string;
-  positions: number;
-  location: string;
-  salary: string;
-  applicationDeadline: string;
-  estimatedDeparture: string;
-  requirements: string[];
-  benefits: string[];
-  description: string;
-  company: string;
-  workType: string;
-  featured?: boolean;
-}
-
-const jobOpportunities: JobOpportunity[] = [
-  {
-    id: "1",
-    title: "Chế Biến Nông Sản",
-    country: "Japan",
-    image: "/images/jobs/agricultural-processing.jpg",
-    positions: 3,
-    location: "KAGOSHIMA",
-    salary: "147.715 Yên/Tháng",
-    applicationDeadline: "26/09/2025",
-    estimatedDeparture: "4 - 6 tháng sau khi thi đỗ phỏng vấn",
-    requirements: [
-      "Nam/Nữ 18-35 tuổi",
-      "Sức khỏe tốt",
-      "Không yêu cầu kinh nghiệm",
-    ],
-    benefits: ["Lương ổn định", "Bảo hiểm y tế", "Nhà ở miễn phí"],
-    description: "Làm việc tại nhà máy chế biến nông sản hiện đại",
-    company: "ABC Foods Co., Ltd",
-    workType: "Toàn thời gian",
-    featured: true,
-  },
-  {
-    id: "2",
-    title: "Vệ Sinh Khách Sạn",
-    country: "Japan",
-    image: "/images/jobs/hotel-cleaning.jpg",
-    positions: 3,
-    location: "OITA",
-    salary: "163.400 Yên/Tháng",
-    applicationDeadline: "03/10/2025",
-    estimatedDeparture: "4 - 6 tháng sau khi thi đỗ phỏng vấn",
-    requirements: ["Nữ 20-40 tuổi", "Cẩn thận, tỉ mỉ", "Tiếng Nhật cơ bản"],
-    benefits: ["Lương cao", "Môi trường sạch sẽ", "Được đào tạo"],
-    description: "Vệ sinh phòng khách sạn 4 sao",
-    company: "Oita Grand Hotel",
-    workType: "Toàn thời gian",
-  },
-  {
-    id: "3",
-    title: "Chế Biến Thực Phẩm",
-    country: "Japan",
-    image: "/images/jobs/food-processing.jpg",
-    positions: 2,
-    location: "KUMAMOTO",
-    salary: "153.000 Yên/Tháng",
-    applicationDeadline: "26/09/2025",
-    estimatedDeparture: "4 - 6 tháng sau khi thi đỗ phỏng vấn",
-    requirements: ["Nam/Nữ 18-32 tuổi", "Không sợ lạnh", "Có trách nhiệm"],
-    benefits: ["Ăn trưa miễn phí", "Thưởng hiệu suất", "Nghỉ phép có lương"],
-    description: "Chế biến và đóng gói thực phẩm đông lạnh",
-    company: "Kumamoto Food Industries",
-    workType: "Ca làm việc",
-  },
-  {
-    id: "4",
-    title: "Xây Dựng",
-    country: "Japan",
-    image: "/images/jobs/construction.jpg",
-    positions: 1,
-    location: "KAGOSHIMA",
-    salary: "155.481 Yên/Tháng",
-    applicationDeadline: "26/09/2025",
-    estimatedDeparture: "4 - 6 tháng sau khi thi đỗ phỏng vấn",
-    requirements: ["Nam 18-35 tuổi", "Khỏe mạnh", "Không sợ độ cao"],
-    benefits: ["Lương theo năng lực", "Bảo hiểm tai nạn", "Phụ cấp kỹ thuật"],
-    description: "Thi công xây dựng công trình dân dụng",
-    company: "Kagoshima Construction Co.",
-    workType: "Toàn thời gian",
-    featured: true,
-  },
-  {
-    id: "5",
-    title: "Điện Tử",
-    country: "Korea",
-    image: "/images/jobs/electronics.jpg",
-    positions: 5,
-    location: "SEOUL",
-    salary: "1.800.000 Won/Tháng",
-    applicationDeadline: "15/10/2025",
-    estimatedDeparture: "3 - 5 tháng sau khi thi đỗ phỏng vấn",
-    requirements: ["Nam/Nữ 20-30 tuổi", "Tốt nghiệp THPT", "Khéo léo"],
-    benefits: ["Lương cao", "Làm việc hiện đại", "Cơ hội thăng tiến"],
-    description: "Lắp ráp linh kiện điện tử tại nhà máy Samsung",
-    company: "Samsung Electronics",
-    workType: "Toàn thời gian",
-  },
-  {
-    id: "6",
-    title: "Chăm Sóc Người Già",
-    country: "Germany",
-    image: "/images/jobs/elderly-care.jpg",
-    positions: 2,
-    location: "BERLIN",
-    salary: "2.500 EUR/Tháng",
-    applicationDeadline: "20/10/2025",
-    estimatedDeparture: "6 - 8 tháng sau khi thi đỗ phỏng vấn",
-    requirements: ["Nữ 22-40 tuổi", "Có chứng chỉ điều dưỡng", "Tiếng Đức B1"],
-    benefits: ["Lương cao nhất", "Phúc lợi tốt", "Cơ hội định cư"],
-    description: "Chăm sóc người cao tuổi tại viện dưỡng lão",
-    company: "Berlin Care Center",
-    workType: "Toàn thời gian",
-  },
-];
+import { useJobStore } from "@/utils/stores/jobStore";
 
 const countries = [
   "Tất cả",
@@ -151,11 +29,24 @@ const countries = [
 const workTypes = ["Tất cả", "Toàn thời gian", "Ca làm việc", "Bán thời gian"];
 
 export default function JobOpportunitiesPage() {
+  const { getAllJobs } = useJobStore();
+
+  const [jobs, setJobs] = useState<IJob[]>([]);
   const [selectedCountry, setSelectedCountry] = useState("Tất cả");
   const [selectedWorkType, setSelectedWorkType] = useState("Tất cả");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredJobs = jobOpportunities.filter((job) => {
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await getAllJobs();
+      const data = response.data?.jobs;
+      setJobs(data || []);
+    };
+
+    fetchData();
+  }, [getAllJobs]);
+
+  const filteredJobs = jobs.filter((job) => {
     const matchesCountry =
       selectedCountry === "Tất cả" || job.country === selectedCountry;
     const matchesWorkType =
@@ -168,7 +59,7 @@ export default function JobOpportunitiesPage() {
     return matchesCountry && matchesWorkType && matchesSearch;
   });
 
-  const featuredJobs = jobOpportunities.filter((job) => job.featured);
+  const featuredJobs = jobs.filter((job) => job.featured);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
@@ -198,7 +89,7 @@ export default function JobOpportunitiesPage() {
                   <div className="w-1/3 relative">
                     <div className="aspect-square relative">
                       <Image
-                        src={job.image}
+                        src={job.imageUrl}
                         alt={job.title}
                         fill
                         className="object-cover"
@@ -334,7 +225,7 @@ export default function JobOpportunitiesPage() {
               >
                 <div className="relative h-48">
                   <Image
-                    src={job.image}
+                    src={job.imageUrl}
                     alt={job.title}
                     fill
                     className="object-cover"
