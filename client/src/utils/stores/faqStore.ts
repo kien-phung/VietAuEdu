@@ -30,7 +30,7 @@ export const useFAQStore = createStore<IFAQStore>(
 
 		getFAQsByCategory: async (category: string): Promise<IApiResponse<IFAQDataResponse>> => {
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.GET, `/faq?category=${category}`);
+				return await handleRequest(EHttpType.GET, `/faqs?category=${category}`);
 			});
 		},
 

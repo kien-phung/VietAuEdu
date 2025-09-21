@@ -30,6 +30,7 @@ declare global {
         imageUrl: string;
         category: string;
         slug: string;
+        createdAt: string;
     }
 
     interface IJob {
@@ -53,7 +54,6 @@ declare global {
         accommodation: string;
         workEnvironment: string;
         trainingPeriod: string;
-
     }
 
     interface IContact {

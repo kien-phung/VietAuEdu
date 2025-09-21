@@ -5,6 +5,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Calendar, User, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { formatDateAgo } from "@/lib/utils";
+import Image from "next/image";
 
 interface BlogCardProps {
   post: IBlog;
@@ -14,9 +15,11 @@ export default function BlogCard({ post }: BlogCardProps) {
   return (
     <Card className="h-full hover:shadow-lg transition-shadow duration-300 group">
       <div className="relative overflow-hidden">
-        <img
-          src={post.image}
+        <Image
+          src={post.imageUrl}
           alt={post.title}
+          width={500}
+          height={300}
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
         />
         <div className="absolute top-4 left-4 bg-primary text-white px-2 py-1 rounded text-xs font-medium">

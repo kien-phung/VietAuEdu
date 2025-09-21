@@ -29,13 +29,13 @@ export const useContactStore = createStore<IContactStore>(
 	(set, get) => ({
 		getAllContacts: async (): Promise<IApiResponse<IContactDataResponse>> => {
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.GET, `/Contacts`);
+				return await handleRequest(EHttpType.GET, `/contacts`);
 			});
 		},
 
 		getContact: async (contactId: string): Promise<IApiResponse<IContactDataResponse>> => {
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.GET, `/Contacts/${contactId}`);
+				return await handleRequest(EHttpType.GET, `/contacts/${contactId}`);
 			});
 		},
 

@@ -7,6 +7,8 @@ interface IBlogDataResponse {
 }
 
 export interface IBlogStore extends IBaseStore {
+	blogs: IBlog[];
+
 	getAllBlogs: () => Promise<IApiResponse<IBlogDataResponse>>;
 	getBlogsBySlug: (
 		slug: string
@@ -20,7 +22,9 @@ export interface IBlogStore extends IBaseStore {
 }
 
 const storeName = "blog";
-const initialState = {};
+const initialState = {
+	blogs: [],
+};
 
 export const useBlogStore = createStore<IBlogStore>(
 	storeName,
@@ -34,7 +38,7 @@ export const useBlogStore = createStore<IBlogStore>(
 		
 		getBlogsBySlug: async (slug: string): Promise<IApiResponse<IBlogDataResponse>> => {
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.GET, `/blogs/${slug}`);
+				return await handleRequest(EHttpType.GET, `/blogs?slug=${slug}`);
 			});
 		},
 		
@@ -46,7 +50,7 @@ export const useBlogStore = createStore<IBlogStore>(
 
 		getBlog: async (blogId: string): Promise<IApiResponse<IBlogDataResponse>> => {
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.GET, `/blogs/${blogId}`);
+				return await handleRequest(EHttpType.GET, `/blogs?id=${blogId}`);
 			});
 		},
 

@@ -1,24 +1,14 @@
 import express from 'express';
 import { PORT } from './utils/services/constants.js';
-import { connectWithRetry } from './utils/configs/database.js';
-import userRoute from './routes/userRoute.js';
-import { initializeRabbitMQ } from './utils/services/rabbitmq.js';
-import multer from 'multer';
+import connectDatabase from './utils/configs/database.js';
+import blogRoute from './routes/blogRoute.js';
+import contactRoute from './routes/contactRoute.js';
+import faqRoute from './routes/faqRoute.js';
+import programRoute from './routes/programRoute.js';
+import jobRoute from './routes/jobRoute.js';
+import { acceptFormdata } from './utils/configs/middlewares.js';
 
 const app = express();
-
-const uploadStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  }
-});
-
-const upload = multer({
-  storage: uploadStorage,
-});
 
 app.use(express.urlencoded({ extended: true }));
 
@@ -30,32 +20,17 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  if (['POST', 'PUT', 'PATCH'].includes(req.method)) {
-    upload.any()(req, res, function (err) {
-      if (err) {
-        console.error('Lỗi xử lý formdata:', err);
-        return res.status(500).json({ success: false, message: 'Lỗi xử lý formdata' });
-      }
-      next();
-    });
-  } else {
-    next();
-  }
-});
+app.use(acceptFormdata);
 
-connectWithRetry()
+connectDatabase()
   .then(() => console.log('Database đã sẵn sàng'))
   .catch((err: Error) => console.error('Lỗi kết nối database:', err));
 
-initializeRabbitMQ()
-  .then(() => console.log('RabbitMQ đã sẵn sàng cho User Service'))
-  .catch((err: Error) => {
-    console.error('Lỗi kết nối RabbitMQ:', err);
-    console.log('Tiếp tục chạy service mà không có RabbitMQ');
-  });
-
-app.use("/api", userRoute);
+app.use("/api/v1/blogs", blogRoute);
+app.use("/api/v1/contacts", contactRoute);
+app.use("/api/v1/faqs", faqRoute);
+app.use("/api/v1/programs", programRoute);
+app.use("/api/v1/jobs", jobRoute);
 
 app.listen(PORT, () => {
   console.log(`User Service đang chạy trên cổng ${PORT}`);

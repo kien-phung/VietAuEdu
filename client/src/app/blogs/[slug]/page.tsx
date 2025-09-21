@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Calendar, User, Clock, BookOpen } from "lucide-react";
 import { notFound, useParams } from "next/navigation";
-import { mockData } from "@/utils/services/mockData";
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
@@ -12,7 +11,7 @@ import { useBlogStore } from "@/utils/stores/blogStore";
 
 // SSG: Generate static pages for all blog posts
 export async function generateStaticParams() {
-  const blogs = mockData.blogs;
+  const { blogs } = useBlogStore.getState();
 
   return blogs.map((blog) => ({
     slug: blog.slug,
@@ -67,7 +66,7 @@ export async function generateMetadata({
 }
 
 export default function BlogDetailPage() {
-  const { getBlogsBySlug } = useBlogStore();
+  const { blogs, getBlogsBySlug } = useBlogStore();
 
   const params = useParams();
   const [blog, setBlog] = useState<IBlog | null>(null);
@@ -98,7 +97,7 @@ export default function BlogDetailPage() {
   }
 
   // Get related posts from same category
-  const relatedPosts = mockData.blogs
+  const relatedPosts = blogs
     .filter((p) => p.category === blog.category && p.id !== blog.id)
     .slice(0, 3);
 

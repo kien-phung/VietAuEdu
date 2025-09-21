@@ -7,12 +7,11 @@ interface IProgramDataResponse {
 }
 
 export interface IProgramStore extends IBaseStore {
-
 	getAllPrograms: () => Promise<IApiResponse<IProgramDataResponse>>;
 	getProgram: (
 		programId: string
 	) => Promise<IApiResponse<IProgramDataResponse>>;
-	getFeatured: () => Promise<IApiResponse<IProgramDataResponse>>;
+	getFeaturedPrograms: () => Promise<IApiResponse<IProgramDataResponse>>;
 }
 
 const storeName = "program";
@@ -34,7 +33,7 @@ export const useProgramStore = createStore<IProgramStore>(
 			});
 		},
 
-		getFeatured: async (): Promise<IApiResponse<IProgramDataResponse>> => {
+		getFeaturedPrograms: async (): Promise<IApiResponse<IProgramDataResponse>> => {
 			return await get().handleRequest(async () => {
 				return await handleRequest(EHttpType.GET, '/programs?featured=true');
 			});
