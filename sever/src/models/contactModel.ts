@@ -25,4 +25,4 @@ const schema: Schema<IContact> = new Schema(
   }
 );
 
-export const Contact = mongoose.model<IContact>("Contact", schema);
+export const Contact = mongoose.models.Contact || mongoose.model<IContact>("Contact", schema);

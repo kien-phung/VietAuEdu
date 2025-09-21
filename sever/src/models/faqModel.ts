@@ -12,4 +12,4 @@ const schema: Schema<IFAQ> = new Schema(
   }
 );
 
-export const FAQ = mongoose.model<IFAQ>("FAQ", schema);
+export const FAQ = mongoose.models.FAQ || mongoose.model<IFAQ>("FAQ", schema);

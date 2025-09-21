@@ -17,4 +17,4 @@ const schema: Schema<IProgram> = new Schema(
   }
 );
 
-export const Program = mongoose.model<IProgram>("Program", schema);
+export const Program = mongoose.models.Program || mongoose.model<IProgram>("Program", schema);
