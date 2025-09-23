@@ -86,7 +86,7 @@ export default function Navbar() {
             {/* Right side - SSR CTA button and theme toggle */}
             <div className="hidden lg:flex items-center space-x-4">
               <ThemeToggleButton />
-              <Button size="lg" className="bg-secondary hover:bg-secondary/90">
+              <Button size="lg" variant="secondary">
                 Tư vấn miễn phí
               </Button>
             </div>

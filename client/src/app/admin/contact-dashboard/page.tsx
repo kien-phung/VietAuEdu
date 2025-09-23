@@ -160,7 +160,7 @@ export default function ContactDashboardPage() {
       />
 
       <div className="space-y-4">
-        <Card className="bg-zinc-900">
+        <Card className="bg-primary text-primary-foreground">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle>Contact Dashboard</CardTitle>
@@ -184,9 +184,9 @@ export default function ContactDashboardPage() {
                 </form>
 
                 <Button
-                  variant="outline"
+                  variant="secondary"
                   size="sm"
-                  className="h-8 gap-1 bg-blue-600 hover:bg-[#166FE5] text-white"
+                  className="h-8 gap-1"
                   onClick={clearFilters}
                 >
                   <RefreshCw className="h-4 w-4" />

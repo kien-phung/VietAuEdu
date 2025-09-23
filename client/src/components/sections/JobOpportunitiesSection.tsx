@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+// Removed import of PLACE_HODLER_URL
 
 interface JobOpportunity {
   id: string;
@@ -121,7 +122,7 @@ export default function JobOpportunitiesSection() {
                       src={
                         job.image && job.image.trim() !== ""
                           ? job.image
-                          : "PLACE_HODLER_URL/400x400"
+                          : "/images/placeholder-job.jpg"
                       }
                       alt={job.title}
                       fill

@@ -21,7 +21,7 @@ export default function ProgramCard({ program }: ProgramCardProps) {
   const imageUrl =
     program.imageUrl && program.imageUrl.trim() !== ""
       ? program.imageUrl
-      : "PLACE_HODLER_URL/400x300";
+      : "/images/placeholder-program.jpg";
 
   return (
     <Card className="h-full hover:shadow-lg transition-shadow duration-300 flex flex-col bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">

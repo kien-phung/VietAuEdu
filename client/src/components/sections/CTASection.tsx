@@ -3,17 +3,22 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, Calendar } from "lucide-react";
+// Removed import of PLACE_HODLER_URL
 
 interface CTASectionProps {
   backgroundImage?: string;
 }
 
 export default function CTASection({ backgroundImage }: CTASectionProps) {
+  // Default background image
+  const defaultBackgroundImage = "/images/cta-background.jpg";
+  const bgImage = backgroundImage || defaultBackgroundImage;
+
   return (
     <section
       className="py-20 relative"
       style={{
-        backgroundImage: backgroundImage ? `url(${backgroundImage})` : "none",
+        backgroundImage: `url(${bgImage})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

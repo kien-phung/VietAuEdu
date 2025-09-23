@@ -76,10 +76,9 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
               </Link>
             ))}
             <div className="pt-4">
-              <Button className="w-full bg-secondary hover:bg-secondary/90">
+              <Button variant="secondary" className="w-full">
                 <Link
                   href="/contact"
-                  className="text-white"
                   onClick={() => setIsOpen(false)}
                 >
                   Tư vấn miễn phí

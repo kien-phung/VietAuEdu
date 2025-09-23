@@ -226,11 +226,7 @@ const UpdateProgramDialog = ({
                     Cancel
                   </Button>
 
-                  <Button
-                    onClick={onProgramUpdated}
-                    className="bg-[#1DB954] hover:bg-[#1ed760] text-white"
-                    disabled={isLoading}
-                  >
+                  <Button onClick={onProgramUpdated} disabled={isLoading}>
                     {isLoading ? (
                       <>Saving...</>
                     ) : (

@@ -1,10 +1,22 @@
-
 import { Save } from "lucide-react";
 import { JobStatus } from "@/utils/constants/jobConstants";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
 interface CreateJobDialogProps {
@@ -57,7 +69,7 @@ const CreateJobDialog = ({
               />
             </div>
           </div>
-          
+
           <div className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="update-positions">Positions</Label>
@@ -96,19 +108,25 @@ const CreateJobDialog = ({
 
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="update-application-deadline">Application Deadline</Label>
+              <Label htmlFor="update-application-deadline">
+                Application Deadline
+              </Label>
 
               <Input
                 id="update-application-deadline"
                 value={data?.applicationDeadline}
-                onChange={(e) => onChange("applicationDeadline", e.target.value)}
+                onChange={(e) =>
+                  onChange("applicationDeadline", e.target.value)
+                }
               />
             </div>
           </div>
 
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="update-estimatedDeparture">Estimated Departure</Label>
+              <Label htmlFor="update-estimatedDeparture">
+                Estimated Departure
+              </Label>
 
               <Input
                 id="update-estimated-departure"
@@ -270,15 +288,9 @@ const CreateJobDialog = ({
             Cancel
           </Button>
 
-          <Button
-            onClick={onJobCreated}
-            className="bg-[#1DB954] hover:bg-[#1ed760] text-white"
-            disabled={isLoading}
-          >
+          <Button onClick={onJobCreated} disabled={isLoading}>
             {isLoading ? (
-              <>
-                Creating...
-              </>
+              <>Creating...</>
             ) : (
               <>
                 <Save className="h-4 w-4" />

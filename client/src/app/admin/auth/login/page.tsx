@@ -1,6 +1,5 @@
 "use client";
 
-import { GoogleLoginButton } from "@/components/common/admin/auth/Oauth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuthStore } from "@/utils/stores/authStore";
@@ -73,7 +72,7 @@ const LoginPage: React.FC = () => {
   return (
     <>
       <h1 className="text-facebook text-2xl font-bold text-center mb-8">
-        Log in to Facebook
+        Log in
       </h1>
 
       <form onSubmit={handleSubmit} className="w-full mx-auto">
@@ -114,30 +113,6 @@ const LoginPage: React.FC = () => {
           Log in
         </Button>
       </form>
-
-      <div className="relative my-6">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-600" />
-        </div>
-
-        <div className="relative flex justify-center">
-          <span className="bg-[#121212] px-4 text-sm text-gray-400">OR</span>
-        </div>
-      </div>
-
-      <GoogleLoginButton />
-
-      <div className="text-center">
-        <p className="text-white text-sm">
-          {"Don't have an account? "}
-          <a
-            onClick={() => router.push("/register")}
-            className="text-[#1877F2] hover:text-[#166FE5] underline cursor-pointer"
-          >
-            Register for Facebook
-          </a>
-        </p>
-      </div>
     </>
   );
 };

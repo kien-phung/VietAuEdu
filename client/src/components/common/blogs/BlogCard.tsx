@@ -6,6 +6,7 @@ import { Calendar, User, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { formatDateAgo } from "@/lib/utils";
 import Image from "next/image";
+// Removed import of PLACE_HODLER_URL
 
 interface BlogCardProps {
   post: IBlog;
@@ -16,7 +17,7 @@ export default function BlogCard({ post }: BlogCardProps) {
   const imageUrl =
     post.imageUrl && post.imageUrl.trim() !== ""
       ? post.imageUrl
-      : "PLACE_HODLER_URL/500x300";
+      : "/images/placeholder-blog.jpg";
 
   return (
     <Card className="h-full hover:shadow-lg transition-shadow duration-300 group">

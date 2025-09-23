@@ -1,9 +1,22 @@
-import { Save } from "lucide-react";
+import { Save, Loader2 } from "lucide-react";
 import { FAQCategory, FAQStatus } from "@/utils/constants/faqConstants";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 
 interface CreateFAQDialogProps {
@@ -114,18 +127,14 @@ const CreateFAQDialog = ({
             Cancel
           </Button>
 
-          <Button
-            onClick={onFAQCreated}
-            className="bg-[#1DB954] hover:bg-[#1ed760] text-white"
-            disabled={isLoading}
-          >
+          <Button type="submit" disabled={isLoading} onClick={onFAQCreated}>
             {isLoading ? (
-              <>Creating...</>
-            ) : (
               <>
-                <Save className="h-4 w-4" />
-                Create
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Creating...
               </>
+            ) : (
+              "Create FAQ"
             )}
           </Button>
         </DialogFooter>

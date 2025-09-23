@@ -377,11 +377,13 @@ const UpdateJobDialog = ({
                           </SelectTrigger>
 
                           <SelectContent>
-                            {JobStatus.map((item: { value: string; label: string }) => (
-                              <SelectItem key={item.value} value={item.value}>
-                                {item.label}
-                              </SelectItem>
-                            ))}
+                            {JobStatus.map(
+                              (item: { value: string; label: string }) => (
+                                <SelectItem key={item.value} value={item.value}>
+                                  {item.label}
+                                </SelectItem>
+                              )
+                            )}
                           </SelectContent>
                         </Select>
                       </div>
@@ -399,11 +401,7 @@ const UpdateJobDialog = ({
                     Cancel
                   </Button>
 
-                  <Button
-                    onClick={() => onJobUpdated()}
-                    className="bg-[#1DB954] hover:bg-[#1ed760] text-white"
-                    disabled={isLoading}
-                  >
+                  <Button onClick={() => onJobUpdated()} disabled={isLoading}>
                     {isLoading ? (
                       <>Saving...</>
                     ) : (

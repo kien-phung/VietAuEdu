@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useJobStore } from "@/utils/stores/jobStore";
+// Removed import of PLACE_HODLER_URL
 
 export default function JobDetailPage() {
   const { getJob } = useJobStore();
@@ -69,7 +70,7 @@ export default function JobDetailPage() {
                   src={
                     job.imageUrl && job.imageUrl.trim() !== ""
                       ? job.imageUrl
-                      : "PLACE_HODLER_URL/600x400"
+                      : "/images/placeholder-job.jpg"
                   }
                   alt={job.title}
                   fill

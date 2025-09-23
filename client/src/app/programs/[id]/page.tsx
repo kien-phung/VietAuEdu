@@ -113,7 +113,7 @@ export default function ProgramDetailPage() {
                 src={
                   program.imageUrl && program.imageUrl.trim() !== ""
                     ? program.imageUrl
-                    : "PLACE_HODLER_URL/400x300"
+                    : "/images/placeholder-program.jpg"
                 }
                 alt={program.title}
                 width={400}

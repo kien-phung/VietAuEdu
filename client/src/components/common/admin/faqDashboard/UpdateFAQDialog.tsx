@@ -6,7 +6,13 @@ import { FAQCategory, FAQStatus } from "@/utils/constants/faqConstants";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface UpdateFAQDialogProps {
   isOpen: boolean;
@@ -108,11 +114,13 @@ const UpdateFAQDialog = ({
                           </SelectTrigger>
 
                           <SelectContent>
-                            {FAQCategory.map((item: { value: string; label: string }) => (
-                              <SelectItem key={item.value} value={item.value}>
-                                {item.label}
-                              </SelectItem>
-                            ))}
+                            {FAQCategory.map(
+                              (item: { value: string; label: string }) => (
+                                <SelectItem key={item.value} value={item.value}>
+                                  {item.label}
+                                </SelectItem>
+                              )
+                            )}
                           </SelectContent>
                         </Select>
                       </div>
@@ -131,11 +139,13 @@ const UpdateFAQDialog = ({
                           </SelectTrigger>
 
                           <SelectContent>
-                            {FAQStatus.map((item: { value: string; label: string }) => (
-                              <SelectItem key={item.value} value={item.value}>
-                                {item.label}
-                              </SelectItem>
-                            ))}
+                            {FAQStatus.map(
+                              (item: { value: string; label: string }) => (
+                                <SelectItem key={item.value} value={item.value}>
+                                  {item.label}
+                                </SelectItem>
+                              )
+                            )}
                           </SelectContent>
                         </Select>
                       </div>
@@ -153,11 +163,7 @@ const UpdateFAQDialog = ({
                     Cancel
                   </Button>
 
-                  <Button
-                    onClick={() => onFAQUpdated()}
-                    className="bg-[#1DB954] hover:bg-[#1ed760] text-white"
-                    disabled={isLoading}
-                  >
+                  <Button onClick={() => onFAQUpdated()} disabled={isLoading}>
                     {isLoading ? (
                       <>Saving...</>
                     ) : (

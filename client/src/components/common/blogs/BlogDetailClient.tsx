@@ -40,7 +40,7 @@ export default function BlogDetailClient({ blog }: { blog: IBlog }) {
                   src={
                     blog.imageUrl && blog.imageUrl.trim() !== ""
                       ? blog.imageUrl
-                      : "PLACE_HODLER_URL/800x600"
+                      : "/images/placeholder-blog.jpg"
                   }
                   alt={blog.title}
                   className="w-full h-64 md:h-96 object-cover rounded-t-lg"

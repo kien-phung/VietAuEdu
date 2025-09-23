@@ -179,11 +179,7 @@ const CreateProgramDialog = ({
             Cancel
           </Button>
 
-          <Button
-            onClick={onProgramCreated}
-            className="bg-[#1DB954] hover:bg-[#1ed760] text-white"
-            disabled={isLoading}
-          >
+          <Button onClick={onProgramCreated} disabled={isLoading}>
             {isLoading ? (
               <>Creating...</>
             ) : (

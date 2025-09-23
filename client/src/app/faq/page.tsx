@@ -1,5 +1,5 @@
-import { Metadata } from "next";
 import FAQPageContent from "@/components/common/faq/FAQPageContent";
+import { Metadata } from "next";
 
 // SEO optimization for FAQ page
 export const metadata: Metadata = {

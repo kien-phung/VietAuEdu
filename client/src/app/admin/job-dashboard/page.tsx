@@ -189,7 +189,7 @@ export default function JobDashboardPage() {
         <div className="flex items-center gap-2">
           <Button
             size="sm"
-            className="bg-[#1DB954] hover:bg-green-600 text-white h-8 gap-1"
+            className="h-8 gap-1"
             onClick={() => setIsCreateJobOpen(true)}
           >
             <Plus className="h-4 w-4" />
@@ -217,7 +217,7 @@ export default function JobDashboardPage() {
       />
 
       <div className="space-y-4">
-        <Card className="bg-zinc-900">
+        <Card className="bg-primary text-primary-foreground">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle />
@@ -231,9 +231,9 @@ export default function JobDashboardPage() {
                 />
 
                 <Button
-                  variant="outline"
+                  variant="secondary"
                   size="sm"
-                  className="h-8 gap-1 bg-blue-600 hover:bg-[#166FE5] text-white"
+                  className="h-8 gap-1"
                   onClick={clearFilters}
                 >
                   <RefreshCw className="h-4 w-4" />

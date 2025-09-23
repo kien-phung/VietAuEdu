@@ -32,9 +32,9 @@ export const ProgramFilter = ({
     <DropdownMenu open={openMenuFilters} onOpenChange={closeMenuMenuFilters}>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="secondary"
           size="sm"
-          className="h-8 gap-1 bg-[#1877F2] hover:bg-[#166FE5] text-white"
+          className="h-8 gap-1"
           onClick={() => setOpenMenuFilters(!openMenuFilters)}
         >
           <Filter className="h-4 w-4" />
@@ -82,11 +82,7 @@ export const ProgramFilter = ({
             Clear Filters
           </Button>
 
-          <Button
-            size="sm"
-            onClick={applyFilters}
-            className="bg-[#1877F2] hover:bg-[#166FE5] text-white"
-          >
+          <Button size="sm" onClick={applyFilters} variant="secondary">
             Apply Filters
           </Button>
         </div>

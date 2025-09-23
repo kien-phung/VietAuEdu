@@ -1,3 +1,6 @@
+// Removed the import of PLACE_HODLER_URL since we'll use local images
+// import { PLACE_HODLER_URL } from "./constants";
+
 export const mockData = {
   programs: [
     {
@@ -9,7 +12,7 @@ export const mockData = {
       tuition: '15,000 - 25,000 USD/năm',
       requirements: ['IELTS 6.0+ hoặc TOPIK 4+', 'Bằng cử nhân', 'GPA 2.5+', 'Thư giới thiệu'],
       benefits: ['Học bổng 100%', 'Thực tập có lương', 'Cơ hội định cư', 'Bảo hiểm y tế'],
-      imageUrl: 'PLACE_HODLER_URL/400x300',
+      imageUrl: '/images/programs/south-korea.jpg',
       featured: true,
     },
     {
@@ -21,7 +24,7 @@ export const mockData = {
       tuition: '8,000 - 15,000 USD/năm',
       requirements: ['Tiếng Nhật N3+ hoặc IELTS 6.0+', 'Bằng tốt nghiệp THPT', 'Chứng minh tài chính'],
       benefits: ['Làm thêm 28h/tuần', 'Học bổng MEXT', 'Cơ hội việc làm cao', 'Văn hóa độc đáo'],
-      imageUrl: 'PLACE_HODLER_URL/400x300',
+      imageUrl: '/images/programs/japan.jpg',
       featured: true,
     },
     {
@@ -33,7 +36,7 @@ export const mockData = {
       tuition: '3,000 - 8,000 USD/năm',
       requirements: ['IELTS 5.5+ hoặc HSK 4+', 'Bằng tốt nghiệp THPT', 'GPA 2.0+'],
       benefits: ['Chi phí sinh hoạt thấp', 'Học bổng chính phủ', 'Dễ xin visa', 'Cộng đồng người Việt lớn'],
-      imageUrl: 'PLACE_HODLER_URL/400x300',
+      imageUrl: '/images/programs/taiwan.jpg',
       featured: true,
     },
     {
@@ -45,7 +48,7 @@ export const mockData = {
       tuition: '0 - 3,000 EUR/năm',
       requirements: ['IELTS 6.5+ hoặc TestDaF', 'Bằng cử nhân', 'GPA 3.0+', 'Động cơ học tập rõ ràng'],
       benefits: ['Miễn học phí', 'Cơ hội nghiên cứu', 'Thị trường lao động EU', 'Nền kinh tế mạnh'],
-      imageUrl: 'PLACE_HODLER_URL/400x300',
+      imageUrl: '/images/programs/germany.jpg',
       featured: false,
     },
     {
@@ -57,7 +60,7 @@ export const mockData = {
       tuition: '25,000 - 45,000 AUD/năm',
       requirements: ['IELTS 6.5+', 'Bằng cử nhân', 'GPA 2.7+', 'Chứng minh tài chính'],
       benefits: ['Chất lượng giáo dục top 10', 'Cơ hội định cư cao', 'Làm thêm 40h/2 tuần', 'Môi trường đa văn hóa'],
-      imageUrl: 'PLACE_HODLER_URL/400x300',
+      imageUrl: '/images/programs/australia.jpg',
       featured: false,
     },
     {
@@ -69,7 +72,7 @@ export const mockData = {
       tuition: '30,000 - 70,000 USD/năm',
       requirements: ['IELTS 7.0+ hoặc TOEFL 100+', 'GRE/GMAT', 'Bằng cử nhân xuất sắc', 'Kinh nghiệm nghiên cứu'],
       benefits: ['Trường top thế giới', 'Mạng lưới alumni mạnh', 'Cơ hội nghiên cứu', 'Thị trường việc làm lớn'],
-      imageUrl: 'PLACE_HODLER_URL/400x300',
+      imageUrl: '/images/programs/usa.jpg',
       featured: false,
     },
   ] as IProgram[],
@@ -82,7 +85,7 @@ export const mockData = {
       content: 'Nội dung chi tiết về visa...',
       author: 'Nguyễn Minh Tuấn',
       publishedAt: '2024-03-15',
-      imageUrl: 'PLACE_HODLER_URL/600x400',
+      imageUrl: '/images/blogs/visa-south-korea.jpg',
       category: 'Visa & Thủ tục',
       slug: 'kinh-nghiem-xin-visa-du-hoc-han-quoc-2024',
     },
@@ -93,7 +96,7 @@ export const mockData = {
       content: 'Nội dung về trường đại học Nhật Bản...',
       author: 'Trần Thị Lan',
       publishedAt: '2024-03-10',
-      imageUrl: 'PLACE_HODLER_URL/600x400',
+      imageUrl: '/images/blogs/universities-japan.jpg',
       category: 'Chương trình học',
       slug: 'top-10-truong-dai-hoc-tot-nhat-nhat-ban',
     },
@@ -104,7 +107,7 @@ export const mockData = {
       content: 'Nội dung về chi phí du học...',
       author: 'Lê Văn Hùng',
       publishedAt: '2024-03-05',
-      imageUrl: 'PLACE_HODLER_URL/600x400',
+      imageUrl: '/images/blogs/cost-taiwan.jpg',
       category: 'Chi phí du học',
       slug: 'chi-phi-du-hoc-dai-loan-2024',
     },
@@ -115,7 +118,7 @@ export const mockData = {
       content: 'Nội dung về học bổng Đức...',
       author: 'Phạm Thị Mai',
       publishedAt: '2024-02-28',
-      imageUrl: 'PLACE_HODLER_URL/600x400',
+      imageUrl: '/images/blogs/scholarship-germany.jpg',
       category: 'Học bổng',
       slug: 'hoc-bong-toan-phan-du-hoc-duc',
     },
@@ -126,7 +129,7 @@ export const mockData = {
       content: 'Nội dung về cuộc sống du học...',
       author: 'Hoàng Minh Đức',
       publishedAt: '2024-02-20',
-      imageUrl: 'PLACE_HODLER_URL/600x400',
+      imageUrl: '/images/blogs/life-australia.jpg',
       category: 'Kinh nghiệm',
       slug: 'cuoc-song-du-hoc-sinh-tai-uc',
     },
@@ -137,7 +140,7 @@ export const mockData = {
       content: 'Nội dung về hồ sơ du học Mỹ...',
       author: 'Võ Thị Hoa',
       publishedAt: '2024-02-15',
-      imageUrl: 'PLACE_HODLER_URL/600x400',
+      imageUrl: '/images/blogs/documents-usa.jpg',
       category: 'Hồ sơ du học',
       slug: 'chuan-bi-ho-so-du-hoc-my',
     },
@@ -190,7 +193,7 @@ export const mockData = {
       university: 'Seoul National University',
       rating: 5,
       comment: 'Việt Âu đã hỗ trợ tôi từ A-Z trong quá trình du học. Từ việc chọn trường, chuẩn bị hồ sơ đến xin visa đều rất chuyên nghiệp. Hiện tôi đã tốt nghiệp và có công việc tốt tại Seoul.',
-      image: 'PLACE_HODLER_URL/100x100',
+      image: '/images/testimonials/nguyen-thi-huong.jpg',
       year: 2023,
     },
     {
@@ -200,7 +203,7 @@ export const mockData = {
       university: 'University of Tokyo',
       rating: 5,
       comment: 'Ban đầu tôi rất lo lắng về việc du học Nhật Bản vì không biết tiếng. Nhưng team Việt Âu đã hỗ trợ tôi học tiếng Nhật từ cơ bản và kết quả vượt ngoài mong đợi. Cảm ơn rất nhiều!',
-      image: 'PLACE_HODLER_URL/100x100',
+      image: '/images/testimonials/tran-minh-khoa.jpg',
       year: 2023,
     },
     {
@@ -210,7 +213,7 @@ export const mockData = {
       university: 'National Đài Loan University',
       rating: 5,
       comment: 'Chi phí du học Đài Loan rất hợp lý và chất lượng giáo dục tuyệt vời. Việt Âu đã giúp tôi chọn được trường và ngành học phù hợp. Cuộc sống ở đây rất thoải mái và an toàn.',
-      image: 'PLACE_HODLER_URL/100x100',
+      image: '/images/testimonials/le-thi-mai.jpg',
       year: 2024,
     },
   ],
