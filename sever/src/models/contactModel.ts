@@ -6,7 +6,10 @@ const schema: Schema<IContact> = new Schema(
     email: String,
     phone: String,
     message: String,
-    subject: String,
+    program: {
+      type: Schema.Types.ObjectId,
+      ref: "Program",
+    },
     status: {
       type: String,
       enum: ["pending", "resolved"],

@@ -5,7 +5,11 @@ const schema: Schema<IFAQ> = new Schema(
     question: String,
     answer: String,
     category: String,
-    publishedAt: String,
+    status: {
+      type: String,
+      enum: ["inactive", "active"],
+      default: "active",
+    },
   },
   {
     timestamps: true,

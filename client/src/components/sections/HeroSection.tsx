@@ -113,7 +113,7 @@ export default function HeroSection({ stats }: HeroSectionProps) {
           <div className="relative">
             <div className="relative z-10">
               <Image
-                src="/api/placeholder/600/500"
+                src="PLACE_HODLER_URL/600x500"
                 width={600}
                 height={500}
                 alt="Du học quốc tế"

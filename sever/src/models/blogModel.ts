@@ -10,6 +10,11 @@ const schema: Schema<IBlog> = new Schema(
     imageUrl: String,
     category: String,
     slug: String,
+    status: {
+      type: String,
+      enum: ["inactive", "active"],
+      default: "active",
+    },
   },
   {
     timestamps: true,

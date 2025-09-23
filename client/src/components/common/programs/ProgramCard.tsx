@@ -17,11 +17,17 @@ interface ProgramCardProps {
 }
 
 export default function ProgramCard({ program }: ProgramCardProps) {
+  // Use a default image if imageUrl is empty or null
+  const imageUrl =
+    program.imageUrl && program.imageUrl.trim() !== ""
+      ? program.imageUrl
+      : "PLACE_HODLER_URL/400x300";
+
   return (
     <Card className="h-full hover:shadow-lg transition-shadow duration-300 flex flex-col bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
       <div className="relative">
         <Image
-          src={program.image}
+          src={imageUrl}
           width={400}
           height={300}
           alt={program.title}

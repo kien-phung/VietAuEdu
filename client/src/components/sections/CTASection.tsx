@@ -4,10 +4,25 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Phone, MessageCircle, Calendar } from "lucide-react";
 
-export default function CTASection() {
+interface CTASectionProps {
+  backgroundImage?: string;
+}
+
+export default function CTASection({ backgroundImage }: CTASectionProps) {
   return (
-    <section className="py-20 bg-gradient-to-r from-primary to-secondary">
-      <div className="container mx-auto px-4">
+    <section
+      className="py-20 relative"
+      style={{
+        backgroundImage: backgroundImage ? `url(${backgroundImage})` : "none",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Overlay to ensure text readability */}
+      <div className="absolute inset-0 bg-black/50"></div>
+
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center text-white">
           <h2 className="text-3xl lg:text-4xl font-bold mb-4">
             Sẵn Sàng Bắt Đầu Hành Trình Du Học?

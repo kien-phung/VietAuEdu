@@ -11,11 +11,21 @@ export interface IContactStore extends IBaseStore {
 	getContact: (
 		contactId: string
 	) => Promise<IApiResponse<IContactDataResponse>>;
+	deleteContact: (
+		contactId: string
+	) => Promise<IApiResponse<IContactDataResponse>>;
 	submitContact: (
+		programId: string,
 		name: string,
 		email: string,
 		phone: string,
-		program: string,
+		message: string,
+	) => Promise<IApiResponse<IContactDataResponse>>;
+	respondContact: (
+		adminId: string, 
+		name: string,
+		email: string,
+		phone: string,
 		message: string,
 	) => Promise<IApiResponse<IContactDataResponse>>;
 }
@@ -38,23 +48,48 @@ export const useContactStore = createStore<IContactStore>(
 				return await handleRequest(EHttpType.GET, `/contacts/${contactId}`);
 			});
 		},
+		
+		deleteContact: async (contactId: string): Promise<IApiResponse<IContactDataResponse>> => {
+			return await get().handleRequest(async () => {
+				return await handleRequest(EHttpType.DELETE, `/contacts/${contactId}`);
+			});
+		},
 
 		submitContact: async (
+			programId: string,
 			name: string,
 			email: string,
 			phone: string,
-			program: string,
 			message: string,
 		): Promise<IApiResponse<IContactDataResponse>> => {
 			const formData = new FormData();
+			formData.append("programId", programId);
 			formData.append("name", name);
 			formData.append("email", email);
 			formData.append("phone", phone);
-			formData.append("program", program);
 			formData.append("message", message);
 
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.POST, `/contacts/`, formData);
+				return await handleRequest(EHttpType.POST, `/contacts`, formData);
+			});
+		},
+		
+		respondContact: async (
+			adminId: string,
+			name: string,
+			email: string,
+			phone: string,
+			message: string,
+		): Promise<IApiResponse<IContactDataResponse>> => {
+			const formData = new FormData();
+			formData.append("adminId", adminId);
+			formData.append("name", name);
+			formData.append("email", email);
+			formData.append("phone", phone);
+			formData.append("message", message);
+
+			return await get().handleRequest(async () => {
+				return await handleRequest(EHttpType.POST, `/contacts/respond`, formData);
 			});
 		},
 

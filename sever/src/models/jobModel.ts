@@ -21,6 +21,11 @@ const schema: Schema<IJob> = new Schema(
     accommodation: String,
     workEnvironment: String,
     trainingPeriod: String,
+    status: {
+      type: String,
+      enum: ["inactive", "active"],
+      default: "active",
+    },
   },
   {
     timestamps: true,

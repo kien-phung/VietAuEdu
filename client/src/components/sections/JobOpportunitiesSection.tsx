@@ -19,7 +19,7 @@ interface JobOpportunity {
 const jobOpportunities: JobOpportunity[] = [
   {
     id: "1",
-    title: "CHẾ BIẾN NÔNG SẢN - Japan",
+    title: "CHẾ BIẾN NƯƠNG SẢN - Japan",
     country: "Japan",
     image: "/images/jobs/agricultural-processing.jpg",
     positions: 3,
@@ -118,7 +118,11 @@ export default function JobOpportunitiesSection() {
                 <div className="w-1/3 relative">
                   <div className="aspect-square relative">
                     <Image
-                      src={job.image}
+                      src={
+                        job.image && job.image.trim() !== ""
+                          ? job.image
+                          : "PLACE_HODLER_URL/400x400"
+                      }
                       alt={job.title}
                       fill
                       className="object-cover"

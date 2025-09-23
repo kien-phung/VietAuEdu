@@ -110,7 +110,11 @@ export default function ProgramDetailPage() {
 
             <div>
               <Image
-                src={program.imageUrl}
+                src={
+                  program.imageUrl && program.imageUrl.trim() !== ""
+                    ? program.imageUrl
+                    : "PLACE_HODLER_URL/400x300"
+                }
                 alt={program.title}
                 width={400}
                 height={300}

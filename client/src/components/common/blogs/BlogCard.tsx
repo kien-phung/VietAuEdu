@@ -12,11 +12,17 @@ interface BlogCardProps {
 }
 
 export default function BlogCard({ post }: BlogCardProps) {
+  // Use a default image if imageUrl is empty or null
+  const imageUrl =
+    post.imageUrl && post.imageUrl.trim() !== ""
+      ? post.imageUrl
+      : "PLACE_HODLER_URL/500x300";
+
   return (
     <Card className="h-full hover:shadow-lg transition-shadow duration-300 group">
       <div className="relative overflow-hidden">
         <Image
-          src={post.imageUrl}
+          src={imageUrl}
           alt={post.title}
           width={500}
           height={300}

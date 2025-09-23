@@ -1,10 +1,14 @@
-import { ETheme } from "./enum";
+import { EContactStatus, EStatus, EUserStatus } from "./enum.js";
 
 declare global {
     interface IUser {
-        name: string;
+        id: string;
         email: string;
-        phone?: string;
+        password: string;
+        name: string;
+        phone: string;
+        role: string;
+        status: EUserStatus;
     }
 
     interface IProgram {
@@ -18,6 +22,9 @@ declare global {
         benefits: string[];
         imageUrl: string;
         featured: boolean;
+        createdAt?: Date;
+        updatedAt?: Date;
+        status: EStatus;
     }
 
     interface IBlog {
@@ -30,7 +37,7 @@ declare global {
         imageUrl: string;
         category: string;
         slug: string;
-        createdAt: string;
+        status: EStatus;
     }
 
     interface IJob {
@@ -54,6 +61,7 @@ declare global {
         accommodation: string;
         workEnvironment: string;
         trainingPeriod: string;
+        status: EStatus;
     }
 
     interface IContact {
@@ -61,8 +69,13 @@ declare global {
         name: string;
         email: string;
         phone: string;
-        program: string;
+        program?: IProgram;
         message: string;
+        resolvedBy?: string;
+        resolvedAt?: string;
+        createdAt?: string;
+        updatedAt?: string;
+        status?: EContactStatus;
     }
 
     interface IFAQ {
@@ -70,17 +83,7 @@ declare global {
         question: string;
         answer: string;
         category: string;
-        publishedAt: string;
-    }
-
-    interface IAppState {
-        user: IUser | null;
-        theme: ETheme;
-        programs: IProgram[];
-        blogs: IBlog[];
-        faqs: IFAQ[];
-        isLoading: boolean;
-        error: string | null;
+        status: EStatus;
     }
 }
 export { };

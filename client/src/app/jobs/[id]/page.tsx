@@ -66,7 +66,11 @@ export default function JobDetailPage() {
             <div className="lg:w-1/3">
               <div className="relative h-64 rounded-2xl overflow-hidden">
                 <Image
-                  src={job.imageUrl}
+                  src={
+                    job.imageUrl && job.imageUrl.trim() !== ""
+                      ? job.imageUrl
+                      : "PLACE_HODLER_URL/600x400"
+                  }
                   alt={job.title}
                   fill
                   className="object-cover"

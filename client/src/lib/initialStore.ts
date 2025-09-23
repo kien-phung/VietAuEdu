@@ -1,4 +1,4 @@
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { create } from "zustand";
 import { persist, createJSONStorage, PersistOptions } from "zustand/middleware";
 
@@ -24,6 +24,7 @@ type TVariables = Record<string, unknown>;
 export enum EStorageType {
   LOCAL = "LOCAL",
   SESSION = "SESSION",
+  COOKIE = "COOKIE"
 }
 
 export function createStore<T extends IBaseStore, U = TVariables>(
@@ -37,9 +38,9 @@ export function createStore<T extends IBaseStore, U = TVariables>(
 ) {
   const storageType = options?.storageType ?? EStorageType.SESSION;
   const storage =
-    storageType === EStorageType.LOCAL
-      ? createJSONStorage<T>(() => localStorage)
-      : createJSONStorage<T>(() => sessionStorage);
+    storageType === EStorageType.SESSION
+      ? createJSONStorage<T>(() => sessionStorage)
+      : createJSONStorage<T>(() => localStorage);
 
   return create<T>()(
     persist(
@@ -56,7 +57,7 @@ export function createStore<T extends IBaseStore, U = TVariables>(
                 ?.data?.message || (error as Error).message;
             set({ error: message } as T);
 
-            // if (message) toast.error(message);
+            if (message) toast.error(message);
 
             throw error;
           } finally {

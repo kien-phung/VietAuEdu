@@ -11,6 +11,11 @@ const schema: Schema<IProgram> = new Schema(
     benefits: [String],
     imageUrl: String,
     featured: Boolean,
+    status: {
+      type: String,
+      enum: ["inactive", "active"],
+      default: "pending",
+    },
   },
   {
     timestamps: true,
