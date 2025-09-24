@@ -5,24 +5,12 @@ import Image from "next/image";
 import Link from "next/link";
 // Removed import of PLACE_HODLER_URL
 
-interface JobOpportunity {
-  id: string;
-  title: string;
-  country: string;
-  image: string;
-  positions: number;
-  location: string;
-  salary: string;
-  applicationDeadline: string;
-  estimatedDeparture: string;
-}
-
-const jobOpportunities: JobOpportunity[] = [
+const jobOpportunities: IJob[] = [
   {
     id: "1",
     title: "CHẾ BIẾN NƯƠNG SẢN - Japan",
     country: "Japan",
-    image: "/images/jobs/agricultural-processing.jpg",
+    imageUrl: "/images/jobs/agricultural-processing.jpg",
     positions: 3,
     location: "KAGOSHIMA",
     salary: "147.715 Yên/Tháng",
@@ -33,7 +21,7 @@ const jobOpportunities: JobOpportunity[] = [
     id: "2",
     title: "Vệ Sinh Khách Sạn - Japan",
     country: "Japan",
-    image: "/images/jobs/hotel-cleaning.jpg",
+    imageUrl: "/images/jobs/hotel-cleaning.jpg",
     positions: 3,
     location: "OITA",
     salary: "163.400 Yên/Tháng",
@@ -44,7 +32,7 @@ const jobOpportunities: JobOpportunity[] = [
     id: "3",
     title: "CHẾ BIẾN THỰC PHẨM - Japan",
     country: "Japan",
-    image: "/images/jobs/food-processing.jpg",
+    imageUrl: "/images/jobs/food-processing.jpg",
     positions: 2,
     location: "KUMAMOTO",
     salary: "153.000 Yên/Tháng",
@@ -55,7 +43,7 @@ const jobOpportunities: JobOpportunity[] = [
     id: "4",
     title: "XÂY DỰNG - Japan",
     country: "Japan",
-    image: "/images/jobs/construction.jpg",
+    imageUrl: "/images/jobs/construction.jpg",
     positions: 1,
     location: "KAGOSHIMA",
     salary: "155.481 Yên/Tháng",
@@ -120,8 +108,8 @@ export default function JobOpportunitiesSection() {
                   <div className="aspect-square relative">
                     <Image
                       src={
-                        job.image && job.image.trim() !== ""
-                          ? job.image
+                        job.imageUrl && job.imageUrl.trim() !== ""
+                          ? job.imageUrl
                           : "/images/placeholder-job.jpg"
                       }
                       alt={job.title}

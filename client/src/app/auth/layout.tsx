@@ -1,10 +1,18 @@
-import { ReactNode } from 'react';
+import { ReactNode } from "react";
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors">
+    <div
+      className="min-h-screen flex items-center justify-center text-gray-900 dark:text-gray-100 transition-colors"
+      style={{
+        backgroundImage: "url(/images/logo1.png)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="w-full max-w-md mx-auto">
-        <div className="bg-gray-800 rounded-lg shadow-xl p-8 border border-gray-700">
+        <div className="bg-gray-800/90 backdrop-blur-sm rounded-lg shadow-xl p-8 border border-gray-700">
           {children}
         </div>
       </div>

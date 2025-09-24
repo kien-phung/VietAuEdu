@@ -1,8 +1,9 @@
 import React from "react";
 import HeroSection from "@/components/sections/HeroSection";
+import ImageSlideshowSection from "@/components/sections/ImageSlideshowSection";
 import ProgramsSection from "@/components/sections/ProgramsSection";
 import AboutSection from "@/components/sections/AboutSection";
-import CTASection from "@/components/sections/CTASection";
+// import CTASection from "@/components/sections/CTASection";
 import { mockData } from "@/utils/services/mockData";
 import CountryFlagsSection from "@/components/sections/CountryFlagsSection";
 import dynamic from "next/dynamic";
@@ -69,6 +70,30 @@ const getCriticalData = () => {
   };
 };
 
+// Sample slides data for the slideshow
+const slideshowSlides = [
+  {
+    id: "1",
+    title: "Chương Trình Du Học Nhật Bản 2025",
+    description:
+      "Cơ hội học tập và làm việc tại Nhật Bản với học bổng lên đến 50%",
+    image: "/images/hero-image.jpg",
+  },
+  {
+    id: "2",
+    title: "Tuyển Sinh Khóa Học Ngoại Ngữ",
+    description: "Khóa học tiếng Nhật cấp tốc chuẩn bị cho kỳ thi JLPT N5-N1",
+    image: "/images/cta-background.jpg",
+  },
+  {
+    id: "3",
+    title: "Hội Thảo Hướng Nghiệp Miễn Phí",
+    description:
+      "Gặp gỡ chuyên gia tư vấn và cựu du học sinh thành công tại Nhật",
+    image: "/images/placeholder-blog.jpg",
+  },
+];
+
 // Loading component for non-critical sections with proper dimensions
 function SectionSkeleton() {
   return (
@@ -98,6 +123,13 @@ export default function HomePage() {
     <>
       {/* Critical above-fold content - SSR for instant display */}
       <HeroSection stats={stats} />
+      <ImageSlideshowSection
+        slides={slideshowSlides}
+        autoPlay={true}
+        interval={5000}
+        showIndicators={true}
+        showNavigation={true}
+      />
       <AboutSection />
 
       {/* Progressive loading sections with immediate skeleton */}
@@ -110,7 +142,7 @@ export default function HomePage() {
       <ProgramsSection programs={featuredPrograms} />
 
       <LanguageTrainingSection />
-      <CTASection />
+      {/* <CTASection /> */}
     </>
   );
 }

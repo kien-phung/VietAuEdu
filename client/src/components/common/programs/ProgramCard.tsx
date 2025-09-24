@@ -83,7 +83,7 @@ export default function ProgramCard({ program }: ProgramCardProps) {
 
       <CardFooter className="pt-4">
         <Link href={`/programs/${program.id}`} className="w-full">
-          <Button className="w-full bg-primary hover:bg-primary/90">
+          <Button className="w-full bg-secondary hover:bg-secondary/90">
             Xem chi tiết
           </Button>
         </Link>

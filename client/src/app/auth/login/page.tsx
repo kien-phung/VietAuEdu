@@ -7,7 +7,6 @@ import type React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-// ... existing code ...
 const LoginPage: React.FC = () => {
   const router = useRouter();
   const { isLoading, login } = useAuthStore();

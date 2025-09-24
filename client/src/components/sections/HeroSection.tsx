@@ -72,7 +72,7 @@ export default function HeroSection({ stats }: HeroSectionProps) {
               <Button
                 variant="outline"
                 size="lg"
-                className="text-lg px-8 border-2 hover:bg-gray-50 dark:hover:bg-gray-800 dark:border-gray-600 dark:text-white flex items-center"
+                className="text-lg px-8 border-2 bg-secondary-600 hover:bg-secondary-700 border-secondary-600 dark:text-white text-black flex items-center"
                 onClick={handleVideoButtonClick}
               >
                 <Play className="mr-2 w-5 h-5" />

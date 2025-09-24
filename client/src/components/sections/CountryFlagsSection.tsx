@@ -98,10 +98,10 @@ export default function CountryFlagsSection() {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        {/* <div className="text-center mt-12">
           <Link
             href="/programs"
-            className="inline-flex items-center px-6 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 bg-secondary text-white font-medium rounded-lg hover:bg-secondary/90 transition-colors duration-300"
           >
             Xem Tất Cả Chương Trình
             <svg
@@ -118,7 +118,7 @@ export default function CountryFlagsSection() {
               />
             </svg>
           </Link>
-        </div>
+        </div> */}
       </div>
     </section>
   );

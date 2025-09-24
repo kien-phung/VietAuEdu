@@ -66,7 +66,7 @@ export default function CTASection({ backgroundImage }: CTASectionProps) {
             </div>
           </div>
 
-          <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 max-w-2xl mx-auto">
+          {/* <div className="bg-white/10 backdrop-blur-sm rounded-lg p-8 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold mb-4">Tư Vấn Miễn Phí</h3>
             <p className="opacity-90 mb-6">
               Để lại thông tin, chúng tôi sẽ liên hệ tư vấn miễn phí trong 24h
@@ -102,7 +102,7 @@ export default function CTASection({ backgroundImage }: CTASectionProps) {
             >
               Nhận tư vấn miễn phí
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

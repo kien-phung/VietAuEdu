@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
 import ProgramCard from "@/components/common/programs/ProgramCard";
 import Link from "next/link";
 import { mockData } from "@/utils/services/mockData";
@@ -34,15 +32,11 @@ export default function ProgramsSection({
         </div>
 
         <div className="text-center">
-          <Link href="/blog">
-            <Button
-              size="lg"
-              variant="outline"
-              className="text-lg px-8 border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 dark:text-white"
-            >
-              Xem tất cả tin tức
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+          <Link
+            href="/blogs"
+            className="inline-flex items-center px-8 py-3 border-2 border-primary text-primary font-medium rounded-full hover:bg-primary hover:text-white transition-all duration-300"
+          >
+            Xem Tất Cả
           </Link>
         </div>
       </div>

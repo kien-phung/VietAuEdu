@@ -50,18 +50,18 @@ declare global {
         salary: string;
         applicationDeadline: string;
         estimatedDeparture: string;
-        requirements: string[];
-        benefits: string[];
-        description: string;
-        company: string;
-        workType: string;
-        featured: boolean;
-        workingHours: string;
-        overtime: string;
-        accommodation: string;
-        workEnvironment: string;
-        trainingPeriod: string;
-        status: EStatus;
+        requirements?: string[];
+        benefits?: string[];
+        description?: string;
+        company?: string;
+        workType?: string;
+        featured?: boolean;
+        workingHours?: string;
+        overtime?: string;
+        accommodation?: string;
+        workEnvironment?: string;
+        trainingPeriod?: string;
+        status?: EStatus;
     }
 
     interface IContact {

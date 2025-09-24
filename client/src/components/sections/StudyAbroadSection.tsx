@@ -80,7 +80,7 @@ export default function StudyAbroadSection() {
               <div className="space-y-4">
                 {/* Representatives Card - Large */}
                 <div className="relative group cursor-pointer">
-                  <div className="relative h-48 rounded-2xl overflow-hidden">
+                  <div className="relative h-48 sm:h-40 rounded-2xl overflow-hidden">
                     <Image
                       src={studyPrograms[0].image}
                       alt={studyPrograms[0].title}
@@ -109,7 +109,7 @@ export default function StudyAbroadSection() {
 
                 {/* College Card */}
                 <div className="relative group cursor-pointer">
-                  <div className="relative h-32 rounded-2xl overflow-hidden">
+                  <div className="relative h-32 sm:h-28 rounded-2xl overflow-hidden">
                     <Image
                       src={studyPrograms[2].image}
                       alt={studyPrograms[2].title}
@@ -140,7 +140,7 @@ export default function StudyAbroadSection() {
               <div className="space-y-4">
                 {/* Language Card */}
                 <div className="relative group cursor-pointer">
-                  <div className="relative h-32 rounded-2xl overflow-hidden">
+                  <div className="relative h-32 sm:h-28 rounded-2xl overflow-hidden">
                     <Image
                       src={studyPrograms[1].image}
                       alt={studyPrograms[1].title}
@@ -168,16 +168,16 @@ export default function StudyAbroadSection() {
                 </div>
 
                 {/* CTA Card */}
-                <div className="bg-gradient-to-br from-primary to-secondary rounded-2xl p-6 h-48 flex flex-col justify-between text-white">
-                  <div>
-                    <h3 className="font-bold text-xl mb-2 leading-tight">
+                <div className="bg-gradient-to-br from-primary to-secondary rounded-2xl p-5 sm:p-6 h-40 sm:h-48 flex flex-col justify-center text-white text-center">
+                  <div className="mb-3 sm:mb-2">
+                    <h3 className="font-bold text-base sm:text-xl leading-tight px-1">
                       Miễn phí 100% phí dịch vụ hỗ sơ & tư vấn du học.
                     </h3>
                   </div>
 
                   <Link
                     href="/contact"
-                    className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-3 px-6 rounded-full text-center transition-colors duration-300 w-fit"
+                    className="bg-yellow-400 hover:bg-yellow-500 text-white font-bold py-2 px-4 rounded-full text-center transition-colors duration-300 w-fit text-sm sm:py-3 sm:px-6 sm:text-base mx-auto"
                   >
                     Đăng Ký Ngay
                   </Link>
