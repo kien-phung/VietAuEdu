@@ -2,6 +2,14 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { NODE_ENV } from './utils/services/constants'
 
+/**
+ * Middleware to handle authentication and access control for admin routes
+ * 
+ * Rules:
+ * 1. If user accesses /admin and is not authenticated -> redirect to /auth/login
+ * 2. If user is authenticated and tries to access /auth/* -> redirect to /admin
+ * 3. If user is on mobile and tries to access /admin or /auth -> redirect to /
+ */
 export function middleware(request: NextRequest) {
     const response = NextResponse.next()
 
@@ -27,6 +35,46 @@ export function middleware(request: NextRequest) {
         response.headers.set('Server-Timing', 'middleware;dur=0')
     }
 
+    // Get the authentication token from cookies
+    const authToken = request.cookies.get('auth-storage')?.value
+
+    // Parse the user authentication status
+    let isAuthenticated = false
+    if (authToken) {
+        try {
+            const authData = JSON.parse(decodeURIComponent(authToken))
+            isAuthenticated = !!authData.state?.userAuth
+        } catch {
+            // If parsing fails, user is not authenticated
+            isAuthenticated = false
+        }
+    }
+
+    const pathname = request.nextUrl.pathname
+
+    // Check if user is on mobile (simplified check based on user agent)
+    const userAgent = request.headers.get('user-agent') || ''
+    const isMobile = /mobile|android|iphone|ipad/i.test(userAgent)
+
+    // If on mobile, redirect to home page for both admin and auth routes
+    if (isMobile && (pathname.startsWith('/admin') || pathname.startsWith('/auth'))) {
+        return NextResponse.redirect(new URL('/', request.url))
+    }
+
+    // Check if user is accessing admin routes
+    if (pathname.startsWith('/admin')) {
+        // If not authenticated, redirect to login page
+        if (!isAuthenticated) {
+            return NextResponse.redirect(new URL('/auth/login', request.url))
+        }
+    }
+
+    // Check if authenticated user is trying to access auth pages
+    if (isAuthenticated && pathname.startsWith('/auth')) {
+        // Redirect authenticated users away from auth pages to admin
+        return NextResponse.redirect(new URL('/admin', request.url))
+    }
+
     return response
 }
 
@@ -40,5 +88,7 @@ export const config = {
          * - favicon.ico (favicon file)
          */
         '/((?!api|_next/static|_next/image|favicon.ico).*)',
+        '/admin/:path*',
+        '/auth/:path*'
     ],
 }

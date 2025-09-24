@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Menu, X } from "lucide-react";
 import Image from "next/image";
-import { ThemeToggleButton } from "./ThemeToggleButton";
+import { ThemeToggleButton } from "../layout/ThemeToggleButton";
 import MobileMenu from "./MobileMenu";
 
 const navigation = [

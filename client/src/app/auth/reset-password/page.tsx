@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 
+// ... existing code ...
 const ResetPasswordPage: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -65,34 +66,53 @@ const ResetPasswordPage: React.FC = () => {
   };
 
   return (
-    <>
-      <h1 className="text-[#1877F2] text-2xl font-bold text-center mb-6">
+    <div>
+      <h1 className="text-primary text-2xl font-bold text-center mb-8">
         Reset your password
       </h1>
 
-      <form onSubmit={handleSubmit}>
-        <Input
-          name="newPassword"
-          placeholder="Enter new password"
-          value={formData.newPassword}
-          onChange={handleChange}
-        />
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="newPassword" className="block text-sm font-medium text-primary-500 mb-2">
+            New Password
+          </label>
+          <Input
+            id="newPassword"
+            name="newPassword"
+            type="password"
+            placeholder="Enter new password"
+            value={formData.newPassword}
+            onChange={handleChange}
+            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
+          />
+          {errors.newPassword && <p className="mt-1 text-sm text-red-400">{errors.newPassword}</p>}
+        </div>
 
-        <Input
-          name="rePassword"
-          placeholder="Confirm new password"
-          value={formData.rePassword}
-          onChange={handleChange}
-        />
+        <div>
+          <label htmlFor="rePassword" className="block text-sm font-medium text-primary-500 mb-2">
+            Confirm Password
+          </label>
+          <Input
+            id="rePassword"
+            name="rePassword"
+            type="password"
+            placeholder="Confirm new password"
+            value={formData.rePassword}
+            onChange={handleChange}
+            className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
+          />
+          {errors.rePassword && <p className="mt-1 text-sm text-red-400">{errors.rePassword}</p>}
+        </div>
 
         <Button
           type="submit"
-          className="mt-6 mb-4 bg-[#1877F2] hover:bg-[#166FE5]"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200"
+          // disabled={isLoading}
         >
           Reset Password
         </Button>
       </form>
-    </>
+    </div>
   );
 };
 

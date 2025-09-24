@@ -77,10 +77,7 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
             ))}
             <div className="pt-4">
               <Button variant="secondary" className="w-full">
-                <Link
-                  href="/contact"
-                  onClick={() => setIsOpen(false)}
-                >
+                <Link href="/contact" onClick={() => setIsOpen(false)}>
                   Tư vấn miễn phí
                 </Link>
               </Button>

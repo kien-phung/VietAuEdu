@@ -1,7 +1,14 @@
 import { CardContent } from "@/components/ui/card";
 import { TableSkeleton } from "@/components/layout/TableSkeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface IFAQTableProps {
   FAQs: IFAQ[];
@@ -82,7 +89,7 @@ export const FAQTable = ({ FAQs, isLoading }: IFAQTableProps) => {
 
                     <span className="capitalize">{FAQ?.category}</span>
                   </TableCell>
-                  
+
                   <TableCell className="flex items-center justify-center gap-2">
                     <span
                       className={`h-2 w-2 rounded-full ${getStatusColor(
@@ -96,9 +103,7 @@ export const FAQTable = ({ FAQs, isLoading }: IFAQTableProps) => {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={7}>
-                  {/* <ReportsEmptyState /> */}
-                </TableCell>
+                <TableCell colSpan={7}>{/* <ReportsEmptyState /> */}</TableCell>
               </TableRow>
             )}
           </TableBody>
