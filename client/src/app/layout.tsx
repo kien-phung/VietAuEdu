@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "@/styles/globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import { ThemeProvider } from "@/components/layout/ThemeProvider";
-import FloatingContactButtons from "@/components/layout/FloatingContactButtons";
-import { LinkProgressProvider } from "@/components/layout/LinkProgressBar";
 import { Slide, ToastContainer } from "react-toastify";
+import LinkProgressProvider from "@/components/layout/navigation/LinkProgressBar";
+import { ThemeProvider } from "@/components/layout/theme/ThemeProvider";
+import Navbar from "@/components/layout/navigation/Navbar";
+import Footer from "@/components/layout/footer/Footer";
+import FloatingContactButtons from "@/components/layout/contact/FloatingContactButtons";
 
 // Optimize font loading with display swap
 const inter = Inter({

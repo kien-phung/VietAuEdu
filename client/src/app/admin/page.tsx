@@ -8,39 +8,15 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
   Users,
   Eye,
   FileText,
   MessageSquare,
   Briefcase,
-  Calendar,
   TrendingUp,
-  BarChart3,
 } from "lucide-react";
-
-// Mock data - in a real app, this would come from an API
-const mockStats = {
-  totalVisitors: 12543,
-  uniqueVisitors: 8742,
-  pageViews: 45892,
-  avgSessionDuration: "3m 42s",
-  bounceRate: "32.4%",
-  topPages: [
-    { name: "Homepage", views: 12450 },
-    { name: "Programs", views: 8765 },
-    { name: "Jobs", views: 6543 },
-    { name: "Contact", views: 4321 },
-    { name: "FAQ", views: 3210 },
-  ],
-  recentActivity: [
-    { id: 1, action: "New user registered", time: "2 min ago" },
-    { id: 2, action: "Job application submitted", time: "15 min ago" },
-    { id: 3, action: "Contact form submitted", time: "1 hour ago" },
-    { id: 4, action: "New blog post published", time: "3 hours ago" },
-  ],
-};
+import { mockStats } from "@/utils/services/mockData";
 
 export default function AdminDashboardPage() {
   const [stats] = useState(mockStats);
@@ -191,51 +167,6 @@ export default function AdminDashboardPage() {
                 </div>
               ))}
             </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Additional Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Engagement Metrics</CardTitle>
-          </CardHeader>
-          <CardContent className="grid grid-cols-2 gap-4">
-            <div className="flex flex-col items-center justify-center p-4 bg-secondary rounded-lg">
-              <BarChart3 className="h-8 w-8 mb-2 text-primary" />
-              <p className="text-2xl font-bold">{stats.bounceRate}</p>
-              <p className="text-sm text-muted-foreground">Bounce Rate</p>
-            </div>
-            <div className="flex flex-col items-center justify-center p-4 bg-secondary rounded-lg">
-              <Calendar className="h-8 w-8 mb-2 text-primary" />
-              <p className="text-2xl font-bold">4.2m</p>
-              <p className="text-sm text-muted-foreground">Avg. Time</p>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-3">
-            <Button className="w-full justify-start">
-              <FileText className="mr-2 h-4 w-4" />
-              View all programs
-            </Button>
-            <Button className="w-full justify-start" variant="outline">
-              <Briefcase className="mr-2 h-4 w-4" />
-              Manage job listings
-            </Button>
-            <Button className="w-full justify-start" variant="outline">
-              <MessageSquare className="mr-2 h-4 w-4" />
-              Check messages
-            </Button>
-            <Button className="w-full justify-start" variant="outline">
-              <Users className="mr-2 h-4 w-4" />
-              View user accounts
-            </Button>
           </CardContent>
         </Card>
       </div>

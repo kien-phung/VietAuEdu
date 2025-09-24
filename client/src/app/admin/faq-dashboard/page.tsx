@@ -10,8 +10,6 @@ import { FAQFilter } from "@/components/common/admin/faqDashboard/FAQFilter";
 import { FAQTable } from "@/components/common/admin/faqDashboard/FAQTable";
 import { TableSearch } from "@/components/common/admin/TableSearch";
 import { useFAQStore } from "@/utils/stores/faqStore";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { FAQStatus, FAQCategory } from "@/utils/constants/faqConstants";
 
 const initialFilters = { status: [] as string[], contentType: [] as string[] };
 

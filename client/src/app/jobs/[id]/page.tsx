@@ -202,7 +202,7 @@ export default function JobDetailPage() {
                   Yêu Cầu Ứng Viên
                 </h2>
                 <ul className="space-y-3">
-                  {job.requirements.map((requirement, index) => (
+                  {job?.requirements?.map((requirement, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
                       <span className="text-gray-700 dark:text-gray-300">
@@ -219,7 +219,7 @@ export default function JobDetailPage() {
                   Quyền Lợi & Phúc Lợi
                 </h2>
                 <ul className="space-y-3">
-                  {job.benefits.map((benefit, index) => (
+                  {job?.benefits?.map((benefit, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
                       <span className="text-gray-700 dark:text-gray-300">

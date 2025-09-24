@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Menu, X } from "lucide-react";
 import Image from "next/image";
-import { ThemeToggleButton } from "../layout/ThemeToggleButton";
+import { ThemeToggleButton } from "../theme/ThemeToggleButton";
 import MobileMenu from "./MobileMenu";
 
 const navigation = [
@@ -86,10 +86,7 @@ export default function Navbar() {
             {/* Right side - SSR CTA button and theme toggle */}
             <div className="hidden lg:flex items-center space-x-4">
               <ThemeToggleButton />
-              <Link
-                href={"/contact"}
-                prefetch={true}
-                >
+              <Link href={"/contact"} prefetch={true}>
                 <Button size="lg" variant="secondary">
                   Tư vấn miễn phí
                 </Button>

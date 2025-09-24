@@ -56,7 +56,7 @@ const ForgotPasswordPage: React.FC = () => {
       </h1>
 
       <p className="text-primary-400 text-sm mb-6 text-center">
-        Enter your email address and we'll send you a code to forgot your
+        Enter your email address and we&apos;ll send you a code to forgot your
         password.
       </p>
 

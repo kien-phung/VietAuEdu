@@ -54,7 +54,7 @@ export default function JobOpportunitiesPage() {
     const matchesSearch =
       job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       job.location.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      job.company.toLowerCase().includes(searchTerm.toLowerCase());
+      job?.company?.toLowerCase().includes(searchTerm.toLowerCase());
 
     return matchesCountry && matchesWorkType && matchesSearch;
   });
@@ -266,7 +266,7 @@ export default function JobOpportunitiesPage() {
                   </div>
 
                   <div className="flex gap-2 mb-4">
-                    {job.benefits.slice(0, 2).map((benefit, index) => (
+                    {job?.benefits?.slice(0, 2).map((benefit, index) => (
                       <span
                         key={index}
                         className="inline-block bg-primary/10 dark:bg-primary/20 text-primary dark:text-primary text-xs px-2 py-1 rounded-full"

@@ -7,8 +7,6 @@ import type React from "react";
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-
-// ... existing code ...
 const ResetPasswordPage: React.FC = () => {
   const router = useRouter();
   const searchParams = useSearchParams();

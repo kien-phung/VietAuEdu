@@ -8,10 +8,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const VerificationPage: React.FC = () => {
+  const email = new URLSearchParams(window.location.search).get("email") || "your email";
+
   const router = useRouter();
   const { isLoading, verifyOTP } = useAuthStore();
   const [code, setCode] = useState(["", "", "", "", "", ""]);
-  const [error, setError] = useState("");
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
 
   const handleInputChange = (index: number, value: string) => {
@@ -35,7 +36,6 @@ const VerificationPage: React.FC = () => {
 
   const validate = () => {
     if (code.some((digit) => digit === "")) {
-      setError("Please enter all digits");
       return false;
     }
     return true;
@@ -49,10 +49,9 @@ const VerificationPage: React.FC = () => {
     }
 
     const otp = code.join("");
-    const res = await verifyOTP(otp);
+    const res = await verifyOTP(email, otp);
 
     if (!res) {
-      setError("Invalid OTP");
       return;
     }
 
@@ -97,8 +96,8 @@ const VerificationPage: React.FC = () => {
       </h1>
 
       <p className="text-primary-400 text-sm mb-6 text-center">
-        We've sent a verification code to{" "}
-        {new URLSearchParams(window.location.search).get("email")}
+        We&apos;ve sent a verification code to{" "}
+        {email}
         Enter the code below to verify your account.
       </p>
 
@@ -135,7 +134,7 @@ const VerificationPage: React.FC = () => {
 
       <div className="text-center">
         <p className="text-gray-400 text-sm">
-          Didn't receive a code?{" "}
+          Didn&apos;t receive a code?{" "}
           <button
             onClick={handleResend}
             className="text-primary-500 hover:text-primary-700 underline cursor-pointer"

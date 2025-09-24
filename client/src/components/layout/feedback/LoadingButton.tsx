@@ -5,7 +5,13 @@ interface LoadingButtonProps {
   children: React.ReactNode;
   loading?: boolean;
   fullWidth?: boolean;
-  variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link";
+  variant?:
+    | "default"
+    | "destructive"
+    | "outline"
+    | "secondary"
+    | "ghost"
+    | "link";
   className?: string;
   onClick?: () => void;
 }

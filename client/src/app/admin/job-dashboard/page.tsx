@@ -10,8 +10,6 @@ import { JobFilter } from "@/components/common/admin/jobDashboard/JobFilter";
 import { JobTable } from "@/components/common/admin/jobDashboard/JobTable";
 import { TableSearch } from "@/components/common/admin/TableSearch";
 import { useJobStore } from "@/utils/stores/jobStore";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { JobStatus } from "@/utils/constants/jobConstants";
 
 const initialFilters = { status: [] as string[], contentType: [] as string[] };
 
