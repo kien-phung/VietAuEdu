@@ -25,7 +25,7 @@ export default function MainIntroductionSection({
           transition={{ duration: 0.6 }}
         >
           <motion.h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center"
+            className="text-3xl font-bold text-primary mb-8 text-center"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={
               introInView
@@ -53,7 +53,7 @@ export default function MainIntroductionSection({
               như Nhật Bản, Hàn Quốc, Đài Loan, Úc và Đức.
             </motion.p>
             <motion.p
-              className="mb-6"
+              className="mb-6 text-primary"
               initial={{ opacity: 0, x: 20 }}
               animate={
                 introInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }

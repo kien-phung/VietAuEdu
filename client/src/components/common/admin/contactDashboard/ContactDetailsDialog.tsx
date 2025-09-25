@@ -60,11 +60,11 @@ const ContactDetailsDialog = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-[#121212] p-6 text-left align-middle shadow-xl transition-all">
-                <Dialog.Title className="text-lg font-bold text-white">
+              <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white dark:bg-gray-800 p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Title className="text-lg font-bold text-gray-900 dark:text-white">
                   Artist Application Details
                 </Dialog.Title>
-                <Dialog.Description className="text-white">
+                <Dialog.Description className="text-gray-700 dark:text-gray-300">
                   Review the artist application from {selectedContact?.name}
                 </Dialog.Description>
 

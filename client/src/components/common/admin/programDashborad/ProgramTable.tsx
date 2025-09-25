@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/table";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CardContent } from "@/components/ui/card";
-import { TableSkeleton } from "@/components/layout/TableSkeleton";
+import { TableSkeleton } from "@/components/layout/feedback/TableSkeleton";
 
 interface ProgramTableProps {
   Programs: IProgram[];
@@ -28,7 +28,7 @@ export const ProgramTable = ({ Programs, isLoading }: ProgramTableProps) => {
   };
 
   return (
-    <ScrollArea className="h-[calc(100vh-220px)] w-full rounded-xl">
+    <ScrollArea className="h-[calc(100vh-220px)] w-full rounded-xl bg-white dark:bg-gray-800">
       <CardContent>
         <Table>
           <TableHeader>
@@ -52,19 +52,19 @@ export const ProgramTable = ({ Programs, isLoading }: ProgramTableProps) => {
             ) : Programs.length > 0 ? (
               Programs.map((program) => (
                 <TableRow key={program.id}>
-                  <TableCell className="flex items-center justify-center gap-1 text-white">
+                  <TableCell className="flex items-center justify-center gap-1">
                     {program.title}
                   </TableCell>
 
-                  <TableCell className="flex items-center justify-center gap-1 text-white">
+                  <TableCell className="flex items-center justify-center gap-1">
                     {program.country}
                   </TableCell>
 
-                  <TableCell className="flex items-center justify-center gap-1 text-white">
+                  <TableCell className="flex items-center justify-center gap-1">
                     {program.duration}
                   </TableCell>
 
-                  <TableCell className="flex items-center justify-center gap-1 text-white">
+                  <TableCell className="flex items-center justify-center gap-1">
                     {program.tuition}
                   </TableCell>
 

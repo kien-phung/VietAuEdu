@@ -8,7 +8,7 @@ const AdminSidebar = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div className="w-20 md:w-80 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 fixed h-full" />
+      <div className="w-20 md:w-80 bg-white dark:bg-gray-800 border-r-2 border-gray-300 dark:border-gray-700" />
     ),
   }
 );
@@ -61,7 +61,7 @@ export default function AdminLayout({
 
   const resize = (e: MouseEvent) => {
     if (isResizing.current) {
-      const newWidth = Math.max(80, Math.min(400, e.clientX));
+      const newWidth = Math.max(80, Math.min(320, e.clientX));
       setSidebarWidth(newWidth);
       setSidebarCollapsed(newWidth < 120);
     }
@@ -77,24 +77,28 @@ export default function AdminLayout({
   }, []);
 
   return (
-    <div className="flex h-screen bg-gray-50 dark:bg-gray-900">
-      {typeof window !== "undefined" && (
-        <AdminSidebar
-          collapsed={sidebarCollapsed}
-          width={sidebarWidth}
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-          onStartResizing={startResizing}
-        />
-      )}
-      <div
-        className="flex-1 flex flex-col overflow-hidden transition-all duration-300"
-        style={{
-          marginLeft: sidebarCollapsed ? "80px" : `${sidebarWidth}px`,
-        }}
-      >
-        <main className="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50 dark:bg-gray-900">
-          {children}
-        </main>
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <div className="flex relative">
+        {typeof window !== "undefined" && (
+          <div className="sticky top-0 h-screen">
+            <AdminSidebar
+              collapsed={sidebarCollapsed}
+              width={sidebarWidth}
+              onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+              onStartResizing={startResizing}
+            />
+          </div>
+        )}
+        <div
+          className="flex-1 transition-all duration-300"
+          style={{
+            marginLeft: "8px", // Fixed small margin between sidebar and content
+          }}
+        >
+          <main className="p-4 md:p-6 bg-gray-50 dark:bg-gray-900">
+            {children}
+          </main>
+        </div>
       </div>
     </div>
   );

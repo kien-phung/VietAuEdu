@@ -1,17 +1,16 @@
 "use client";
 import { useCallback, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
-import { Search, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { useContactStore } from "@/utils/stores/contactStore";
 import { useAuthStore } from "@/utils/stores/authStore";
 import ContactDetailsDialog from "@/components/common/admin/contactDashboard/ContactDetailsDialog";
-import { Input } from "@/components/ui/input";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { ContactTable } from "@/components/common/admin/contactDashboard/ContactTable";
-import { ContactFilter } from "@/components/common/admin/contactDashboard/ContactFilter";
+import { TableSearch } from "@/components/common/admin/TableSearch";
+import { ProgramFilter } from "@/components/common/admin/programDashborad/ProgramFilter";
 
 export default function ContactDashboardPage() {
   const { userAuth } = useAuthStore();
@@ -143,9 +142,7 @@ export default function ContactDashboardPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight">
-          Artist Applications
-        </h2>
+        <h2 className="text-3xl font-bold tracking-tight">Contact Dashboard</h2>
       </div>
 
       {/* View Contact Details Dialog */}
@@ -160,28 +157,18 @@ export default function ContactDashboardPage() {
       />
 
       <div className="space-y-4">
-        <Card className="bg-primary text-primary-foreground">
+        <Card className="bg-white dark:bg-gray-800">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
-              <CardTitle>Contact Dashboard</CardTitle>
+              <CardTitle />
 
               <div className="flex items-center gap-2">
-                <form
-                  onSubmit={handleSearch}
-                  className="flex items-center gap-2"
-                >
-                  <div className="relative w-60">
-                    <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-
-                    <Input
-                      type="search"
-                      placeholder="Search users..."
-                      className="w-full pl-8"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </div>
-                </form>
+                <TableSearch
+                  handleSearch={handleSearch}
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
+                  placeholder="Search Programs..."
+                />
 
                 <Button
                   variant="secondary"
@@ -193,7 +180,7 @@ export default function ContactDashboardPage() {
                   Refresh
                 </Button>
 
-                <ContactFilter
+                <ProgramFilter
                   openMenuFilters={openMenuFilters}
                   setOpenMenuFilters={setOpenMenuFilters}
                   activeFilters={activeFilters}
@@ -206,15 +193,11 @@ export default function ContactDashboardPage() {
             </div>
           </CardHeader>
 
-          <ScrollArea className="h-[calc(100vh-340px)] w-full  rounded-xl">
-            <CardContent>
-              <ContactTable
-                contacts={contacts}
-                isLoading={isLoading}
-                onViewDetails={handleViewDetails}
-              />
-            </CardContent>
-          </ScrollArea>
+          <ContactTable
+            contacts={contacts}
+            isLoading={isLoading}
+            onViewDetails={handleViewDetails}
+          />
         </Card>
       </div>
     </div>

@@ -1,6 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CardContent } from "@/components/ui/card";
-import { TableSkeleton } from "@/components/layout/TableSkeleton";
 import { Button } from "@/components/ui/button";
 import { Edit, Eye, Trash2 } from "lucide-react";
 import {
@@ -11,6 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { TableSkeleton } from "@/components/layout/feedback/TableSkeleton";
 
 interface IJobTableProps {
   Jobs: IJob[];
@@ -39,7 +39,7 @@ export const JobTable = ({
   };
 
   return (
-    <ScrollArea className="h-[calc(100vh-220px)] w-full rounded-xl">
+    <ScrollArea className="h-[calc(100vh-220px)] w-full rounded-xl bg-white dark:bg-gray-800">
       <CardContent>
         <Table>
           <TableHeader>
@@ -65,29 +65,17 @@ export const JobTable = ({
             ) : Jobs.length > 0 ? (
               Jobs.map((job) => (
                 <TableRow key={job.id}>
-                  <TableCell className="text-center text-white">
-                    {job.title}
-                  </TableCell>
+                  <TableCell className="text-center">{job.title}</TableCell>
 
-                  <TableCell className="text-center text-white">
-                    {job.country}
-                  </TableCell>
+                  <TableCell className="text-center">{job.country}</TableCell>
 
-                  <TableCell className="text-center text-white">
-                    {job.company}
-                  </TableCell>
+                  <TableCell className="text-center">{job.company}</TableCell>
 
-                  <TableCell className="text-center text-white">
-                    {job.positions}
-                  </TableCell>
+                  <TableCell className="text-center">{job.positions}</TableCell>
 
-                  <TableCell className="text-center text-white">
-                    {job.salary}
-                  </TableCell>
+                  <TableCell className="text-center">{job.salary}</TableCell>
 
-                  <TableCell className="text-center text-white">
-                    {job.workType}
-                  </TableCell>
+                  <TableCell className="text-center">{job.workType}</TableCell>
 
                   <TableCell className="text-center">
                     <div className="flex items-center justify-center gap-2">

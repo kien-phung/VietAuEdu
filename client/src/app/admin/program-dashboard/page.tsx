@@ -1,4 +1,5 @@
 "use client";
+
 import { useCallback, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Plus, RefreshCw } from "lucide-react";
@@ -10,6 +11,7 @@ import UpdateProgramDialog from "@/components/common/admin/programDashborad/Upda
 import { TableSearch } from "@/components/common/admin/TableSearch";
 import { ProgramFilter } from "@/components/common/admin/programDashborad/ProgramFilter";
 import { ProgramTable } from "@/components/common/admin/programDashborad/ProgramTable";
+import { EStatus } from "@/utils/types/enum";
 
 const initialFilters = { status: [] as string[] };
 
@@ -40,13 +42,14 @@ export default function ProgramDashboardPage() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await getAllPrograms();
-
       const data = res?.data?.programs;
-
       setPrograms(data || []);
     };
 
-    fetchData();
+    // Only run the effect on the client
+    if (typeof window !== "undefined") {
+      fetchData();
+    }
   }, [query, searchParams, getAllPrograms]);
 
   const handleSearch = useCallback(
@@ -112,6 +115,8 @@ export default function ProgramDashboardPage() {
     setActiveFilters(newFilters);
   }, [searchParams]);
 
+  // Use a key to reset the dialog data completely between opens
+  const [dialogKey, setDialogKey] = useState(0);
   const [data, setData] = useState<IProgram | null>(null);
 
   const handleChange = (
@@ -177,7 +182,22 @@ export default function ProgramDashboardPage() {
           <Button
             size="sm"
             className="h-8 gap-1"
-            onClick={() => setIsCreateProgramOpen(true)}
+            onClick={() => {
+              setData({
+                id: "",
+                title: "",
+                description: "",
+                country: "",
+                duration: "",
+                tuition: "",
+                requirements: [],
+                benefits: [],
+                imageUrl: "",
+                featured: false,
+                status: EStatus.INACTIVE,
+              });
+              setIsCreateProgramOpen(true);
+            }}
           >
             <Plus className="h-4 w-4" />
             Create Program
@@ -186,8 +206,15 @@ export default function ProgramDashboardPage() {
       </div>
 
       <CreateProgramDialog
+        key={`create-${dialogKey}`}
         isOpen={isCreateProgramOpen}
-        onOpenChange={setIsCreateProgramOpen}
+        onOpenChange={(open) => {
+          setIsCreateProgramOpen(open);
+          if (!open) {
+            setData(null);
+            setDialogKey((prev) => prev + 1);
+          }
+        }}
         onChange={handleChange}
         onProgramCreated={handleCreate}
         data={data}
@@ -195,8 +222,15 @@ export default function ProgramDashboardPage() {
       />
 
       <UpdateProgramDialog
+        key={`update-${dialogKey}`}
         isOpen={isUpdateProgramOpen}
-        onOpenChange={setIsUpdateProgramOpen}
+        onOpenChange={(open) => {
+          setIsUpdateProgramOpen(open);
+          if (!open) {
+            setData(null);
+            setDialogKey((prev) => prev + 1);
+          }
+        }}
         onChange={handleChange}
         data={data}
         onProgramUpdated={handleUpdate}
@@ -204,7 +238,7 @@ export default function ProgramDashboardPage() {
       />
 
       <div className="space-y-4">
-        <Card className="bg-primary text-primary-foreground">
+        <Card className="bg-white dark:bg-gray-800">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle />

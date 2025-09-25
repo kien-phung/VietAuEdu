@@ -1,5 +1,5 @@
+import { TableSkeleton } from "@/components/layout/feedback/TableSkeleton";
 import { CardContent } from "@/components/ui/card";
-import { TableSkeleton } from "@/components/layout/TableSkeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Table,
@@ -47,7 +47,7 @@ export const FAQTable = ({ FAQs, isLoading }: IFAQTableProps) => {
   };
 
   return (
-    <ScrollArea className="h-[calc(100vh-220px)] w-full  rounded-xl">
+    <ScrollArea className="h-[calc(100vh-220px)] w-full rounded-xl bg-white dark:bg-gray-800">
       <CardContent>
         <Table>
           <TableHeader>
@@ -72,11 +72,11 @@ export const FAQTable = ({ FAQs, isLoading }: IFAQTableProps) => {
             ) : FAQs.length > 0 ? (
               FAQs.map((FAQ) => (
                 <TableRow key={FAQ.id}>
-                  <TableCell className="flex items-center justify-center gap-1 text-white">
+                  <TableCell className="flex items-center justify-center gap-1">
                     {FAQ.question}
                   </TableCell>
 
-                  <TableCell className="flex items-center justify-center gap-1 text-white">
+                  <TableCell className="flex items-center justify-center gap-1">
                     {FAQ.answer}
                   </TableCell>
 

@@ -51,7 +51,7 @@ const CreateFAQDialog = ({
 }: CreateFAQDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[525px] bg-[#121212]">
+      <DialogContent className="sm:max-w-[525px] bg-white dark:bg-gray-800">
         <DialogHeader>
           <DialogTitle>Create New IFAQ</DialogTitle>
 

@@ -215,7 +215,7 @@ export default function JobDashboardPage() {
       />
 
       <div className="space-y-4">
-        <Card className="bg-primary text-primary-foreground">
+        <Card className="bg-white dark:bg-gray-800">
           <CardHeader className="pb-3">
             <div className="flex items-center justify-between">
               <CardTitle />

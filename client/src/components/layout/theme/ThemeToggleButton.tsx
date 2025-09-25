@@ -5,15 +5,13 @@ import { useTheme } from "next-themes";
 import { Sun, Moon } from "lucide-react";
 
 export function ThemeToggleButton() {
-  const { theme, setTheme, systemTheme, resolvedTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
   // useEffect only runs on the client, so now we can safely show the UI
   React.useEffect(() => {
     setMounted(true);
-    // Debug log
-    console.log("Theme debug:", { theme, systemTheme, resolvedTheme });
-  }, [theme, systemTheme, resolvedTheme]);
+  }, []);
 
   if (!mounted) {
     // Render skeleton during SSR and hydration
@@ -26,7 +24,6 @@ export function ThemeToggleButton() {
 
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
-    console.log("Toggling theme from", theme, "to", newTheme);
     setTheme(newTheme);
   };
 

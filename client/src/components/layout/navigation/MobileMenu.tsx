@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
+import { NavItem } from "./NavItem";
 
 const navigation = [
   { name: "Trang chủ", href: "/" },
@@ -64,16 +65,15 @@ export default function MobileMenu({ isOpen, setIsOpen }: MobileMenuProps) {
 
         {/* Menu content starting below navbar */}
         <div className="p-6 pt-4">
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-6">
             {navigation.map((item) => (
-              <Link
+              <NavItem
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium py-2"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
-              </Link>
+              </NavItem>
             ))}
             <div className="pt-4">
               <Button variant="secondary" className="w-full">

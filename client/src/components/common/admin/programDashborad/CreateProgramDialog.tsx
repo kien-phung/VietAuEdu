@@ -3,13 +3,13 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectTrigger,
@@ -38,14 +38,14 @@ const CreateProgramDialog = ({
 }: CreateProgramDialogProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[525px] bg-[#121212]">
+      <DialogContent className="sm:max-w-[525px] bg-white dark:bg-gray-800">
         <DialogHeader>
           <DialogTitle>Create New Program</DialogTitle>
-          <DialogDescription>Create a new program.</DialogDescription>
         </DialogHeader>
 
-        <div className="grid gap-4 py-4 max-h-[60vh] overflow-y-auto">
-          <div className="grid gap-4">
+        <ScrollArea className="h-[60vh]">
+          <div className="grid gap-4 py-4 pr-4">
+            <div className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="create-title">Title</Label>
               <Input
@@ -168,6 +168,7 @@ const CreateProgramDialog = ({
             </Select>
           </div>
         </div>
+        </ScrollArea>
 
         <DialogFooter>
           <Button

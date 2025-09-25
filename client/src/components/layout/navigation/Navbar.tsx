@@ -7,6 +7,7 @@ import { Phone, Mail, Menu, X } from "lucide-react";
 import Image from "next/image";
 import { ThemeToggleButton } from "../theme/ThemeToggleButton";
 import MobileMenu from "./MobileMenu";
+import { NavItem } from "./NavItem";
 
 const navigation = [
   { name: "Trang chủ", href: "/" },
@@ -24,7 +25,7 @@ export default function Navbar() {
   return (
     <>
       <MobileMenu isOpen={isMobileMenuOpen} setIsOpen={setIsMobileMenuOpen} />
-      <header className="bg-white dark:bg-gray-900 shadow-sm sticky top-0 z-50 transition-colors">
+      <header className="bg-white dark:bg-gray-900 shadow-md border-b border-gray-300 dark:border-gray-700 sticky top-0 z-50 transition-colors">
         {/* Top bar - SSR only for faster rendering */}
         <div className="bg-primary dark:bg-primary text-white py-2">
           <div className="container mx-auto px-4">
@@ -72,14 +73,9 @@ export default function Navbar() {
             {/* Desktop Navigation - SSR */}
             <div className="hidden lg:flex items-center space-x-8">
               {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  prefetch={true}
-                  className="text-gray-700 dark:text-gray-300 hover:text-primary dark:hover:text-primary transition-colors font-medium"
-                >
+                <NavItem key={item.name} href={item.href}>
                   {item.name}
-                </Link>
+                </NavItem>
               ))}
             </div>
 
