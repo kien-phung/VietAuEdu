@@ -1,5 +1,4 @@
 import { Save } from "lucide-react";
-import { JobStatus } from "@/utils/constants/jobConstants";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +17,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+
+export const JobStatus = [
+  { value: "active", label: "Active" },
+  { value: "inactive", label: "Inactive" },
+];
 
 interface CreateJobDialogProps {
   isOpen: boolean;

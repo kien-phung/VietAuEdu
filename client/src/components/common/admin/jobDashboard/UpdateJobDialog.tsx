@@ -2,7 +2,6 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Button } from "@/components/ui/button";
 import { Save } from "lucide-react";
-import { JobStatus } from "@/utils/constants/jobConstants";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -13,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { JobStatus } from "./CreateJobDialog";
 
 interface UpdateJobDialogProps {
   isOpen: boolean;

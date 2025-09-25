@@ -1,64 +1,30 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-const jobOpportunities: IJob[] = [
-  {
-    id: "1",
-    title: "CHẾ BIẾN NƯƠNG SẢN - Japan",
-    country: "Japan",
-    imageUrl: "/images/jobs/agricultural-processing.jpg",
-    positions: 3,
-    location: "KAGOSHIMA",
-    salary: "147.715 Yên/Tháng",
-    applicationDeadline: "26/09/2025",
-    estimatedDeparture: "4 - 6 tháng sau khi thi đỗ phỏng vấn",
-  },
-  {
-    id: "2",
-    title: "Vệ Sinh Khách Sạn - Japan",
-    country: "Japan",
-    imageUrl: "/images/jobs/hotel-cleaning.jpg",
-    positions: 3,
-    location: "OITA",
-    salary: "163.400 Yên/Tháng",
-    applicationDeadline: "03/10/2025",
-    estimatedDeparture: "4 - 6 tháng sau khi thi đỗ phỏng vấn",
-  },
-  {
-    id: "3",
-    title: "CHẾ BIẾN THỰC PHẨM - Japan",
-    country: "Japan",
-    imageUrl: "/images/jobs/food-processing.jpg",
-    positions: 2,
-    location: "KUMAMOTO",
-    salary: "153.000 Yên/Tháng",
-    applicationDeadline: "26/09/2025",
-    estimatedDeparture: "4 - 6 tháng sau khi thi đỗ phỏng vấn",
-  },
-  {
-    id: "4",
-    title: "XÂY DỰNG - Japan",
-    country: "Japan",
-    imageUrl: "/images/jobs/construction.jpg",
-    positions: 1,
-    location: "KAGOSHIMA",
-    salary: "155.481 Yên/Tháng",
-    applicationDeadline: "26/09/2025",
-    estimatedDeparture: "4 - 6 tháng sau khi thi đỗ phỏng vấn",
-  },
-];
+import { useJobStore } from "@/utils/stores/jobStore";
 
 const countries = ["Japan", "Korea", "Germany", "Australia", "Taiwan"];
 
 export default function JobOpportunitiesSection() {
+  const { getAllJobs } = useJobStore();
+
+  const [jobs, setJobs] = useState<IJob[]>([]);
   const [selectedCountry, setSelectedCountry] = useState("Japan");
 
-  const filteredJobs = jobOpportunities.filter(
-    (job) => job.country === selectedCountry
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getAllJobs();
+      const data = res.data?.jobs || [];
+
+      setJobs(data);
+    };
+
+    fetchData();
+  }, [getAllJobs]);
+
+  const filteredJobs = jobs.filter((job) => job.country === selectedCountry);
 
   return (
     <section className="py-16 bg-white dark:bg-gray-800 transition-colors">

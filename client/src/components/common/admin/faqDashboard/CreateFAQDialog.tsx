@@ -1,5 +1,4 @@
-import { Save, Loader2 } from "lucide-react";
-import { FAQCategory, FAQStatus } from "@/utils/constants/faqConstants";
+import { Loader2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +17,20 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
+
+export const FAQStatus = [
+  { value: "active", label: "Active" },
+  { value: "inactive", label: "Inactive" },
+];
+
+export const FAQCategory = [
+  { value: "Hồ sơ du học", label: "Hồ sơ du học" },
+  { value: "Chi phí", label: "Chi phí" },
+  { value: "Visa", label: "Visa" },
+  { value: "Ngôn ngữ", label: "Ngôn ngữ" },
+  { value: "Định cư", label: "Định cư" },
+  { value: "Dịch vụ", label: "Dịch vụ" },
+];
 
 interface CreateFAQDialogProps {
   isOpen: boolean;

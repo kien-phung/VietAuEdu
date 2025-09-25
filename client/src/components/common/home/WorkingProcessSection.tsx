@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 
 interface IProcessStep {
   number: string;
@@ -48,8 +49,15 @@ const processSteps: IProcessStep[] = [
 ];
 
 export default function WorkingProcessSection() {
+  const ref = useRef(null);
+  // Cấu hình để animation chạy mỗi khi section xuất hiện với tối thiểu 30% nội dung
+  const isInView = useInView(ref, {
+    amount: 0.3, // Hiển thị ít nhất 30% của section để kích hoạt animation
+    margin: "100px 0px", // Kích hoạt trước khi section xuất hiện hoàn toàn để animation mượt hơn
+  });
+
   return (
-    <section className="py-16 relative overflow-hidden">
+    <section ref={ref} className="py-16 relative overflow-hidden">
       {/* Background Image with Overlay */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -62,48 +70,103 @@ export default function WorkingProcessSection() {
 
       <div className="relative z-10 container mx-auto px-4">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-4">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : -20 }}
+          transition={{
+            duration: 0.6,
+            ease: "easeOut",
+          }}
+        >
+          <motion.div
+            className="flex items-center justify-center mb-4"
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: isInView ? 1 : 0, opacity: isInView ? 1 : 0 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             <div className="w-8 h-8 border-2 border-white rounded-full flex items-center justify-center mr-3">
               <div className="w-4 h-4 bg-white rounded-full"></div>
             </div>
             <span className="text-white text-lg font-medium tracking-wider">
               WORKING PROCESS
             </span>
-          </div>
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
+          </motion.div>
+          <motion.h2
+            className="text-3xl lg:text-4xl font-bold text-white mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+          >
             Quy Trình Làm Việc Của Giáo Dục Quốc Tế Việt Âu
-          </h2>
-        </div>
+          </motion.h2>
+        </motion.div>
 
         {/* Process Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-          {processSteps.map((step) => (
-            <div
+        <motion.div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+          {processSteps.map((step, index) => (
+            <motion.div
               key={step.number}
               className="flex flex-col sm:flex-row items-center bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-white/95 dark:hover:bg-gray-800/95"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{
+                duration: 0.5,
+                delay: isInView ? 0.6 + index * 0.15 : 0, // Staggered delay only when appearing
+                ease: "easeOut",
+              }}
+              whileHover={{
+                scale: 1.02,
+                boxShadow:
+                  "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+              }}
             >
               {/* Number Circle */}
-              <div className="mb-4 sm:mb-0 sm:mr-6 flex-shrink-0">
+              <motion.div
+                className="mb-4 sm:mb-0 sm:mr-6 flex-shrink-0"
+                initial={{ scale: 0 }}
+                animate={isInView ? { scale: 1 } : { scale: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                  delay: isInView ? 0.7 + index * 0.15 : 0,
+                }}
+              >
                 <div className="w-16 h-16 bg-white dark:bg-gray-800 rounded-full flex items-center justify-center shadow-lg border-4 border-primary">
-                  <span className="text-2xl font-bold text-primary">
+                  <motion.span
+                    className="text-2xl font-bold text-primary"
+                    animate={isInView ? { scale: [1, 1.15, 1] } : { scale: 1 }}
+                    transition={{
+                      duration: 0.5,
+                      delay: isInView ? 1 + index * 0.15 : 0,
+                    }}
+                  >
                     {step.number}
-                  </span>
+                  </motion.span>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Content */}
-              <div className="text-center sm:text-left">
+              <motion.div
+                className="text-center sm:text-left"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : { opacity: 0 }}
+                transition={{
+                  duration: 0.4,
+                  delay: isInView ? 0.8 + index * 0.15 : 0,
+                }}
+              >
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                   {step.title}
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
                   {step.description}
                 </p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
