@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response, ErrorRequestHandler } from "express";
 import { ErrorCustom } from "../custom.js";
+import { ENABLE_QPS_LOGGING } from "../constants.js";
 
 /**
  * Middleware ghi log các request
@@ -37,11 +38,19 @@ let requests = 0;
 
 /**
  * Đặt interval để đếm QPS (Queries Per Second)
+ * Chỉ hiển thị log khi có request (QPS > 0)
+ * và khi biến môi trường ENABLE_QPS_LOGGING=true
  */
-setInterval(() => {
-    console.log(`QPS: ${requests}`);
-    requests = 0;
-}, 1000);
+
+// Chỉ tạo interval nếu tính năng logging được bật
+if (ENABLE_QPS_LOGGING === 'true') {
+    setInterval(() => {
+        if (requests > 0) {
+            console.log(`QPS: ${requests}`);
+        }
+        requests = 0;
+    }, 1000);
+}
 
 /**
  * Middleware đếm và ghi nhận số lượng request

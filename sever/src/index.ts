@@ -11,7 +11,7 @@ applyMiddlewares(app);
 
 // Kết nối đến cơ sở dữ liệu
 connectDatabase()
-  .then(() => console.log('Database đã sẵn sàng'))
+  .then(() => console.log('Các database đã sẵn sàng'))
   .catch((err: Error) => console.error('Lỗi kết nối database:', err));
 
 // Đăng ký tất cả các route với tiền tố /api/v1

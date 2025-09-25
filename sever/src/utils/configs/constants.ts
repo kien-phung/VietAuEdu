@@ -9,6 +9,7 @@ export const PRIVATE_KEY = process.env.PRIVATE_KEY!;
 
 export const DATABASE_MONGO_URL = process.env.DATABASE_MONGO_URL!;
 export const REDIS_URL = process.env.REDIS_URL!;
+export const ENABLE_QPS_LOGGING = process.env.ENABLE_QPS_LOGGING!;
 
 export const CLOUDINARY_URL = process.env.CLOUDINARY_URL!;
 
