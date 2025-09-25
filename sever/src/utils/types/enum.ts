@@ -4,6 +4,8 @@ export enum EStatus {
 }
 
 export enum EUserStatus {
+    INACTIVE = "inactive",
+    ACTIVE = "active",
     PENDING = "pending"
 }
 
