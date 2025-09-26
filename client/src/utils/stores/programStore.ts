@@ -1,5 +1,6 @@
 import { EHttpType, handleRequest, IApiResponse } from "../../lib/axiosInstance";
 import { IBaseStore, createStore } from "../../lib/initialStore";
+import { EStatus } from "../types/enum";
 
 interface IProgramDataResponse {
 	program?: IProgram;
@@ -18,10 +19,11 @@ export interface IProgramStore extends IBaseStore {
 		country: string,
 		duration: string,
 		tuition: string,
+		image: File | null,
 		requirements: string[],
 		benefits: string[],
 		featured: boolean,
-		status: "active" | "inactive"
+		status: EStatus
 	) => Promise<IApiResponse<IProgramDataResponse>>;
 	updateProgram: (
 		programId: string,
@@ -30,10 +32,11 @@ export interface IProgramStore extends IBaseStore {
 		country: string,
 		duration: string,
 		tuition: string,
+		image: File | null | string,
 		requirements: string[],
 		benefits: string[],
 		featured: boolean,
-		status: "active" | "inactive"
+		status: EStatus
 	) => Promise<IApiResponse<IProgramDataResponse>>;
 }
 
@@ -68,10 +71,11 @@ export const useProgramStore = createStore<IProgramStore>(
 			country: string,
 			duration: string,
 			tuition: string,
+			image: File | null,
 			requirements: string[],
 			benefits: string[],
 			featured: boolean,
-			status: "active" | "inactive"
+			status: EStatus
 		): Promise<IApiResponse<IProgramDataResponse>> => {
 			return await get().handleRequest(async () => {
 				const formData = new FormData();
@@ -80,6 +84,12 @@ export const useProgramStore = createStore<IProgramStore>(
 				formData.append("country", country);
 				formData.append("duration", duration);
 				formData.append("tuition", tuition);
+
+				// Chỉ thêm hình ảnh nếu có tệp hợp lệ
+				if (image instanceof File && image.size > 0) {
+					formData.append("image", image);
+				}
+
 				formData.append("requirements", JSON.stringify(requirements));
 				formData.append("benefits", JSON.stringify(benefits));
 				formData.append("featured", featured.toString());
@@ -96,10 +106,11 @@ export const useProgramStore = createStore<IProgramStore>(
 			country: string,
 			duration: string,
 			tuition: string,
+			image: File | null | string,
 			requirements: string[],
 			benefits: string[],
 			featured: boolean,
-			status: "active" | "inactive"
+			status: EStatus
 		): Promise<IApiResponse<IProgramDataResponse>> => {
 			return await get().handleRequest(async () => {
 				const formData = new FormData();
@@ -108,12 +119,19 @@ export const useProgramStore = createStore<IProgramStore>(
 				formData.append("country", country);
 				formData.append("duration", duration);
 				formData.append("tuition", tuition);
+
+				// Xử lý image theo kiểu dữ liệu
+				if (image instanceof File && image.size > 0) {
+					// Nếu là đối tượng File mới, gửi lên để upload
+					formData.append("image", image);
+				}
+
 				formData.append("requirements", JSON.stringify(requirements));
 				formData.append("benefits", JSON.stringify(benefits));
 				formData.append("featured", featured.toString());
 				formData.append("status", status);
 
-				return await handleRequest(EHttpType.PUT, `/programs/${programId}`, formData);
+				return await handleRequest(EHttpType.PATCH, `/programs/${programId}`, formData);
 			});
 		},
 

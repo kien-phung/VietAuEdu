@@ -1,4 +1,5 @@
 "use client";
+
 import { useCallback, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Plus, RefreshCw } from "lucide-react";
@@ -10,6 +11,7 @@ import { JobFilter } from "@/components/common/admin/jobDashboard/JobFilter";
 import { JobTable } from "@/components/common/admin/jobDashboard/JobTable";
 import { TableSearch } from "@/components/common/admin/TableSearch";
 import { useJobStore } from "@/utils/stores/jobStore";
+import { EStatus } from "@/utils/types/enum";
 
 const initialFilters = { status: [] as string[], contentType: [] as string[] };
 
@@ -113,69 +115,151 @@ export default function JobDashboardPage() {
     setActiveFilters(newFilters);
   }, [searchParams]);
 
-  const [data, setData] = useState<IJob | null>(null);
+  // Sử dụng kiểu mở rộng của IJob để bao gồm trường image
+  type ExtendedJobData = IJob & { image?: File | null };
+  const [data, setData] = useState<ExtendedJobData | null>(null);
 
   const handleChange = (
-    field: keyof IJob,
-    value: string | number | boolean | string[]
+    field: keyof ExtendedJobData,
+    value: string | number | boolean | string[] | File | null
   ) => {
     setData((prev) => (prev ? { ...prev, [field]: value } : prev));
   };
 
   const handleUpdate = async () => {
     if (data) {
-      await updateJob(
-        data.id,
-        data.description || "Job description", // question parameter
-        data.title,
-        data.country,
-        new File([], "placeholder.jpg", { type: "image/jpeg" }), // image placeholder
-        data.positions,
-        data.location,
-        data.salary,
-        data.applicationDeadline,
-        data.estimatedDeparture,
-        data.requirements,
-        data.benefits,
-        data.description,
-        data.company,
-        data.workType,
-        data.featured,
-        data.workingHours,
-        data.overtime,
-        data.accommodation,
-        data.workEnvironment,
-        data.trainingPeriod,
-        data.status
-      );
+      try {
+        // Ensure all fields are of the correct types
+        const positions =
+          typeof data.positions === "number"
+            ? data.positions
+            : parseInt(data.positions as unknown as string) || 0;
+        const featured =
+          typeof data.featured === "boolean"
+            ? data.featured
+            : data.featured === "true";
+        const requirements = Array.isArray(data.requirements)
+          ? data.requirements
+          : [];
+        const benefits = Array.isArray(data.benefits) ? data.benefits : [];
+
+        // Xác định xem sử dụng file hình ảnh mới hay URL hiện có
+        const imageToUse =
+          data.image instanceof File ? data.image : data.imageUrl || "";
+
+        // Direct call to the updateJob function with the optional question parameter
+        await updateJob(
+          data.id,
+          data.title || "",
+          data.country || "",
+          imageToUse, // Sử dụng file mới hoặc URL cũ
+          positions,
+          data.location || "",
+          data.salary || "",
+          data.applicationDeadline || "",
+          data.estimatedDeparture || "",
+          requirements,
+          benefits,
+          data.description || "Job description",
+          data.company || "",
+          data.workType || "",
+          featured,
+          data.workingHours || "",
+          data.overtime || "",
+          data.accommodation || "",
+          data.workEnvironment || "",
+          data.trainingPeriod || "",
+          data.status || EStatus.ACTIVE,
+          data.description || "" // Optional question parameter
+        );
+
+        // Refresh the jobs list after update
+        const res = await getAllJobs();
+        setJobs(res?.data?.jobs || []);
+
+        // Close the dialog
+        setIsUpdateJobOpen(false);
+      } catch (error) {
+        console.error("Error updating job:", error);
+      }
     }
   };
 
   const handleCreate = async () => {
     if (data) {
-      await createJob(
-        data.description || "Job description", // question parameter
-        data.title,
-        data.country,
-        new File([], "placeholder.jpg", { type: "image/jpeg" }), // image placeholder
-        data.positions,
-        data.location,
-        data.salary,
-        data.applicationDeadline,
-        data.estimatedDeparture,
-        data.requirements,
-        data.benefits,
-        data.description,
-        data.company,
-        data.workType,
-        data.featured,
-        data.workingHours,
-        data.overtime,
-        data.accommodation,
-        data.workEnvironment,
-        data.trainingPeriod,
-        data.status
-      );
+      try {
+        // Ensure all fields are of the correct types
+        const positions =
+          typeof data.positions === "number"
+            ? data.positions
+            : parseInt(data.positions as unknown as string) || 0;
+        const featured =
+          typeof data.featured === "boolean"
+            ? data.featured
+            : data.featured === "true";
+        const requirements = Array.isArray(data.requirements)
+          ? data.requirements
+          : [];
+        const benefits = Array.isArray(data.benefits) ? data.benefits : [];
+
+        // Sử dụng file hình ảnh nếu có
+        const imageFile = data.image instanceof File ? data.image : null;
+
+        await createJob(
+          data.description || "Job description", // question parameter
+          data.title || "",
+          data.country || "",
+          imageFile, // Truyền file hình ảnh nếu có
+          positions,
+          data.location || "",
+          data.salary || "",
+          data.applicationDeadline || "",
+          data.estimatedDeparture || "",
+          requirements,
+          benefits,
+          data.description || "",
+          data.company || "",
+          data.workType || "",
+          featured,
+          data.workingHours || "",
+          data.overtime || "",
+          data.accommodation || "",
+          data.workEnvironment || "",
+          data.trainingPeriod || "",
+          data.status || EStatus.ACTIVE
+        );
+
+        // Refresh the jobs list after create
+        const res = await getAllJobs();
+        setJobs(res?.data?.jobs || []);
+
+        // Close the dialog and reset the form
+        setIsCreateJobOpen(false);
+        setData({
+          id: "",
+          title: "",
+          country: "",
+          positions: 0,
+          location: "",
+          salary: "",
+          applicationDeadline: "",
+          estimatedDeparture: "",
+          requirements: [],
+          benefits: [],
+          description: "",
+          company: "",
+          workType: "",
+          featured: false,
+          workingHours: "",
+          overtime: "",
+          accommodation: "",
+          workEnvironment: "",
+          trainingPeriod: "",
+          status: EStatus.ACTIVE,
+        });
+      } catch (error) {
+        console.error("Error creating job:", error);
+      }
     }
   };
 

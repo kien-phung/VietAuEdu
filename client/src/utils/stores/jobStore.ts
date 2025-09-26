@@ -16,7 +16,7 @@ export interface IJobStore extends IBaseStore {
 		question: string,
 		title: string,
 		country: string,
-		image: File,
+		image: File | null,
 		positions: number,
 		location: string,
 		salary: string,
@@ -37,10 +37,9 @@ export interface IJobStore extends IBaseStore {
 	) => Promise<IApiResponse<IJobDataResponse>>;
 	updateJob: (
 		jobId: string,
-		question: string,
 		title: string,
 		country: string,
-		image: File,
+		image: File | null | string,
 		positions: number,
 		location: string,
 		salary: string,
@@ -58,6 +57,7 @@ export interface IJobStore extends IBaseStore {
 		workEnvironment: string,
 		trainingPeriod: string,
 		status: EStatus,
+		question?: string,
 	) => Promise<IApiResponse<IJobDataResponse>>;
 }
 
@@ -107,7 +107,10 @@ export const useJobStore = createStore<IJobStore>(
 			formData.append("question", question)
 			formData.append("title", title)
 			formData.append("country", country)
-			if (image) formData.append("image", image)
+			// Chỉ thêm hình ảnh nếu có tệp hợp lệ
+			if (image instanceof File && image.size > 0) {
+				formData.append("image", image)
+			}
 			formData.append("positions", positions.toString())
 			formData.append("location", location)
 			formData.append("salary", salary)
@@ -135,7 +138,7 @@ export const useJobStore = createStore<IJobStore>(
 			jobId: string,
 			title: string,
 			country: string,
-			image: File,
+			image: File | null | string, // Chấp nhận File, null, hoặc string (URL)
 			positions: number,
 			location: string,
 			salary: string,
@@ -153,12 +156,22 @@ export const useJobStore = createStore<IJobStore>(
 			workEnvironment: string,
 			trainingPeriod: string,
 			status: EStatus,
+			question?: string, // Optional question parameter
 		): Promise<IApiResponse<IJobDataResponse>> => {
 			const formData = new FormData();
-			formData.append("jobId", jobId)
 			formData.append("title", title)
 			formData.append("country", country)
-			formData.append("image", image)
+
+			// Xử lý image theo kiểu dữ liệu
+			if (image instanceof File && image.size > 0) {
+				// Nếu là đối tượng File mới, gửi lên để upload
+				formData.append("image", image)
+			}
+			
+			// Thêm câu hỏi nếu có
+			if (question) {
+				formData.append("question", question)
+			}
 			formData.append("positions", positions.toString())
 			formData.append("location", location)
 			formData.append("salary", salary)
@@ -178,7 +191,7 @@ export const useJobStore = createStore<IJobStore>(
 			formData.append("status", status)
 
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.POST, `/jobs`, formData);
+				return await handleRequest(EHttpType.PATCH, `/jobs/${jobId}`, formData);
 			});
 		},
 

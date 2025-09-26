@@ -19,10 +19,11 @@ export const handleGetJobById = HandlerCustom(async (data: { id: string }) => {
 });
 
 export const handleCreateJob = HandlerCustom(async (data: ICreateJobData) => {
+  // Sử dụng imageUrl từ Cloudinary nếu có
   const job = await new Job({
     title: data.title,
     country: data.country,
-    imageUrl: data.imageUrl,
+    imageUrl: data.imageUrl || "/images/placeholder-job.jpg", // Sử dụng ảnh mặc định nếu không có
     positions: data.positions,
     location: data.location,
     salary: data.salary,
@@ -54,7 +55,7 @@ export const handleUpdateJob = HandlerCustom(async (data: { id: string } & Parti
   // Cập nhật các trường được cung cấp
   if (data.title !== undefined) job.title = data.title;
   if (data.country !== undefined) job.country = data.country;
-  if (data.imageUrl !== undefined) job.imageUrl = data.imageUrl;
+  if (data.imageUrl !== undefined) job.imageUrl = data.imageUrl; // Sử dụng URL từ Cloudinary
   if (data.positions !== undefined) job.positions = data.positions;
   if (data.location !== undefined) job.location = data.location;
   if (data.salary !== undefined) job.salary = data.salary;

@@ -5,6 +5,7 @@ import {
   createJob,
   updateJob
 } from "../controllers/job.controller.js";
+import { isAuth } from "../utils/configs/middlewares/auth.middleware.js";
 
 const jobRoute = express.Router();
 
@@ -15,9 +16,9 @@ jobRoute.get("/", getAllJobs);
 jobRoute.get("/:id", getJob);
 
 // POST /api/v1/jobs - create new job
-jobRoute.post("/", createJob);
+jobRoute.post("/", isAuth, createJob);
 
-// PUT /api/v1/jobs/:id - update existing job
-jobRoute.put("/:id", updateJob);
+// PATCH /api/v1/jobs/:id - update existing job
+jobRoute.patch("/:id", isAuth, updateJob);
 
 export default jobRoute;

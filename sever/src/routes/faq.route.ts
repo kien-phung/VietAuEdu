@@ -3,17 +3,22 @@ import {
   getFAQs,
   createFAQ,
   updateFAQ,
+  getFAQById,
 } from "../controllers/faq.controller.js";
+import { isAuth } from "../utils/configs/middlewares/auth.middleware.js";
 
 const faqRoute = express.Router();
 
 // GET /api/v1/faqs - get all FAQs (supports category query param)
 faqRoute.get("/", getFAQs);
 
-// POST /api/v1/faqs - create new FAQ
-faqRoute.post("/", createFAQ);
+// GET /api/v1/faqs/:id - get a specific FAQ by ID
+faqRoute.get("/:id", getFAQById);
 
-// PUT /api/v1/faqs/:id - update existing FAQ
-faqRoute.put("/:id", updateFAQ);
+// POST /api/v1/faqs - create new FAQ
+faqRoute.post("/", isAuth, createFAQ);
+
+// PATCH /api/v1/faqs/:id - update existing FAQ
+faqRoute.patch("/:id", isAuth, updateFAQ);
 
 export default faqRoute;

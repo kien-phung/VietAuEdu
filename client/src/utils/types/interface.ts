@@ -21,6 +21,7 @@ declare global {
         requirements: string[];
         benefits: string[];
         imageUrl: string;
+        image?: File | null;
         featured: boolean;
         createdAt?: Date;
         updatedAt?: Date;
@@ -44,24 +45,27 @@ declare global {
         id: string;
         title: string;
         country: string;
-        imageUrl: string;
+        imageUrl?: string;
+        image?: File | null;
         positions: number;
         location: string;
         salary: string;
         applicationDeadline: string;
         estimatedDeparture: string;
-        requirements?: string[];
-        benefits?: string[];
-        description?: string;
-        company?: string;
-        workType?: string;
-        featured?: boolean;
-        workingHours?: string;
-        overtime?: string;
-        accommodation?: string;
-        workEnvironment?: string;
-        trainingPeriod?: string;
-        status?: EStatus;
+        requirements: string[];
+        benefits: string[];
+        description: string;
+        company: string;
+        workType: string;
+        featured: boolean;
+        workingHours: string;
+        overtime: string;
+        accommodation: string;
+        workEnvironment: string;
+        trainingPeriod: string;
+        status: EStatus;
+        createdAt?: Date;
+        updatedAt?: Date;
     }
 
     interface IContact {

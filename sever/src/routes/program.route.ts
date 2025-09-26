@@ -5,6 +5,7 @@ import {
   createProgram,
   updateProgram
 } from "../controllers/program.controller.js";
+import { isAuth } from "../utils/configs/middlewares/auth.middleware.js";
 
 const programRoute = express.Router();
 
@@ -15,9 +16,9 @@ programRoute.get("/", getPrograms);
 programRoute.get("/:id", getProgram);
 
 // POST /api/v1/programs - create new program
-programRoute.post("/", createProgram);
+programRoute.post("/", isAuth, createProgram);
 
-// PUT /api/v1/programs/:id - update existing program
-programRoute.put("/:id", updateProgram);
+// PATCH /api/v1/programs/:id - update existing program
+programRoute.patch("/:id", isAuth, updateProgram);
 
 export default programRoute;

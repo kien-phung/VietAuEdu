@@ -1,4 +1,5 @@
-import { Save } from "lucide-react";
+import { Image as ImageIcon, Save } from "lucide-react";
+import { useState, useRef, ChangeEvent } from "react";
 import {
   Dialog,
   DialogContent,
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import Image from "next/image";
 
 export const JobStatus = [
   { value: "active", label: "Active" },
@@ -27,7 +29,10 @@ export const JobStatus = [
 interface CreateJobDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  onChange: (field: keyof IJob, value: string) => void;
+  onChange: (
+    field: keyof IJob,
+    value: string | number | boolean | string[] | File | null
+  ) => void;
   onJobCreated: () => void;
   data: IJob | null;
   isLoading: boolean;
@@ -41,6 +46,24 @@ const CreateJobDialog = ({
   data,
   isLoading,
 }: CreateJobDialogProps) => {
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    if (file) {
+      onChange("image", file);
+
+      // Tạo URL để xem trước hình ảnh
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewImage(previewUrl);
+    }
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[525px] bg-white dark:bg-gray-800">
@@ -78,12 +101,54 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
+                <Label htmlFor="update-image">Image</Label>
+
+                <div className="flex flex-col gap-2">
+                  <input
+                    type="file"
+                    id="update-image"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    className="hidden"
+                  />
+
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleButtonClick}
+                    className="flex items-center gap-2"
+                  >
+                    <ImageIcon className="h-4 w-4" />
+                    Upload Image
+                  </Button>
+
+                  {previewImage && (
+                    <div className="relative mt-2 h-40 w-full overflow-hidden rounded-md border">
+                      <Image
+                        src={previewImage}
+                        alt="Preview"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 300px"
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="grid gap-2">
                 <Label htmlFor="update-positions">Positions</Label>
 
                 <Input
                   id="update-positions"
-                  value={data?.positions}
-                  onChange={(e) => onChange("positions", e.target.value)}
+                  type="number"
+                  value={data?.positions || ""}
+                  onChange={(e) =>
+                    onChange("positions", parseInt(e.target.value) || 0)
+                  }
                 />
               </div>
             </div>
@@ -146,24 +211,54 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-requirements">Requirements</Label>
+                <Label htmlFor="update-requirements">
+                  Requirements (comma-separated)
+                </Label>
 
                 <Input
                   id="update-requirements"
-                  value={data?.requirements}
-                  onChange={(e) => onChange("requirements", e.target.value)}
+                  value={
+                    Array.isArray(data?.requirements)
+                      ? data.requirements.join(", ")
+                      : data?.requirements || ""
+                  }
+                  onChange={(e) =>
+                    onChange(
+                      "requirements",
+                      e.target.value
+                        .split(",")
+                        .map((item) => item.trim())
+                        .filter((item) => item)
+                    )
+                  }
+                  placeholder="Enter requirements separated by commas"
                 />
               </div>
             </div>
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-benefits">benefits</Label>
+                <Label htmlFor="update-benefits">
+                  Benefits (comma-separated)
+                </Label>
 
                 <Input
                   id="update-benefits"
-                  value={data?.benefits}
-                  onChange={(e) => onChange("benefits", e.target.value)}
+                  value={
+                    Array.isArray(data?.benefits)
+                      ? data.benefits.join(", ")
+                      : data?.benefits || ""
+                  }
+                  onChange={(e) =>
+                    onChange(
+                      "benefits",
+                      e.target.value
+                        .split(",")
+                        .map((item) => item.trim())
+                        .filter((item) => item)
+                    )
+                  }
+                  placeholder="Enter benefits separated by commas"
                 />
               </div>
             </div>
@@ -196,11 +291,20 @@ const CreateJobDialog = ({
               <div className="grid gap-2">
                 <Label htmlFor="update-featured">featured</Label>
 
-                <Input
-                  id="update-featured"
+                <Select
                   value={data?.featured ? "true" : "false"}
-                  onChange={(e) => onChange("featured", e.target.value)}
-                />
+                  onValueChange={(value) =>
+                    onChange("featured", value === "true")
+                  }
+                >
+                  <SelectTrigger id="update-featured">
+                    <SelectValue placeholder="Select featured status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="true">Yes</SelectItem>
+                    <SelectItem value="false">No</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

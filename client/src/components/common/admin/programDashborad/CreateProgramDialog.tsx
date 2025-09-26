@@ -17,12 +17,17 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { Save } from "lucide-react";
+import { Save, Image as ImageIcon } from "lucide-react";
+import { useState, useRef, ChangeEvent } from "react";
+import Image from "next/image";
 
 interface CreateProgramDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
-  onChange: (field: keyof IProgram, value: string | string[] | boolean) => void;
+  onChange: (
+    field: keyof IProgram,
+    value: string | string[] | boolean | File | null
+  ) => void;
   onProgramCreated: () => void;
   data: IProgram | null;
   isLoading: boolean;
@@ -36,6 +41,23 @@ const CreateProgramDialog = ({
   data,
   isLoading,
 }: CreateProgramDialogProps) => {
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    if (file) {
+      onChange("image", file);
+
+      // Tạo URL để xem trước hình ảnh
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewImage(previewUrl);
+    }
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[525px] bg-white dark:bg-gray-800">
@@ -97,6 +119,44 @@ const CreateProgramDialog = ({
                   value={data?.tuition || ""}
                   onChange={(e) => onChange("tuition", e.target.value)}
                 />
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="create-image">Image</Label>
+                <div className="flex flex-col gap-2">
+                  <input
+                    type="file"
+                    id="create-image"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept="image/*"
+                    className="hidden"
+                  />
+
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleButtonClick}
+                    className="flex items-center gap-2"
+                  >
+                    <ImageIcon className="h-4 w-4" />
+                    Upload Image
+                  </Button>
+
+                  {previewImage && (
+                    <div className="relative mt-2 h-40 w-full overflow-hidden rounded-md border">
+                      <Image
+                        src={previewImage}
+                        alt="Preview"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 300px"
+                        style={{ objectFit: "cover" }}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 

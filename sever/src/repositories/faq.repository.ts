@@ -14,6 +14,16 @@ export const handleGetFAQs = HandlerCustom(async (data: { category?: string }) =
     return faqs;
 });
 
+export const handleGetFAQById = HandlerCustom(async (data: { id: string }) => {
+    const faq = await FAQ.findById(data.id);
+
+    if (!faq) {
+        throw new ErrorCustom(404, "FAQ not found");
+    }
+
+    return faq;
+});
+
 export const handleCreateFAQ = HandlerCustom(async (data: ICreateFAQData) => {
     const faq = await new FAQ(
         {

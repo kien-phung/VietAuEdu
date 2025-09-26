@@ -1,4 +1,4 @@
-import { handleCreateFAQ, handleGetFAQs, handleUpdateFAQ } from "../repositories/faq.repository.js";
+import { handleCreateFAQ, handleGetFAQById, handleGetFAQs, handleUpdateFAQ } from "../repositories/faq.repository.js";
 import { ErrorCustom, RequestHandlerCustom } from "../utils/configs/custom.js";
 import { parseRequestData } from "../utils/configs/helper.js";
 
@@ -67,6 +67,25 @@ export const updateFAQ = RequestHandlerCustom(
       message: "FAQ updated successfully",
       data: {
         faq: updatedFAQ
+      }
+    });
+  }
+);
+
+export const getFAQById = RequestHandlerCustom(
+  async (req, res, next) => {
+    const id = req.params.id;
+
+    if (!id) {
+      return next(new ErrorCustom(400, "FAQ ID is required"));
+    }
+
+    const faq = await handleGetFAQById({ id });
+
+    res.status(200).json({
+      message: "FAQ retrieved successfully",
+      data: {
+        faq
       }
     });
   }

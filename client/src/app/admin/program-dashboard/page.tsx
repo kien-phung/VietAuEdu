@@ -117,17 +117,23 @@ export default function ProgramDashboardPage() {
 
   // Use a key to reset the dialog data completely between opens
   const [dialogKey, setDialogKey] = useState(0);
-  const [data, setData] = useState<IProgram | null>(null);
+  // Sử dụng kiểu mở rộng của IProgram để bao gồm trường image
+  type ExtendedProgramData = IProgram & { image?: File | null };
+  const [data, setData] = useState<ExtendedProgramData | null>(null);
 
   const handleChange = (
-    field: keyof IProgram,
-    value: string | string[] | boolean
+    field: keyof ExtendedProgramData,
+    value: string | string[] | boolean | File | null
   ) => {
     setData((prev) => (prev ? { ...prev, [field]: value } : prev));
   };
 
   const handleUpdate = async () => {
     if (data) {
+      // Xác định xem sử dụng file hình ảnh mới hay URL hiện có
+      const imageToUse =
+        data.image instanceof File ? data.image : data.imageUrl || "";
+
       await updateProgram(
         data.id,
         data.title,
@@ -135,6 +141,7 @@ export default function ProgramDashboardPage() {
         data.country,
         data.duration,
         data.tuition,
+        imageToUse, // Sử dụng file mới hoặc URL cũ
         data.requirements,
         data.benefits,
         data.featured,
@@ -152,12 +159,16 @@ export default function ProgramDashboardPage() {
 
   const handleCreate = async () => {
     if (data) {
+      // Sử dụng file hình ảnh nếu có
+      const imageFile = data.image instanceof File ? data.image : null;
+
       await createProgram(
         data.title,
         data.description,
         data.country,
         data.duration,
         data.tuition,
+        imageFile, // Truyền file hình ảnh
         data.requirements,
         data.benefits,
         data.featured,
@@ -193,6 +204,7 @@ export default function ProgramDashboardPage() {
                 requirements: [],
                 benefits: [],
                 imageUrl: "",
+                image: null,
                 featured: false,
                 status: EStatus.INACTIVE,
               });

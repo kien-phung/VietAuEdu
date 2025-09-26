@@ -46,3 +46,11 @@ export const handleCreateUser = HandlerCustom(async (data: {
 
     return job;
 });
+
+export const handleUpdateUserPasswordByEmail = HandlerCustom(async (data: { email: string, password: string }) => {
+    const user = await User
+        .updateOne({ email: data.email }, { password: data.password })
+        .exec();
+
+    return user;
+});

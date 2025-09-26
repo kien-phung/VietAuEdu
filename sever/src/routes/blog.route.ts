@@ -5,6 +5,7 @@ import {
   getBlog,
   createBlog,
 } from "../controllers/blog.controller.js";
+import { isAuth } from "../utils/configs/middlewares/auth.middleware.js";
 
 const blogRoute = express.Router();
 
@@ -18,6 +19,6 @@ blogRoute.get("/slug/:slug", getBlogsBySlug);
 blogRoute.get("/:id", getBlog);
 
 // POST /api/v1/blogs - create new blog
-blogRoute.post("/", createBlog);
+blogRoute.post("/", isAuth, createBlog);
 
 export default blogRoute;

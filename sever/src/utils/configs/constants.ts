@@ -7,6 +7,7 @@ export const NODE_ENV = process.env.NODE_ENV!;
 export const CLIENT_URL = process.env.CLIENT_URL!;
 export const SALT_ROUNDS = process.env.SALT_ROUNDS!;
 export const PRIVATE_KEY = process.env.PRIVATE_KEY!;
+export const PRIVATE_CHARS = process.env.PRIVATE_CHARS!;
 
 export const DATABASE_MONGO_URL = process.env.DATABASE_MONGO_URL!;
 export const REDIS_URL = process.env.REDIS_URL!;

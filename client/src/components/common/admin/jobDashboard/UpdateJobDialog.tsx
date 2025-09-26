@@ -1,7 +1,7 @@
-import { Fragment } from "react";
+import { Fragment, useState, useRef, ChangeEvent, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Button } from "@/components/ui/button";
-import { Save } from "lucide-react";
+import { Image as ImageIcon, Save } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -13,13 +13,14 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { JobStatus } from "./CreateJobDialog";
+import Image from "next/image";
 
 interface UpdateJobDialogProps {
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
   onChange: (
     field: keyof IJob,
-    value: string | number | boolean | string[]
+    value: string | number | boolean | string[] | File | null
   ) => void;
   data: IJob | null;
   onJobUpdated: () => void;
@@ -34,6 +35,33 @@ const UpdateJobDialog = ({
   onJobUpdated,
   isLoading,
 }: UpdateJobDialogProps) => {
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    // Hiển thị hình ảnh hiện có khi dialog mở
+    if (data?.imageUrl) {
+      setPreviewImage(data.imageUrl);
+    } else {
+      setPreviewImage(null);
+    }
+  }, [data?.imageUrl, isOpen]);
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    if (file) {
+      onChange("image", file);
+
+      // Tạo URL để xem trước hình ảnh mới
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewImage(previewUrl);
+    }
+  };
+
+  const handleButtonClick = () => {
+    fileInputRef.current?.click();
+  };
+
   const handleClose = () => {
     onOpenChange(false);
   };
@@ -100,6 +128,45 @@ const UpdateJobDialog = ({
                               e: React.ChangeEvent<HTMLInputElement>
                             ) => onChange("country", e.target.value)}
                           />
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4">
+                        <div className="grid gap-2">
+                          <Label htmlFor="update-image">Image</Label>
+
+                          <div className="flex flex-col gap-2">
+                            <input
+                              type="file"
+                              id="update-image"
+                              ref={fileInputRef}
+                              onChange={handleFileChange}
+                              accept="image/*"
+                              className="hidden"
+                            />
+
+                            <Button
+                              type="button"
+                              variant="outline"
+                              onClick={handleButtonClick}
+                              className="flex items-center gap-2"
+                            >
+                              <ImageIcon className="h-4 w-4" />
+                              {data?.imageUrl ? "Change Image" : "Upload Image"}
+                            </Button>
+
+                            {previewImage && (
+                              <div className="relative mt-2 h-40 w-full overflow-hidden rounded-md border">
+                                <Image
+                                  src={previewImage}
+                                  alt="Job Preview"
+                                  fill
+                                  sizes="(max-width: 768px) 100vw, 300px"
+                                  style={{ objectFit: "cover" }}
+                                />
+                              </div>
+                            )}
+                          </div>
                         </div>
                       </div>
 
@@ -200,8 +267,9 @@ const UpdateJobDialog = ({
                               onChange(
                                 "requirements",
                                 e.target.value
-                                  .split(", ")
-                                  .filter((item) => item.trim())
+                                  .split(",")
+                                  .map((item) => item.trim())
+                                  .filter((item) => item)
                               )
                             }
                           />
@@ -227,8 +295,9 @@ const UpdateJobDialog = ({
                               onChange(
                                 "benefits",
                                 e.target.value
-                                  .split(", ")
-                                  .filter((item) => item.trim())
+                                  .split(",")
+                                  .map((item) => item.trim())
+                                  .filter((item) => item)
                               )
                             }
                           />

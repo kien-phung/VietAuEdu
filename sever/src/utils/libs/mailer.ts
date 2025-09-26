@@ -11,6 +11,7 @@ export enum EmailTemplate {
     WELCOME = "../templates/welcome.html",
     RESET_PASSWORD = "../templates/resetPassword.html",
     CONTACT_CONFIRMATION = "../templates/contactConfirmation.html",
+    SEND_PASSWORD = "../templates/sendPassword.html",
 }
 
 type TemplateDataValue = string | number | boolean | null;

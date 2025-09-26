@@ -7,7 +7,6 @@ interface IUserDocument extends Document {
     name?: string;
     phone?: string;
     status?: EUserStatus;
-    role?: string; // Thêm trường role
 }
 
 const schema: Schema<IUserDocument> = new Schema(
@@ -16,11 +15,6 @@ const schema: Schema<IUserDocument> = new Schema(
         password: String,
         name: String,
         phone: String,
-        role: {
-            type: String,
-            enum: ["user", "admin"],
-            default: "user",
-        },
         status: {
             type: String,
             enum: Object.values(EUserStatus),

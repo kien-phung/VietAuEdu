@@ -17,7 +17,6 @@ export interface IAuthStore extends IBaseStore {
 	userAuth: IUser | null;
 
 	login: (email: string, password: string) => Promise<IApiResponse<IAuthDataResponse>>;
-	// loginGoogle: (formData: FormData) => Promise<IApiResponse>;
 	RefreshToken: () => Promise<IApiResponse>;
 	sendOTP: (email: string) => Promise<IApiResponse>;
 	verifyOTP: (email: string, otp: string) => Promise<IApiResponse>;
@@ -60,20 +59,6 @@ export const useAuthStore = createStore<IAuthStore>(
 				return response;
 			});
 		},
-
-		// loginGoogle: async (formData: FormData): Promise<IApiResponse> => {
-		// 	return await get().handleRequest(async () => {
-		// 		const response = await handleRequest(EHttpType.POST, "/auth/google-login", formData);
-
-		// 		if (response && response.data && response.data.user) {
-		// 			set({
-		// 				userAuth: response.data.user,
-		// 			});
-		// 		}
-
-		// 		return response;
-		// 	});
-		// },
 
 		sendOTP: async (email: string): Promise<IApiResponse> => {
 			const formData = new FormData();
@@ -120,7 +105,7 @@ export const useAuthStore = createStore<IAuthStore>(
 			const formData = new FormData();
 			formData.append("email", email);
 			formData.append("oldPassword", oldPassword);
-			formData.append("password", password);
+			formData.append("newPassword", password);
 			formData.append("confirmPassword", confirmPassword);
 
 			return await get().handleRequest(async () => {

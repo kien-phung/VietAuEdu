@@ -74,6 +74,129 @@ collection:
             store: true
           rebuildPath: true
 
+      - url: http://localhost:4040/api/v1/auth/reset-password
+        name: reset password
+        meta:
+          id: req_c35a2d4c83d44da9b6e7fb4377f338b1
+          created: 1758864124043
+          modified: 1758864516959
+          isPrivate: false
+          description: "Request password reset (sends OTP)"
+          sortKey: -1758861024041.75
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - id: pair_a21405e3cd84617b3630255ffb05086
+              name: email
+              value: example@gmail.com
+              description: "User's email"
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+
+      - url: http://localhost:4040/api/v1/auth/forgot-password
+        name: forgot password
+        meta:
+          id: req_d46b3e5d94e55eb0c7f8fc5488f449c2
+          created: 1758864224043
+          modified: 1758864526959
+          isPrivate: false
+          description: "Reset password after verification"
+          sortKey: -1758861024041.5
+        method: PATCH
+        body:
+          mimeType: multipart/form-data
+          params:
+            - id: pair_b31405e3cd84617b3630255ffb05086
+              name: email
+              value: example@gmail.com
+              description: "User's email"
+              disabled: false
+            - id: pair_c41405e3cd84617b3630255ffb05086
+              name: password
+              value: "newpassword123"
+              description: "New password"
+              disabled: false
+            - id: pair_d51405e3cd84617b3630255ffb05086
+              name: confirmPassword
+              value: "newpassword123"
+              description: "Confirm new password"
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/11.6.1
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+
+      - url: http://localhost:4040/api/v1/auth/change-password
+        name: change password
+        meta:
+          id: req_e57c4f6e05f66fc1d8f9fd5599f550d3
+          created: 1758864324043
+          modified: 1758864536959
+          isPrivate: false
+          description: "Change password when logged in"
+          sortKey: -1758861024041.25
+        method: PATCH
+        body:
+          mimeType: multipart/form-data
+          params:
+            - id: pair_e61405e3cd84617b3630255ffb05086
+              name: email
+              value: example@gmail.com
+              description: "User's email"
+              disabled: false
+            - id: pair_f71405e3cd84617b3630255ffb05086
+              name: oldPassword
+              value: "currentpassword123"
+              description: "Current password"
+              disabled: false
+            - id: pair_g81405e3cd84617b3630255ffb05086
+              name: newPassword
+              value: "newpassword123"
+              description: "New password"
+              disabled: false
+            - id: pair_h91405e3cd84617b3630255ffb05086
+              name: confirmPassword
+              value: "newpassword123"
+              description: "Confirm new password"
+              disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/11.6.1
+          - name: Authorization
+            value: Bearer {{token}}
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+
       - url: http://localhost:4040/api/v1/auth/send-otp
         name: send OTP
         meta:
@@ -91,11 +214,6 @@ collection:
               name: email
               value: example@gmail.com
               description: "User's email"
-              disabled: false
-            - id: pair_66140d6e8fa84617b3630255ffb05086
-              name: name
-              value: "User Name"
-              description: "User's name (optional)"
               disabled: false
         headers:
           - name: Content-Type
@@ -518,7 +636,7 @@ collection:
           isPrivate: false
           description: "Update an existing FAQ"
           sortKey: -1758862234041
-        method: PUT
+        method: PATCH
         body:
           mimeType: multipart/form-data
           params:
@@ -745,7 +863,7 @@ collection:
           isPrivate: false
           description: "Update an existing job"
           sortKey: -1758862434040
-        method: PUT
+        method: PATCH
         body:
           mimeType: multipart/form-data
           params:
@@ -977,7 +1095,7 @@ collection:
           isPrivate: false
           description: "Update an existing program"
           sortKey: -1758862734040
-        method: PUT
+        method: PATCH
         body:
           mimeType: multipart/form-data
           params:
