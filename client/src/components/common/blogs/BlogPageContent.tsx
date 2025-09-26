@@ -8,6 +8,7 @@ import { TrendingUp } from "lucide-react";
 import Image from "next/image";
 import BlogFilters from "@/components/common/blogs/BlogFilters";
 import { useBlogStore } from "@/utils/stores/blogStore";
+import { mockBlogs } from "@/utils/services/mockData";
 
 const categories = [
   { value: "", label: "Tất cả danh mục" },
@@ -26,9 +27,11 @@ export default function BlogPageContent() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await getAllBlogs();
-      const data = response.data?.blogs;
-      setBlogs(data || []);
+      // const response = await getAllBlogs();
+      // const data = response.data?.blogs;
+      
+      // setBlogs(data || []);
+      setBlogs(mockBlogs || []);
     };
 
     fetchData();

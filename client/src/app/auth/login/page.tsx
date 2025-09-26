@@ -8,8 +8,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const LoginPage: React.FC = () => {
+  const { isLoading, login, sendOTP } = useAuthStore();
+
   const router = useRouter();
-  const { isLoading, login } = useAuthStore();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -50,30 +51,33 @@ const LoginPage: React.FC = () => {
     }
 
     const response = await login(formData.email, formData.password);
-
-    if (!response || !response.data) {
+    if (!response) {
       return;
     }
 
-    const { user, isActive } = response.data as {
-      user: IUser;
-      isActive: boolean;
-    };
-
-    if (!user) {
+    // If login is successful with active user
+    if (response.data && response.data.isActive) {
+      router.push("/admin");
       return;
     }
-
-    if (!isActive) {
+    console.log(">>>", response);
+    // If user is not active, send OTP and redirect to verification
+    if (
+      response.message === "User is not active" ||
+      response.error === "User is not active" ||
+      (response.data && !response.data.isActive)
+    ) {
+      console.log("User is not active, sending OTP...");
+      await sendOTP(formData.email);
       router.push(
-        `/verify-otp?email=${encodeURIComponent(
-          user?.email || ""
+        `/auth/verification?email=${encodeURIComponent(
+          formData.email
         )}&isPasswordReset=false`
       );
       return;
     }
 
-    router.push("/");
+    // Other errors are handled by the store
   };
 
   return (

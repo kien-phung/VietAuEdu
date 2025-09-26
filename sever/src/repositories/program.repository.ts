@@ -1,6 +1,6 @@
-import { ICreateProgramData } from "../controllers/program.controller.js";
+import { ICreateProgramData, IUpdateProgramData } from "../controllers/program.controller.js";
 import { Job } from "../models/job.model.js";
-import { HandlerCustom } from "../utils/configs/custom.js";
+import { ErrorCustom, HandlerCustom } from "../utils/configs/custom.js";
 
 export const handleGetPrograms = HandlerCustom(async (data: { featured?: boolean }) => {
     const filter: { featured?: boolean } = {};
@@ -49,4 +49,36 @@ export const handleCreateProgram = HandlerCustom(async (data: ICreateProgramData
     }).save();
 
     return job;
+});
+
+export const handleUpdateProgram = HandlerCustom(async (data: { id: string } & Partial<IUpdateProgramData>) => {
+    const program = await Job.findById(data.id);
+
+    if (!program) {
+        throw new ErrorCustom(404, "Program not found");
+    }
+
+    // Cập nhật các trường được cung cấp
+    if (data.title !== undefined) program.title = data.title;
+    if (data.country !== undefined) program.country = data.country;
+    if (data.imageUrl !== undefined) program.imageUrl = data.imageUrl;
+    if (data.positions !== undefined) program.positions = data.positions;
+    if (data.location !== undefined) program.location = data.location;
+    if (data.salary !== undefined) program.salary = data.salary;
+    if (data.applicationDeadline !== undefined) program.applicationDeadline = data.applicationDeadline;
+    if (data.estimatedDeparture !== undefined) program.estimatedDeparture = data.estimatedDeparture;
+    if (data.requirements !== undefined) program.requirements = data.requirements;
+    if (data.benefits !== undefined) program.benefits = data.benefits;
+    if (data.description !== undefined) program.description = data.description;
+    if (data.company !== undefined) program.company = data.company;
+    if (data.workType !== undefined) program.workType = data.workType;
+    if (data.featured !== undefined) program.featured = data.featured;
+    if (data.workingHours !== undefined) program.workingHours = data.workingHours;
+    if (data.overtime !== undefined) program.overtime = data.overtime;
+    if (data.accommodation !== undefined) program.accommodation = data.accommodation;
+    if (data.workEnvironment !== undefined) program.workEnvironment = data.workEnvironment;
+    if (data.trainingPeriod !== undefined) program.trainingPeriod = data.trainingPeriod;
+
+    const updatedProgram = await program.save();
+    return updatedProgram;
 });

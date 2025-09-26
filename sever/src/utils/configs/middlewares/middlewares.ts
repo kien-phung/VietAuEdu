@@ -27,8 +27,7 @@ export const applyMiddlewares = (app: Application): void => {
     // Security middleware
     app.use(injectionGuard);                   // Protect against NoSQL injection
 
-    // Error handling middleware (phải là middleware cuối cùng)
-    app.use(errorResponse);                    // Handle errors
+    // Note: The error handling middleware will be added after routes in index.ts
 }
 
 // Export các middleware riêng lẻ để có thể sử dụng ở những nơi cần thiết

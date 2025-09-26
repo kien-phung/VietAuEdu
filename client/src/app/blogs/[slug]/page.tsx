@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { useBlogStore } from "@/utils/stores/blogStore";
 import BlogDetailClient from "../../../components/common/blogs/BlogDetailClient";
+import { mockBlogs } from "@/utils/services/mockData";
 
 // SSG: Generate static pages for all blog posts
 export async function generateStaticParams() {
@@ -66,9 +67,10 @@ export default async function BlogDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const resolvedParams = await params;
-  const { getBlogsBySlug } = useBlogStore.getState();
-  const response = await getBlogsBySlug(`/blogs/${resolvedParams.slug}`);
-  const blog = response.data?.blog;
+  // const { getBlogsBySlug } = useBlogStore.getState();
+  // const response = await getBlogsBySlug(`/blogs/${resolvedParams.slug}`);
+  // const blog = response.data?.blog;
+  const blog = mockBlogs.find((b) => b.slug === resolvedParams.slug);
 
   if (!blog) {
     notFound();

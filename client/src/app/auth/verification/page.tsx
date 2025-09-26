@@ -8,10 +8,11 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 const VerificationPage: React.FC = () => {
-  const email = new URLSearchParams(window.location.search).get("email") || "your email";
-
-  const router = useRouter();
   const { isLoading, verifyOTP } = useAuthStore();
+
+  const email =
+    new URLSearchParams(window.location.search).get("email") || "your email";
+  const router = useRouter();
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
 
@@ -60,16 +61,19 @@ const VerificationPage: React.FC = () => {
     const isPasswordReset = urlParams.get("isPasswordReset") === "true";
 
     if (isPasswordReset) {
-      router.push("/reset-password");
+      router.push("/auth/reset-password");
     } else {
-      router.push("/dashboard");
+      router.push("/"); // Or the appropriate homepage after verification
     }
   };
 
   const handleResend = async () => {
-    // Implementation would depend on your backend logic
-    // For now, just show a message
-    alert("Code resent successfully!");
+    const { sendOTP } = useAuthStore.getState();
+    const result = await sendOTP(email);
+
+    if (result) {
+      alert("Code resent successfully!");
+    }
   };
 
   // Timer logic
@@ -96,8 +100,7 @@ const VerificationPage: React.FC = () => {
       </h1>
 
       <p className="text-primary-400 text-sm mb-6 text-center">
-        We&apos;ve sent a verification code to{" "}
-        {email}
+        We&apos;ve sent a verification code to {email}
         Enter the code below to verify your account.
       </p>
 

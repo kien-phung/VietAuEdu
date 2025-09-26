@@ -6,16 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { X } from "lucide-react";
 import { NavItem } from "./NavItem";
-
-const navigation = [
-  { name: "Trang chủ", href: "/" },
-  { name: "Giới thiệu", href: "/about" },
-  { name: "Chương trình", href: "/programs" },
-  { name: "Việc làm", href: "/jobs" },
-  { name: "Tin tức", href: "/blogs" },
-  { name: "Hỏi đáp", href: "/faq" },
-  { name: "Liên hệ", href: "/contact" },
-];
+import { navigation } from "./Navbar";
 
 interface MobileMenuProps {
   isOpen: boolean;

@@ -7,6 +7,7 @@ import { handleGetUserByEmail, handleUpdateUserStatusByEmail } from "../reposito
 import { EUserStatus } from "../utils/types/enum.js";
 import { parseRequestData } from "../utils/configs/helper.js";
 import { handleCreateAndStoreOTP } from "../services/auth.service.js";
+import { EmailTemplate, sendMail } from "../utils/libs/mailer.js";
 
 export const verifyOTP = RequestHandlerCustom(async (req, res, next) => {
     const data = parseRequestData(req);
@@ -42,7 +43,8 @@ export const sendOTP = RequestHandlerCustom(async (req, res, next) => {
     // Tạo OTP và lưu trong Redis
     const otpResult = await handleCreateAndStoreOTP(email);
     if ("error" in otpResult) {
-        return next(new ErrorCustom(otpResult.status || 500, otpResult?.error || "Internal server error"));
+        const errorStatus = (otpResult as { status?: number }).status || 500;
+        return next(new ErrorCustom(errorStatus, String(otpResult?.error) || "Internal server error"));
     }
 
     // Lấy thông tin user nếu đã đăng ký
@@ -67,23 +69,17 @@ export const sendOTP = RequestHandlerCustom(async (req, res, next) => {
     };
 
     // Gửi email
-    const { EmailTemplate, sendMail } = await import("../utils/libs/mailer.js");
-    try {
-        await sendMail(
-            email,
-            "Mã xác thực OTP từ VietAu Academy",
-            EmailTemplate.SEND_OTP,
-            templateData
-        );
+    await sendMail(
+        email,
+        "Mã xác thực OTP từ VietAu Academy",
+        EmailTemplate.SEND_OTP,
+        templateData
+    );
 
-        res.status(200).json({
-            success: true,
-            message: "OTP sent successfully"
-        });
-    } catch (error) {
-        console.error("Error sending email:", error);
-        return next(new ErrorCustom(500, "Failed to send OTP email"));
-    }
+    res.status(200).json({
+        success: true,
+        message: "OTP sent successfully"
+    });
 });
 
 export const login = RequestHandlerCustom(async (req, res, next) => {
@@ -103,6 +99,11 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
         return next(new ErrorCustom(400, "Invalid password"));
+    }
+
+    const isActive = await user.status === EUserStatus.ACTIVE;
+    if (!isActive) {
+        return next(new ErrorCustom(400, "User is not active"));
     }
 
     const loginKey = `login:${email}`;
@@ -134,7 +135,8 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
         success: true,
         message: "Login successful",
         data: {
-            user: user
+            user: user,
+            isActive,
         }
     });
 });

@@ -24,7 +24,7 @@ const tuitionRanges = [
   { value: "30000+", label: "Trên 30,000 USD" },
 ];
 
-export default function ProgramsPageContent({ initialCountry = "" }: { initialCountry?: string }) {
+export default function ProgramsPageClient({ initialCountry = "" }: { initialCountry?: string }) {
   const { getAllPrograms } = useProgramStore();
   const [programs, setPrograms] = useState<IProgram[]>([]);
 

@@ -1,9 +1,9 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
 
 export const RequestHandlerCustom = (handler: RequestHandler): RequestHandler => {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      handler(req, res, next);
+      await Promise.resolve(handler(req, res, next));
     } catch (error) {
       console.error(">>> ", error);
       next(error);

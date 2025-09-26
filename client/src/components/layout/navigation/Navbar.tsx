@@ -9,12 +9,12 @@ import { ThemeToggleButton } from "../theme/ThemeToggleButton";
 import MobileMenu from "./MobileMenu";
 import { NavItem } from "./NavItem";
 
-const navigation = [
+export const navigation = [
   { name: "Trang chủ", href: "/" },
   { name: "Giới thiệu", href: "/about" },
   { name: "Chương trình", href: "/programs" },
   { name: "Việc làm", href: "/jobs" },
-  { name: "Tin tức", href: "/blogs" },
+  // { name: "Tin tức", href: "/blogs" },
   { name: "Hỏi đáp", href: "/faq" },
   { name: "Liên hệ", href: "/contact" },
 ];

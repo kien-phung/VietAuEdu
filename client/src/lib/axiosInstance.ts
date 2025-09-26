@@ -1,8 +1,8 @@
 import axios, { InternalAxiosRequestConfig, AxiosResponse } from "axios";
 import { SERVER_URL } from "../utils/services/constants";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
-export const MAX_RETRIES = 3;
+export const MAX_RETRIES = 1;
 
 const getCookie = (name: string): string | null => {
   const matches = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
@@ -42,10 +42,15 @@ axiosInstance.interceptors.response.use(
     return response;
   },
 
-  async (error) => {
+  async (error: unknown) => {
     interface RetryConfig extends InternalAxiosRequestConfig {
       retryCount?: number;
     }
+
+    if (!axios.isAxiosError(error) || !error.config) {
+      return Promise.reject(error);
+    }
+
     const config = error.config as RetryConfig;
 
     // Add detailed logging
@@ -61,15 +66,13 @@ axiosInstance.interceptors.response.use(
       errorCode: error.code
     });
 
-    if ((config.retryCount ?? 0) < MAX_RETRIES) {
+    if ((config?.retryCount ?? 0) < MAX_RETRIES) {
       config.retryCount = (config.retryCount ?? 0) + 1;
       console.log(`Retrying request (${config.retryCount}/${MAX_RETRIES}): ${config.method} ${config.url}`);
       return axiosInstance(config);
     }
 
-    return error?.response?.data?.message
-      ? Promise.reject(error)
-      : Promise.reject(error);
+    return Promise.reject(error);
   }
 );
 
@@ -88,12 +91,17 @@ export enum EHttpType {
   DELETE = "DELETE",
 }
 
-export const handleRequest = async (
+interface IAxiosError {
+  message?: string;
+  status?: number;
+}
+
+export const handleRequest = async <T = unknown>(
   type: EHttpType,
   route: string,
   formData?: FormData,
   toastMessage?: boolean
-) => {
+): Promise<IApiResponse<T>> => {
   let response;
 
   try {
@@ -132,22 +140,48 @@ export const handleRequest = async (
         throw new Error("Invalid request type");
     }
 
-    // if (toastMessage) {
-    //   toast.success(toastMessage);
-    // }
+    if (toastMessage) {
+      toast.success(toastMessage);
+    }
 
-    return { status: response.status, data: response.data };
-  } catch (error) {
+    return { status: response.status, data: response.data as T };
+  } catch (error: unknown) {
     console.error("Error fetching data:", error);
 
-    // if (toastMessage) {
-    //   toast.error(toastMessage);
-    // }
+    // Type guard to check if error is an Axios error
+    if (axios.isAxiosError(error) && error.response) {
+      const axiosErrorData = error.response.data as IAxiosError;
+
+      if (axiosErrorData?.message) {
+        toast.error(axiosErrorData.message);
+      }
+
+      // Define a more specific type for the response data
+      interface ErrorResponseData {
+        data?: T | null;
+        message?: string;
+        [key: string]: unknown;
+      }
+
+      const responseData = error.response.data as ErrorResponseData;
+
+      return {
+        status: error.response.status,
+        data: responseData?.data || null,
+        error: axiosErrorData?.message || error.message,
+        message: axiosErrorData?.message || error.message || "An error occurred"
+      };
+    }
+
+    // Handle non-Axios errors
+    const errorMessage = error instanceof Error ? error.message : "An unknown error occurred";
+    toast.error(errorMessage);
 
     return {
-      status: response?.status,
-      data: response?.data,
-      message: toastMessage || response?.data?.message || "An error occurred",
+      status: 500,
+      data: null,
+      error: errorMessage,
+      message: errorMessage
     };
   }
 };

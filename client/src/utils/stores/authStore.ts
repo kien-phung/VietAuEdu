@@ -8,12 +8,16 @@ import { useJobStore } from "./jobStore";
 import { useProgramStore } from "./programStore";
 import { useSystemStore } from "./systemStore";
 
+interface IAuthDataResponse {
+	user: IUser;
+	isActive: boolean;
+}
 
 export interface IAuthStore extends IBaseStore {
 	userAuth: IUser | null;
 
-	login: (email: string, password: string) => Promise<IApiResponse>;
-	loginGoogle: (formData: FormData) => Promise<IApiResponse>;
+	login: (email: string, password: string) => Promise<IApiResponse<IAuthDataResponse>>;
+	// loginGoogle: (formData: FormData) => Promise<IApiResponse>;
 	RefreshToken: () => Promise<IApiResponse>;
 	sendOTP: (email: string) => Promise<IApiResponse>;
 	verifyOTP: (email: string, otp: string) => Promise<IApiResponse>;
@@ -39,17 +43,17 @@ export const useAuthStore = createStore<IAuthStore>(
 			});
 		},
 
-		login: async (email: string, password: string): Promise<IApiResponse> => {
+		login: async (email: string, password: string): Promise<IApiResponse<IAuthDataResponse>> => {
 			const formData = new FormData();
 			formData.append("email", email);
 			formData.append("password", password);
 
 			return await get().handleRequest(async () => {
-				const response = await handleRequest(EHttpType.POST, "/auth/login", formData);
+				const response = await handleRequest<IAuthDataResponse>(EHttpType.POST, "/auth/login", formData);
 
-				if (response && response.data && response.data.user) {
+				if (response && response.data) {
 					set({
-						userAuth: response.data.user,
+						userAuth: response?.data?.user,
 					});
 				}
 
@@ -57,19 +61,19 @@ export const useAuthStore = createStore<IAuthStore>(
 			});
 		},
 
-		loginGoogle: async (formData: FormData): Promise<IApiResponse> => {
-			return await get().handleRequest(async () => {
-				const response = await handleRequest(EHttpType.POST, "/auth/google-login", formData);
+		// loginGoogle: async (formData: FormData): Promise<IApiResponse> => {
+		// 	return await get().handleRequest(async () => {
+		// 		const response = await handleRequest(EHttpType.POST, "/auth/google-login", formData);
 
-				if (response && response.data && response.data.user) {
-					set({
-						userAuth: response.data.user,
-					});
-				}
+		// 		if (response && response.data && response.data.user) {
+		// 			set({
+		// 				userAuth: response.data.user,
+		// 			});
+		// 		}
 
-				return response;
-			});
-		},
+		// 		return response;
+		// 	});
+		// },
 
 		sendOTP: async (email: string): Promise<IApiResponse> => {
 			const formData = new FormData();

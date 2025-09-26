@@ -1,5 +1,5 @@
+import ProgramsPageClient from "@/components/common/programs/ProgramsPageClient";
 import { Metadata } from "next";
-import ProgramsPageContent from "@/components/common/programs/ProgramsPageContent";
 
 export const metadata: Metadata = {
   title:
@@ -38,7 +38,7 @@ export default async function ProgramsPage({ searchParams }: ProgramsPageProps) 
       </section>
 
       {/* Client-side Interactive Content */}
-      <ProgramsPageContent initialCountry={resolvedParams.country || ""} />
+      <ProgramsPageClient initialCountry={resolvedParams.country || ""} />
     </div>
   );
 }

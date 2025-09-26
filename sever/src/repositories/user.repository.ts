@@ -35,28 +35,14 @@ export const handleUpdateUserStatusByEmail = HandlerCustom(async (data: { email:
     return user;
 });
 
-// export const handleCreateProgram = HandlerCustom(async (data: ICreateProgramData) => {
-//     const job = await new User({
-//         title: data.title,
-//         country: data.country,
-//         imageUrl: data.imageUrl,
-//         positions: data.positions,
-//         location: data.location,
-//         salary: data.salary,
-//         applicationDeadline: data.applicationDeadline,
-//         estimatedDeparture: data.estimatedDeparture,
-//         requirements: data.requirements,
-//         benefits: data.benefits,
-//         description: data.description,
-//         company: data.company,
-//         workType: data.workType,
-//         featured: data.featured,
-//         workingHours: data.workingHours,
-//         overtime: data.overtime,
-//         accommodation: data.accommodation,
-//         workEnvironment: data.workEnvironment,
-//         trainingPeriod: data.trainingPeriod,
-//     }).save();
+export const handleCreateUser = HandlerCustom(async (data: {
+    email: string;
+    password: string;
+}) => {
+    const job = await new User({
+        email: data.email,
+        password: data.password,
+    }).save();
 
-//     return job;
-// });
+    return job;
+});

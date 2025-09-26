@@ -3,6 +3,7 @@ import {
   getPrograms,
   getProgram,
   createProgram,
+  updateProgram
 } from "../controllers/program.controller.js";
 
 const programRoute = express.Router();
@@ -15,5 +16,8 @@ programRoute.get("/:id", getProgram);
 
 // POST /api/v1/programs - create new program
 programRoute.post("/", createProgram);
+
+// PUT /api/v1/programs/:id - update existing program
+programRoute.put("/:id", updateProgram);
 
 export default programRoute;

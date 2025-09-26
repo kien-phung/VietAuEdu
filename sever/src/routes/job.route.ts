@@ -3,6 +3,7 @@ import {
   getAllJobs,
   getJob,
   createJob,
+  updateJob
 } from "../controllers/job.controller.js";
 
 const jobRoute = express.Router();
@@ -15,5 +16,8 @@ jobRoute.get("/:id", getJob);
 
 // POST /api/v1/jobs - create new job
 jobRoute.post("/", createJob);
+
+// PUT /api/v1/jobs/:id - update existing job
+jobRoute.put("/:id", updateJob);
 
 export default jobRoute;

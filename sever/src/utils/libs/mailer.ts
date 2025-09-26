@@ -3,6 +3,8 @@ import { HandlerCustom } from "../configs/custom.js";
 import nodemailer from 'nodemailer';
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 export enum EmailTemplate {
     SEND_OTP = "../templates/sendOTP.html",
@@ -23,11 +25,14 @@ export const sendMail = HandlerCustom(async (
     template: EmailTemplate,
     templateData: TemplateData = {}
 ) => {
+    // Get the directory path in ES modules
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
+
     let html = fs.readFileSync(path.join(__dirname, template), "utf-8");
 
     // Replace all placeholders with their values
     if (Array.isArray(templateData)) {
-        // Nếu templateData là mảng tuple [key, value]
         templateData.forEach(([key, value]) => {
             const regex = new RegExp(`{{${key}}}`, 'g');
             html = html.replace(regex, String(value));
