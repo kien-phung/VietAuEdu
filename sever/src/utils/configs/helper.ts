@@ -1,22 +1,9 @@
 import multer from 'multer';
 import path from 'path';
-import fs from 'fs';
 
-// Đảm bảo thư mục uploads tồn tại
-const uploadDir = path.join(process.cwd(), 'uploads');
-if (!fs.existsSync(uploadDir)) {
-    fs.mkdirSync(uploadDir, { recursive: true });
-}
-
-// Cấu hình lưu trữ file
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, uploadDir);
-    },
-    filename: function (req, file, cb) {
-        cb(null, `${Date.now()}-${file.originalname}`);
-    }
-});
+// Sử dụng memoryStorage để lưu trữ tệp trong bộ nhớ thay vì trên đĩa
+// Điều này ngăn chặn việc tạo các tệp tạm thời trong thư mục uploads
+const storage = multer.memoryStorage();
 
 // Lọc file upload
 const fileFilter = (req: any, file: any, cb: any) => {
@@ -55,10 +42,12 @@ export const formDataToObject = (req: any) => {
     // Thêm các file đã upload vào object (nếu có)
     if (req.file) {
         result.file = {
-            filename: req.file.filename,
-            path: req.file.path,
+            fieldname: req.file.fieldname,
             originalname: req.file.originalname,
-            mimetype: req.file.mimetype
+            encoding: req.file.encoding,
+            mimetype: req.file.mimetype,
+            size: req.file.size,
+            buffer: req.file.buffer
         };
     }
 
@@ -66,10 +55,11 @@ export const formDataToObject = (req: any) => {
         // Xử lý files là một mảng (từ upload.any())
         result.files = req.files.map((file: any) => ({
             fieldname: file.fieldname,
-            filename: file.filename,
-            path: file.path,
             originalname: file.originalname,
-            mimetype: file.mimetype
+            encoding: file.encoding,
+            mimetype: file.mimetype,
+            size: file.size,
+            buffer: file.buffer
         }));
     }
 

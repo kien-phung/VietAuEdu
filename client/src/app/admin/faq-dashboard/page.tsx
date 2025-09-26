@@ -124,7 +124,7 @@ export default function FAQDashboardPage() {
   const handleUpdate = async () => {
     if (data) {
       await updateFAQ(
-        data.id,
+        data._id,
         data.question,
         data.answer,
         data.category,

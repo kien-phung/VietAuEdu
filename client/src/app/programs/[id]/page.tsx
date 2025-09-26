@@ -7,7 +7,7 @@ export async function generateMetadata({
 }: {
   params: { id: string };
 }): Promise<Metadata> {
-  // Sử dụng params.id để lấy dữ liệu chương trình từ API
+  // Sử dụng params._id để lấy dữ liệu chương trình từ API
   const id = params.id;
 
   // Trong tương lai, khi có API thực, bạn có thể fetch dữ liệu như sau:

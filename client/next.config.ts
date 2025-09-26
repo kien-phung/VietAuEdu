@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Performance optimizations
   images: {
-    domains: ["loremflickr.com", "localhost", "127.0.0.1", "placehold.co"],
+    domains: ["loremflickr.com", "localhost", "127.0.0.1", "placehold.co", "res.cloudinary.com"],
     formats: ["image/webp", "image/avif"],
     minimumCacheTTL: 31536000, // 1 year
   },

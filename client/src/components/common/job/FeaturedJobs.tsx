@@ -23,7 +23,7 @@ export default function FeaturedJobs({ featuredJobs }: FeaturedJobsProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {featuredJobs.map((job) => (
             <div
-              key={job.id}
+              key={job._id}
               className="bg-white dark:bg-gray-700 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-600 relative"
             >
               <div className="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-medium">
@@ -65,7 +65,7 @@ export default function FeaturedJobs({ featuredJobs }: FeaturedJobsProps) {
                   </div>
 
                   <Link
-                    href={`/jobs/${job.id}`}
+                    href={`/jobs/${job._id}`}
                     className="inline-flex items-center text-primary hover:text-primary/80 font-medium"
                   >
                     Xem chi tiết <ChevronRight className="w-4 h-4 ml-1" />

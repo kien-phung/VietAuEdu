@@ -13,7 +13,7 @@ export default function JobListings({ filteredJobs }: JobListingsProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl mx-auto">
         {filteredJobs.map((job) => (
           <div
-            key={job.id}
+            key={job._id}
             className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700"
           >
             <div className="relative h-48">
@@ -72,7 +72,7 @@ export default function JobListings({ filteredJobs }: JobListingsProps) {
               </div>
 
               <Link
-                href={`/jobs/${job.id}`}
+                href={`/jobs/${job._id}`}
                 className="block w-full bg-primary hover:bg-primary/90 text-white text-center py-3 rounded-lg font-medium transition-colors duration-300"
               >
                 Ứng Tuyển Ngay

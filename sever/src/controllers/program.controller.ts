@@ -12,9 +12,7 @@ export const getPrograms = RequestHandlerCustom(
 
     res.status(200).json({
       message: "Get programs successfully",
-      data: {
-        programs: programs
-      }
+      programs: programs
     });
   }
 );
@@ -22,14 +20,13 @@ export const getPrograms = RequestHandlerCustom(
 export const getProgram = RequestHandlerCustom(
   async (req, res) => {
     const id = req.params.id;
+    console.log(">>>>", id)
 
     const program = await handleGetProgramById({ id });
 
     res.status(200).json({
       message: "Get program successfully",
-      data: {
-        program: program
-      }
+      program: program
     });
   }
 );
@@ -40,8 +37,10 @@ export interface ICreateProgramData {
   country: string;
   duration: string;
   tuition: string;
-  imageUrl?: string; // Optional because it can be uploaded as a file
-  image?: Express.Multer.File; // Field for file upload
+  imageUrl?: string;
+  image?: Express.Multer.File;
+  about: string,
+  opportunities: string,
   requirements: string[];
   benefits: string[];
   featured: boolean;
@@ -94,16 +93,14 @@ export const createProgram = RequestHandlerCustom(
 
     res.status(201).json({
       message: "New program created",
-      data: {
-        program: program
-      }
+      program: program
     });
   }
 );
 
 export const updateProgram = RequestHandlerCustom(
   async (req, res, next) => {
-    const id = req.params.id;
+    const id = req.params._id;
 
     if (!id) {
       return next(new ErrorCustom(400, "Program ID is required"));
@@ -144,9 +141,7 @@ export const updateProgram = RequestHandlerCustom(
 
     res.status(200).json({
       message: "Program updated successfully",
-      data: {
-        program: updatedProgram
-      }
+      program: updatedProgram
     });
   }
 );

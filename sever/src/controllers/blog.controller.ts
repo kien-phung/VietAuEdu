@@ -8,9 +8,7 @@ export const getAllBlogs = RequestHandlerCustom(
 
     res.status(200).json({
       message: "Get all blogs successfully",
-      data: {
-        blogs: blogs
-      }
+      blogs: blogs
     });
   }
 );
@@ -23,9 +21,7 @@ export const getBlogsBySlug = RequestHandlerCustom(
 
     res.status(200).json({
       message: "Get blog by slug successfully",
-      data: {
-        blog: blog
-      }
+      blog: blog
     });
   }
 );
@@ -38,24 +34,20 @@ export const getBlogsRecent = RequestHandlerCustom(
 
     res.status(200).json({
       message: "Get blogs recent successfully",
-      data: {
-        blogs: blogs
-      }
+      blogs: blogs
     });
   }
 );
 
 export const getBlog = RequestHandlerCustom(
   async (req, res) => {
-    const id = (req.params.id || req.query.id) as string;
+    const id = (req.params._id || req.query._id) as string;
 
     const blog = await handleGetBlogById({ id });
 
     res.status(200).json({
       message: "Get blog successfully",
-      data: {
-        blog: blog
-      }
+      blog: blog
     });
   }
 );
@@ -79,9 +71,7 @@ export const createBlog = RequestHandlerCustom(
 
     res.status(201).json({
       message: "New blog created",
-      data: {
-        blog: blog
-      }
+      blog: blog
     });
   }
 );

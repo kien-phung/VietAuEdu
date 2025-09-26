@@ -135,7 +135,7 @@ export default function ProgramDashboardPage() {
         data.image instanceof File ? data.image : data.imageUrl || "";
 
       await updateProgram(
-        data.id,
+        data._id,
         data.title,
         data.description,
         data.country,
@@ -195,7 +195,7 @@ export default function ProgramDashboardPage() {
             className="h-8 gap-1"
             onClick={() => {
               setData({
-                id: "",
+                _id: "",
                 title: "",
                 description: "",
                 country: "",

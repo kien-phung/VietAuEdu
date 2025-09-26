@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 import { NODE_ENV, PRIVATE_KEY, SALT_ROUNDS, TOTAL_MS_IN_DAY } from "../utils/configs/constants.js";
 import { ErrorCustom, RequestHandlerCustom } from "../utils/configs/custom.js";
 import { redisClient } from "../utils/libs/database.js";
@@ -113,7 +114,7 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
 
     const token = jwt.sign(
         {
-            id: user.id,
+            id: user._id,
             role: user?.role,
         },
         PRIVATE_KEY,
@@ -122,6 +123,11 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
             algorithm: "HS256",
         }
     );
+
+    // Store login status in Redis with the same expiration as token (7 days)
+    await redisClient.set(loginKey, 'true', {
+        EX: 7 * 24 * 60 * 60 // 7 days in seconds
+    });
 
     res.cookie("token", token as string, {
         httpOnly: true,
@@ -135,37 +141,38 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
     res.status(200).json({
         success: true,
         message: "Login successful",
-        data: {
-            user: userWithoutPassword,
-            isActive,
-        }
+        user: userWithoutPassword,
+        isActive,
     });
 
 });
 
 export const logout = RequestHandlerCustom(async (req, res, next) => {
-    const data = parseRequestData(req);
-    const { email } = data;
-
-    const user = await handleGetUserByEmail({ email });
-
-    if (!user) {
-        return next(new ErrorCustom(404, "User not found"));
+    // The isAuth middleware already validated the token and set req.userId
+    if (!req.userId) {
+        return next(new ErrorCustom(403, "Not authenticated"));
     }
 
-    const loginKey = `login:${email}`;
-    const storedLogin = await redisClient.get(loginKey);
-    if (!storedLogin) {
-        return next(new ErrorCustom(400, "User not logged in"));
-    }
-
-    await redisClient.del(loginKey);
-
+    // Clear cookie regardless of Redis status
     res.clearCookie("token", {
         httpOnly: true,
         secure: NODE_ENV === "production",
         sameSite: "strict",
     });
+
+    // Try to find the user by ID
+    try {
+        // Clear any Redis login keys associated with this user
+        // This is a best-effort cleanup, but we'll log the user out regardless
+        const user = await mongoose.model('User').findById(req.userId);
+        if (user && user.email) {
+            const loginKey = `login:${user.email}`;
+            await redisClient.del(loginKey);
+        }
+    } catch (error) {
+        console.error("Error during Redis cleanup:", error);
+        // Continue with logout even if Redis cleanup fails
+    }
 
     res.status(200).json({
         success: true,

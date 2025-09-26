@@ -99,13 +99,13 @@ export default function ProgramDetailPageClient({
               </p>
 
               <div className="flex flex-wrap gap-4 mb-6">
-                <div className="flex items-center space-x-2 bg-gray-100 px-3 py-2 rounded-lg">
+                <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded-lg">
                   <Clock className="w-4 h-4 text-gray-500" />
                   <span className="text-sm font-medium">
                     {program.duration}
                   </span>
                 </div>
-                <div className="flex items-center space-x-2 bg-gray-100 px-3 py-2 rounded-lg">
+                <div className="flex items-center space-x-2 bg-gray-100 dark:bg-gray-700 px-3 py-2 rounded-lg">
                   <DollarSign className="w-4 h-4 text-gray-500" />
                   <span className="text-sm font-medium">{program.tuition}</span>
                 </div>
@@ -189,28 +189,30 @@ export default function ProgramDetailPageClient({
               </CardHeader>
               <CardContent className="space-y-6">
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
                     Về Chương Trình
                   </h4>
                   <p className="text-gray-600 leading-relaxed">
-                    Chương trình {program.title} được thiết kế để cung cấp cho
+                    {/* Chương trình {program.title} được thiết kế để cung cấp cho
                     sinh viên những kiến thức chuyên sâu và kỹ năng thực tiễn
                     cần thiết trong môi trường quốc tế. Với đội ngũ giảng viên
                     giàu kinh nghiệm và cơ sở vật chất hiện đại, chương trình
-                    cam kết mang lại chất lượng giáo dục cao nhất.
+                    cam kết mang lại chất lượng giáo dục cao nhất. */}
+                    {program.about}
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-3">
+                  <h4 className="font-semibold text-gray-900 dark:text-white mb-3">
                     Cơ Hội Nghề Nghiệp
                   </h4>
                   <p className="text-gray-600 leading-relaxed">
-                    Sau khi tốt nghiệp, sinh viên sẽ có cơ hội làm việc tại các
+                    {/* Sau khi tốt nghiệp, sinh viên sẽ có cơ hội làm việc tại các
                     công ty đa quốc gia, tổ chức quốc tế hoặc tiếp tục nghiên
                     cứu và phát triển sự nghiệp học thuật. Mạng lưới alumni rộng
                     khắp sẽ hỗ trợ sinh viên trong việc tìm kiếm cơ hội việc
-                    làm.
+                    làm. */}
+                    {program.opportunities}
                   </p>
                 </div>
               </CardContent>

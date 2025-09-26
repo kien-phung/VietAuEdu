@@ -84,7 +84,7 @@ export default function SlideshowSection({
       <div className="relative h-64 sm:h-80 md:h-96 lg:h-[500px] w-full">
         {slides.map((slide, index) => (
           <div
-            key={slide.id}
+            key={slide._id}
             className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
               index === currentIndex ? "opacity-100" : "opacity-0"
             }`}

@@ -24,7 +24,11 @@ const tuitionRanges = [
   { value: "30000+", label: "Trên 30,000 USD" },
 ];
 
-export default function ProgramsPageClient({ initialCountry = "" }: { initialCountry?: string }) {
+export default function ProgramsPageClient({
+  initialCountry = "",
+}: {
+  initialCountry?: string;
+}) {
   const { getAllPrograms } = useProgramStore();
   const [programs, setPrograms] = useState<IProgram[]>([]);
 
@@ -51,7 +55,7 @@ export default function ProgramsPageClient({ initialCountry = "" }: { initialCou
               .filter((p) => p.featured)
               .slice(0, 3)
               .map((program) => (
-                <ProgramCard key={program.id} program={program} />
+                <ProgramCard key={program._id} program={program} />
               ))}
           </div>
         </div>

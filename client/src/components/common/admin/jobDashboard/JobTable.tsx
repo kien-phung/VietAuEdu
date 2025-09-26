@@ -64,7 +64,7 @@ export const JobTable = ({
               </TableRow>
             ) : Jobs.length > 0 ? (
               Jobs.map((job) => (
-                <TableRow key={job.id}>
+                <TableRow key={job._id}>
                   <TableCell className="text-center">{job.title}</TableCell>
 
                   <TableCell className="text-center">{job.country}</TableCell>

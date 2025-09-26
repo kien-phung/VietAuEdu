@@ -61,7 +61,7 @@ export function ContactTable({
               </TableRow>
             ) : contacts.length > 0 ? (
               contacts.map((contact) => (
-                <TableRow key={contact.id}>
+                <TableRow key={contact._id}>
                   <TableCell>
                     <div className="flex items-center gap-3">
                       <div className="flex flex-col">

@@ -17,6 +17,7 @@ export interface IAuthStore extends IBaseStore {
 	userAuth: IUser | null;
 
 	login: (email: string, password: string) => Promise<IApiResponse<IAuthDataResponse>>;
+	logout: () => Promise<IApiResponse>;
 	RefreshToken: () => Promise<IApiResponse>;
 	sendOTP: (email: string) => Promise<IApiResponse>;
 	verifyOTP: (email: string, otp: string) => Promise<IApiResponse>;
@@ -55,6 +56,17 @@ export const useAuthStore = createStore<IAuthStore>(
 						userAuth: response?.data?.user,
 					});
 				}
+
+				return response;
+			});
+		},
+
+		logout: async (): Promise<IApiResponse> => {
+			return await get().handleRequest(async () => {
+				const response = await handleRequest(EHttpType.POST, "/auth/logout");
+
+				// Reset state regardless of response to ensure client is logged out
+				get().reset();
 
 				return response;
 			});

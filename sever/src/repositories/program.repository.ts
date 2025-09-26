@@ -36,6 +36,8 @@ export const handleCreateProgram = HandlerCustom(async (data: ICreateProgramData
         benefits: data.benefits,
         imageUrl: data.imageUrl || "/images/placeholder-program.jpg", // Sử dụng ảnh mặc định nếu không có
         featured: data.featured,
+        about: data.about,
+        opportunities: data.opportunities,
         status: data.status,
     }).save();
 

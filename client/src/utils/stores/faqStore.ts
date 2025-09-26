@@ -70,14 +70,13 @@ export const useFAQStore = createStore<IFAQStore>(
 			status: EStatus,
 		): Promise<IApiResponse<IFAQDataResponse>> => {
 			const formData = new FormData();
-			formData.append("FAQId", FAQId);
 			formData.append("question", question);
 			formData.append("answer", answer);
 			formData.append("category", category);
 			formData.append("status", status);
 
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.GET, `/FAQs`, formData);
+				return await handleRequest(EHttpType.PATCH, `/FAQs/${FAQId}`, formData);
 			});
 		},
 

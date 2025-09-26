@@ -149,7 +149,7 @@ export default function JobDashboardPage() {
 
         // Direct call to the updateJob function with the optional question parameter
         await updateJob(
-          data.id,
+          data._id,
           data.title || "",
           data.country || "",
           imageToUse, // Sử dụng file mới hoặc URL cũ
@@ -236,7 +236,7 @@ export default function JobDashboardPage() {
         // Close the dialog and reset the form
         setIsCreateJobOpen(false);
         setData({
-          id: "",
+          _id: "",
           title: "",
           country: "",
           positions: 0,

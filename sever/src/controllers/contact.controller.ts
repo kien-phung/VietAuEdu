@@ -8,24 +8,20 @@ export const getAllContacts = RequestHandlerCustom(
 
     res.status(200).json({
       message: "Get all contacts successfully",
-      data: {
-        contacts: contacts
-      }
+      contacts: contacts
     });
   }
 );
 
 export const getContact = RequestHandlerCustom(
   async (req, res) => {
-    const id = req.params.id;
+    const id = req.params._id;
 
     const contact = await handleGetContactById({ id });
 
     res.status(200).json({
       message: "Get contact successfully",
-      data: {
-        contact: contact
-      }
+      contact: contact
     });
   }
 );
@@ -45,9 +41,7 @@ export const submitContact = RequestHandlerCustom(
 
     res.status(201).json({
       message: "New contact created",
-      data: {
-        contact: contact
-      }
+      contact: contact
     });
   }
 );

@@ -71,7 +71,7 @@ export default function ProgramCard({ program }: ProgramCardProps) {
         <div className="flex flex-wrap gap-1">
           {program.benefits.slice(0, 2).map((benefit, index) => (
             <span
-              key={index}
+              key={`${program._id}-benefit-${index}`}
               className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-primary/10 dark:bg-primary/20 text-primary"
             >
               <Award className="w-3 h-3 mr-1" />
@@ -82,7 +82,7 @@ export default function ProgramCard({ program }: ProgramCardProps) {
       </CardContent>
 
       <CardFooter className="pt-4">
-        <Link href={`/programs/${program.id}`} className="w-full">
+        <Link href={`/programs/${program._id}`} className="w-full">
           <Button className="w-full bg-secondary hover:bg-secondary/90">
             Xem chi tiết
           </Button>

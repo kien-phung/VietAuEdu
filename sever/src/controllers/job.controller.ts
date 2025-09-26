@@ -19,7 +19,7 @@ export const getAllJobs = RequestHandlerCustom(
 
 export const getJob = RequestHandlerCustom(
   async (req, res) => {
-    const id = req.params.id;
+    const id = req.params._id;
 
     const job = await handleGetJobById({ id });
 
@@ -97,16 +97,7 @@ export const createJob = RequestHandlerCustom(
 
         if (imageFile) {
           try {
-            // Verify file exists before uploading
-            if (!fs.existsSync(imageFile.path)) {
-              console.error(`File path doesn't exist: ${imageFile.path}`);
-              return res.status(500).json({
-                message: "Lỗi khi tải ảnh lên - file không tồn tại",
-                path: imageFile.path
-              });
-            }
-
-            // Tải lên Cloudinary
+            // Tải lên Cloudinary trực tiếp từ buffer
             const uploadResult = await uploadFiles(imageFile, 'jobs');
             console.log('Upload Result:', uploadResult);
 
@@ -128,9 +119,7 @@ export const createJob = RequestHandlerCustom(
 
       res.status(201).json({
         message: "New job created",
-        data: {
-          job: job
-        }
+        job: job
       });
     } catch (error) {
       console.error('Error in createJob:', error);
@@ -145,7 +134,7 @@ export const createJob = RequestHandlerCustom(
 export const updateJob = RequestHandlerCustom(
   async (req, res, next) => {
     try {
-      const id = req.params.id;
+      const id = req.params._id;
 
       if (!id) {
         return next(new ErrorCustom(400, "Job ID is required"));
@@ -172,16 +161,7 @@ export const updateJob = RequestHandlerCustom(
 
         if (imageFile) {
           try {
-            // Verify file exists before uploading
-            if (!fs.existsSync(imageFile.path)) {
-              console.error(`File path doesn't exist: ${imageFile.path}`);
-              return res.status(500).json({
-                message: "Lỗi khi tải ảnh lên - file không tồn tại",
-                path: imageFile.path
-              });
-            }
-
-            // Tải lên Cloudinary
+            // Tải lên Cloudinary trực tiếp từ buffer
             const uploadResult = await uploadFiles(imageFile, 'jobs');
             console.log('Update Job - Upload Result:', uploadResult);
 
@@ -203,9 +183,7 @@ export const updateJob = RequestHandlerCustom(
 
       res.status(200).json({
         message: "Job updated successfully",
-        data: {
-          job: updatedJob
-        }
+        job: updatedJob
       });
     } catch (error) {
       console.error('Error in updateJob:', error);

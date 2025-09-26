@@ -64,7 +64,7 @@ export default function JobOpportunitiesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto mb-12">
           {filteredJobs.map((job) => (
             <div
-              key={job.id}
+              key={job._id}
               className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700"
             >
               <div className="flex">

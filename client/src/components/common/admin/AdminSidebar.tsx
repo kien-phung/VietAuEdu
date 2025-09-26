@@ -8,10 +8,12 @@ import {
   Briefcase,
   Menu,
   X,
+  LogOut,
 } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useAuthStore } from "@/utils/stores/authStore";
 
 interface AdminSidebarProps {
   collapsed: boolean;
@@ -27,6 +29,19 @@ export default function AdminSidebar({
   onStartResizing,
 }: AdminSidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { logout } = useAuthStore();
+
+  const handleLogout = async () => {
+    try {
+      const response = await logout();
+      if (response) {
+        router.push("/auth/login");
+      }
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
 
   const menuItems = [
     { icon: Home, label: "Dashboard", href: "/admin" },
@@ -103,6 +118,20 @@ export default function AdminSidebar({
           })}
         </ul>
       </nav>
+
+      {/* Logout Button */}
+      <div className="mt-auto px-2 pb-4">
+        <button
+          onClick={handleLogout}
+          className={cn(
+            "flex w-full items-center rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+            "text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-gray-700"
+          )}
+        >
+          <LogOut className="h-5 w-5" />
+          {!collapsed && <span className="ml-3">Đăng xuất</span>}
+        </button>
+      </div>
 
       {/* Resize Handle */}
       <div

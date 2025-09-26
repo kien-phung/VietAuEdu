@@ -2,7 +2,7 @@ import { EContactStatus, EStatus, EUserStatus } from "./enum.js";
 
 declare global {
     interface IUser {
-        id: string;
+        _id: string;
         email: string;
         password: string;
         name: string;
@@ -12,12 +12,14 @@ declare global {
     }
 
     interface IProgram {
-        id: string;
+        _id: string;
         title: string;
         description: string;
         country: string;
         duration: string;
         tuition: string;
+        opportunities: string;
+        about: string;
         requirements: string[];
         benefits: string[];
         imageUrl: string;
@@ -29,7 +31,7 @@ declare global {
     }
 
     interface IBlog {
-        id: string;
+        _id: string;
         title: string;
         excerpt: string;
         content: string;
@@ -42,7 +44,7 @@ declare global {
     }
 
     interface IJob {
-        id: string;
+        _id: string;
         title: string;
         country: string;
         imageUrl?: string;
@@ -64,12 +66,12 @@ declare global {
         workEnvironment: string;
         trainingPeriod: string;
         status: EStatus;
-        createdAt?: Date;
-        updatedAt?: Date;
+        createdAt?: string;
+        updatedAt?: string;
     }
 
     interface IContact {
-        id: string;
+        _id: string;
         name: string;
         email: string;
         phone: string;
@@ -83,7 +85,7 @@ declare global {
     }
 
     interface IFAQ {
-        id: string;
+        _id: string;
         question: string;
         answer: string;
         category: string;

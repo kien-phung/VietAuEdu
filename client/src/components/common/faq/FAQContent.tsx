@@ -97,11 +97,11 @@ export default function FAQContent({
             <div className="space-y-4">
               {filteredFAQs.map((faq) => (
                 <div
-                  key={faq.id}
+                  key={faq._id}
                   className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 hover:shadow-lg"
                 >
                   <button
-                    onClick={() => toggleFAQ(faq.id)}
+                    onClick={() => toggleFAQ(faq._id)}
                     className="w-full px-6 py-6 text-left focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-2xl"
                   >
                     <div className="flex justify-between items-start">
@@ -117,7 +117,7 @@ export default function FAQContent({
                         </div>
                       </div>
                       <div className="flex-shrink-0 ml-4">
-                        {openFAQ === faq.id ? (
+                        {openFAQ === faq._id ? (
                           <ChevronUp className="w-5 h-5 text-primary" />
                         ) : (
                           <ChevronDown className="w-5 h-5 text-gray-400" />
@@ -126,7 +126,7 @@ export default function FAQContent({
                     </div>
                   </button>
 
-                  {openFAQ === faq.id && (
+                  {openFAQ === faq._id && (
                     <div className="px-6 pb-6">
                       <div className="pt-4 border-t border-gray-200 dark:border-gray-600">
                         <p className="text-gray-700 dark:text-gray-300 leading-relaxed">

@@ -71,7 +71,7 @@ export const FAQTable = ({ FAQs, isLoading }: IFAQTableProps) => {
               </TableRow>
             ) : FAQs.length > 0 ? (
               FAQs.map((FAQ) => (
-                <TableRow key={FAQ.id}>
+                <TableRow key={FAQ._id}>
                   <TableCell className="flex items-center justify-center gap-1">
                     {FAQ.question}
                   </TableCell>

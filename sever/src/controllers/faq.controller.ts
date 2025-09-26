@@ -10,9 +10,7 @@ export const getFAQs = RequestHandlerCustom(
 
     res.status(200).json({
       message: "Get faqs successfully",
-      data: {
-        faqs: faqs
-      }
+      faqs: faqs
     });
   }
 );
@@ -39,16 +37,14 @@ export const createFAQ = RequestHandlerCustom(
 
     res.status(201).json({
       message: "New FAQ created",
-      data: {
-        faq: faq
-      }
+      faq: faq
     });
   }
 );
 
 export const updateFAQ = RequestHandlerCustom(
   async (req, res, next) => {
-    const id = req.params.id;
+    const id = req.params._id;
 
     if (!id) {
       return next(new ErrorCustom(400, "FAQ ID is required"));
@@ -65,16 +61,14 @@ export const updateFAQ = RequestHandlerCustom(
 
     res.status(200).json({
       message: "FAQ updated successfully",
-      data: {
-        faq: updatedFAQ
-      }
+      faq: updatedFAQ
     });
   }
 );
 
 export const getFAQById = RequestHandlerCustom(
   async (req, res, next) => {
-    const id = req.params.id;
+    const id = req.params._id;
 
     if (!id) {
       return next(new ErrorCustom(400, "FAQ ID is required"));
@@ -84,9 +78,7 @@ export const getFAQById = RequestHandlerCustom(
 
     res.status(200).json({
       message: "FAQ retrieved successfully",
-      data: {
-        faq
-      }
+      faq
     });
   }
 );

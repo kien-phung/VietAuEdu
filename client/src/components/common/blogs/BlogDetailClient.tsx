@@ -13,7 +13,7 @@ export default function BlogDetailClient({ blog }: { blog: IBlog }) {
   // Get related posts from same category
   const { blogs } = useBlogStore.getState();
   const relatedPosts = blogs
-    .filter((p) => p.category === blog.category && p.id !== blog.id)
+    .filter((p) => p.category === blog.category && p._id !== blog._id)
     .slice(0, 3);
 
   return (
@@ -247,7 +247,7 @@ export default function BlogDetailClient({ blog }: { blog: IBlog }) {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {relatedPosts.length > 0 ? (
                       relatedPosts.map((post) => (
-                        <Link key={post.id} href={`/blogs/${post.slug}`}>
+                        <Link key={post._id} href={`/blogs/${post.slug}`}>
                           <div className="flex flex-col h-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
                             <div className="relative h-40">
                               <Image
@@ -384,7 +384,7 @@ export default function BlogDetailClient({ blog }: { blog: IBlog }) {
                   <div className="space-y-4">
                     {relatedPosts.map((relatedPost) => (
                       <Link
-                        key={relatedPost.id}
+                        key={relatedPost._id}
                         href={`/blogs/${relatedPost.slug}`}
                       >
                         <div className="flex space-x-3 p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors border border-transparent hover:border-gray-200 dark:hover:border-gray-700">

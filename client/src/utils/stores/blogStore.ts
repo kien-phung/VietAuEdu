@@ -50,7 +50,7 @@ export const useBlogStore = createStore<IBlogStore>(
 
 		getBlog: async (blogId: string): Promise<IApiResponse<IBlogDataResponse>> => {
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.GET, `/blogs?id=${blogId}`);
+				return await handleRequest(EHttpType.GET, `/blogs?_id=${blogId}`);
 			});
 		},
 

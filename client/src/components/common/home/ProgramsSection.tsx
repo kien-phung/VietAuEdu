@@ -6,20 +6,20 @@ import Link from "next/link";
 import { useProgramStore } from "@/utils/stores/programStore";
 
 export default function ProgramsSection() {
-const {getFeaturedPrograms} = useProgramStore();
+  const { getFeaturedPrograms } = useProgramStore();
 
-const [programs, setPrograms] = useState<IProgram[]>([]);
+  const [programs, setPrograms] = useState<IProgram[]>([]);
 
-useEffect(() => {
-  const fetchData = async () => {
-    const res = await getFeaturedPrograms();
-    const data = res?.data?.programs || [];
-    
-    setPrograms(data);
-  };
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await getFeaturedPrograms();
+      const data = res?.data?.programs || [];
 
-  fetchData();
-}, [getFeaturedPrograms]);
+      setPrograms(data);
+    };
+
+    fetchData();
+  }, [getFeaturedPrograms]);
 
   return (
     <section className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors">
@@ -36,7 +36,7 @@ useEffect(() => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {programs.slice(0, 3).map((program) => (
-            <ProgramCard key={program.id} program={program} />
+            <ProgramCard key={program._id} program={program} />
           ))}
         </div>
 

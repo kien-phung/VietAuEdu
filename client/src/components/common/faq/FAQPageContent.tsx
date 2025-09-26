@@ -29,8 +29,8 @@ export default function FAQPageContent() {
   }, [getAllFAQs]);
 
   // Convert IFAQ to FAQ interface expected by FAQContent
-  const convertedFAQs = faqs.map(faq => ({
-    id: faq.id,
+  const convertedFAQs = faqs.map((faq) => ({
+    id: faq._id,
     question: faq.question,
     answer: faq.answer,
     category: faq.category,

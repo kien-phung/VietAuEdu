@@ -86,7 +86,7 @@ export default function ContactDashboardPage() {
 
     setIsResponding(true);
     await respondContact(
-      userAuth?.id,
+      userAuth?._id,
       selectedContact.name,
       selectedContact.email,
       selectedContact.phone,

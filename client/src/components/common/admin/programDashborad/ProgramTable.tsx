@@ -51,7 +51,7 @@ export const ProgramTable = ({ Programs, isLoading }: ProgramTableProps) => {
               </TableRow>
             ) : Programs.length > 0 ? (
               Programs.map((program) => (
-                <TableRow key={program.id}>
+                <TableRow key={program._id}>
                   <TableCell className="flex items-center justify-center gap-1">
                     {program.title}
                   </TableCell>

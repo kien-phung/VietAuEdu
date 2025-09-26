@@ -21,17 +21,9 @@ export const uploadFiles = HandlerCustom(async (
   }
 
   const uploadPromises = fileArray.map(async (file) => {
-    const { path: filePath, mimetype, originalname } = file;
+    const { buffer, mimetype, originalname } = file;
 
-    console.log(`Processing file: ${originalname}, path: ${filePath}, mimetype: ${mimetype}`);
-
-    // Verify file exists
-    if (!fs.existsSync(filePath)) {
-      throw new ErrorCustom(
-        404,
-        `File not found at path: ${filePath}`
-      );
-    }
+    console.log(`Processing file: ${originalname}, mimetype: ${mimetype}`);
 
     if (!mimetype.startsWith("image/") && !mimetype.startsWith("video/")) {
       throw new ErrorCustom(
@@ -41,13 +33,10 @@ export const uploadFiles = HandlerCustom(async (
     }
 
     try {
-      console.log(`Uploading to Cloudinary: ${filePath}`);
-
-      // Use readFileSync to get file buffer instead of relying on path
-      const fileBuffer = fs.readFileSync(filePath);
+      console.log(`Uploading to Cloudinary: ${originalname}`);
 
       // Convert buffer to base64 string for Cloudinary
-      const fileBase64 = `data:${mimetype};base64,${fileBuffer.toString('base64')}`;
+      const fileBase64 = `data:${mimetype};base64,${buffer.toString('base64')}`;
 
       const result = await cloudinary.uploader.upload(fileBase64, {
         folder: folder || "default",
@@ -56,18 +45,9 @@ export const uploadFiles = HandlerCustom(async (
 
       console.log(`Upload successful, URL: ${result.secure_url}`);
 
-      // Delete the local file after successful upload
-      try {
-        fs.unlinkSync(filePath);
-        console.log(`Local file deleted: ${filePath}`);
-      } catch (deleteErr) {
-        console.error(`Error deleting local file: ${filePath}`, deleteErr);
-        // Non-critical error, don't throw
-      }
-
       return result;
     } catch (err) {
-      console.error(`Error uploading to Cloudinary: ${filePath}`, err);
+      console.error(`Error uploading to Cloudinary: ${originalname}`, err);
       throw new ErrorCustom(500, `Failed to upload ${originalname}: ${err instanceof Error ? err.message : String(err)}`);
     }
   });
