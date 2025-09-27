@@ -52,6 +52,8 @@ export const FAQTable = ({ FAQs, isLoading }: IFAQTableProps) => {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="text-center">STT</TableHead>
+              
               <TableHead className="text-center">Question</TableHead>
 
               <TableHead className="text-center">Answer</TableHead>
@@ -70,34 +72,33 @@ export const FAQTable = ({ FAQs, isLoading }: IFAQTableProps) => {
                 </TableCell>
               </TableRow>
             ) : FAQs.length > 0 ? (
-              FAQs.map((FAQ) => (
+              FAQs.map((FAQ, index) => (
                 <TableRow key={FAQ._id}>
-                  <TableCell className="flex items-center justify-center gap-1">
-                    {FAQ.question}
+                  <TableCell className="text-center">{index + 1}</TableCell>
+                  <TableCell className="text-center">{FAQ.question}</TableCell>
+
+                  <TableCell className="text-center">{FAQ.answer}</TableCell>
+
+                  <TableCell className="text-center">
+                    <div className="inline-flex items-center justify-center gap-2">
+                      <span
+                        className={`h-2 w-2 rounded-full ${getCategoryColor(
+                          FAQ?.category || ""
+                        )}`}
+                      />
+                      <span className="capitalize">{FAQ?.category}</span>
+                    </div>
                   </TableCell>
 
-                  <TableCell className="flex items-center justify-center gap-1">
-                    {FAQ.answer}
-                  </TableCell>
-
-                  <TableCell className="flex items-center justify-center gap-2">
-                    <span
-                      className={`h-2 w-2 rounded-full ${getCategoryColor(
-                        FAQ?.category || ""
-                      )}`}
-                    />
-
-                    <span className="capitalize">{FAQ?.category}</span>
-                  </TableCell>
-
-                  <TableCell className="flex items-center justify-center gap-2">
-                    <span
-                      className={`h-2 w-2 rounded-full ${getStatusColor(
-                        FAQ?.status || ""
-                      )}`}
-                    />
-
-                    <span className="capitalize">{FAQ.status}</span>
+                  <TableCell className="text-center">
+                    <div className="inline-flex items-center justify-center gap-2">
+                      <span
+                        className={`h-2 w-2 rounded-full ${getStatusColor(
+                          FAQ?.status || ""
+                        )}`}
+                      />
+                      <span className="capitalize">{FAQ.status}</span>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))

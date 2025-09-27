@@ -32,23 +32,30 @@ export const ContactFilter = ({
     <DropdownMenu open={openMenuFilters} onOpenChange={closeMenuMenuFilters}>
       <DropdownMenuTrigger asChild>
         <Button
-          variant="outline"
+          variant="secondary"
           size="sm"
-          className="h-8 gap-1"
+          className="h-8 gap-1 text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
           onClick={() => setOpenMenuFilters(!openMenuFilters)}
         >
-          <Filter className="h-4 w-4" />
+          <Filter className="h-4 w-4 text-gray-700 dark:text-gray-300" />
           Filter
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-[250px] bg-[#1e2735]">
-        <DropdownMenuLabel>Filter by</DropdownMenuLabel>
+      <DropdownMenuContent
+        align="end"
+        className="w-[250px] bg-white dark:bg-[#1e2735] border border-gray-200 dark:border-gray-700"
+      >
+        <DropdownMenuLabel className="text-gray-900 dark:text-gray-100">
+          Filter by
+        </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
 
         <div className="p-2">
-          <h4 className="mb-2 text-sm font-medium">Status</h4>
+          <h4 className="mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+            Status
+          </h4>
 
           <div className="space-y-2">
             <div className="flex items-center">
@@ -59,7 +66,12 @@ export const ContactFilter = ({
                 className="mr-2"
               />
 
-              <label htmlFor="status-resolved">Resolved</label>
+              <label
+                htmlFor="status-resolved"
+                className="text-gray-900 dark:text-gray-100"
+              >
+                Resolved
+              </label>
             </div>
 
             <div className="flex items-center">
@@ -70,7 +82,12 @@ export const ContactFilter = ({
                 className="mr-2"
               />
 
-              <label htmlFor="status-pending">Pending</label>
+              <label
+                htmlFor="status-pending"
+                className="text-gray-900 dark:text-gray-100"
+              >
+                Pending
+              </label>
             </div>
           </div>
         </div>
@@ -78,11 +95,21 @@ export const ContactFilter = ({
         <DropdownMenuSeparator />
 
         <div className="p-2 flex justify-between">
-          <Button variant="outline" size="sm" onClick={clearFilters}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={clearFilters}
+            className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
             Clear Filters
           </Button>
 
-          <Button size="sm" onClick={applyFilters}>
+          <Button
+            size="sm"
+            onClick={applyFilters}
+            variant="secondary"
+            className="text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
+          >
             Apply Filters
           </Button>
         </div>

@@ -33,6 +33,7 @@ export const ProgramTable = ({ Programs, isLoading }: ProgramTableProps) => {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="text-center">STT</TableHead>
               <TableHead className="text-center">Title</TableHead>
               <TableHead className="text-center">Country</TableHead>
               <TableHead className="text-center">Duration</TableHead>
@@ -50,42 +51,45 @@ export const ProgramTable = ({ Programs, isLoading }: ProgramTableProps) => {
                 </TableCell>
               </TableRow>
             ) : Programs.length > 0 ? (
-              Programs.map((program) => (
+              Programs.map((program, index) => (
                 <TableRow key={program._id}>
-                  <TableCell className="flex items-center justify-center gap-1">
-                    {program.title}
-                  </TableCell>
+                  <TableCell className="text-center">{index + 1}</TableCell>
+                  <TableCell className="text-center">{program.title}</TableCell>
 
-                  <TableCell className="flex items-center justify-center gap-1">
+                  <TableCell className="text-center">
                     {program.country}
                   </TableCell>
 
-                  <TableCell className="flex items-center justify-center gap-1">
+                  <TableCell className="text-center">
                     {program.duration}
                   </TableCell>
 
-                  <TableCell className="flex items-center justify-center gap-1">
+                  <TableCell className="text-center">
                     {program.tuition}
                   </TableCell>
 
-                  <TableCell className="flex items-center justify-center gap-2">
-                    <span
-                      className={`h-2 w-2 rounded-full ${
-                        program.featured ? "bg-green-500" : "bg-red-500"
-                      }`}
-                    />
-                    <span className="capitalize">
-                      {program.featured ? "Yes" : "No"}
-                    </span>
+                  <TableCell className="text-center">
+                    <div className="inline-flex items-center justify-center gap-2">
+                      <span
+                        className={`h-2 w-2 rounded-full ${
+                          program.featured ? "bg-green-500" : "bg-red-500"
+                        }`}
+                      />
+                      <span className="capitalize">
+                        {program.featured ? "Yes" : "No"}
+                      </span>
+                    </div>
                   </TableCell>
 
-                  <TableCell className="flex items-center justify-center gap-2">
-                    <span
-                      className={`h-2 w-2 rounded-full ${getStatusColor(
-                        program.status
-                      )}`}
-                    />
-                    <span className="capitalize">{program.status}</span>
+                  <TableCell className="text-center">
+                    <div className="inline-flex items-center justify-center gap-2">
+                      <span
+                        className={`h-2 w-2 rounded-full ${getStatusColor(
+                          program.status
+                        )}`}
+                      />
+                      <span className="capitalize">{program.status}</span>
+                    </div>
                   </TableCell>
                 </TableRow>
               ))

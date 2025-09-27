@@ -44,6 +44,7 @@ export const JobTable = ({
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="text-center">STT</TableHead>
               <TableHead className="text-center">Title</TableHead>
               <TableHead className="text-center">Country</TableHead>
               <TableHead className="text-center">Company</TableHead>
@@ -63,8 +64,9 @@ export const JobTable = ({
                 </TableCell>
               </TableRow>
             ) : Jobs.length > 0 ? (
-              Jobs.map((job) => (
+              Jobs.map((job, index) => (
                 <TableRow key={job._id}>
+                  <TableCell className="text-center">{index + 1}</TableCell>
                   <TableCell className="text-center">{job.title}</TableCell>
 
                   <TableCell className="text-center">{job.country}</TableCell>
@@ -95,7 +97,7 @@ export const JobTable = ({
                           variant="ghost"
                           size="sm"
                           onClick={() => onView(job)}
-                          className="h-8 w-8 p-0"
+                          className="h-8 w-8 p-0 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
@@ -105,7 +107,7 @@ export const JobTable = ({
                           variant="ghost"
                           size="sm"
                           onClick={() => onEdit(job)}
-                          className="h-8 w-8 p-0"
+                          className="h-8 w-8 p-0 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -115,7 +117,7 @@ export const JobTable = ({
                           variant="ghost"
                           size="sm"
                           onClick={() => onDelete(job)}
-                          className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
+                          className="h-8 w-8 p-0 text-red-500 hover:text-red-700 hover:bg-gray-100 dark:hover:bg-gray-800"
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
