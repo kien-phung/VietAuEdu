@@ -43,7 +43,7 @@ export const FAQFilter = ({
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="w-[250px]">
+      <DropdownMenuContent align="end" className="w-[250px] bg-[#1e2735]">
         <DropdownMenuLabel>Filter by</DropdownMenuLabel>
 
         <DropdownMenuSeparator />
