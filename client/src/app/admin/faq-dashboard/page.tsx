@@ -33,7 +33,6 @@ export default function FAQDashboardPage() {
   useEffect(() => {
     const fetchData = async () => {
       const res = await getAllFAQs();
-
       const data = res?.data?.FAQs;
 
       setFAQs(data || []);
@@ -212,7 +211,22 @@ export default function FAQDashboardPage() {
             </div>
           </CardHeader>
 
-          <FAQTable FAQs={FAQs} isLoading={isLoading} />
+          <FAQTable
+            FAQs={FAQs}
+            isLoading={isLoading}
+            onView={(faq) => {
+              setData(faq);
+              setIsUpdateFAQOpen(true);
+            }}
+            onEdit={(faq) => {
+              setData(faq);
+              setIsUpdateFAQOpen(true);
+            }}
+            onDelete={(faq) => {
+              // Add delete functionality if needed
+              console.log("Delete FAQ:", faq);
+            }}
+          />
         </Card>
       </div>
     </div>

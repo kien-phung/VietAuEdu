@@ -335,7 +335,22 @@ export default function JobDashboardPage() {
             </div>
           </CardHeader>
 
-          <JobTable Jobs={Jobs} isLoading={isLoading} />
+          <JobTable
+            Jobs={Jobs}
+            isLoading={isLoading}
+            onView={(job) => {
+              setData(job);
+              setIsUpdateJobOpen(true);
+            }}
+            onEdit={(job) => {
+              setData(job);
+              setIsUpdateJobOpen(true);
+            }}
+            onDelete={(job) => {
+              // Add delete functionality if needed
+              console.log("Delete job:", job);
+            }}
+          />
         </Card>
       </div>
     </div>

@@ -10,7 +10,7 @@ export const getFAQs = RequestHandlerCustom(
 
     res.status(200).json({
       message: "Get faqs successfully",
-      faqs: faqs
+      FAQs: faqs
     });
   }
 );
@@ -37,7 +37,7 @@ export const createFAQ = RequestHandlerCustom(
 
     res.status(201).json({
       message: "New FAQ created",
-      faq: faq
+      FAQ: faq
     });
   }
 );
@@ -61,7 +61,7 @@ export const updateFAQ = RequestHandlerCustom(
 
     res.status(200).json({
       message: "FAQ updated successfully",
-      faq: updatedFAQ
+      FAQ: updatedFAQ
     });
   }
 );
@@ -78,7 +78,7 @@ export const getFAQById = RequestHandlerCustom(
 
     res.status(200).json({
       message: "FAQ retrieved successfully",
-      faq
+      FAQ: faq
     });
   }
 );

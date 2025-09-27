@@ -1,5 +1,14 @@
 import { TableSkeleton } from "@/components/layout/feedback/TableSkeleton";
+import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Table,
@@ -9,13 +18,23 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { MoreHorizontal } from "lucide-react";
 
 interface IFAQTableProps {
   FAQs: IFAQ[];
   isLoading: boolean;
+  onEdit?: (faq: IFAQ) => void;
+  onView?: (faq: IFAQ) => void;
+  onDelete?: (faq: IFAQ) => void;
 }
 
-export const FAQTable = ({ FAQs, isLoading }: IFAQTableProps) => {
+export const FAQTable = ({
+  FAQs,
+  isLoading,
+  onEdit,
+  onView,
+  onDelete,
+}: IFAQTableProps) => {
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
@@ -49,25 +68,26 @@ export const FAQTable = ({ FAQs, isLoading }: IFAQTableProps) => {
   return (
     <ScrollArea className="h-[calc(100vh-220px)] w-full rounded-xl bg-white dark:bg-gray-800">
       <CardContent>
-        <Table>
+        <Table className="border-collapse [&_tr]:border-b-2 [&_tr]:border-gray-200 dark:[&_tr]:border-gray-700">
           <TableHeader>
-            <TableRow>
-              <TableHead className="text-center">STT</TableHead>
-              
-              <TableHead className="text-center">Question</TableHead>
+            <TableRow className="border-b-2 border-gray-300 dark:border-gray-700">
+              <TableHead className="text-center font-bold">STT</TableHead>
 
-              <TableHead className="text-center">Answer</TableHead>
+              <TableHead className="text-center font-bold">Question</TableHead>
 
-              <TableHead className="text-center">Category</TableHead>
+              <TableHead className="text-center font-bold">Answer</TableHead>
 
-              <TableHead className="text-center">Status</TableHead>
+              <TableHead className="text-center font-bold">Category</TableHead>
+
+              <TableHead className="text-center font-bold">Status</TableHead>
+              <TableHead className="text-right font-bold">Actions</TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
             {isLoading ? (
               <TableRow>
-                <TableCell colSpan={5}>
+                <TableCell colSpan={6}>
                   <TableSkeleton />
                 </TableCell>
               </TableRow>
@@ -100,11 +120,65 @@ export const FAQTable = ({ FAQs, isLoading }: IFAQTableProps) => {
                       <span className="capitalize">{FAQ.status}</span>
                     </div>
                   </TableCell>
+
+                  <TableCell className="text-right">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-8 w-8 p-0 hover:bg-gray-100 dark:hover:bg-gray-800"
+                        >
+                          <MoreHorizontal className="h-4 w-4 text-gray-700 dark:text-gray-300" />
+                        </Button>
+                      </DropdownMenuTrigger>
+
+                      <DropdownMenuContent
+                        align="end"
+                        className="bg-white dark:bg-[#1e2735] border border-gray-200 dark:border-gray-700"
+                      >
+                        <DropdownMenuLabel className="text-gray-900 dark:text-gray-100">
+                          Actions
+                        </DropdownMenuLabel>
+
+                        <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-600" />
+
+                        {onView && (
+                          <DropdownMenuItem
+                            onClick={() => onView(FAQ)}
+                            className="text-gray-900 dark:text-white cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-700 hover:text-blue-800 dark:hover:text-white focus:bg-blue-100 dark:focus:bg-blue-700 active:bg-blue-200 dark:active:bg-blue-800 transition-all duration-200 rounded"
+                          >
+                            View
+                          </DropdownMenuItem>
+                        )}
+
+                        {onEdit && (
+                          <DropdownMenuItem
+                            onClick={() => onEdit(FAQ)}
+                            className="text-gray-900 dark:text-white cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-700 hover:text-blue-800 dark:hover:text-white focus:bg-blue-100 dark:focus:bg-blue-700 active:bg-blue-200 dark:active:bg-blue-800 transition-all duration-200 rounded"
+                          >
+                            Edit
+                          </DropdownMenuItem>
+                        )}
+
+                        {onDelete && (
+                          <DropdownMenuItem
+                            onClick={() => onDelete(FAQ)}
+                            className="text-red-500 cursor-pointer hover:bg-red-100 dark:hover:bg-red-900 hover:text-red-700 dark:hover:text-red-400 focus:bg-red-100 dark:focus:bg-red-900 active:bg-red-200 dark:active:bg-red-800 transition-all duration-200 rounded"
+                          >
+                            Delete
+                          </DropdownMenuItem>
+                        )}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </TableCell>
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={7}>{/* <ReportsEmptyState /> */}</TableCell>
+                <TableCell colSpan={6} className="text-center">
+                  <div className="text-gray-500">No FAQs found</div>
+                </TableCell>
               </TableRow>
             )}
           </TableBody>

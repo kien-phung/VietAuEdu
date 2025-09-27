@@ -11,7 +11,6 @@ import UpdateProgramDialog from "@/components/common/admin/programDashborad/Upda
 import { TableSearch } from "@/components/common/admin/TableSearch";
 import { ProgramFilter } from "@/components/common/admin/programDashborad/ProgramFilter";
 import { ProgramTable } from "@/components/common/admin/programDashborad/ProgramTable";
-import { EStatus } from "@/utils/types/enum";
 
 const initialFilters = { status: [] as string[] };
 
@@ -194,20 +193,7 @@ export default function ProgramDashboardPage() {
             size="sm"
             className="h-8 gap-1"
             onClick={() => {
-              setData({
-                _id: "",
-                title: "",
-                description: "",
-                country: "",
-                duration: "",
-                tuition: "",
-                requirements: [],
-                benefits: [],
-                imageUrl: "",
-                image: null,
-                featured: false,
-                status: EStatus.INACTIVE,
-              });
+              setData(null);
               setIsCreateProgramOpen(true);
             }}
           >
@@ -286,7 +272,22 @@ export default function ProgramDashboardPage() {
             </div>
           </CardHeader>
 
-          <ProgramTable Programs={Programs} isLoading={isLoading} />
+          <ProgramTable
+            Programs={Programs}
+            isLoading={isLoading}
+            onView={(program) => {
+              setData(program);
+              setIsUpdateProgramOpen(true);
+            }}
+            onEdit={(program) => {
+              setData(program);
+              setIsUpdateProgramOpen(true);
+            }}
+            onDelete={(program) => {
+              // Add delete functionality if needed
+              console.log("Delete program:", program);
+            }}
+          />
         </Card>
       </div>
     </div>
