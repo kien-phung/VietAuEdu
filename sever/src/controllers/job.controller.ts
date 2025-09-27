@@ -19,7 +19,7 @@ export const getAllJobs = RequestHandlerCustom(
 
 export const getJob = RequestHandlerCustom(
   async (req, res) => {
-    const id = req.params._id;
+    const id = req.params.id;
 
     const job = await handleGetJobById({ id });
 
@@ -134,7 +134,7 @@ export const createJob = RequestHandlerCustom(
 export const updateJob = RequestHandlerCustom(
   async (req, res, next) => {
     try {
-      const id = req.params._id;
+      const id = req.params.id;
 
       if (!id) {
         return next(new ErrorCustom(400, "Job ID is required"));

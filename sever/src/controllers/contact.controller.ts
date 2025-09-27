@@ -15,7 +15,7 @@ export const getAllContacts = RequestHandlerCustom(
 
 export const getContact = RequestHandlerCustom(
   async (req, res) => {
-    const id = req.params._id;
+    const id = req.params.id;
 
     const contact = await handleGetContactById({ id });
 

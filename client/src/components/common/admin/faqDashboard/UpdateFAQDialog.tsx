@@ -66,7 +66,7 @@ const UpdateFAQDialog = ({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
                 >
-                  Update IFAQ
+                  Update FAQ
                 </Dialog.Title>
 
                 <ScrollArea className="h-[42vh] pr-4 mt-4">
@@ -158,7 +158,7 @@ const UpdateFAQDialog = ({
                   <Button
                     variant="outline"
                     onClick={handleClose}
-                    className="bg-gray-50 border-gray-300 text-gray-700 hover:bg-red-200 hover:text-red-600 hover:border-red-200 dark:bg-transparent dark:border-gray-700 dark:text-white dark:hover:bg-red-900 dark:hover:text-white"
+                    className="bg-gray-200 border-gray-300 text-gray-700 hover:bg-red-200 hover:text-red-600 hover:border-red-200 dark:bg-transparent dark:border-gray-700 dark:text-white dark:hover:bg-red-900 dark:hover:text-white"
                   >
                     Cancel
                   </Button>

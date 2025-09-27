@@ -129,10 +129,6 @@ export default function ProgramDashboardPage() {
 
   const handleUpdate = async () => {
     if (data) {
-      // Xác định xem sử dụng file hình ảnh mới hay URL hiện có
-      const imageToUse =
-        data.image instanceof File ? data.image : data.imageUrl || "";
-
       await updateProgram(
         data._id,
         data.title,
@@ -140,7 +136,7 @@ export default function ProgramDashboardPage() {
         data.country,
         data.duration,
         data.tuition,
-        imageToUse, // Sử dụng file mới hoặc URL cũ
+        data.image as File,
         data.requirements,
         data.benefits,
         data.featured,

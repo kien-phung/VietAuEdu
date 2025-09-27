@@ -115,7 +115,6 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
     const token = jwt.sign(
         {
             id: user._id,
-            role: user?.role,
         },
         PRIVATE_KEY,
         {

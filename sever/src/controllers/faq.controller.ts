@@ -44,7 +44,7 @@ export const createFAQ = RequestHandlerCustom(
 
 export const updateFAQ = RequestHandlerCustom(
   async (req, res, next) => {
-    const id = req.params._id;
+    const id = req.params.id;
 
     if (!id) {
       return next(new ErrorCustom(400, "FAQ ID is required"));
@@ -68,7 +68,7 @@ export const updateFAQ = RequestHandlerCustom(
 
 export const getFAQById = RequestHandlerCustom(
   async (req, res, next) => {
-    const id = req.params._id;
+    const id = req.params.id;
 
     if (!id) {
       return next(new ErrorCustom(400, "FAQ ID is required"));

@@ -41,7 +41,7 @@ export const getBlogsRecent = RequestHandlerCustom(
 
 export const getBlog = RequestHandlerCustom(
   async (req, res) => {
-    const id = (req.params._id || req.query._id) as string;
+    const id = (req.params.id || req.query.id) as string;
 
     const blog = await handleGetBlogById({ id });
 

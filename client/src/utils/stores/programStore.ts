@@ -32,7 +32,7 @@ export interface IProgramStore extends IBaseStore {
 		country: string,
 		duration: string,
 		tuition: string,
-		image: File | null | string,
+		image: File | null,
 		requirements: string[],
 		benefits: string[],
 		featured: boolean,
@@ -120,12 +120,11 @@ export const useProgramStore = createStore<IProgramStore>(
 				formData.append("duration", duration);
 				formData.append("tuition", tuition);
 
-				// Xử lý image theo kiểu dữ liệu
 				if (image instanceof File && image.size > 0) {
-					// Nếu là đối tượng File mới, gửi lên để upload
 					formData.append("image", image);
 				}
 
+				console.log(programId)
 				formData.append("requirements", JSON.stringify(requirements));
 				formData.append("benefits", JSON.stringify(benefits));
 				formData.append("featured", featured.toString());

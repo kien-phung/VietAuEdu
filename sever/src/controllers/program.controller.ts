@@ -100,7 +100,8 @@ export const createProgram = RequestHandlerCustom(
 
 export const updateProgram = RequestHandlerCustom(
   async (req, res, next) => {
-    const id = req.params._id;
+    const id = req.params.id;
+    console.log(">>>>", id)
 
     if (!id) {
       return next(new ErrorCustom(400, "Program ID is required"));
