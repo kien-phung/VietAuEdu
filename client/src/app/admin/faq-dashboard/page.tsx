@@ -214,17 +214,9 @@ export default function FAQDashboardPage() {
           <FAQTable
             FAQs={FAQs}
             isLoading={isLoading}
-            onView={(faq) => {
-              setData(faq);
-              setIsUpdateFAQOpen(true);
-            }}
             onEdit={(faq) => {
               setData(faq);
               setIsUpdateFAQOpen(true);
-            }}
-            onDelete={(faq) => {
-              // Add delete functionality if needed
-              console.log("Delete FAQ:", faq);
             }}
           />
         </Card>

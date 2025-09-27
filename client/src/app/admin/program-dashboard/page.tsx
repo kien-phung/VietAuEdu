@@ -275,17 +275,9 @@ export default function ProgramDashboardPage() {
           <ProgramTable
             Programs={Programs}
             isLoading={isLoading}
-            onView={(program) => {
-              setData(program);
-              setIsUpdateProgramOpen(true);
-            }}
             onEdit={(program) => {
               setData(program);
               setIsUpdateProgramOpen(true);
-            }}
-            onDelete={(program) => {
-              // Add delete functionality if needed
-              console.log("Delete program:", program);
             }}
           />
         </Card>

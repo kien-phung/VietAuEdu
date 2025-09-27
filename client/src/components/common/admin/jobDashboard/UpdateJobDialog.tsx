@@ -465,7 +465,7 @@ const UpdateJobDialog = ({
                   <Button
                     variant="outline"
                     onClick={handleClose}
-                    className="border-gray-700 text-white hover:bg-red-500 hover:text-white"
+                    className="bg-red-200 border-gray-300 text-gray-700 hover:bg-red-200 hover:text-red-600 hover:border-red-200 dark:bg-transparent dark:border-gray-700 dark:text-white dark:hover:bg-red-900 dark:hover:text-white"
                   >
                     Cancel
                   </Button>

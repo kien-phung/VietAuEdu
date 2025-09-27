@@ -24,16 +24,12 @@ interface ProgramTableProps {
   Programs: IProgram[];
   isLoading: boolean;
   onEdit?: (program: IProgram) => void;
-  onView?: (program: IProgram) => void;
-  onDelete?: (program: IProgram) => void;
 }
 
 export const ProgramTable = ({
   Programs,
   isLoading,
   onEdit,
-  onView,
-  onDelete,
 }: ProgramTableProps) => {
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -134,30 +130,12 @@ export const ProgramTable = ({
 
                         <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-600" />
 
-                        {onView && (
-                          <DropdownMenuItem
-                            onClick={() => onView(program)}
-                            className="text-gray-900 dark:text-white cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-700 hover:text-blue-800 dark:hover:text-white focus:bg-blue-100 dark:focus:bg-blue-700 active:bg-blue-200 dark:active:bg-blue-800 transition-all duration-200 rounded"
-                          >
-                            View
-                          </DropdownMenuItem>
-                        )}
-
                         {onEdit && (
                           <DropdownMenuItem
                             onClick={() => onEdit(program)}
                             className="text-gray-900 dark:text-white cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-700 hover:text-blue-800 dark:hover:text-white focus:bg-blue-100 dark:focus:bg-blue-700 active:bg-blue-200 dark:active:bg-blue-800 transition-all duration-200 rounded"
                           >
                             Edit
-                          </DropdownMenuItem>
-                        )}
-
-                        {onDelete && (
-                          <DropdownMenuItem
-                            onClick={() => onDelete(program)}
-                            className="text-red-500 cursor-pointer hover:bg-red-100 dark:hover:bg-red-900 hover:text-red-700 dark:hover:text-red-400 focus:bg-red-100 dark:focus:bg-red-900 active:bg-red-200 dark:active:bg-red-800 transition-all duration-200 rounded"
-                          >
-                            Delete
                           </DropdownMenuItem>
                         )}
                       </DropdownMenuContent>

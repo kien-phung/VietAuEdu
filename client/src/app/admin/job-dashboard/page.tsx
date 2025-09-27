@@ -235,28 +235,7 @@ export default function JobDashboardPage() {
 
         // Close the dialog and reset the form
         setIsCreateJobOpen(false);
-        setData({
-          _id: "",
-          title: "",
-          country: "",
-          positions: 0,
-          location: "",
-          salary: "",
-          applicationDeadline: "",
-          estimatedDeparture: "",
-          requirements: [],
-          benefits: [],
-          description: "",
-          company: "",
-          workType: "",
-          featured: false,
-          workingHours: "",
-          overtime: "",
-          accommodation: "",
-          workEnvironment: "",
-          trainingPeriod: "",
-          status: EStatus.ACTIVE,
-        });
+        setData(null);
       } catch (error) {
         console.error("Error creating job:", error);
       }
@@ -338,17 +317,9 @@ export default function JobDashboardPage() {
           <JobTable
             Jobs={Jobs}
             isLoading={isLoading}
-            onView={(job) => {
-              setData(job);
-              setIsUpdateJobOpen(true);
-            }}
             onEdit={(job) => {
               setData(job);
               setIsUpdateJobOpen(true);
-            }}
-            onDelete={(job) => {
-              // Add delete functionality if needed
-              console.log("Delete job:", job);
             }}
           />
         </Card>
