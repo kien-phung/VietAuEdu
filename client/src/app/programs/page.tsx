@@ -3,7 +3,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title:
-    "Chương Trình Du Học - VietAuEdu | Du Học Hàn Quốc, Nhật Bản, Đài Loan",
+    "Chương Trình Du Học - VietAuAcademy | Du Học Hàn Quốc, Nhật Bản, Đài Loan",
   description:
     "Khám phá các cơ hội du học tại các quốc gia phát triển với chất lượng giáo dục hàng đầu thế giới. Tìm hiểu về học phí, điều kiện và lợi ích.",
   keywords:
@@ -17,9 +17,11 @@ interface ProgramsPageProps {
   searchParams: Promise<{ country?: string }>;
 }
 
-export default async function ProgramsPage({ searchParams }: ProgramsPageProps) {
+export default async function ProgramsPage({
+  searchParams,
+}: ProgramsPageProps) {
   const resolvedParams = await searchParams;
-  
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header - SSR for SEO */}

@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import BlogPageContent from "@/components/common/blogs/BlogPageContent";
 
 export const metadata: Metadata = {
-  title: "Tin Tức & Blog Du Học - VietAuEdu | Chia Sẻ Kinh Nghiệm Du Học",
+  title: "Tin Tức & Blog Du Học - VietAuAcademy | Chia Sẻ Kinh Nghiệm Du Học",
   description:
     "Cập nhật thông tin mới nhất về du học và chia sẻ kinh nghiệm từ các chuyên gia. Tìm hiểu về visa, học bổng và cuộc sống du học.",
   keywords:

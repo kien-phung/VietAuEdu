@@ -25,16 +25,16 @@ export async function generateMetadata({
 
     if (!response.data?.blog) {
       return {
-        title: "Bài viết không tồn tại - VietAuEdu",
+        title: "Bài viết không tồn tại - VietAuAcademy",
       };
     }
 
     const blog = response.data.blog as IBlog;
 
     return {
-      title: `${blog.title} - VietAuEdu Blog`,
+      title: `${blog.title} - VietAuAcademy Blog`,
       description: blog.excerpt,
-      keywords: `${blog.category}, du học, VietAuEdu, ${blog.title}`,
+      keywords: `${blog.category}, du học, VietAuAcademy, ${blog.title}`,
       openGraph: {
         title: blog.title,
         description: blog.excerpt,
@@ -54,8 +54,9 @@ export async function generateMetadata({
     console.error("Error fetching blog metadata:", error);
     // Fallback to default metadata if API call fails
     return {
-      title: "Bài viết - VietAuEdu Blog",
-      description: "Khám phá các bài viết về du học và học bổng tại VietAuEdu",
+      title: "Bài viết - VietAuAcademy Blog",
+      description:
+        "Khám phá các bài viết về du học và học bổng tại VietAuAcademy",
     };
   }
 }

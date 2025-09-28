@@ -38,6 +38,9 @@ export interface IProgramStore extends IBaseStore {
 		featured: boolean,
 		status: EStatus
 	) => Promise<IApiResponse<IProgramDataResponse>>;
+	deleteProgram: (
+		programId: string
+	) => Promise<IApiResponse<IProgramDataResponse>>;
 }
 
 const storeName = "program";
@@ -131,6 +134,12 @@ export const useProgramStore = createStore<IProgramStore>(
 				formData.append("status", status);
 
 				return await handleRequest(EHttpType.PATCH, `/programs/${programId}`, formData);
+			});
+		},
+
+		deleteProgram: async (programId: string): Promise<IApiResponse<IProgramDataResponse>> => {
+			return await get().handleRequest(async () => {
+				return await handleRequest(EHttpType.DELETE, `/programs/${programId}`);
 			});
 		},
 

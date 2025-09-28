@@ -54,7 +54,7 @@ export default function Navbar() {
             <Link href="/" className="flex items-center space-x-2">
               <Image
                 src="/images/logo1.png"
-                alt="VietAuEdu Logo"
+                alt="VietAuAcademy Logo"
                 width={40}
                 height={30}
                 className="object-contain"

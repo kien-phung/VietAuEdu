@@ -1,8 +1,7 @@
 "use client";
 
 import { useCallback, useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { Plus, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import UpdateJobDialog from "@/components/common/admin/jobDashboard/UpdateJobDialog";
@@ -12,51 +11,76 @@ import { JobTable } from "@/components/common/admin/jobDashboard/JobTable";
 import { TableSearch } from "@/components/common/admin/TableSearch";
 import { useJobStore } from "@/utils/stores/jobStore";
 import { EStatus } from "@/utils/types/enum";
+import { DashboardHeader } from "@/components/common/admin/DashboardHeader";
 
+// Initialize empty filters
 const initialFilters = { status: [] as string[], contentType: [] as string[] };
 
 export default function JobDashboardPage() {
   const { isLoading, getAllJobs, updateJob, createJob } = useJobStore();
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
-  const query = searchParams.get("query") || "";
-  const queryString = searchParams.toString();
-
   const [isCreateJobOpen, setIsCreateJobOpen] = useState(false);
   const [isUpdateJobOpen, setIsUpdateJobOpen] = useState(false);
-
   const [activeFilters, setActiveFilters] = useState(initialFilters);
-  const [Jobs, setJobs] = useState<IJob[] | []>([]);
+  const [allJobs, setAllJobs] = useState<IJob[] | []>([]);
+  const [filteredJobs, setFilteredJobs] = useState<IJob[] | []>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getAllJobs();
-
-      const data = res?.data?.jobs;
-
-      setJobs(data || []);
+      const data = res?.data?.jobs || [];
+      setAllJobs(data);
+      setFilteredJobs(data);
     };
 
     fetchData();
-  }, [query, queryString, searchParams, getAllJobs]);
+  }, [getAllJobs]);
+
+  // Function to filter data based on query and activeFilters
+  const filterData = useCallback(
+    (query: string, filters: { status: string[]; contentType: string[] }) => {
+      let results = [...allJobs];
+
+      // Filter by search query
+      if (query.trim()) {
+        const searchTerms = query.toLowerCase().trim();
+        results = results.filter(
+          (job) =>
+            job.title.toLowerCase().includes(searchTerms) ||
+            job.description.toLowerCase().includes(searchTerms) ||
+            job.country.toLowerCase().includes(searchTerms)
+        );
+      }
+
+      // Filter by status
+      if (filters.status.length > 0) {
+        results = results.filter((job) =>
+          filters.status.includes(job.status || "")
+        );
+      }
+
+      // Filter by contentType
+      if (filters.contentType.length > 0) {
+        results = results.filter((job) =>
+          filters.contentType.includes(job.workType || "")
+        );
+      }
+
+      setFilteredJobs(results);
+    },
+    [allJobs]
+  );
 
   const handleSearch = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      const params = new URLSearchParams(searchParams);
-
-      if (searchQuery.trim()) {
-        params.set("query", searchQuery.trim());
-      } else {
-        params.delete("query");
-      }
-
-      router.push(`?${params.toString()}`);
+      // Filter data based on current searchQuery and activeFilters
+      filterData(searchQuery, activeFilters);
     },
-    [searchQuery, searchParams, router]
+    [searchQuery, activeFilters, filterData]
   );
 
+  // Toggle filter without auto-filtering
   const toggleFilter = (value: string, type: "status" | "contentType") => {
     setActiveFilters((prev) => {
       const updated = { ...prev };
@@ -72,50 +96,20 @@ export default function JobDashboardPage() {
   const clearFilters = () => {
     setActiveFilters(initialFilters);
     setSearchQuery("");
-    router.push(window.location.pathname);
+    setFilteredJobs(allJobs); // Reset filtered data
     closeMenuMenuFilters();
   };
 
   const applyFilters = () => {
-    const params = new URLSearchParams(searchParams);
-
-    if (activeFilters.status.length > 0) {
-      params.set("status", activeFilters.status.join(","));
-    } else {
-      params.delete("status");
-    }
-
-    if (activeFilters.contentType && activeFilters.contentType.length > 0) {
-      params.set("contentType", activeFilters.contentType.join(","));
-    } else {
-      params.delete("contentType");
-    }
-
-    router.push(`?${params.toString()}`);
+    // Filter data based on current activeFilters and searchQuery
+    filterData(searchQuery, activeFilters);
     closeMenuMenuFilters();
   };
 
   const [openMenuFilters, setOpenMenuFilters] = useState(false);
   const closeMenuMenuFilters = () => setOpenMenuFilters(false);
 
-  useEffect(() => {
-    const status = searchParams.get("status");
-    const contentType = searchParams.get("contentType");
-
-    const newFilters = { ...initialFilters };
-
-    if (status) {
-      newFilters.status = status.split(",");
-    }
-
-    if (contentType) {
-      newFilters.contentType = contentType.split(",");
-    }
-
-    setActiveFilters(newFilters);
-  }, [searchParams]);
-
-  // Sử dụng kiểu mở rộng của IJob để bao gồm trường image
+  // Use extended type for job data
   type ExtendedJobData = IJob & { image?: File | null };
   const [data, setData] = useState<ExtendedJobData | null>(null);
 
@@ -143,7 +137,7 @@ export default function JobDashboardPage() {
           : [];
         const benefits = Array.isArray(data.benefits) ? data.benefits : [];
 
-        // Xác định xem sử dụng file hình ảnh mới hay URL hiện có
+        // Determine whether to use new image file or existing URL
         const imageToUse =
           data.image instanceof File ? data.image : data.imageUrl || "";
 
@@ -152,7 +146,7 @@ export default function JobDashboardPage() {
           data._id,
           data.title || "",
           data.country || "",
-          imageToUse, // Sử dụng file mới hoặc URL cũ
+          imageToUse, // Use new file or existing URL
           positions,
           data.location || "",
           data.salary || "",
@@ -175,7 +169,11 @@ export default function JobDashboardPage() {
 
         // Refresh the jobs list after update
         const res = await getAllJobs();
-        setJobs(res?.data?.jobs || []);
+        const updatedData = res?.data?.jobs || [];
+        setAllJobs(updatedData);
+
+        // Apply current filters
+        filterData(searchQuery, activeFilters);
 
         // Close the dialog
         setIsUpdateJobOpen(false);
@@ -202,14 +200,14 @@ export default function JobDashboardPage() {
           : [];
         const benefits = Array.isArray(data.benefits) ? data.benefits : [];
 
-        // Sử dụng file hình ảnh nếu có
+        // Use image file if available
         const imageFile = data.image instanceof File ? data.image : null;
 
         await createJob(
           data.description || "Job description", // question parameter
           data.title || "",
           data.country || "",
-          imageFile, // Truyền file hình ảnh nếu có
+          imageFile, // Pass image file if available
           positions,
           data.location || "",
           data.salary || "",
@@ -231,7 +229,11 @@ export default function JobDashboardPage() {
 
         // Refresh the jobs list after create
         const res = await getAllJobs();
-        setJobs(res?.data?.jobs || []);
+        const updatedData = res?.data?.jobs || [];
+        setAllJobs(updatedData);
+
+        // Apply current filters
+        filterData(searchQuery, activeFilters);
 
         // Close the dialog and reset the form
         setIsCreateJobOpen(false);
@@ -244,20 +246,11 @@ export default function JobDashboardPage() {
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight">Job Dashboard</h2>
-
-        <div className="flex items-center gap-2">
-          <Button
-            size="sm"
-            className="h-8 gap-1"
-            onClick={() => setIsCreateJobOpen(true)}
-          >
-            <Plus className="h-4 w-4" />
-            Create Job
-          </Button>
-        </div>
-      </div>
+      <DashboardHeader
+        title="Job Dashboard"
+        onCreateClick={() => setIsCreateJobOpen(true)}
+        createButtonText="Create Job"
+      />
 
       <CreateJobDialog
         isOpen={isCreateJobOpen}
@@ -295,7 +288,17 @@ export default function JobDashboardPage() {
                   variant="secondary"
                   size="sm"
                   className="h-8 gap-1"
-                  onClick={clearFilters}
+                  onClick={async () => {
+                    // Reset filters
+                    setActiveFilters(initialFilters);
+                    setSearchQuery("");
+
+                    // Refresh data from API
+                    const res = await getAllJobs();
+                    const data = res?.data?.jobs || [];
+                    setAllJobs(data);
+                    setFilteredJobs(data);
+                  }}
                 >
                   <RefreshCw className="h-4 w-4" />
                   Refresh
@@ -315,7 +318,7 @@ export default function JobDashboardPage() {
           </CardHeader>
 
           <JobTable
-            Jobs={Jobs}
+            Jobs={filteredJobs}
             isLoading={isLoading}
             onEdit={(job) => {
               setData(job);

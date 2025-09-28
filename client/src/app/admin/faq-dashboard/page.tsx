@@ -1,8 +1,7 @@
 "use client";
 
 import { useCallback, useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { Plus, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import UpdateFAQDialog from "@/components/common/admin/faqDashboard/UpdateFAQDialog";
@@ -11,52 +10,76 @@ import { FAQFilter } from "@/components/common/admin/faqDashboard/FAQFilter";
 import { FAQTable } from "@/components/common/admin/faqDashboard/FAQTable";
 import { TableSearch } from "@/components/common/admin/TableSearch";
 import { useFAQStore } from "@/utils/stores/faqStore";
+import { DashboardHeader } from "@/components/common/admin/DashboardHeader";
 
+// Initialize empty filters
 const initialFilters = { status: [] as string[], contentType: [] as string[] };
 
 export default function FAQDashboardPage() {
   const { isLoading, getAllFAQs, updateFAQ, createFAQ } = useFAQStore();
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState("");
-  const query = searchParams.get("query") || "";
-  const queryString = searchParams.toString();
-
   const [isCreateFAQOpen, setIsCreateFAQOpen] = useState(false);
   const [isUpdateFAQOpen, setIsUpdateFAQOpen] = useState(false);
-  // Remove unused variable
-  // const [selectedFAQ, setSelectedFAQ] = useState<IFAQ | null>(null);
-
   const [activeFilters, setActiveFilters] = useState(initialFilters);
-  const [FAQs, setFAQs] = useState<IFAQ[] | []>([]);
+  const [allFAQs, setAllFAQs] = useState<IFAQ[] | []>([]);
+  const [filteredFAQs, setFilteredFAQs] = useState<IFAQ[] | []>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getAllFAQs();
-      const data = res?.data?.FAQs;
-
-      setFAQs(data || []);
+      const data = res?.data?.FAQs || [];
+      setAllFAQs(data);
+      setFilteredFAQs(data);
     };
 
     fetchData();
-  }, [query, queryString, searchParams, getAllFAQs]);
+  }, [getAllFAQs]);
+
+  // Function to filter data based on query and activeFilters
+  const filterData = useCallback(
+    (query: string, filters: { status: string[]; contentType: string[] }) => {
+      let results = [...allFAQs];
+
+      // Filter by search query
+      if (query.trim()) {
+        const searchTerms = query.toLowerCase().trim();
+        results = results.filter(
+          (faq) =>
+            faq.question.toLowerCase().includes(searchTerms) ||
+            faq.answer.toLowerCase().includes(searchTerms) ||
+            faq.category.toLowerCase().includes(searchTerms)
+        );
+      }
+
+      // Filter by status
+      if (filters.status.length > 0) {
+        results = results.filter((faq) =>
+          filters.status.includes(faq.status || "")
+        );
+      }
+
+      // Filter by contentType (category)
+      if (filters.contentType.length > 0) {
+        results = results.filter((faq) =>
+          filters.contentType.includes(faq.category || "")
+        );
+      }
+
+      setFilteredFAQs(results);
+    },
+    [allFAQs]
+  );
 
   const handleSearch = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      const params = new URLSearchParams(searchParams);
-
-      if (searchQuery.trim()) {
-        params.set("query", searchQuery.trim());
-      } else {
-        params.delete("query");
-      }
-
-      router.push(`?${params.toString()}`);
+      // Filter data based on current searchQuery and activeFilters
+      filterData(searchQuery, activeFilters);
     },
-    [searchQuery, searchParams, router]
+    [searchQuery, activeFilters, filterData]
   );
 
+  // Toggle filter without auto-filtering
   const toggleFilter = (value: string, type: "status" | "contentType") => {
     setActiveFilters((prev) => {
       const updated = { ...prev };
@@ -72,48 +95,18 @@ export default function FAQDashboardPage() {
   const clearFilters = () => {
     setActiveFilters(initialFilters);
     setSearchQuery("");
-    router.push(window.location.pathname);
+    setFilteredFAQs(allFAQs); // Reset filtered data
     closeMenuMenuFilters();
   };
 
   const applyFilters = () => {
-    const params = new URLSearchParams(searchParams);
-
-    if (activeFilters.status.length > 0) {
-      params.set("status", activeFilters.status.join(","));
-    } else {
-      params.delete("status");
-    }
-
-    if (activeFilters.contentType && activeFilters.contentType.length > 0) {
-      params.set("contentType", activeFilters.contentType.join(","));
-    } else {
-      params.delete("contentType");
-    }
-
-    router.push(`?${params.toString()}`);
+    // Filter data based on current activeFilters and searchQuery
+    filterData(searchQuery, activeFilters);
     closeMenuMenuFilters();
   };
 
   const [openMenuFilters, setOpenMenuFilters] = useState(false);
   const closeMenuMenuFilters = () => setOpenMenuFilters(false);
-
-  useEffect(() => {
-    const status = searchParams.get("status");
-    const contentType = searchParams.get("contentType");
-
-    const newFilters = { ...initialFilters };
-
-    if (status) {
-      newFilters.status = status.split(",");
-    }
-
-    if (contentType) {
-      newFilters.contentType = contentType.split(",");
-    }
-
-    setActiveFilters(newFilters);
-  }, [searchParams]);
 
   const [data, setData] = useState<IFAQ | null>(null);
 
@@ -130,31 +123,43 @@ export default function FAQDashboardPage() {
         data.category,
         data.status
       );
+
+      // Refresh the FAQs list after update
+      const res = await getAllFAQs();
+      const updatedData = res?.data?.FAQs || [];
+      setAllFAQs(updatedData);
+
+      // Apply current filters
+      filterData(searchQuery, activeFilters);
+
+      setIsUpdateFAQOpen(false);
     }
   };
 
   const handleCreate = async () => {
     if (data) {
       await createFAQ(data.question, data.answer, data.category, data.status);
+
+      // Refresh the FAQs list after create
+      const res = await getAllFAQs();
+      const updatedData = res?.data?.FAQs || [];
+      setAllFAQs(updatedData);
+
+      // Apply current filters
+      filterData(searchQuery, activeFilters);
+
+      setIsCreateFAQOpen(false);
+      setData(null);
     }
   };
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight">FAQ Dashboard</h2>
-
-        <div className="flex items-center gap-2">
-          <Button
-            size="sm"
-            className="h-8 gap-1"
-            onClick={() => setIsCreateFAQOpen(true)}
-          >
-            <Plus className="h-4 w-4" />
-            Create FAQ
-          </Button>
-        </div>
-      </div>
+      <DashboardHeader
+        title="FAQ Dashboard"
+        onCreateClick={() => setIsCreateFAQOpen(true)}
+        createButtonText="Create FAQ"
+      />
 
       <CreateFAQDialog
         isOpen={isCreateFAQOpen}
@@ -192,7 +197,17 @@ export default function FAQDashboardPage() {
                   variant="secondary"
                   size="sm"
                   className="h-8 gap-1"
-                  onClick={clearFilters}
+                  onClick={async () => {
+                    // Reset filters
+                    setActiveFilters(initialFilters);
+                    setSearchQuery("");
+
+                    // Refresh data from API
+                    const res = await getAllFAQs();
+                    const data = res?.data?.FAQs || [];
+                    setAllFAQs(data);
+                    setFilteredFAQs(data);
+                  }}
                 >
                   <RefreshCw className="h-4 w-4" />
                   Refresh
@@ -212,7 +227,7 @@ export default function FAQDashboardPage() {
           </CardHeader>
 
           <FAQTable
-            FAQs={FAQs}
+            FAQs={filteredFAQs}
             isLoading={isLoading}
             onEdit={(faq) => {
               setData(faq);

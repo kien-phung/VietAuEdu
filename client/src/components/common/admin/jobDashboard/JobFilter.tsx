@@ -1,13 +1,4 @@
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Filter } from "lucide-react";
+import { SharedFilter } from "@/components/common/admin/SharedFilter";
 
 interface JobFilterProps {
   openMenuFilters: boolean;
@@ -28,176 +19,29 @@ export const JobFilter = ({
   applyFilters,
   closeMenuMenuFilters,
 }: JobFilterProps) => {
+  const filterOptions = {
+    status: [
+      { label: "Active", value: "active" },
+      { label: "Inactive", value: "inactive" },
+    ],
+    contentType: [
+      { label: "Full Time", value: "full-time" },
+      { label: "Part Time", value: "part-time" },
+      { label: "Contract", value: "contract" },
+      { label: "Internship", value: "internship" },
+    ],
+  };
+
   return (
-    <DropdownMenu open={openMenuFilters} onOpenChange={closeMenuMenuFilters}>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="secondary"
-          size="sm"
-          className="h-8 gap-1 text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
-          onClick={() => setOpenMenuFilters(!openMenuFilters)}
-        >
-          <Filter className="h-4 w-4 text-gray-700 dark:text-gray-300" />
-          Filter
-        </Button>
-      </DropdownMenuTrigger>
-
-      <DropdownMenuContent
-        align="end"
-        className="w-[250px] bg-white dark:bg-[#1e2735] border border-gray-200 dark:border-gray-700"
-      >
-        <DropdownMenuLabel className="text-gray-900 dark:text-gray-100">
-          Filter by
-        </DropdownMenuLabel>
-
-        <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-600" />
-
-        <div className="p-2">
-          <h4 className="mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-            Status
-          </h4>
-
-          <div className="space-y-2">
-            <div className="flex items-center">
-              <Checkbox
-                id="status-active"
-                checked={activeFilters.status.includes("active") || false}
-                onCheckedChange={() => toggleFilter("active", "status")}
-                className="mr-2"
-              />
-
-              <label
-                htmlFor="status-active"
-                className="text-gray-900 dark:text-gray-100"
-              >
-                Active
-              </label>
-            </div>
-
-            <div className="flex items-center">
-              <Checkbox
-                id="status-inactive"
-                checked={activeFilters.status.includes("inactive") || false}
-                onCheckedChange={() => toggleFilter("inactive", "status")}
-                className="mr-2"
-              />
-
-              <label
-                htmlFor="status-inactive"
-                className="text-gray-900 dark:text-gray-100"
-              >
-                Inactive
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-600" />
-
-        <div className="p-2">
-          <h4 className="mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-            Work Type
-          </h4>
-
-          <div className="space-y-2">
-            <div className="flex items-center">
-              <Checkbox
-                id="type-full-time"
-                checked={
-                  activeFilters.contentType?.includes("full-time") || false
-                }
-                onCheckedChange={() => toggleFilter("full-time", "contentType")}
-                className="mr-2"
-              />
-
-              <label
-                htmlFor="type-full-time"
-                className="text-gray-900 dark:text-gray-100"
-              >
-                Full Time
-              </label>
-            </div>
-
-            <div className="flex items-center">
-              <Checkbox
-                id="type-part-time"
-                checked={
-                  activeFilters.contentType?.includes("part-time") || false
-                }
-                onCheckedChange={() => toggleFilter("part-time", "contentType")}
-                className="mr-2"
-              />
-
-              <label
-                htmlFor="type-part-time"
-                className="text-gray-900 dark:text-gray-100"
-              >
-                Part Time
-              </label>
-            </div>
-
-            <div className="flex items-center">
-              <Checkbox
-                id="type-contract"
-                checked={
-                  activeFilters.contentType?.includes("contract") || false
-                }
-                onCheckedChange={() => toggleFilter("contract", "contentType")}
-                className="mr-2"
-              />
-
-              <label
-                htmlFor="type-contract"
-                className="text-gray-900 dark:text-gray-100"
-              >
-                Contract
-              </label>
-            </div>
-
-            <div className="flex items-center">
-              <Checkbox
-                id="type-internship"
-                checked={
-                  activeFilters.contentType?.includes("internship") || false
-                }
-                onCheckedChange={() =>
-                  toggleFilter("internship", "contentType")
-                }
-                className="mr-2"
-              />
-
-              <label
-                htmlFor="type-internship"
-                className="text-gray-900 dark:text-gray-100"
-              >
-                Internship
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-600" />
-
-        <div className="p-2 flex justify-between">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={clearFilters}
-            className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
-          >
-            Clear Filters
-          </Button>
-
-          <Button
-            size="sm"
-            onClick={applyFilters}
-            variant="secondary"
-            className="text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-            Apply Filters
-          </Button>
-        </div>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <SharedFilter
+      openMenuFilters={openMenuFilters}
+      setOpenMenuFilters={setOpenMenuFilters}
+      activeFilters={activeFilters}
+      toggleFilter={toggleFilter}
+      clearFilters={clearFilters}
+      applyFilters={applyFilters}
+      closeMenuMenuFilters={closeMenuMenuFilters}
+      filterOptions={filterOptions}
+    />
   );
 };

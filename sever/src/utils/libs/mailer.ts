@@ -72,7 +72,7 @@ export const sendMail = HandlerCustom(async (
     });
 
     const mailOptions = {
-        from: "VietAu Academy <vietauedu@gmail.com>",
+        from: "VietAu Academy <VietAuAcademy@gmail.com>",
         to,
         subject,
         html

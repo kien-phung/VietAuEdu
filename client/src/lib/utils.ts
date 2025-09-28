@@ -116,3 +116,10 @@ export const validatePhone = (phone: string): boolean => {
     !/^[0-9]{10,11}$/.test(phone.replace(/\s/g, ""))
   );
 }
+
+export const stringToList = (str: string): string[] => {
+  return str
+    .split(",")
+    .map(item => item.trim())
+    .filter(Boolean);
+}

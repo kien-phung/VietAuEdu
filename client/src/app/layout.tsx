@@ -17,22 +17,22 @@ const inter = Inter({
 
 // Enhanced metadata with performance hints
 export const metadata: Metadata = {
-  title: "VietAuEdu - Giáo Dục Quốc Tế Việt Âu",
+  title: "VietAuAcademy - Giáo Dục Quốc Tế Việt Âu",
   description:
     "Kết nối giáo dục & nâng tầm cuộc sống. Chương trình du học chất lượng cao tại Hàn Quốc, Nhật Bản, Đài Loan, Đức, Mỹ, Úc.",
   keywords: "du học, giáo dục quốc tế, Hàn Quốc, Nhật Bản, Đài Loan, học bổng",
-  authors: [{ name: "VietAuEdu Team" }],
-  metadataBase: new URL("https://vietauedu.com"),
+  authors: [{ name: "VietAuAcademy Team" }],
+  metadataBase: new URL("https://VietAuAcademy.com"),
   icons: {
     icon: "/images/logo1.png",
     shortcut: "/images/logo1.png",
     apple: "/images/logo1.png",
   },
   openGraph: {
-    title: "VietAuEdu - Giáo Dục Quốc Tế Việt Âu",
+    title: "VietAuAcademy - Giáo Dục Quốc Tế Việt Âu",
     description: "Kết nối giáo dục & nâng tầm cuộc sống",
-    url: "https://vietauedu.com",
-    siteName: "VietAuEdu",
+    url: "https://VietAuAcademy.com",
+    siteName: "VietAuAcademy",
     locale: "vi_VN",
     type: "website",
   },

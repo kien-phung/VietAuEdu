@@ -23,6 +23,12 @@ export const TableSearch = ({
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         className="pl-10 h-8 w-[300px]"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            handleSearch(e);
+          }
+        }}
       />
     </form>
   );

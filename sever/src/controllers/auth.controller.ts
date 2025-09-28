@@ -63,7 +63,7 @@ export const sendOTP = RequestHandlerCustom(async (req, res, next) => {
         message: "Cảm ơn bạn đã đăng ký tài khoản với VietAu Academy. Vui lòng sử dụng mã OTP dưới đây để xác thực tài khoản của bạn.",
         otp: otpResult.otp,
         expiry: "5", // OTP hết hạn sau 5 phút (được cài đặt trong handleCreateAndStoreOTP)
-        contactEmail: "vietauedu@gmail.com",
+        contactEmail: "VietAuAcademy@gmail.com",
         year: currentYear.toString(),
         address: "123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh, Việt Nam",
     };
@@ -210,7 +210,7 @@ export const resetPassword = RequestHandlerCustom(async (req, res, next) => {
         logoUrl: "https://example.com/logo.png",
         name: userName,
         password: newPassword,
-        contactEmail: "vietauedu@gmail.com",
+        contactEmail: "VietAuAcademy@gmail.com",
         year: currentYear.toString(),
         address: "123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh, Việt Nam",
     };

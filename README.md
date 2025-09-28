@@ -1,6 +1,6 @@
-# VietAuEdu - Overseas Education Promotion Website
+# VietAuAcademy - Overseas Education Promotion Website
 
-VietAuEdu is a web application designed to promote overseas study
+VietAuAcademy is a web application designed to promote overseas study
 programs for Vietnamese students. It provides detailed information about
 study opportunities abroad, program highlights, and contact options for
 interested students.
@@ -31,8 +31,8 @@ interested students.
 ### 1. Clone the project
 
 ```bash
-git clone https://github.com/Hai1205/VietAuEdu.git
-cd VietAuEdu
+git clone https://github.com/Hai1205/VietAuAcademy.git
+cd VietAuAcademy
 ```
 
 ### 2. Setup and Run Backend

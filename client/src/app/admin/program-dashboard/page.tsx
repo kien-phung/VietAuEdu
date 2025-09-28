@@ -1,8 +1,8 @@
 "use client";
 
 import { useCallback, useState, useEffect } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import { Plus, RefreshCw } from "lucide-react";
+import { RefreshCw } from "lucide-react";
+import { EStatus } from "@/utils/types/enum";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useProgramStore } from "@/utils/stores/programStore";
@@ -11,24 +11,21 @@ import UpdateProgramDialog from "@/components/common/admin/programDashborad/Upda
 import { TableSearch } from "@/components/common/admin/TableSearch";
 import { ProgramFilter } from "@/components/common/admin/programDashborad/ProgramFilter";
 import { ProgramTable } from "@/components/common/admin/programDashborad/ProgramTable";
+import { DashboardHeader } from "@/components/common/admin/DashboardHeader";
 
+// Initialize empty filters
 const initialFilters = { status: [] as string[] };
 
 export default function ProgramDashboardPage() {
-  const { isLoading, getAllPrograms, createProgram, updateProgram } =
-    useProgramStore();
+  const {
+    isLoading,
+    getAllPrograms,
+    createProgram,
+    updateProgram,
+    deleteProgram,
+  } = useProgramStore();
 
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  const query = searchParams.get("query") || "";
-  const [searchQuery, setSearchQuery] = useState(query);
-
-  const setSearchParams = useCallback(
-    (params: URLSearchParams) => {
-      router.push(`?${params.toString()}`);
-    },
-    [router]
-  );
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [isCreateProgramOpen, setIsCreateProgramOpen] = useState(false);
   const [isUpdateProgramOpen, setIsUpdateProgramOpen] = useState(false);
@@ -36,37 +33,61 @@ export default function ProgramDashboardPage() {
   const [activeFilters, setActiveFilters] = useState<{
     status: string[];
   }>(initialFilters);
-  const [Programs, setPrograms] = useState<IProgram[] | []>([]);
+  const [allPrograms, setAllPrograms] = useState<IProgram[] | []>([]);
+  const [filteredPrograms, setFilteredPrograms] = useState<IProgram[] | []>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const res = await getAllPrograms();
-      const data = res?.data?.programs;
-      setPrograms(data || []);
+      const data = res?.data?.programs || [];
+      setAllPrograms(data);
+      setFilteredPrograms(data);
     };
 
-    // Only run the effect on the client
-    if (typeof window !== "undefined") {
-      fetchData();
-    }
-  }, [query, searchParams, getAllPrograms]);
+    // Skip window check to avoid hydration error
+    fetchData();
+  }, [getAllPrograms]);
+
+  // Function to filter data based on query and activeFilters
+  const filterData = useCallback(
+    (query: string, filters: { status: string[] }) => {
+      let results = [...allPrograms];
+
+      // Filter by search query
+      if (query.trim()) {
+        const searchTerms = query.toLowerCase().trim();
+        results = results.filter(
+          (program) =>
+            program.title.toLowerCase().includes(searchTerms) ||
+            program.description.toLowerCase().includes(searchTerms) ||
+            program.country.toLowerCase().includes(searchTerms)
+        );
+      }
+
+      // Filter by status
+      if (filters.status.length > 0) {
+        results = results.filter((program) =>
+          filters.status.includes(program.status || "")
+        );
+      }
+
+      setFilteredPrograms(results);
+    },
+    [allPrograms]
+  );
 
   const handleSearch = useCallback(
     (e: React.FormEvent) => {
       e.preventDefault();
-      const params = new URLSearchParams(searchParams.toString());
 
-      if (searchQuery.trim()) {
-        params.set("query", searchQuery.trim());
-      } else {
-        params.delete("query");
-      }
-
-      setSearchParams(params);
+      // Filter data based on current searchQuery and activeFilters
+      // Only filter when Search button is clicked
+      filterData(searchQuery, activeFilters);
     },
-    [searchQuery, searchParams, setSearchParams]
+    [searchQuery, activeFilters, filterData]
   );
 
+  // Toggle filter without auto-filtering
   const toggleFilter = (value: string, type: "status") => {
     setActiveFilters((prev) => {
       const updated = { ...prev };
@@ -77,54 +98,68 @@ export default function ProgramDashboardPage() {
       }
       return updated;
     });
+    // Removed auto-filtering when filter changes
   };
+
+  // Removed useEffect that auto-filtered when activeFilters changed
+  // to only filter when Apply button is clicked
 
   const clearFilters = () => {
     setActiveFilters(initialFilters);
     setSearchQuery("");
-    setSearchParams(new URLSearchParams());
+    setFilteredPrograms(allPrograms); // Reset filtered data
     closeMenuMenuFilters();
   };
 
   const applyFilters = () => {
-    const params = new URLSearchParams(searchParams.toString());
-
-    if (activeFilters.status.length > 0) {
-      params.set("status", activeFilters.status.join(","));
-    } else {
-      params.delete("status");
-    }
-
-    setSearchParams(params);
+    // Filter data based on current activeFilters and searchQuery
+    // Only filter when Apply button is clicked
+    filterData(searchQuery, activeFilters);
     closeMenuMenuFilters();
   };
 
   const [openMenuFilters, setOpenMenuFilters] = useState(false);
   const closeMenuMenuFilters = () => setOpenMenuFilters(false);
 
-  useEffect(() => {
-    const status = searchParams.get("status");
-
-    const newFilters = { ...initialFilters };
-
-    if (status) {
-      newFilters.status = status.split(",");
-    }
-
-    setActiveFilters(newFilters);
-  }, [searchParams]);
-
   // Use a key to reset the dialog data completely between opens
   const [dialogKey, setDialogKey] = useState(0);
-  // Sử dụng kiểu mở rộng của IProgram để bao gồm trường image
-  type ExtendedProgramData = IProgram & { image?: File | null };
+  // Use extended type for program data to include image field
+  // Ensure correct typing to avoid hydration error
+  type ExtendedProgramData = Omit<IProgram, "status"> & {
+    status: EStatus;
+    image?: File | null;
+  };
+
+  // Use useState with consistent initialization for client and server
   const [data, setData] = useState<ExtendedProgramData | null>(null);
 
   const handleChange = (
     field: keyof ExtendedProgramData,
     value: string | string[] | boolean | File | null
   ) => {
-    setData((prev) => (prev ? { ...prev, [field]: value } : prev));
+    setData((prev) => {
+      // If prev is null, create a new object with default values
+      if (!prev) {
+        const defaultData = {
+          _id: "",
+          title: "",
+          description: "",
+          country: "",
+          duration: "",
+          tuition: "",
+          opportunities: "",
+          about: "",
+          requirements: [],
+          benefits: [],
+          imageUrl: "",
+          featured: false,
+          status: EStatus.INACTIVE,
+        };
+        return { ...defaultData, [field]: value } as ExtendedProgramData;
+      }
+      // If prev is not null, update the current value
+      return { ...prev, [field]: value };
+    });
   };
 
   const handleUpdate = async () => {
@@ -145,8 +180,13 @@ export default function ProgramDashboardPage() {
 
       // Refresh the data after update
       const res = await getAllPrograms();
-      const updatedData = res?.data?.programs;
-      setPrograms(updatedData || []);
+      const updatedData = res?.data?.programs || [];
+
+      // Update both original and filtered data
+      setAllPrograms(updatedData);
+
+      // Re-apply current filters
+      filterData(searchQuery, activeFilters);
 
       setIsUpdateProgramOpen(false);
     }
@@ -154,7 +194,7 @@ export default function ProgramDashboardPage() {
 
   const handleCreate = async () => {
     if (data) {
-      // Sử dụng file hình ảnh nếu có
+      // Use image file if available
       const imageFile = data.image instanceof File ? data.image : null;
 
       await createProgram(
@@ -163,7 +203,7 @@ export default function ProgramDashboardPage() {
         data.country,
         data.duration,
         data.tuition,
-        imageFile, // Truyền file hình ảnh
+        imageFile, // Pass image file
         data.requirements,
         data.benefits,
         data.featured,
@@ -172,39 +212,70 @@ export default function ProgramDashboardPage() {
 
       // Refresh the data after creation
       const res = await getAllPrograms();
-      const updatedData = res?.data?.programs;
-      setPrograms(updatedData || []);
+      const updatedData = res?.data?.programs || [];
+
+      // Update both original and filtered data
+      setAllPrograms(updatedData);
+
+      // Re-apply current filters
+      filterData(searchQuery, activeFilters);
 
       setIsCreateProgramOpen(false);
     }
   };
 
+  // Handle program deletion
+  const handleDelete = async (programId: string) => {
+    if (programId) {
+      await deleteProgram(programId);
+
+      // Refresh data after deletion
+      const res = await getAllPrograms();
+      const updatedData = res?.data?.programs || [];
+
+      // Update both original and filtered data
+      setAllPrograms(updatedData);
+
+      // Re-apply current filters
+      filterData(searchQuery, activeFilters);
+    }
+  };
+
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-bold tracking-tight">Program Dashboard</h2>
+      <DashboardHeader
+        title="Program Dashboard"
+        onCreateClick={() => {
+          // Initialize an empty object instead of null when creating new
+          const defaultProgram: ExtendedProgramData = {
+            _id: "",
+            title: "",
+            description: "",
+            country: "",
+            duration: "",
+            tuition: "",
+            opportunities: "",
+            about: "",
+            requirements: [],
+            benefits: [],
+            imageUrl: "",
+            featured: false,
+            status: EStatus.INACTIVE,
+          };
+          setData(defaultProgram);
+          setIsCreateProgramOpen(true);
+        }}
+        createButtonText="Create Program"
+      />
 
-        <div className="flex items-center gap-2">
-          <Button
-            size="sm"
-            className="h-8 gap-1"
-            onClick={() => {
-              setData(null);
-              setIsCreateProgramOpen(true);
-            }}
-          >
-            <Plus className="h-4 w-4" />
-            Create Program
-          </Button>
-        </div>
-      </div>
-
+      {/* Use consistent key to avoid hydration issues */}
       <CreateProgramDialog
-        key={`create-${dialogKey}`}
+        key={`create-${dialogKey}-${isCreateProgramOpen ? "open" : "closed"}`}
         isOpen={isCreateProgramOpen}
         onOpenChange={(open) => {
           setIsCreateProgramOpen(open);
           if (!open) {
+            // Reset data to null when closing dialog
             setData(null);
             setDialogKey((prev) => prev + 1);
           }
@@ -216,7 +287,7 @@ export default function ProgramDashboardPage() {
       />
 
       <UpdateProgramDialog
-        key={`update-${dialogKey}`}
+        key={`update-${dialogKey}-${isUpdateProgramOpen ? "open" : "closed"}`}
         isOpen={isUpdateProgramOpen}
         onOpenChange={(open) => {
           setIsUpdateProgramOpen(open);
@@ -249,7 +320,17 @@ export default function ProgramDashboardPage() {
                   variant="secondary"
                   size="sm"
                   className="h-8 gap-1"
-                  onClick={clearFilters}
+                  onClick={async () => {
+                    // Reset filters
+                    setActiveFilters(initialFilters);
+                    setSearchQuery("");
+
+                    // Refresh data from API
+                    const res = await getAllPrograms();
+                    const data = res?.data?.programs || [];
+                    setAllPrograms(data);
+                    setFilteredPrograms(data);
+                  }}
                 >
                   <RefreshCw className="h-4 w-4" />
                   Refresh
@@ -269,12 +350,13 @@ export default function ProgramDashboardPage() {
           </CardHeader>
 
           <ProgramTable
-            Programs={Programs}
+            Programs={filteredPrograms}
             isLoading={isLoading}
             onEdit={(program) => {
               setData(program);
               setIsUpdateProgramOpen(true);
             }}
+            onDelete={handleDelete}
           />
         </Card>
       </div>

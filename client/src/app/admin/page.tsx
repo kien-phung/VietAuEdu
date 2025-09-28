@@ -17,6 +17,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { mockStats } from "@/utils/services/mockData";
+import { DashboardHeader } from "@/components/common/admin/DashboardHeader";
 
 export default function AdminDashboardPage() {
   const [stats] = useState(mockStats);
@@ -41,14 +42,13 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-        <p className="text-muted-foreground">
-          Welcome to your admin dashboard. Here&apos;s what&apos;s happening
-          today.
-        </p>
-        {/* Note: This page is now using the new Admin Layout with collapsible and resizable sidebar */}
-      </div>
+      <DashboardHeader title="Dashboard" />
+
+      <p className="text-muted-foreground">
+        Welcome to your admin dashboard. Here&apos;s what&apos;s happening
+        today.
+      </p>
+      {/* Note: This page is now using the new Admin Layout with collapsible and resizable sidebar */}
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -155,7 +155,9 @@ export default function AdminDashboardPage() {
                   <div className="bg-secondary p-2 rounded-full mr-3">
                     {activity._id === 1 && <Users className="h-4 w-4" />}
                     {activity._id === 2 && <Briefcase className="h-4 w-4" />}
-                    {activity._id === 3 && <MessageSquare className="h-4 w-4" />}
+                    {activity._id === 3 && (
+                      <MessageSquare className="h-4 w-4" />
+                    )}
                     {activity._id === 4 && <FileText className="h-4 w-4" />}
                   </div>
                   <div className="flex-1">
