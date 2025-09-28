@@ -1,3 +1,4 @@
+import { cleanString } from "@/lib/utils";
 import { EHttpType, handleRequest, IApiResponse } from "../../lib/axiosInstance";
 import { IBaseStore, createStore } from "../../lib/initialStore";
 import { EStatus } from "../types/enum";
@@ -115,8 +116,8 @@ export const useJobStore = createStore<IJobStore>(
 			formData.append("salary", salary)
 			formData.append("applicationDeadline", applicationDeadline)
 			formData.append("estimatedDeparture", estimatedDeparture)
-			formData.append("requirements", requirements)
-			formData.append("benefits", benefits)
+			formData.append("requirements", cleanString(requirements))
+			formData.append("benefits", cleanString(benefits))
 			formData.append("description", description)
 			formData.append("company", company)
 			formData.append("workType", workType)
@@ -171,8 +172,8 @@ export const useJobStore = createStore<IJobStore>(
 			formData.append("salary", salary)
 			formData.append("applicationDeadline", applicationDeadline)
 			formData.append("estimatedDeparture", estimatedDeparture)
-			formData.append("requirements", requirements)
-			formData.append("benefits", benefits)
+			formData.append("requirements", cleanString(requirements))
+			formData.append("benefits", cleanString(benefits))
 			formData.append("description", description)
 			formData.append("company", company)
 			formData.append("workType", workType)

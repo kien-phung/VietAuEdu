@@ -1,3 +1,4 @@
+import { cleanString } from "@/lib/utils";
 import { EHttpType, handleRequest, IApiResponse } from "../../lib/axiosInstance";
 import { IBaseStore, createStore } from "../../lib/initialStore";
 import { EStatus } from "../types/enum";
@@ -19,6 +20,8 @@ export interface IProgramStore extends IBaseStore {
 		country: string,
 		duration: string,
 		tuition: string,
+		opportunities: string,
+		about: string,
 		image: File | null,
 		requirements: string,
 		benefits: string,
@@ -32,6 +35,8 @@ export interface IProgramStore extends IBaseStore {
 		country: string,
 		duration: string,
 		tuition: string,
+		opportunities: string,
+		about: string,
 		image: File | null,
 		requirements: string,
 		benefits: string,
@@ -74,6 +79,8 @@ export const useProgramStore = createStore<IProgramStore>(
 			country: string,
 			duration: string,
 			tuition: string,
+			opportunities: string,
+			about: string,
 			image: File | null,
 			requirements: string,
 			benefits: string,
@@ -87,13 +94,15 @@ export const useProgramStore = createStore<IProgramStore>(
 				formData.append("country", country);
 				formData.append("duration", duration);
 				formData.append("tuition", tuition);
+				formData.append("opportunities", opportunities);
+				formData.append("about", about);
 
 				if (image instanceof File && image.size > 0) {
 					formData.append("image", image);
 				}
 
-				formData.append("requirements", requirements);
-				formData.append("benefits", benefits);
+				formData.append("requirements", cleanString(requirements));
+				formData.append("benefits", cleanString(benefits));
 				formData.append("featured", featured.toString());
 				formData.append("status", status);
 
@@ -108,6 +117,8 @@ export const useProgramStore = createStore<IProgramStore>(
 			country: string,
 			duration: string,
 			tuition: string,
+			opportunities: string,
+			about: string,
 			image: File | null | string,
 			requirements: string,
 			benefits: string,
@@ -121,14 +132,16 @@ export const useProgramStore = createStore<IProgramStore>(
 				formData.append("country", country);
 				formData.append("duration", duration);
 				formData.append("tuition", tuition);
+				formData.append("opportunities", opportunities);
+				formData.append("about", about);
 
 				if (image instanceof File && image.size > 0) {
 					formData.append("image", image);
 				}
 
 				console.log(programId)
-				formData.append("requirements", requirements);
-				formData.append("benefits", benefits);
+				formData.append("requirements", cleanString(requirements));
+				formData.append("benefits", cleanString(benefits));
 				formData.append("featured", featured.toString());
 				formData.append("status", status);
 

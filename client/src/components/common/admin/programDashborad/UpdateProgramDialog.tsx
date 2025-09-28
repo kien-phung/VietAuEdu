@@ -172,6 +172,32 @@ const UpdateProgramDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
+                          <Label htmlFor="create-opportunities">
+                            Opportunities
+                          </Label>
+                          <Textarea
+                            id="create-opportunities"
+                            value={data?.opportunities || ""}
+                            onChange={(e) =>
+                              onChange("opportunities", e.target.value)
+                            }
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4">
+                        <div className="grid gap-2">
+                          <Label htmlFor="create-about">About</Label>
+                          <Textarea
+                            id="create-about"
+                            value={data?.about || ""}
+                            onChange={(e) => onChange("about", e.target.value)}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4">
+                        <div className="grid gap-2">
                           <Label htmlFor="update-image">Image</Label>
                           <div className="flex flex-col gap-2">
                             <input

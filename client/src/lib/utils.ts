@@ -123,3 +123,11 @@ export const stringToList = (str: string): string[] => {
     .map(item => item.trim())
     .filter(Boolean);
 }
+
+export const cleanString = (input: string): string => {
+  return input
+    .split(",")
+    .map(item => item.trim())
+    .filter(Boolean)
+    .join(",");
+}
