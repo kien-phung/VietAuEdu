@@ -54,8 +54,8 @@ declare global {
         salary: string;
         applicationDeadline: string;
         estimatedDeparture: string;
-        requirements: string | string[];  // Updated to support both string and array
-        benefits: string | string[];      // Updated to support both string and array
+        requirements: string;
+        benefits: string;
         description: string;
         company: string;
         workType: string;

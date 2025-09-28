@@ -3,7 +3,6 @@ import { useState, useRef, ChangeEvent } from "react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -20,6 +19,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
 
 export const JobStatus = [
   { value: "active", label: "Active" },
@@ -68,19 +68,17 @@ const CreateJobDialog = ({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[525px] bg-white dark:bg-gray-800">
         <DialogHeader>
-          <DialogTitle>Create New Job</DialogTitle>
-
-          <DialogDescription>Create a new Job.</DialogDescription>
+          <DialogTitle>Create</DialogTitle>
         </DialogHeader>
 
         <ScrollArea className="h-[60vh] pr-4">
           <div className="grid gap-4 py-4">
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-title">Title</Label>
+                <Label htmlFor="create-title">Title</Label>
 
                 <Input
-                  id="update-title"
+                  id="create-title"
                   value={data?.title}
                   onChange={(e) => onChange("title", e.target.value)}
                 />
@@ -89,10 +87,10 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-country">Country</Label>
+                <Label htmlFor="create-country">Country</Label>
 
                 <Input
-                  id="update-country"
+                  id="create-country"
                   value={data?.country}
                   onChange={(e) => onChange("country", e.target.value)}
                 />
@@ -101,12 +99,12 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-image">Image</Label>
+                <Label htmlFor="create-image">Image</Label>
 
                 <div className="flex flex-col gap-2">
                   <input
                     type="file"
-                    id="update-image"
+                    id="create-image"
                     ref={fileInputRef}
                     onChange={handleFileChange}
                     accept="image/*"
@@ -140,25 +138,22 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-positions">Positions</Label>
+                <Label htmlFor="create-positions">Positions</Label>
 
                 <Input
-                  id="update-positions"
-                  type="number"
-                  value={data?.positions || ""}
-                  onChange={(e) =>
-                    onChange("positions", parseInt(e.target.value) || 0)
-                  }
+                  id="create-positions"
+                  value={data?.positions}
+                  onChange={(e) => onChange("positions", e.target.value)}
                 />
               </div>
             </div>
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-location">Location</Label>
+                <Label htmlFor="create-location">Location</Label>
 
                 <Input
-                  id="update-location"
+                  id="create-location"
                   value={data?.location}
                   onChange={(e) => onChange("location", e.target.value)}
                 />
@@ -167,10 +162,10 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-salary">Salary</Label>
+                <Label htmlFor="create-salary">Salary</Label>
 
                 <Input
-                  id="update-salary"
+                  id="create-salary"
                   value={data?.salary}
                   onChange={(e) => onChange("salary", e.target.value)}
                 />
@@ -179,12 +174,12 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-application-deadline">
+                <Label htmlFor="create-application-deadline">
                   Application Deadline
                 </Label>
 
                 <Input
-                  id="update-application-deadline"
+                  id="create-application-deadline"
                   value={data?.applicationDeadline}
                   onChange={(e) =>
                     onChange("applicationDeadline", e.target.value)
@@ -195,12 +190,12 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-estimatedDeparture">
+                <Label htmlFor="create-estimated-departure">
                   Estimated Departure
                 </Label>
 
                 <Input
-                  id="update-estimated-departure"
+                  id="create-estimated-departure"
                   value={data?.estimatedDeparture}
                   onChange={(e) =>
                     onChange("estimatedDeparture", e.target.value)
@@ -211,40 +206,58 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-requirements">
+                <Label htmlFor="create-requirements">
                   Requirements (comma-separated)
                 </Label>
 
                 <Input
-                  id="update-requirements"
+                  id="create-requirements"
                   value={data?.requirements}
-                  onChange={(e) => onChange("requirements", e.target.value)}
-                  placeholder="Enter requirements separated by commas"
+                  onChange={(e) =>
+                    onChange("requirements", e.target.value)
+                  }
                 />
               </div>
             </div>
-
+           
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-benefits">
+                <Label htmlFor="create-benefits">
                   Benefits (comma-separated)
                 </Label>
 
                 <Input
-                  id="update-benefits"
+                  id="create-benefits"
                   value={data?.benefits}
-                  onChange={(e) => onChange("benefits", e.target.value)}
-                  placeholder="Enter benefits separated by commas"
+                  onChange={(e) =>
+                    onChange("benefits", e.target.value)
+                  }
+                />
+              </div>
+            </div>
+            
+            <div className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="create-description">
+                  Description
+                </Label>
+
+                <Textarea
+                  id="create-description"
+                  value={data?.description}
+                  onChange={(e) =>
+                    onChange("description", e.target.value)
+                  }
                 />
               </div>
             </div>
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-company">company</Label>
+                <Label htmlFor="create-company">company</Label>
 
                 <Input
-                  id="update-company"
+                  id="create-company"
                   value={data?.company}
                   onChange={(e) => onChange("company", e.target.value)}
                 />
@@ -253,10 +266,10 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-workType">workType</Label>
+                <Label htmlFor="create-workType">workType</Label>
 
                 <Input
-                  id="update-workType"
+                  id="create-workType"
                   value={data?.workType}
                   onChange={(e) => onChange("workType", e.target.value)}
                 />
@@ -265,7 +278,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-featured">featured</Label>
+                <Label htmlFor="create-featured">featured</Label>
 
                 <Select
                   value={data?.featured ? "true" : "false"}
@@ -273,7 +286,7 @@ const CreateJobDialog = ({
                     onChange("featured", value === "true")
                   }
                 >
-                  <SelectTrigger id="update-featured">
+                  <SelectTrigger id="create-featured">
                     <SelectValue placeholder="Select featured status" />
                   </SelectTrigger>
                   <SelectContent>
@@ -286,10 +299,10 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-workingHours">workingHours</Label>
+                <Label htmlFor="create-workingHours">workingHours</Label>
 
                 <Input
-                  id="update-workingHours"
+                  id="create-workingHours"
                   value={data?.workingHours}
                   onChange={(e) => onChange("workingHours", e.target.value)}
                 />
@@ -298,10 +311,10 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-overtime">overtime</Label>
+                <Label htmlFor="create-overtime">overtime</Label>
 
                 <Input
-                  id="update-overtime"
+                  id="create-overtime"
                   value={data?.overtime}
                   onChange={(e) => onChange("overtime", e.target.value)}
                 />
@@ -310,10 +323,10 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-accommodation">accommodation</Label>
+                <Label htmlFor="create-accommodation">accommodation</Label>
 
                 <Input
-                  id="update-accommodation"
+                  id="create-accommodation"
                   value={data?.accommodation}
                   onChange={(e) => onChange("accommodation", e.target.value)}
                 />
@@ -322,12 +335,12 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-work-environment">
+                <Label htmlFor="create-work-environment">
                   Work Environment
                 </Label>
 
                 <Input
-                  id="update-work-environment"
+                  id="create-work-environment"
                   value={data?.workEnvironment}
                   onChange={(e) => onChange("workEnvironment", e.target.value)}
                 />
@@ -336,10 +349,10 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="update-training-period">Training Period</Label>
+                <Label htmlFor="create-training-period">Training Period</Label>
 
                 <Input
-                  id="update-training-period"
+                  id="create-training-period"
                   value={data?.trainingPeriod}
                   onChange={(e) => onChange("trainingPeriod", e.target.value)}
                 />
@@ -347,13 +360,13 @@ const CreateJobDialog = ({
             </div>
 
             <div className="grid gap-2 mt-3">
-              <Label htmlFor="update-country">Status</Label>
+              <Label htmlFor="create-country">Status</Label>
 
               <Select
-                value={data?.status}
+                value={data?.status ? data.status : JobStatus[0].value}
                 onValueChange={(value) => onChange("status", value)}
               >
-                <SelectTrigger id="update-status">
+                <SelectTrigger id="create-status">
                   <SelectValue placeholder="Select a status" />
                 </SelectTrigger>
 

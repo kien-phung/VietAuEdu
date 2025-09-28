@@ -4,15 +4,24 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuthStore } from "@/utils/stores/authStore";
 import type React from "react";
-import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const ResetPasswordPage: React.FC = () => {
-  const router = useRouter();
-  const searchParams = useSearchParams();
   const { forgotPassword } = useAuthStore();
 
-  const email = searchParams.get("email") || "";
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const emailParam = urlParams.get("email");
+
+    if (emailParam) {
+      setEmail(emailParam);
+    }
+  }, []);
 
   const [formData, setFormData] = useState({
     newPassword: "",
@@ -32,15 +41,15 @@ const ResetPasswordPage: React.FC = () => {
   const validate = () => {
     const newErrors: Record<string, string> = {};
     if (!formData.newPassword) {
-      newErrors.newPassword = "New password is required";
+      newErrors.newPassword = "Yêu cầu nhập mật khẩu mới";
     } else if (formData.newPassword.length < 8) {
-      newErrors.newPassword = "Password must be at least 8 characters";
+      newErrors.newPassword = "Mật khẩu mới phải có ít nhất 8 ký tự";
     }
 
     if (!formData.rePassword) {
-      newErrors.rePassword = "Please confirm your password";
+      newErrors.rePassword = "Vui lòng xác nhận lại mật khẩu";
     } else if (formData.newPassword !== formData.rePassword) {
-      newErrors.rePassword = "Passwords do not match";
+      newErrors.rePassword = "Mật khẩu không trùng khớp";
     }
 
     setErrors(newErrors);
@@ -54,25 +63,34 @@ const ResetPasswordPage: React.FC = () => {
       return;
     }
 
-    const res = await forgotPassword(email, formData.newPassword, formData.rePassword);
+    const res = await forgotPassword(
+      email,
+      formData.newPassword,
+      formData.rePassword
+    );
 
     if (!res) {
       return;
     }
 
-    router.push("/login");
+    toast.success("Đổi mật khẩu thành công");
+
+    router.push("/auth/login");
   };
 
   return (
     <div>
       <h1 className="text-primary text-2xl font-bold text-center mb-8">
-        Reset your password
+        Đặt lại mật khẩu
       </h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
-          <label htmlFor="newPassword" className="block text-sm font-medium text-primary-500 mb-2">
-            New Password
+          <label
+            htmlFor="newPassword"
+            className="block text-sm font-medium text-primary-500 mb-2"
+          >
+            Mật khẩu mới
           </label>
           <Input
             id="newPassword"
@@ -83,12 +101,17 @@ const ResetPasswordPage: React.FC = () => {
             onChange={handleChange}
             className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
           />
-          {errors.newPassword && <p className="mt-1 text-sm text-red-400">{errors.newPassword}</p>}
+          {errors.newPassword && (
+            <p className="mt-1 text-sm text-red-400">{errors.newPassword}</p>
+          )}
         </div>
 
         <div>
-          <label htmlFor="rePassword" className="block text-sm font-medium text-primary-500 mb-2">
-            Confirm Password
+          <label
+            htmlFor="rePassword"
+            className="block text-sm font-medium text-primary-500 mb-2"
+          >
+            Xác nhận mật khẩu
           </label>
           <Input
             id="rePassword"
@@ -99,7 +122,9 @@ const ResetPasswordPage: React.FC = () => {
             onChange={handleChange}
             className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
           />
-          {errors.rePassword && <p className="mt-1 text-sm text-red-400">{errors.rePassword}</p>}
+          {errors.rePassword && (
+            <p className="mt-1 text-sm text-red-400">{errors.rePassword}</p>
+          )}
         </div>
 
         <Button
@@ -107,7 +132,7 @@ const ResetPasswordPage: React.FC = () => {
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200"
           // disabled={isLoading}
         >
-          Reset Password
+          Đặt lại mật khẩu
         </Button>
       </form>
     </div>

@@ -117,7 +117,40 @@ export default function JobDashboardPage() {
     field: keyof ExtendedJobData,
     value: string | number | boolean | File | null
   ) => {
-    setData((prev) => (prev ? { ...prev, [field]: value } : prev));
+    // If data is null (we're in Create flow), initialize a minimal object
+    // so controlled inputs can update their values.
+    setData((prev) => {
+      if (!prev) {
+        const initial: ExtendedJobData = {
+          _id: "",
+          title: "",
+          country: "",
+          imageUrl: "",
+          image: null,
+          positions: 0,
+          location: "",
+          salary: "",
+          applicationDeadline: "",
+          estimatedDeparture: "",
+          requirements: "",
+          benefits: "",
+          description: "",
+          company: "",
+          workType: "",
+          featured: false,
+          workingHours: "",
+          overtime: "",
+          accommodation: "",
+          workEnvironment: "",
+          trainingPeriod: "",
+          status: EStatus.ACTIVE,
+        } as ExtendedJobData;
+
+        return { ...initial, [field]: value };
+      }
+
+      return { ...prev, [field]: value };
+    });
   };
 
   const handleUpdate = async () => {
@@ -132,10 +165,6 @@ export default function JobDashboardPage() {
           typeof data.featured === "boolean"
             ? data.featured
             : data.featured === "true";
-        const requirements = Array.isArray(data.requirements)
-          ? data.requirements
-          : [];
-        const benefits = Array.isArray(data.benefits) ? data.benefits : [];
 
         // Determine whether to use new image file or existing URL
         const imageToUse =
@@ -152,8 +181,8 @@ export default function JobDashboardPage() {
           data.salary || "",
           data.applicationDeadline || "",
           data.estimatedDeparture || "",
-          requirements,
-          benefits,
+          data.requirements,
+          data.benefits,
           data.description || "Job description",
           data.company || "",
           data.workType || "",
@@ -195,10 +224,6 @@ export default function JobDashboardPage() {
           typeof data.featured === "boolean"
             ? data.featured
             : data.featured === "true";
-        const requirements = Array.isArray(data.requirements)
-          ? data.requirements
-          : [];
-        const benefits = Array.isArray(data.benefits) ? data.benefits : [];
 
         // Use image file if available
         const imageFile = data.image instanceof File ? data.image : null;
@@ -213,8 +238,8 @@ export default function JobDashboardPage() {
           data.salary || "",
           data.applicationDeadline || "",
           data.estimatedDeparture || "",
-          requirements,
-          benefits,
+          data.requirements,
+          data.benefits,
           data.description || "",
           data.company || "",
           data.workType || "",

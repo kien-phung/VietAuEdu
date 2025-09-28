@@ -4,48 +4,89 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuthStore } from "@/utils/stores/authStore";
 import type React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const VerificationPage: React.FC = () => {
   const { isLoading, verifyOTP } = useAuthStore();
+
   const router = useRouter();
-  const [email, setEmail] = useState("your email");
-  const [code, setCode] = useState(["", "", "", "", "", ""]);
+  const [email, setEmail] = useState("");
+  const [isPasswordReset, setIsPasswordReset] = useState(false);
+  const [otp, setOtp] = useState<string[]>(Array(6).fill(""));
+
+  const [isExpired, setIsExpired] = useState(false);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
   const [isClient, setIsClient] = useState(false);
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   // Get email from URL params on client side only
   useEffect(() => {
     setIsClient(true);
     const urlParams = new URLSearchParams(window.location.search);
+    const isPasswordResetParam = urlParams.get("isPasswordReset") === "true";
     const emailParam = urlParams.get("email");
+
     if (emailParam) {
       setEmail(emailParam);
     }
+
+    if (emailParam) {
+      setIsPasswordReset(isPasswordResetParam);
+    }
   }, []);
 
-  const handleInputChange = (index: number, value: string) => {
-    const newCode = [...code];
-    newCode[index] = value;
-    setCode(newCode);
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      setIsExpired(true);
+      return;
+    }
+
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft]);
+
+  const handleChange = (index: number, value: string) => {
+    if (!/^\d*$/.test(value)) return;
+
+    const newOtp = [...otp];
+    newOtp[index] = value.substring(0, 1);
+    setOtp(newOtp);
 
     // Auto-focus next input
-    if (value.length === 1 && index < 5) {
-      const nextInput = document.getElementById(`digit-${index + 1}`);
-      if (nextInput) nextInput.focus();
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    const pastedData = e.clipboardData.getData("text/plain").trim();
+
+    // Check if pasted content is a 6-digit number
+    if (/^\d{6}$/.test(pastedData)) {
+      const newOtp = pastedData.split("");
+      setOtp(newOtp);
+
+      // Focus the last input
+      inputRefs.current[5]?.focus();
     }
   };
 
   const handleKeyDown = (index: number, e: React.KeyboardEvent) => {
-    if (e.key === "Backspace" && code[index] === "" && index > 0) {
+    if (e.key === "Backspace" && otp[index] === "" && index > 0) {
       const prevInput = document.getElementById(`digit-${index - 1}`);
       if (prevInput) prevInput.focus();
     }
   };
 
   const validate = () => {
-    if (code.some((digit) => digit === "")) {
+    if (otp.some((digit) => digit === "")) {
       return false;
     }
     return true;
@@ -58,21 +99,24 @@ const VerificationPage: React.FC = () => {
       return;
     }
 
-    const otp = code.join("");
-    const res = await verifyOTP(email, otp);
+    const res = await verifyOTP(email, otp.join(""));
 
     if (!res) {
+      setOtp(Array(6).fill(""));
       return;
     }
 
-    // Redirect based on context
-    const urlParams = new URLSearchParams(window.location.search);
-    const isPasswordReset = urlParams.get("isPasswordReset") === "true";
+    if (isExpired) {
+      setOtp(Array(6).fill(""));
+      return;
+    }
 
+    
     if (isPasswordReset) {
-      router.push("/auth/reset-password");
+      router.push(`/auth/reset-password/?email=${encodeURIComponent(email)}`);
     } else {
-      router.push("/"); // Or the appropriate homepage after verification
+      toast.success("Xác thực tài khoản thành công");
+      router.push("/auth/login");
     }
   };
 
@@ -81,7 +125,7 @@ const VerificationPage: React.FC = () => {
     const result = await sendOTP(email);
 
     if (result) {
-      alert("Code resent successfully!");
+      toast.done("Mã OTP đã được gửi");
     }
   };
 
@@ -110,32 +154,38 @@ const VerificationPage: React.FC = () => {
   return (
     <div className="bg-gray-800 rounded-lg p-8">
       <h1 className="text-primary text-2xl font-bold text-center mb-6">
-        Enter verification code
+        Nhập mã xác thực
       </h1>
 
-      <p className="text-primary-400 text-sm mb-6 text-center">
-        We&apos;ve sent a verification code to {email}
-        Enter the code below to verify your account.
+      <p className="text-gray-400 text-sm mb-2">
+        Chúng tôi đã gửi mã OTP về email của bạn, hãy nhập mã đó vào các ô bên dưới để
+        {isPasswordReset ? "đặt lại mật khẩu" : "xác thực tài khoản"}.
       </p>
 
       <div className="text-center mb-6">
         <p className="text-primary-400 text-sm">
-          Code expires in: {formatTime(timeLeft)}
+          Mã hết hạn trong: {formatTime(timeLeft)}
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="mb-6 space-y-6">
-        <div className="flex justify-center space-x-2 mb-6">
-          {code.map((digit, index) => (
+        <div className="flex justify-between mb-6">
+          {[0, 1, 2, 3, 4, 5].map((index) => (
             <Input
               key={index}
-              id={`digit-${index}`}
-              type="number"
-              maxLength={1}
-              value={digit}
-              onChange={(e) => handleInputChange(index, e.target.value)}
+              ref={(el) => {
+                inputRefs.current[index] = el;
+              }}
+              type="text"
+              value={otp[index]}
+              onChange={(e) => handleChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
-              className="w-12 h-12 text-center bg-gray-700 border-gray-600 text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500 rounded-lg"
+              onPaste={index === 0 ? handlePaste : undefined}
+              className={`w-12 h-12 text-center text-xl font-bold bg-[#282828] text-white border ${
+                isExpired ? "border-red-500" : "border-[#3E3E3E]"
+              } rounded-md focus:outline-none focus:ring-1 focus:ring-[#1877F2] focus:border-[#1877F2]`}
+              maxLength={1}
+              disabled={isExpired}
             />
           ))}
         </div>
@@ -145,18 +195,18 @@ const VerificationPage: React.FC = () => {
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200"
           disabled={isLoading}
         >
-          {isLoading ? "Verifying..." : "Verify"}
+          {isLoading ? "Đang xác thực..." : "Xác thực"}
         </Button>
       </form>
 
       <div className="text-center">
         <p className="text-gray-400 text-sm">
-          Didn&apos;t receive a code?{" "}
+          Không nhận được mã?{" "}
           <button
             onClick={handleResend}
             className="text-primary-500 hover:text-primary-700 underline cursor-pointer"
           >
-            Resend code
+            Gửi lại mã
           </button>
         </p>
       </div>

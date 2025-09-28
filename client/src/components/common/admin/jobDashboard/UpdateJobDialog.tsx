@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { JobStatus } from "./CreateJobDialog";
 import Image from "next/image";
+import { Textarea } from "@/components/ui/textarea";
 
 interface UpdateJobDialogProps {
   isOpen: boolean;
@@ -97,7 +98,7 @@ const UpdateJobDialog = ({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
                 >
-                  Update IJob
+                  Update
                 </Dialog.Title>
 
                 <ScrollArea className="h-[42vh] pr-4 mt-4">
@@ -253,10 +254,9 @@ const UpdateJobDialog = ({
                           <Label htmlFor="update-requirements">
                             Requirements (comma-separated)
                           </Label>
-
-                          <Input
+                          <Textarea
                             id="update-requirements"
-                            value={data?.requirements}
+                            value={data?.requirements || ""}
                             onChange={(e) =>
                               onChange("requirements", e.target.value)
                             }
@@ -269,12 +269,26 @@ const UpdateJobDialog = ({
                           <Label htmlFor="update-benefits">
                             Benefits (comma-separated)
                           </Label>
-
-                          <Input
+                          <Textarea
                             id="update-benefits"
-                            value={data?.benefits}
+                            value={data?.benefits || ""}
                             onChange={(e) =>
                               onChange("benefits", e.target.value)
+                            }
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid gap-4">
+                        <div className="grid gap-2">
+                          <Label htmlFor="update-description">
+                            Description
+                          </Label>
+                          <Textarea
+                            id="update-description"
+                            value={data?.description || ""}
+                            onChange={(e) =>
+                              onChange("description", e.target.value)
                             }
                           />
                         </div>

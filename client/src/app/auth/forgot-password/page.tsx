@@ -6,6 +6,7 @@ import { useAuthStore } from "@/utils/stores/authStore";
 import type React from "react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const ForgotPasswordPage: React.FC = () => {
   const router = useRouter();
@@ -43,21 +44,21 @@ const ForgotPasswordPage: React.FC = () => {
       return;
     }
 
-    // Navigate with query parameters instead of state
+    toast.success("Đã gửi mã OTP về email của bạn");
+
     router.push(
-      `/verify-otp?email=${encodeURIComponent(email)}&isPasswordReset=true`
+      `/auth/verification?email=${encodeURIComponent(email)}&isPasswordReset=true`
     );
   };
 
   return (
     <div>
       <h1 className="text-primary text-2xl font-bold text-center mb-8">
-        Forgot your password
+        Quên mật khẩu
       </h1>
 
       <p className="text-primary-400 text-sm mb-6 text-center">
-        Enter your email address and we&apos;ll send you a code to forgot your
-        password.
+        Nhập email của bạn và chúng tôi sẽ gửi mã OTP để giúp bạn tiến hành cài lại mật khẩu mới.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -72,7 +73,7 @@ const ForgotPasswordPage: React.FC = () => {
             id="email"
             type="email"
             name="email"
-            placeholder="Enter your email"
+            placeholder="Nhập email của bạn"
             value={email}
             onChange={handleChange}
             className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
@@ -85,7 +86,7 @@ const ForgotPasswordPage: React.FC = () => {
           className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200"
           disabled={isLoading}
         >
-          {isLoading ? "Sending..." : "Send code"}
+          {isLoading ? "Đang gửi..." : "Gửi mã"}
         </Button>
 
         <div className="mt-6 text-center">
@@ -98,7 +99,7 @@ const ForgotPasswordPage: React.FC = () => {
               isLoading ? "pointer-events-none opacity-70" : ""
             }`}
           >
-            Back to login
+            Quay lại trang đăng nhập
           </button>
         </div>
       </form>

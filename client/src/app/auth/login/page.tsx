@@ -83,7 +83,7 @@ const LoginPage: React.FC = () => {
   return (
     <div>
       <h1 className="text-primary text-2xl font-bold text-center mb-8">
-        Log in
+        Đăng nhập
       </h1>
 
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -98,7 +98,7 @@ const LoginPage: React.FC = () => {
             id="email"
             name="email"
             type="email"
-            placeholder="Enter your email"
+            placeholder="Nhập email của bạn"
             value={formData.email}
             onChange={handleChange}
             className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
@@ -113,13 +113,13 @@ const LoginPage: React.FC = () => {
             htmlFor="password"
             className="block text-sm font-medium text-primary-500 mb-2"
           >
-            Password
+            Mật khẩu
           </label>
           <Input
             id="password"
             name="password"
             type="password"
-            placeholder="Enter your password"
+            placeholder="Nhập mật khẩu của bạn"
             value={formData.password}
             onChange={handleChange}
             className="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400"
@@ -140,7 +140,7 @@ const LoginPage: React.FC = () => {
               isLoading ? "pointer-events-none opacity-70" : ""
             }`}
           >
-            Forgot your password?
+            Quên mật khẩu?
           </a>
         </div>
 
@@ -149,7 +149,7 @@ const LoginPage: React.FC = () => {
           className="w-full bg-secondary hover:bg-secondary-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200"
           disabled={isLoading}
         >
-          {isLoading ? "Logging in..." : "Log in"}
+          {isLoading ? "..." : "Đăng nhập"}
         </Button>
       </form>
     </div>
