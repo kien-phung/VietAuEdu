@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useProgramStore } from "@/utils/stores/programStore";
+import { stringToList } from "@/lib/utils";
 
 interface ProgramDetailPageClientProps {
   programId: string;
@@ -143,7 +144,7 @@ export default function ProgramDetailPageClient({
               </CardHeader>
               <CardContent>
                 <ul className="space-y-3">
-                  {program.requirements.map((requirement, index) => (
+                  {stringToList(program.requirements).map((requirement, index) => (
                     <li key={index} className="flex items-start space-x-3">
                       <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
                       <span className="text-gray-600 dark:text-gray-300">
@@ -165,7 +166,7 @@ export default function ProgramDetailPageClient({
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {program.benefits.map((benefit, index) => (
+                  {stringToList(program.benefits).map((benefit, index) => (
                     <div
                       key={index}
                       className="flex items-center space-x-3 p-3 bg-primary/5 rounded-lg"
@@ -193,11 +194,6 @@ export default function ProgramDetailPageClient({
                     Về Chương Trình
                   </h4>
                   <p className="text-gray-600 leading-relaxed">
-                    {/* Chương trình {program.title} được thiết kế để cung cấp cho
-                    sinh viên những kiến thức chuyên sâu và kỹ năng thực tiễn
-                    cần thiết trong môi trường quốc tế. Với đội ngũ giảng viên
-                    giàu kinh nghiệm và cơ sở vật chất hiện đại, chương trình
-                    cam kết mang lại chất lượng giáo dục cao nhất. */}
                     {program.about}
                   </p>
                 </div>
@@ -207,11 +203,6 @@ export default function ProgramDetailPageClient({
                     Cơ Hội Nghề Nghiệp
                   </h4>
                   <p className="text-gray-600 leading-relaxed">
-                    {/* Sau khi tốt nghiệp, sinh viên sẽ có cơ hội làm việc tại các
-                    công ty đa quốc gia, tổ chức quốc tế hoặc tiếp tục nghiên
-                    cứu và phát triển sự nghiệp học thuật. Mạng lưới alumni rộng
-                    khắp sẽ hỗ trợ sinh viên trong việc tìm kiếm cơ hội việc
-                    làm. */}
                     {program.opportunities}
                   </p>
                 </div>

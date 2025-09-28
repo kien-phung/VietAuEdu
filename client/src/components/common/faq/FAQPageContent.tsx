@@ -28,15 +28,6 @@ export default function FAQPageContent() {
     fetchData();
   }, [getAllFAQs]);
 
-  // Convert IFAQ to FAQ interface expected by FAQContent
-  const convertedFAQs = faqs.map((faq) => ({
-    id: faq._id,
-    question: faq.question,
-    answer: faq.answer,
-    category: faq.category,
-    publishedAt: "2023-01-01", // Default date since IFAQ doesn't have this field
-  }));
-
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
       {/* Header */}
@@ -54,7 +45,7 @@ export default function FAQPageContent() {
       </section>
 
       {/* FAQ Content */}
-      <FAQContent initialFAQs={convertedFAQs} categories={categories} />
+      <FAQContent initialFAQs={faqs} categories={categories} />
     </div>
   );
 }

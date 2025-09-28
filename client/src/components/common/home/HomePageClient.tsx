@@ -10,6 +10,7 @@ import SlideshowSection from "@/components/common/home/SlideshowSection";
 import { SectionSkeleton } from "@/components/common/home/SectionSkeleton";
 import ContactInfoSection from "@/components/common/about/ContactInfoSection";
 import dynamic from "next/dynamic";
+import CTASection from "./CTASection";
 
 // Dynamic imports for non-critical sections to reduce initial bundle
 const WorkingProcessSection = dynamic(
@@ -37,8 +38,12 @@ const JobOpportunitiesSection = dynamic(
 );
 
 export default function HomePageClient() {
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const ctaInView = useInView(ctaRef, { amount: 0.3 });
+
   const contactInfoRef = useRef<HTMLDivElement>(null);
   const contactInfoInView = useInView(contactInfoRef, { amount: 0.3 });
+  
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -81,6 +86,13 @@ export default function HomePageClient() {
 
       {/* Critical content for SEO - SSR */}
       <ProgramsSection />
+
+      <CTASection
+        ctaRef={ctaRef}
+        ctaInView={ctaInView}
+        containerVariants={containerVariants}
+        itemVariants={itemVariants}
+      />
 
       {/* <LanguageTrainingSection /> */}
       <ContactInfoSection

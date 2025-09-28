@@ -18,6 +18,13 @@ import { useParams } from "next/navigation";
 import { useJobStore } from "@/utils/stores/jobStore";
 // Removed import of PLACE_HODLER_URL
 
+// Helper function to convert string to array if needed
+const getStringArray = (value: string | string[] | undefined): string[] => {
+  if (!value) return [];
+  if (Array.isArray(value)) return value;
+  return [value];
+};
+
 export default function JobDetailPage() {
   const { getJob } = useJobStore();
 
@@ -49,6 +56,10 @@ export default function JobDetailPage() {
       </div>
     );
   }
+
+  // Convert requirements and benefits to arrays if they are strings
+  const requirementsArray = getStringArray(job.requirements);
+  const benefitsArray = getStringArray(job.benefits);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors">
@@ -202,7 +213,7 @@ export default function JobDetailPage() {
                   Yêu Cầu Ứng Viên
                 </h2>
                 <ul className="space-y-3">
-                  {job?.requirements?.map((requirement, index) => (
+                  {requirementsArray.map((requirement, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
                       <span className="text-gray-700 dark:text-gray-300">
@@ -219,7 +230,7 @@ export default function JobDetailPage() {
                   Quyền Lợi & Phúc Lợi
                 </h2>
                 <ul className="space-y-3">
-                  {job?.benefits?.map((benefit, index) => (
+                  {benefitsArray.map((benefit, index) => (
                     <li key={index} className="flex items-start">
                       <CheckCircle className="w-5 h-5 text-primary mt-0.5 mr-3 flex-shrink-0" />
                       <span className="text-gray-700 dark:text-gray-300">

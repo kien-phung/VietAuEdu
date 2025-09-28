@@ -20,8 +20,8 @@ declare global {
         tuition: string;
         opportunities: string;
         about: string;
-        requirements: string[];
-        benefits: string[];
+        requirements: string;
+        benefits: string;
         imageUrl: string;
         image?: File | null;
         featured: boolean;
@@ -54,8 +54,8 @@ declare global {
         salary: string;
         applicationDeadline: string;
         estimatedDeparture: string;
-        requirements: string[];
-        benefits: string[];
+        requirements: string | string[];  // Updated to support both string and array
+        benefits: string | string[];      // Updated to support both string and array
         description: string;
         company: string;
         workType: string;
@@ -90,6 +90,7 @@ declare global {
         answer: string;
         category: string;
         status: EStatus;
+        createdAt?: string;
     }
 }
 export { };

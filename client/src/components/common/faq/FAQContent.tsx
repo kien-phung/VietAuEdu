@@ -3,16 +3,8 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp, Search } from "lucide-react";
 
-interface FAQ {
-  id: string;
-  question: string;
-  answer: string;
-  category: string;
-  publishedAt: string;
-}
-
 interface FAQContentProps {
-  initialFAQs: FAQ[];
+  initialFAQs: IFAQ[];
   categories: string[];
 }
 
@@ -113,7 +105,7 @@ export default function FAQContent({
                           <span className="bg-primary/10 text-primary px-2 py-1 rounded-full text-xs font-medium mr-3">
                             {faq.category}
                           </span>
-                          <span>{faq.publishedAt}</span>
+                          <span>{faq.createdAt}</span>
                         </div>
                       </div>
                       <div className="flex-shrink-0 ml-4">

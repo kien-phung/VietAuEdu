@@ -215,16 +215,10 @@ const UpdateProgramDialog = ({
                           </Label>
                           <Input
                             id="update-requirements"
-                            value={data.requirements?.join(", ") || ""}
+                            value={data?.requirements}
                             onChange={(e) =>
-                              onChange(
-                                "requirements",
-                                e.target.value
-                                  .split(",")
-                                  .map((item) => item.trim())
-                              )
+                              onChange("requirements", e.target.value)
                             }
-                            placeholder="Separate requirements with commas"
                           />
                         </div>
                       </div>
@@ -234,16 +228,10 @@ const UpdateProgramDialog = ({
                           <Label htmlFor="update-benefits">Benefits</Label>
                           <Input
                             id="update-benefits"
-                            value={data.benefits?.join(", ") || ""}
+                            value={data?.benefits}
                             onChange={(e) =>
-                              onChange(
-                                "benefits",
-                                e.target.value
-                                  .split(",")
-                                  .map((item) => item.trim())
-                              )
+                              onChange("benefits", e.target.value)
                             }
-                            placeholder="Separate benefits with commas"
                           />
                         </div>
                       </div>

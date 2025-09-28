@@ -1,63 +1,114 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { Phone, MessageCircle, Calendar } from "lucide-react";
+import Link from "next/link";
+import { motion, Variants } from "framer-motion";
 
-export default function CTASection() {
+interface ICTASection {
+  ctaRef: React.RefObject<HTMLDivElement | null>;
+  ctaInView: boolean;
+  containerVariants: Variants;
+  itemVariants: Variants;
+}
+
+export default function CTASection({
+  ctaRef,
+  ctaInView,
+  containerVariants,
+  itemVariants,
+}: ICTASection) {
   return (
     <section
-      className="py-20 relative"
-      style={{
-        backgroundImage: "url(/images/cta-background.jpg)",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-      }}
+      ref={ctaRef}
+      className="py-16 bg-gradient-to-r from-primary to-blue-700 text-white relative overflow-hidden"
     >
-      {/* Overlay to ensure text readability */}
-      <div className="absolute inset-0 bg-black/50"></div>
-
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center text-white">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            Sẵn Sàng Bắt Đầu Hành Trình Du Học?
-          </h2>
-          <p className="text-xl opacity-90 mb-12 max-w-3xl mx-auto">
-            Đừng để ước mơ chỉ là ước mơ. Hãy liên hệ với chúng tôi ngay hôm nay
-            để được tư vấn miễn phí và chi tiết nhất
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <Phone className="w-8 h-8 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Gọi điện tư vấn</h3>
-              <p className="opacity-90 mb-4">Liên hệ hotline 24/7</p>
-              <Button variant="secondary" size="sm">
-                0782 748 863
-              </Button>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <MessageCircle className="w-8 h-8 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Chat trực tuyến</h3>
-              <p className="opacity-90 mb-4">Tư vấn qua Zalo/Facebook</p>
-              <Button variant="secondary" size="sm">
-                Chat ngay
-              </Button>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <Calendar className="w-8 h-8 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Đặt lịch hẹn</h3>
-              <p className="opacity-90 mb-4">Gặp mặt tư vấn trực tiếp</p>
-              <Button variant="secondary" size="sm">
-                Đặt lịch
-              </Button>
-            </div>
-          </div>
-        </div>
+        <motion.div
+          className="max-w-4xl mx-auto text-center"
+          initial={{ opacity: 0, y: 40 }}
+          animate={ctaInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold mb-6"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={
+              ctaInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }
+            }
+            transition={{ duration: 0.5 }}
+          >
+            Sẵn Sàng Cho Hành Trình Du Học?
+          </motion.h2>
+          <motion.p
+            className="text-xl mb-8 text-blue-50"
+            initial={{ opacity: 0 }}
+            animate={ctaInView ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            Đăng ký tư vấn miễn phí và nhận ngay lộ trình du học phù hợp với nhu
+            cầu của bạn
+          </motion.p>
+          <motion.div
+            className="flex justify-center space-x-4 flex-wrap gap-y-4"
+            variants={containerVariants}
+            initial="hidden"
+            animate={ctaInView ? "visible" : "hidden"}
+            transition={{ delayChildren: 0.3, staggerChildren: 0.2 }}
+          >
+            <motion.div variants={itemVariants}>
+              <Link
+                href="/contact"
+                className="bg-white text-primary hover:bg-blue-50 px-8 py-3 rounded-lg font-bold text-lg transition-colors shadow-lg hover:shadow-xl inline-block"
+              >
+                Đăng ký tư vấn
+              </Link>
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <Link
+                href="/programs"
+                className="bg-transparent border-2 border-white hover:bg-white/10 px-8 py-3 rounded-lg font-bold text-lg transition-all shadow-lg hover:shadow-xl inline-block"
+              >
+                Xem chương trình
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
+
+      <motion.div
+        className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full -translate-x-1/2 -translate-y-1/2"
+        animate={
+          ctaInView
+            ? {
+                x: ["-50%", "-45%", "-50%"],
+                y: ["-50%", "-55%", "-50%"],
+              }
+            : {}
+        }
+        transition={{
+          repeat: Infinity,
+          duration: 8,
+          ease: "easeInOut",
+          repeatType: "reverse",
+        }}
+      />
+      <motion.div
+        className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/2 translate-y-1/2"
+        animate={
+          ctaInView
+            ? {
+                x: ["50%", "55%", "50%"],
+                y: ["50%", "45%", "50%"],
+              }
+            : {}
+        }
+        transition={{
+          repeat: Infinity,
+          duration: 10,
+          ease: "easeInOut",
+          repeatType: "reverse",
+        }}
+      />
     </section>
   );
 }

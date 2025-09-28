@@ -20,8 +20,8 @@ export interface IProgramStore extends IBaseStore {
 		duration: string,
 		tuition: string,
 		image: File | null,
-		requirements: string[],
-		benefits: string[],
+		requirements: string,
+		benefits: string,
 		featured: boolean,
 		status: EStatus
 	) => Promise<IApiResponse<IProgramDataResponse>>;
@@ -33,8 +33,8 @@ export interface IProgramStore extends IBaseStore {
 		duration: string,
 		tuition: string,
 		image: File | null,
-		requirements: string[],
-		benefits: string[],
+		requirements: string,
+		benefits: string,
 		featured: boolean,
 		status: EStatus
 	) => Promise<IApiResponse<IProgramDataResponse>>;
@@ -75,8 +75,8 @@ export const useProgramStore = createStore<IProgramStore>(
 			duration: string,
 			tuition: string,
 			image: File | null,
-			requirements: string[],
-			benefits: string[],
+			requirements: string,
+			benefits: string,
 			featured: boolean,
 			status: EStatus
 		): Promise<IApiResponse<IProgramDataResponse>> => {
@@ -88,13 +88,12 @@ export const useProgramStore = createStore<IProgramStore>(
 				formData.append("duration", duration);
 				formData.append("tuition", tuition);
 
-				// Chỉ thêm hình ảnh nếu có tệp hợp lệ
 				if (image instanceof File && image.size > 0) {
 					formData.append("image", image);
 				}
 
-				formData.append("requirements", JSON.stringify(requirements));
-				formData.append("benefits", JSON.stringify(benefits));
+				formData.append("requirements", requirements);
+				formData.append("benefits", benefits);
 				formData.append("featured", featured.toString());
 				formData.append("status", status);
 
@@ -110,8 +109,8 @@ export const useProgramStore = createStore<IProgramStore>(
 			duration: string,
 			tuition: string,
 			image: File | null | string,
-			requirements: string[],
-			benefits: string[],
+			requirements: string,
+			benefits: string,
 			featured: boolean,
 			status: EStatus
 		): Promise<IApiResponse<IProgramDataResponse>> => {
@@ -128,8 +127,8 @@ export const useProgramStore = createStore<IProgramStore>(
 				}
 
 				console.log(programId)
-				formData.append("requirements", JSON.stringify(requirements));
-				formData.append("benefits", JSON.stringify(benefits));
+				formData.append("requirements", requirements);
+				formData.append("benefits", benefits);
 				formData.append("featured", featured.toString());
 				formData.append("status", status);
 

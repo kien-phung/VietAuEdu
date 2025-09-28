@@ -115,7 +115,7 @@ export default function JobDashboardPage() {
 
   const handleChange = (
     field: keyof ExtendedJobData,
-    value: string | number | boolean | string[] | File | null
+    value: string | number | boolean | File | null
   ) => {
     setData((prev) => (prev ? { ...prev, [field]: value } : prev));
   };

@@ -75,7 +75,7 @@ export default function LanguageTrainingSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
           {languagePrograms.map((program) => (
             <div
-              key={program._id}
+              key={program.id}
               className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 p-6"
             >
               <div className="flex gap-6">

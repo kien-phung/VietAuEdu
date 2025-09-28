@@ -34,7 +34,7 @@ export default function FeaturedJobs({ featuredJobs }: FeaturedJobsProps) {
                 <div className="w-1/3 relative">
                   <div className="aspect-square relative">
                     <Image
-                      src={job.imageUrl}
+                      src={job.imageUrl ?? "/images/default-job.png"}
                       alt={job.title}
                       fill
                       className="object-cover"

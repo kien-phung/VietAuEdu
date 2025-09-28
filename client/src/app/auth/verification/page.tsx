@@ -9,12 +9,21 @@ import { useRouter } from "next/navigation";
 
 const VerificationPage: React.FC = () => {
   const { isLoading, verifyOTP } = useAuthStore();
-
-  const email =
-    new URLSearchParams(window.location.search).get("email") || "your email";
   const router = useRouter();
+  const [email, setEmail] = useState("your email");
   const [code, setCode] = useState(["", "", "", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(300); // 5 minutes in seconds
+  const [isClient, setIsClient] = useState(false);
+
+  // Get email from URL params on client side only
+  useEffect(() => {
+    setIsClient(true);
+    const urlParams = new URLSearchParams(window.location.search);
+    const emailParam = urlParams.get("email");
+    if (emailParam) {
+      setEmail(emailParam);
+    }
+  }, []);
 
   const handleInputChange = (index: number, value: string) => {
     const newCode = [...code];
@@ -92,6 +101,11 @@ const VerificationPage: React.FC = () => {
     const secs = seconds % 60;
     return `${mins}:${secs < 10 ? "0" : ""}${secs}`;
   };
+
+  // Don't render anything on server side
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <div className="bg-gray-800 rounded-lg p-8">

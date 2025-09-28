@@ -23,7 +23,7 @@ interface CreateProgramDialogProps {
   onOpenChange: (open: boolean) => void;
   onChange: (
     field: keyof IProgram,
-    value: string | string[] | boolean | File | null
+    value: string | boolean | File | null
   ) => void;
   data: IProgram | null;
   onProgramCreated: () => void;
@@ -223,16 +223,12 @@ const CreateProgramDialog = ({
                     <div className="grid gap-2">
                       <Label htmlFor="create-requirements">Requirements</Label>
                       <Input
-                        id="create-requirements"
-                        value={programData.requirements?.join(", ") || ""}
-                        onChange={(e) =>
-                          onChange(
-                            "requirements",
-                            e.target.value.split(",").map((item) => item.trim())
-                          )
-                        }
-                        placeholder="Separate requirements with commas"
-                      />
+                            id="update-requirements"
+                            value={data?.requirements}
+                            onChange={(e) =>
+                              onChange("requirements", e.target.value)
+                            }
+                          />
                     </div>
                   </div>
 
@@ -240,16 +236,12 @@ const CreateProgramDialog = ({
                     <div className="grid gap-2">
                       <Label htmlFor="create-benefits">Benefits</Label>
                       <Input
-                        id="create-benefits"
-                        value={programData.benefits?.join(", ") || ""}
-                        onChange={(e) =>
-                          onChange(
-                            "benefits",
-                            e.target.value.split(",").map((item) => item.trim())
-                          )
-                        }
-                        placeholder="Separate benefits with commas"
-                      />
+                            id="update-benefits"
+                            value={data?.benefits}
+                            onChange={(e) =>
+                              onChange("benefits", e.target.value)
+                            }
+                          />
                     </div>
                   </div>
 

@@ -5,10 +5,11 @@ import ProgramDetailPageClient from "@/components/common/programs/[id]/ProgramDe
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }): Promise<Metadata> {
-  // Sử dụng params._id để lấy dữ liệu chương trình từ API
-  const id = params.id;
+  // Giải quyết promise để lấy params
+  const resolvedParams = await params;
+  const id = resolvedParams.id;
 
   // Trong tương lai, khi có API thực, bạn có thể fetch dữ liệu như sau:
   // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/programs/${id}`);
@@ -36,10 +37,11 @@ export async function generateMetadata({
   };
 }
 
-export default function ProgramDetailPage({
+export default async function ProgramDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  return <ProgramDetailPageClient programId={params.id} />;
+  const resolvedParams = await params;
+  return <ProgramDetailPageClient programId={resolvedParams.id} />;
 }

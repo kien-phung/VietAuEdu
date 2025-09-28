@@ -18,8 +18,8 @@ import MainIntroductionSection from "@/components/common/about/MainIntroductionS
 import WhyChooseUsSection from "@/components/common/about/WhyChooseUsSection";
 import ServicesSection from "@/components/common/about/ServicesSection";
 import CommitmentsSection from "@/components/common/about/CommitmentsSection";
-import CTASection from "@/components/common/about/CTASection";
 import ContactInfoSection from "@/components/common/about/ContactInfoSection";
+import CTASection from "../home/CTASection";
 
 // Static data - moved to build time for instant loading
 const getAboutPageData = () => {

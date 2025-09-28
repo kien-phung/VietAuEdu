@@ -20,7 +20,7 @@ interface UpdateJobDialogProps {
   onOpenChange: (open: boolean) => void;
   onChange: (
     field: keyof IJob,
-    value: string | number | boolean | string[] | File | null
+    value: string | number | boolean | File | null
   ) => void;
   data: IJob | null;
   onJobUpdated: () => void;
@@ -256,21 +256,9 @@ const UpdateJobDialog = ({
 
                           <Input
                             id="update-requirements"
-                            value={
-                              Array.isArray(data?.requirements)
-                                ? data.requirements.join(", ")
-                                : data?.requirements || ""
-                            }
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>
-                            ) =>
-                              onChange(
-                                "requirements",
-                                e.target.value
-                                  .split(",")
-                                  .map((item) => item.trim())
-                                  .filter((item) => item)
-                              )
+                            value={data?.requirements}
+                            onChange={(e) =>
+                              onChange("requirements", e.target.value)
                             }
                           />
                         </div>
@@ -284,21 +272,9 @@ const UpdateJobDialog = ({
 
                           <Input
                             id="update-benefits"
-                            value={
-                              Array.isArray(data?.benefits)
-                                ? data.benefits.join(", ")
-                                : data?.benefits || ""
-                            }
-                            onChange={(
-                              e: React.ChangeEvent<HTMLInputElement>
-                            ) =>
-                              onChange(
-                                "benefits",
-                                e.target.value
-                                  .split(",")
-                                  .map((item) => item.trim())
-                                  .filter((item) => item)
-                              )
+                            value={data?.benefits}
+                            onChange={(e) =>
+                              onChange("benefits", e.target.value)
                             }
                           />
                         </div>

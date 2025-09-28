@@ -31,7 +31,7 @@ interface CreateJobDialogProps {
   onOpenChange: (open: boolean) => void;
   onChange: (
     field: keyof IJob,
-    value: string | number | boolean | string[] | File | null
+    value: string | number | boolean | File | null
   ) => void;
   onJobCreated: () => void;
   data: IJob | null;
@@ -217,20 +217,8 @@ const CreateJobDialog = ({
 
                 <Input
                   id="update-requirements"
-                  value={
-                    Array.isArray(data?.requirements)
-                      ? data.requirements.join(", ")
-                      : data?.requirements || ""
-                  }
-                  onChange={(e) =>
-                    onChange(
-                      "requirements",
-                      e.target.value
-                        .split(",")
-                        .map((item) => item.trim())
-                        .filter((item) => item)
-                    )
-                  }
+                  value={data?.requirements}
+                  onChange={(e) => onChange("requirements", e.target.value)}
                   placeholder="Enter requirements separated by commas"
                 />
               </div>
@@ -244,20 +232,8 @@ const CreateJobDialog = ({
 
                 <Input
                   id="update-benefits"
-                  value={
-                    Array.isArray(data?.benefits)
-                      ? data.benefits.join(", ")
-                      : data?.benefits || ""
-                  }
-                  onChange={(e) =>
-                    onChange(
-                      "benefits",
-                      e.target.value
-                        .split(",")
-                        .map((item) => item.trim())
-                        .filter((item) => item)
-                    )
-                  }
+                  value={data?.benefits}
+                  onChange={(e) => onChange("benefits", e.target.value)}
                   placeholder="Enter benefits separated by commas"
                 />
               </div>
