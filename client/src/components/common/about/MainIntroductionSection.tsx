@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { COMPANY } from "@/utils/services/constants";
 import { motion } from "framer-motion";
 
 interface IMainIntroductionSection {
@@ -45,12 +46,7 @@ export default function MainIntroductionSection({
               }
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              Công ty Giáo dục Quốc tế Việt Âu là đơn vị hàng đầu trong lĩnh vực
-              đào tạo, tuyển chọn và chuyển giao nguồn nhân lực chất lượng cao
-              cho các thị trường lao động quốc tế. Với nhiều năm kinh nghiệm
-              hoạt động trong lĩnh vực này, Việt Âu đã hỗ trợ hàng ngàn học viên
-              và người lao động Việt Nam thành công tại các quốc gia phát triển
-              như Nhật Bản, Hàn Quốc, Đài Loan, Úc và Đức.
+              {`Công ty Giáo dục Quốc tế ${COMPANY} là đơn vị hàng đầu trong lĩnh vực đào tạo, tuyển chọn và chuyển giao nguồn nhân lực chất lượng cao cho các thị trường lao động quốc tế. Với nhiều năm kinh nghiệm hoạt động trong lĩnh vực này, ${COMPANY} đã hỗ trợ hàng ngàn học viên và người lao động Việt Nam thành công tại các quốc gia phát triển như Nhật Bản, Hàn Quốc, Đài Loan, Úc và Đức.`}
             </motion.p>
             <motion.p
               className="mb-6 text-primary"
@@ -60,11 +56,7 @@ export default function MainIntroductionSection({
               }
               transition={{ duration: 0.6, delay: 0.5 }}
             >
-              Sứ mệnh của chúng tôi không chỉ là mang đến cơ hội du học và làm
-              việc nước ngoài, mà còn xây dựng nền tảng kiến thức, kỹ năng cần
-              thiết để học viên tự tin bước ra thế giới. Với đội ngũ chuyên gia
-              dày dặn kinh nghiệm, Việt Âu cam kết mang đến dịch vụ tốt nhất, từ
-              khâu tư vấn, đào tạo ngôn ngữ đến hỗ trợ định hướng nghề nghiệp.
+              {`Sứ mệnh của chúng tôi không chỉ là mang đến cơ hội du học và làm việc nước ngoài, mà còn xây dựng nền tảng kiến thức, kỹ năng cần thiết để học viên tự tin bước ra thế giới. Với đội ngũ chuyên gia dày dặn kinh nghiệm, ${COMPANY} cam kết mang đến dịch vụ tốt nhất, từ khâu tư vấn, đào tạo ngôn ngữ đến hỗ trợ định hướng nghề nghiệp.`}
             </motion.p>
           </div>
         </motion.div>

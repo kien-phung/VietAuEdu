@@ -5,6 +5,7 @@ import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { PHONE, COMPANY } from "@/utils/services/constants";
 
 const features = [
   {
@@ -34,7 +35,7 @@ export default function AboutSection() {
             >
               <Image
                 src="/images/logo1.png"
-                alt="Việt Âu Academy Team"
+                alt={`${COMPANY} Academy Team`}
                 width={500}
                 height={300}
                 className="w-full h-auto object-cover"
@@ -64,7 +65,7 @@ export default function AboutSection() {
             >
               <Image
                 src="/images/logo1.png"
-                alt="Việt Âu Academy Office"
+                alt={`${COMPANY} Academy Office`}
                 width={500}
                 height={300}
                 className="w-full h-auto object-cover"
@@ -102,9 +103,7 @@ export default function AboutSection() {
               viewport={{ once: false }}
             >
               <p>
-                Trong suốt quá trình thành lập và phát triển, Việt Âu không
-                ngừng tìm kiếm các trường học, các công ty uy tín tại các nước:
-                Đài Loan, Nhật Bản, Hàn Quốc, Đức, Mỹ, Úc.
+                {`Trong suốt quá trình thành lập và phát triển, ${COMPANY} không ngừng tìm kiếm các trường học, các công ty uy tín tại các nước: Đài Loan, Nhật Bản, Hàn Quốc, Đức, Mỹ, Úc.`}
               </p>
               <p>
                 Khẳng định vị thế của một đơn vị Tuyển chọn, Đào tạo và Chuyển
@@ -166,7 +165,7 @@ export default function AboutSection() {
                 <p className="text-gray-500 dark:text-gray-400 mr-2">
                   Bạn cần tư vấn?
                 </p>
-                <p className="text-primary font-bold text-xl">0902 020 050</p>
+                <p className="text-primary font-bold text-xl">{PHONE}</p>
               </div>
             </motion.div>
           </div>

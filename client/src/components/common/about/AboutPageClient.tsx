@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import { COMPANY } from "@/utils/services/constants";
 import {
   GraduationCap,
   Users,
@@ -33,14 +34,12 @@ const getAboutPageData = () => {
     whyChooseUs: [
       {
         title: "Chuyên Môn Cao",
-        description:
-          "Đội ngũ tư vấn viên của Việt Âu đều là những chuyên gia có kiến thức sâu rộng về hệ thống giáo dục, thị trường lao động và các thủ tục hành chính tại nhiều quốc gia.",
+        description: `Đội ngũ tư vấn viên của ${COMPANY} đều là những chuyên gia có kiến thức sâu rộng về hệ thống giáo dục, thị trường lao động và các thủ tục hành chính tại nhiều quốc gia.`,
         icon: GraduationCap,
       },
       {
         title: "Mạng Lưới Đối Tác Rộng Khắp",
-        description:
-          "Việt Âu có quan hệ hợp tác chặt chẽ với các trường đại học, tổ chức giáo dục, doanh nghiệp lớn tại Nhật Bản, Hàn Quốc, Đức, Úc, và Đài Loan.",
+        description: `${COMPANY} có quan hệ hợp tác chặt chẽ với các trường đại học, tổ chức giáo dục, doanh nghiệp lớn tại Nhật Bản, Hàn Quốc, Đức, Úc, và Đài Loan.`,
         icon: Globe,
       },
       {
@@ -51,20 +50,17 @@ const getAboutPageData = () => {
       },
       {
         title: "Cam Kết Chất Lượng",
-        description:
-          "Việt Âu luôn đặt chất lượng dịch vụ lên hàng đầu. Chúng tôi không ngừng cải tiến và nâng cao chất lượng dịch vụ nhằm đáp ứng tối đa nhu cầu của học viên.",
+        description: `${COMPANY} luôn đặt chất lượng dịch vụ lên hàng đầu. Chúng tôi không ngừng cải tiến và nâng cao chất lượng dịch vụ nhằm đáp ứng tối đa nhu cầu của học viên.`,
         icon: Award,
       },
       {
         title: "Chi Phí Hợp Lý",
-        description:
-          "Hiểu rõ những lo lắng về chi phí của học viên và gia đình, Việt Âu cam kết cung cấp các gói dịch vụ với chi phí cạnh tranh nhất trên thị trường.",
+        description: `Hiểu rõ những lo lắng về chi phí của học viên và gia đình, ${COMPANY} cam kết cung cấp các gói dịch vụ với chi phí cạnh tranh nhất trên thị trường.`,
         icon: Heart,
       },
       {
         title: "Hỗ Trợ 24/7",
-        description:
-          "Đội ngũ tư vấn viên của Việt Âu luôn làm việc với tinh thần trách nhiệm cao, tận tâm hỗ trợ khách hàng 24/7.",
+        description: `Đội ngũ tư vấn viên của ${COMPANY} luôn làm việc với tinh thần trách nhiệm cao, tận tâm hỗ trợ khách hàng 24/7.`,
         icon: Users,
       },
     ],

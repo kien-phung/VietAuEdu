@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/layout/theme/ThemeProvider";
 import Navbar from "@/components/layout/navigation/Navbar";
 import Footer from "@/components/layout/footer/Footer";
 import FloatingContactButtons from "@/components/layout/contact/FloatingContactButtons";
+import { COMPANY } from "@/utils/services/constants";
 
 // Optimize font loading with display swap
 const inter = Inter({
@@ -17,7 +18,7 @@ const inter = Inter({
 
 // Enhanced metadata with performance hints
 export const metadata: Metadata = {
-  title: "VietAuAcademy - Giáo Dục Quốc Tế Việt Âu",
+  title: `VietAuAcademy - Giáo Dục Quốc Tế ${COMPANY}`,
   description:
     "Kết nối giáo dục & nâng tầm cuộc sống. Chương trình du học chất lượng cao tại Hàn Quốc, Nhật Bản, Đài Loan, Đức, Mỹ, Úc.",
   keywords: "du học, giáo dục quốc tế, Hàn Quốc, Nhật Bản, Đài Loan, học bổng",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     apple: "/images/logo1.png",
   },
   openGraph: {
-    title: "VietAuAcademy - Giáo Dục Quốc Tế Việt Âu",
+    title: `VietAuAcademy - Giáo Dục Quốc Tế ${COMPANY}`,
     description: "Kết nối giáo dục & nâng tầm cuộc sống",
     url: "https://VietAuAcademy.com",
     siteName: "VietAuAcademy",

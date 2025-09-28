@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { PHONE } from "@/utils/services/constants";
 import Link from "next/link";
 import { Phone } from "lucide-react";
 import Image from "next/image";
@@ -10,7 +11,7 @@ export default function FloatingContactButtons() {
     <div className="fixed bottom-6 right-6 z-50 flex flex-col space-y-4">
       {/* Zalo Button */}
       <Link
-        href="https://zalo.me/0782748863"
+        href={`https://zalo.me/${PHONE.replace(/\D/g, "")}`}
         target="_blank"
         rel="noopener noreferrer"
         className="group relative w-16 h-16 bg-blue-500 hover:bg-blue-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
@@ -38,7 +39,7 @@ export default function FloatingContactButtons() {
 
       {/* Phone Button */}
       <Link
-        href="tel:0782748863"
+        href={`tel:${PHONE.replace(/\D/g, "")}`}
         className="group relative w-14 h-14 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
       >
         {/* Animated red border */}

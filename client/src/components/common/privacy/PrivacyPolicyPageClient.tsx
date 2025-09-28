@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { COMPANY } from "@/utils/services/constants";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -45,9 +46,7 @@ export default function PrivacyPolicyPageClient() {
                 1. Giới thiệu
               </h2>
               <p className="mb-4 text-gray-700 dark:text-gray-300">
-                Công ty TNHH Giáo Dục Quốc Tế Việt Âu (sau đây gọi là
-                &ldquo;Việt Âu&rdquo;, &ldquo;chúng tôi&rdquo;, hoặc &ldquo;của
-                chúng tôi&rdquo;) cam kết bảo vệ quyền riêng tư của bạn. Chính
+                {`Công ty TNHH Giáo Dục Quốc Tế ${COMPANY} (sau đây gọi là "${COMPANY}", "chúng tôi", hoặc "của chúng tôi") cam kết bảo vệ quyền riêng tư của bạn. Chính sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng, chia sẻ và bảo vệ thông tin cá nhân của bạn khi bạn truy cập trang web của chúng tôi, đăng ký các dịch vụ hoặc tương tác với chúng tôi.`}
                 sách bảo mật này giải thích cách chúng tôi thu thập, sử dụng,
                 chia sẻ và bảo vệ thông tin cá nhân của bạn khi bạn truy cập
                 trang web của chúng tôi, đăng ký các dịch vụ hoặc tương tác với
@@ -234,7 +233,7 @@ export default function PrivacyPolicyPageClient() {
               </p>
               <div className="p-4 bg-gray-100 dark:bg-gray-700 rounded-lg">
                 <p className="mb-2 text-gray-800 dark:text-gray-200">
-                  <strong>Công ty TNHH Giáo Dục Quốc Tế Việt Âu</strong>
+                  <strong>Công ty TNHH Giáo Dục Quốc Tế {COMPANY}</strong>
                 </p>
                 <p className="mb-2 text-gray-700 dark:text-gray-300">
                   Địa chỉ: Tầng 1, Trường đại học Sài Gòn, 273 An Dương Vương,

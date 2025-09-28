@@ -3,6 +3,7 @@
 import React from "react";
 import { CheckCircle } from "lucide-react";
 import { motion, Variants } from "framer-motion";
+import { COMPANY } from "@/utils/services/constants";
 
 // Define commitment item structure
 interface CommitmentItem {
@@ -49,7 +50,7 @@ export default function CommitmentsSection({
             }
             transition={{ duration: 0.5 }}
           >
-            Cam Kết Của <span className="text-primary">Việt Âu</span>
+            Cam Kết Của <span className="text-primary"> ${COMPANY}</span>
           </motion.h2>
         </motion.div>
 

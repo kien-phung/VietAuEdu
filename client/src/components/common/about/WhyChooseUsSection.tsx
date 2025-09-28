@@ -2,6 +2,7 @@
 
 import React from "react";
 import { motion, Variants } from "framer-motion";
+import { COMPANY } from "@/utils/services/constants";
 
 interface WhyChooseUsItem {
   title: string;
@@ -46,7 +47,7 @@ export default function WhyChooseUsSection({
             }
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Tại Sao Nên Chọn <span className="text-primary">Việt Âu?</span>
+            Tại Sao Nên Chọn <span className="text-primary">{COMPANY}?</span>
           </motion.h2>
           <motion.p
             className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"

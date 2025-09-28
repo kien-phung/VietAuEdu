@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useJobStore } from "@/utils/stores/jobStore";
+import { EMAIL, PHONE } from "@/utils/services/constants";
 // Removed import of PLACE_HODLER_URL
 
 // Helper function to convert string to array if needed
@@ -263,10 +264,10 @@ export default function JobDetailPage() {
                       <span>Hoặc gọi trực tiếp</span>
                     </div>
                     <a
-                      href="tel:0782748863"
+                      href={`tel:${PHONE.replace(/\D/g, "")}`}
                       className="text-primary font-bold text-lg hover:underline"
                     >
-                      0902 020 050
+                      {PHONE}
                     </a>
                   </div>
                 </div>
@@ -319,13 +320,13 @@ export default function JobDetailPage() {
                   <div className="flex items-center">
                     <Phone className="w-4 h-4 text-primary mr-3" />
                     <span className="text-gray-700 dark:text-gray-300">
-                      0902 020 050
+                      {PHONE}
                     </span>
                   </div>
                   <div className="flex items-center">
                     <Mail className="w-4 h-4 text-primary mr-3" />
                     <span className="text-gray-700 dark:text-gray-300">
-                      info@giaoducvietau.com
+                      {EMAIL}
                     </span>
                   </div>
                 </div>

@@ -18,7 +18,6 @@ interface ProgramCardProps {
 }
 
 export default function ProgramCard({ program }: ProgramCardProps) {
-  console.log(program.benefits[0][1])
   return (
     <Card className="h-full hover:shadow-lg transition-shadow duration-300 flex flex-col bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700">
       <div className="relative">

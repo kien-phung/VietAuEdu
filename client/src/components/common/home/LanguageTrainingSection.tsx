@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { COMPANY } from "@/utils/services/constants";
 
 interface LanguageProgram {
   id: string;
@@ -62,7 +63,7 @@ export default function LanguageTrainingSection() {
 
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
             Trung Tâm Ngoại Ngữ{" "}
-            <span className="text-primary">Tại Việt Âu.</span>
+            <span className="text-primary">Tại ${COMPANY}.</span>
           </h2>
 
           <p className="text-gray-600 dark:text-gray-300 text-lg max-w-4xl mx-auto">

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { EMAIL, COMPANY } from "@/utils/services/constants";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Menu, X } from "lucide-react";
@@ -37,7 +38,7 @@ export default function Navbar() {
                 </div>
                 <div className="flex items-center space-x-1">
                   <Mail size={14} />
-                  <span>hainguyenhoang1205@gmail.com</span>
+                  <span>{EMAIL}</span>
                 </div>
               </div>
               <div className="hidden md:block">
@@ -62,7 +63,7 @@ export default function Navbar() {
               />
               <div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                  Việt Âu Edu
+                  {COMPANY} Edu
                 </h1>
                 <p className="text-xs text-gray-600 dark:text-gray-300">
                   Giáo dục quốc tế

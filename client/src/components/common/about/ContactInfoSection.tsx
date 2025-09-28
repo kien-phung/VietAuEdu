@@ -3,6 +3,7 @@
 import React from "react";
 import { Phone, MapPin, Mail } from "lucide-react";
 import { motion, Variants } from "framer-motion";
+import { ADDRESS, EMAIL, PHONE } from "@/utils/services/constants";
 
 interface IContactInfoSection {
   contactInfoRef: React.RefObject<HTMLDivElement | null>;
@@ -71,7 +72,7 @@ export default function ContactInfoSection({
               Địa chỉ
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
-              123 Nguyễn Văn Linh, Quận 7, TP. Hồ Chí Minh
+             {ADDRESS}
             </p>
           </motion.div>
 
@@ -95,9 +96,7 @@ export default function ContactInfoSection({
               Điện thoại
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
-              (028) 1234 5678
-              <br />
-              0912 345 678
+              {PHONE}
             </p>
           </motion.div>
 
@@ -121,9 +120,7 @@ export default function ContactInfoSection({
               Email
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
-              info@vietauacademy.com
-              <br />
-              support@vietauacademy.com
+              {EMAIL}
             </p>
           </motion.div>
         </motion.div>

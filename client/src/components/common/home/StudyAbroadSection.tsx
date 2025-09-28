@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import { COMPANY } from "@/utils/services/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
@@ -16,7 +17,7 @@ interface IStudyProgram {
 const studyPrograms: IStudyProgram[] = [
   {
     id: "representatives",
-    title: "Các học viên tiêu biểu của Việt Âu",
+    title: `Các học viên tiêu biểu của ${COMPANY}`,
     image: "/images/study-abroad/representatives.jpg",
     icon: "📋",
   },
@@ -85,7 +86,7 @@ export default function StudyAbroadSection() {
                 }
                 transition={{ duration: 0.6, delay: 0.1 }}
               >
-                Du Học Việt Âu
+                {`Du Học ${COMPANY}`}
                 <br />
                 Mở Ra <span className="text-primary">Chân Trời Mới.</span>
               </motion.h2>
@@ -96,8 +97,7 @@ export default function StudyAbroadSection() {
                 animate={isInView ? { opacity: 1 } : { opacity: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
-                Việt Âu luôn là đơn vị hàng đầu trong việc đưa ra những chính
-                sách hỗ trợ du học sinh khi lựa chọn du học tại các nước.
+                {`${COMPANY} luôn là đơn vị hàng đầu trong việc đưa ra những chính sách hỗ trợ du học sinh khi lựa chọn du học tại các nước.`}
               </motion.p>
             </div>
           </div>

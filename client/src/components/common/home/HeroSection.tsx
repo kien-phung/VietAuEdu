@@ -6,6 +6,7 @@ import { ArrowRight, Play } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import VideoModal from "@/components/layout/media/VideoModal";
+import { COMPANY } from "@/utils/services/constants";
 
 const stats = {
   studentsCount: 500,
@@ -38,7 +39,7 @@ export default function HeroSection() {
               <p className="text-xl text-gray-600 dark:text-gray-300 mt-6">
                 Bạn đang mơ ước học tiếp Thạc sĩ tại Hàn Quốc và có cơ hội phát
                 triển sự nghiệp trong môi trường quốc tế hiện đại? Giáo Dục Quốc
-                Tế Việt Âu mang đến cho bạn những cơ hội du học chưa từng có!
+                Tế  ${COMPANY} mang đến cho bạn những cơ hội du học chưa từng có!
               </p>
             </div>
 
