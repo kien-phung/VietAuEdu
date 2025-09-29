@@ -52,9 +52,9 @@ export const submitContact = RequestHandlerCustom(
 export const resolveContact = RequestHandlerCustom(
   async (req, res) => {
     const id = req.params.id;
-    const resolvedBy = req.params.userId;
+    const userId = req.params.userId;
 
-    const contact = await handleResolveContact({ id, resolvedBy });
+    const contact = await handleResolveContact({ id, userId });
 
     res.status(200).json({
       success: true,

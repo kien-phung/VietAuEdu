@@ -28,9 +28,10 @@ export default function AdminSidebar({
   onToggle,
   onStartResizing,
 }: AdminSidebarProps) {
+  const { logout } = useAuthStore();
+  
   const pathname = usePathname();
   const router = useRouter();
-  const { logout } = useAuthStore();
 
   const handleLogout = async () => {
     try {

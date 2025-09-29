@@ -33,13 +33,13 @@ export const handleSubmitContact = HandlerCustom(async (data: ISubmitContactData
     return contact;
 });
 
-export const handleResolveContact = HandlerCustom(async (data: { id: string; resolvedBy: string }) => {
+export const handleResolveContact = HandlerCustom(async (data: { id: string; userId: string }) => {
     const contact = await Contact
         .findByIdAndUpdate(
             data.id,
             {
                 status: EContactStatus.RESOLVED,
-                resolvedBy: data.resolvedBy,
+                resolvedBy: data.userId,
                 resolvedAt: new Date()
             },
             { new: true }

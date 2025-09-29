@@ -87,7 +87,7 @@ export default function ContactDashboardPage() {
     if (!selectedContact) {
       return;
     }
-
+    
     if (!userAuth) {
       return;
     }
