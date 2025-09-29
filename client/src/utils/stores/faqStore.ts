@@ -58,7 +58,7 @@ export const useFAQStore = createStore<IFAQStore>(
 			formData.append("status", status);
 
 			return await get().handleRequest(async () => {
-				return await handleRequest(EHttpType.GET, `/FAQs`, formData);
+				return await handleRequest(EHttpType.POST, `/FAQs`, formData);
 			});
 		},
 

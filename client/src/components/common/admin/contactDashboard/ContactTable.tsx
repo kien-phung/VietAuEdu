@@ -33,11 +33,11 @@ export function ContactTable({
       accessor: (contact: IContact) => (
         <div className="flex items-center gap-3">
           <div className="flex flex-col">
-            <span className="font-medium hover:underline">{contact?.name}</span>
-            <span className="text-sm text-muted-foreground hover:underline">
+            <span className="font-medium">{contact?.name}</span>
+            <span className="text-sm text-muted-foreground">
               {contact?.phone}
             </span>
-            <span className="text-sm text-muted-foreground hover:underline">
+            <span className="text-sm text-muted-foreground">
               {contact?.email}
             </span>
           </div>
@@ -46,12 +46,12 @@ export function ContactTable({
     },
     {
       header: "Program",
-      accessor: (contact: IContact) => contact?.program?.title || "",
+      accessor: (contact: IContact) => contact?.program || "",
     },
-    {
-      header: "Message",
-      accessor: (contact: IContact) => contact?.message || "",
-    },
+    // {
+    //   header: "Message",
+    //   accessor: (contact: IContact) => contact?.message || "",
+    // },
     {
       header: "Submit Date",
       accessor: (contact: IContact) => formatDateAgo(contact?.createdAt || ""),

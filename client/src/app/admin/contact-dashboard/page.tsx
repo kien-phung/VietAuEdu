@@ -17,18 +17,17 @@ const initialFilters = { status: [] as string[] };
 
 export default function ContactDashboardPage() {
   const { userAuth } = useAuthStore();
-  const { isLoading, getAllContacts, respondContact } = useContactStore();
+  const { isLoading, getAllContacts, resolveContact } = useContactStore();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [isViewDetailsOpen, setIsViewDetailsOpen] = useState(false);
-  const [isResponding, setIsResponding] = useState(false);
+  const [isResolving, setIsResolving] = useState(false);
   const [selectedContact, setSelectedContact] = useState<IContact | null>(null);
   const [activeFilters, setActiveFilters] = useState<{ status: string[] }>(
     initialFilters
   );
   const [allContacts, setAllContacts] = useState<IContact[] | []>([]);
   const [filteredContacts, setFilteredContacts] = useState<IContact[] | []>([]);
-  const [message, setMessage] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -84,7 +83,7 @@ export default function ContactDashboardPage() {
     setIsViewDetailsOpen(true);
   };
 
-  const handleRespondContact = async () => {
+  const handleResolveContact = async () => {
     if (!selectedContact) {
       return;
     }
@@ -93,17 +92,12 @@ export default function ContactDashboardPage() {
       return;
     }
 
-    setIsResponding(true);
-    await respondContact(
-      userAuth?._id,
-      selectedContact.name,
-      selectedContact.email,
-      selectedContact.phone,
-      message || ""
-    );
-    setIsResponding(false);
-
-    setIsViewDetailsOpen(false);
+    setIsResolving(true);
+    const response = await resolveContact(userAuth._id, selectedContact._id);
+    if (response.success) {
+      setIsViewDetailsOpen(false);
+    }
+    setIsResolving(false);
   };
 
   // Toggle filter without auto-filtering
@@ -135,10 +129,6 @@ export default function ContactDashboardPage() {
   const [openMenuFilters, setOpenMenuFilters] = useState(false);
   const closeMenuMenuFilters = () => setOpenMenuFilters(false);
 
-  const handleMessageChange = (value: string | null) => {
-    setMessage(value);
-  };
-
   return (
     <div className="space-y-4">
       <DashboardHeader title="Contact Dashboard" />
@@ -148,10 +138,8 @@ export default function ContactDashboardPage() {
         isOpen={isViewDetailsOpen}
         onOpenChange={() => setIsViewDetailsOpen(false)}
         selectedContact={selectedContact}
-        handleMessageChange={handleMessageChange}
-        handleRespondContact={handleRespondContact}
-        message={message}
-        isResponding={isResponding}
+        handleResolveContact={handleResolveContact}
+        isResolving={isResolving}
       />
 
       <div className="space-y-4">

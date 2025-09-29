@@ -30,7 +30,7 @@ export const handleCreateFAQ = HandlerCustom(async (data: ICreateFAQData) => {
             question: data.question,
             answer: data.answer,
             category: data.category,
-            publishedAt: data.publishedAt
+            status: data.status
         }
     ).save();
 
@@ -38,7 +38,7 @@ export const handleCreateFAQ = HandlerCustom(async (data: ICreateFAQData) => {
 });
 
 export const handleUpdateFAQ = HandlerCustom(async (data: { id: string } & Partial<IUpdateFAQData>) => {
-    const faq = await FAQ.findById(data.id);
+    const faq = await handleGetFAQById({ id: data.id });
 
     if (!faq) {
         throw new ErrorCustom(404, "FAQ not found");
@@ -48,7 +48,7 @@ export const handleUpdateFAQ = HandlerCustom(async (data: { id: string } & Parti
     if (data.question) faq.question = data.question;
     if (data.answer) faq.answer = data.answer;
     if (data.category) faq.category = data.category;
-    if (data.publishedAt) faq.publishedAt = data.publishedAt;
+    if (data.status) faq.status = data.status;
 
     const updatedFAQ = await faq.save();
     return updatedFAQ;

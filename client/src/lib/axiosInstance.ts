@@ -81,6 +81,7 @@ export interface IApiResponse<IData = unknown> {
   error?: string;
   message?: string;
   status?: number;
+  success?: boolean;
 }
 
 export enum EHttpType {

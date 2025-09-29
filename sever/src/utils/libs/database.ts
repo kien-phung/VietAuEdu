@@ -1,6 +1,8 @@
 import { DATABASE_MONGO_URL, REDIS_URL } from "../configs/constants.js";
 import mongoose from 'mongoose';
 import { createClient } from "redis"
+import { createRootUser } from "../../services/user.service.js";
+import { HandlerCustom } from "../configs/custom.js";
 
 export const connectMongoDB = async (maxRetries = 5, delay = 5000) => {
     let retries = 0;
@@ -50,6 +52,9 @@ export const connectRedis = async (maxRetries = 5, delay = 5000) => {
 }
 
 export default async function connectDatabase() {
-    await connectMongoDB();
+    await connectMongoDB().then(HandlerCustom(async () => {
+        await createRootUser();
+    }));
+    
     await connectRedis();
 }

@@ -17,20 +17,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-
-export const FAQStatus = [
-  { value: "active", label: "Active" },
-  { value: "inactive", label: "Inactive" },
-];
-
-export const FAQCategory = [
-  { value: "Hồ sơ du học", label: "Hồ sơ du học" },
-  { value: "Chi phí", label: "Chi phí" },
-  { value: "Visa", label: "Visa" },
-  { value: "Ngôn ngữ", label: "Ngôn ngữ" },
-  { value: "Định cư", label: "Định cư" },
-  { value: "Dịch vụ", label: "Dịch vụ" },
-];
+import { EStatus } from "@/utils/types/enum";
+import { FAQCategory, FAQStatus } from "@/utils/constants/faqConstants";
 
 interface CreateFAQDialogProps {
   isOpen: boolean;
@@ -53,45 +41,49 @@ const CreateFAQDialog = ({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[525px] bg-white dark:bg-gray-800">
         <DialogHeader>
-          <DialogTitle>Create New IFAQ</DialogTitle>
+          <DialogTitle className="text-primary">Create</DialogTitle>
 
-          <DialogDescription>Create a new FAQ.</DialogDescription>
+          <DialogDescription className="text-primary-200">
+            Create a new FAQ.
+          </DialogDescription>
         </DialogHeader>
 
         <div className="grid gap-4 py-4">
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="create-question">Question</Label>
+              <Label htmlFor="create-question" className="text-primary">
+                Question
+              </Label>
 
               <Input
                 id="create-question"
                 value={data?.question || ""}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  onChange("question", e.target.value)
-                }
+                onChange={(e) => onChange("question", e.target.value)}
               />
             </div>
           </div>
 
           <div className="grid gap-4">
             <div className="grid gap-2">
-              <Label htmlFor="create-answer">Answer</Label>
+              <Label htmlFor="create-answer" className="text-primary">
+                Answer
+              </Label>
 
               <Input
                 id="create-answer"
                 value={data?.answer || ""}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  onChange("answer", e.target.value)
-                }
+                onChange={(e) => onChange("answer", e.target.value)}
               />
             </div>
           </div>
 
           <div className="grid gap-2 mt-3">
-            <Label htmlFor="create-category">Category</Label>
+            <Label htmlFor="create-category" className="text-primary">
+              Category
+            </Label>
 
             <Select
-              value={data?.category}
+              value={data?.category || FAQCategory[0].value}
               onValueChange={(value: string) => onChange("category", value)}
             >
               <SelectTrigger id="create-category">
@@ -109,10 +101,12 @@ const CreateFAQDialog = ({
           </div>
 
           <div className="grid gap-2 mt-3">
-            <Label htmlFor="create-status">Status</Label>
+            <Label htmlFor="create-status" className="text-primary">
+              Status
+            </Label>
 
             <Select
-              value={data?.status}
+              value={data?.status || EStatus.ACTIVE}
               onValueChange={(value: string) => onChange("status", value)}
             >
               <SelectTrigger id="create-status">

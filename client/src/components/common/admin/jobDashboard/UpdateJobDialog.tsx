@@ -15,6 +15,7 @@ import {
 import { JobStatus } from "./CreateJobDialog";
 import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
+import { EStatus } from "@/utils/types/enum";
 
 interface UpdateJobDialogProps {
   isOpen: boolean;
@@ -426,7 +427,7 @@ const UpdateJobDialog = ({
                         <Label htmlFor="update-country">Status</Label>
 
                         <Select
-                          value={data?.status}
+                          value={data.status || EStatus.INACTIVE}
                           onValueChange={(value: string) =>
                             onChange("status", value)
                           }

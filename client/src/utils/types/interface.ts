@@ -7,7 +7,6 @@ declare global {
         password: string;
         name: string;
         phone: string;
-        role: string;
         status: EUserStatus;
     }
 
@@ -75,7 +74,7 @@ declare global {
         name: string;
         email: string;
         phone: string;
-        program?: IProgram;
+        program?: string;
         message: string;
         resolvedBy?: string;
         resolvedAt?: string;

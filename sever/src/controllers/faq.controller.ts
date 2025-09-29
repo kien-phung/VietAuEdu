@@ -9,6 +9,7 @@ export const getFAQs = RequestHandlerCustom(
     const faqs = await handleGetFAQs({ category });
 
     res.status(200).json({
+      success: true,
       message: "Get faqs successfully",
       FAQs: faqs
     });
@@ -19,14 +20,14 @@ export interface ICreateFAQData {
   question: string,
   answer: string,
   category: string,
-  publishedAt: string,
+  status: string,
 }
 
 export interface IUpdateFAQData {
   question?: string,
   answer?: string,
   category?: string,
-  publishedAt?: string,
+  status?: string,
 }
 
 export const createFAQ = RequestHandlerCustom(
@@ -36,6 +37,7 @@ export const createFAQ = RequestHandlerCustom(
     const faq = await handleCreateFAQ(data);
 
     res.status(201).json({
+      success: true,
       message: "New FAQ created",
       FAQ: faq
     });
@@ -60,6 +62,7 @@ export const updateFAQ = RequestHandlerCustom(
     const updatedFAQ = await handleUpdateFAQ({ id, ...data });
 
     res.status(200).json({
+      success: true,
       message: "FAQ updated successfully",
       FAQ: updatedFAQ
     });
@@ -77,6 +80,7 @@ export const getFAQById = RequestHandlerCustom(
     const faq = await handleGetFAQById({ id });
 
     res.status(200).json({
+      success: true,
       message: "FAQ retrieved successfully",
       FAQ: faq
     });

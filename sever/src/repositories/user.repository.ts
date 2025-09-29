@@ -1,6 +1,9 @@
+import { ICreateAndUpdateUserData } from "../controllers/user.controller.js";
 import { User } from "../models/user.model.js";
-import { HandlerCustom } from "../utils/configs/custom.js";
+import { SALT_ROUNDS } from "../utils/configs/constants.js";
+import { ErrorCustom, HandlerCustom } from "../utils/configs/custom.js";
 import { EUserStatus } from "../utils/types/enum.js";
+import bcrypt from "bcrypt";
 
 export const handleGetAllUsers = HandlerCustom(async () => {
     const users = await User
@@ -35,16 +38,37 @@ export const handleUpdateUserStatusByEmail = HandlerCustom(async (data: { email:
     return user;
 });
 
-export const handleCreateUser = HandlerCustom(async (data: {
-    email: string;
-    password: string;
-}) => {
-    const job = await new User({
+export const handleCreateUser = HandlerCustom(async (data: ICreateAndUpdateUserData) => {
+    const hashPassword = await bcrypt.hash(data.password, SALT_ROUNDS);
+
+    const user = await new User({
         email: data.email,
-        password: data.password,
+        password: hashPassword,
+        name: data.name || '',
+        phone: data.phone || '',
+        status: data.status || EUserStatus.PENDING,
     }).save();
 
-    return job;
+    return user;
+});
+
+export const handleUpdateUser = HandlerCustom(async (data: { id: string } & Partial<ICreateAndUpdateUserData>) => {
+    const user = await handleGetUserById({ id: data.id });
+
+    if (!user) {
+        throw new ErrorCustom(404, "User not found");
+    }
+
+    // Chỉ cập nhật các trường được cung cấp
+    if (data.password) {
+        const hashPassword = await bcrypt.hash(data.password, SALT_ROUNDS);
+        user.password = hashPassword;
+    }
+    if (data.name) user.name = data.name;
+    if (data.phone) user.phone = data.phone;
+    if (data.status) user.status = data.status;
+
+    return await user.save();
 });
 
 export const handleUpdateUserPasswordByEmail = HandlerCustom(async (data: { email: string, password: string }) => {

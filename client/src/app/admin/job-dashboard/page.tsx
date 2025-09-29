@@ -29,6 +29,7 @@ export default function JobDashboardPage() {
     const fetchData = async () => {
       const res = await getAllJobs();
       const data = res?.data?.jobs || [];
+
       setAllJobs(data);
       setFilteredJobs(data);
     };

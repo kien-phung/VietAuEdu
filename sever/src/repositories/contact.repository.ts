@@ -1,8 +1,7 @@
-
-
 import { ISubmitContactData } from "../controllers/contact.controller.js";
 import { Contact } from "../models/contact.model.js";
 import { HandlerCustom } from "../utils/configs/custom.js";
+import { EContactStatus } from "../utils/types/enum.js";
 
 export const handleGetContacts = HandlerCustom(async () => {
     const contacts = await Contact
@@ -26,9 +25,26 @@ export const handleSubmitContact = HandlerCustom(async (data: ISubmitContactData
             name: data.name,
             email: data.email,
             phone: data.phone,
+            program: data.program,
             message: data.message
         }
     ).save();
+
+    return contact;
+});
+
+export const handleResolveContact = HandlerCustom(async (data: { id: string; resolvedBy: string }) => {
+    const contact = await Contact
+        .findByIdAndUpdate(
+            data.id,
+            {
+                status: EContactStatus.RESOLVED,
+                resolvedBy: data.resolvedBy,
+                resolvedAt: new Date()
+            },
+            { new: true }
+        )
+        .exec();
 
     return contact;
 });

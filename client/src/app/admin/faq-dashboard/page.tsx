@@ -11,12 +11,15 @@ import { FAQTable } from "@/components/common/admin/faqDashboard/FAQTable";
 import { TableSearch } from "@/components/common/admin/TableSearch";
 import { useFAQStore } from "@/utils/stores/faqStore";
 import { DashboardHeader } from "@/components/common/admin/DashboardHeader";
+import { EStatus } from "@/utils/types/enum";
+import { FAQCategory } from "@/utils/constants/faqConstants";
 
 // Initialize empty filters
 const initialFilters = { status: [] as string[], contentType: [] as string[] };
 
 export default function FAQDashboardPage() {
   const { isLoading, getAllFAQs, updateFAQ, createFAQ } = useFAQStore();
+
   const [searchQuery, setSearchQuery] = useState("");
   const [isCreateFAQOpen, setIsCreateFAQOpen] = useState(false);
   const [isUpdateFAQOpen, setIsUpdateFAQOpen] = useState(false);
@@ -111,7 +114,21 @@ export default function FAQDashboardPage() {
   const [data, setData] = useState<IFAQ | null>(null);
 
   const handleChange = (field: keyof IFAQ, value: string) => {
-    setData((prev) => (prev ? { ...prev, [field]: value } : prev));
+    setData((prev) => {
+      // If prev is null, create a new object with default values
+      if (!prev) {
+        const defaultData = {
+          _id: "",
+          question: "",
+          answer: "",
+          category: FAQCategory[0].value,
+          status: EStatus.ACTIVE,
+        };
+        return { ...defaultData, [field]: value };
+      }
+      // If prev is not null, update the current value
+      return { ...prev, [field]: value };
+    });
   };
 
   const handleUpdate = async () => {

@@ -6,7 +6,7 @@ interface IContactDocument extends Document {
   email?: string;
   phone?: string;
   message?: string;
-  program?: mongoose.Types.ObjectId;
+  program?: string;
   status?: EContactStatus;
   resolvedBy?: mongoose.Types.ObjectId;
   resolvedAt?: Date;
@@ -18,10 +18,7 @@ const schema: Schema<IContactDocument> = new Schema(
     email: String,
     phone: String,
     message: String,
-    program: {
-      type: Schema.Types.ObjectId,
-      ref: "Program",
-    },
+    program: String,
     status: {
       type: String,
       enum: Object.values(EContactStatus),

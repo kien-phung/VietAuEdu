@@ -1,11 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 import { useContactStore } from "@/utils/stores/contactStore";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { useProgramStore } from "@/utils/stores/programStore";
 
 const initialContact = {
   name: "",
@@ -15,21 +23,37 @@ const initialContact = {
   message: "",
 };
 
-const programs = [
-  "Du học Hàn Quốc",
-  "Du học Nhật Bản",
-  "Du học Đài Loan",
-  "Du học Đức",
-  "Du học Úc",
-  "Du học Mỹ",
-  "Khác",
-];
-
 export default function ContactPageClient() {
   const { isLoading, submitContact } = useContactStore();
+  const { isLoading: isLoadingPrograms, getAllPrograms } = useProgramStore();
 
   const [formData, setFormData] = useState(initialContact);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [programs, setPrograms] = useState<
+    { value: string; label: string; _id: string }[]
+  >([]);
+
+  useEffect(() => {
+    const fetchPrograms = async () => {
+      const response = await getAllPrograms();
+      if (response.data && response.data.programs) {
+        const programOptions = response.data.programs.map((program) => ({
+          value: program.title || program.country,
+          label: program.title || program.country,
+          _id: program._id,
+        }));
+        setPrograms(programOptions);
+        if (programOptions.length > 0) {
+          setFormData((prev) => ({
+            ...prev,
+            program: programOptions[0].value,
+          }));
+        }
+      }
+    };
+
+    fetchPrograms();
+  }, [getAllPrograms]);
 
   const handleInputChange = (
     e: React.ChangeEvent<
@@ -46,8 +70,8 @@ export default function ContactPageClient() {
     await submitContact(
       formData.name,
       formData.email,
-      formData.phone,
       formData.program,
+      formData.phone,
       formData.message
     );
 
@@ -178,20 +202,32 @@ export default function ContactPageClient() {
                     >
                       Chương trình quan tâm
                     </label>
-                    <select
-                      id="program"
-                      name="program"
-                      value={formData.program}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
+
+                    <Select
+                      value={
+                        formData.program ||
+                        (programs.length > 0 ? programs[0].value : "")
+                      }
+                      onValueChange={(value: string) =>
+                        setFormData((prev) => ({ ...prev, program: value }))
+                      }
+                      disabled={isLoadingPrograms}
                     >
-                      <option value="">Chọn chương trình</option>
-                      {programs.map((program) => (
-                        <option key={program} value={program}>
-                          {program}
-                        </option>
-                      ))}
-                    </select>
+                      <SelectTrigger
+                        id="program"
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                      >
+                        <SelectValue placeholder="Chọn chương trình" />
+                      </SelectTrigger>
+
+                      <SelectContent>
+                        {programs.map((program) => (
+                          <SelectItem key={program._id} value={program.value}>
+                            {program.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div>

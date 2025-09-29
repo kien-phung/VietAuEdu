@@ -3,6 +3,7 @@ import {
   getAllContacts,
   getContact,
   submitContact,
+  resolveContact,
 } from "../controllers/contact.controller.js";
 import { isAuth } from "../utils/configs/middlewares/auth.middleware.js";
 
@@ -16,5 +17,8 @@ contactRoute.get("/:id", isAuth, getContact);
 
 // POST /api/v1/contacts - submit new contact
 contactRoute.post("/", submitContact);
+
+// PUT /api/v1/contacts/:id/resolve - resolve contact
+contactRoute.put("/:id/resolve/:userId", isAuth, resolveContact);
 
 export default contactRoute;

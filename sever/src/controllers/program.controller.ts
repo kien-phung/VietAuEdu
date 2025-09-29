@@ -11,6 +11,7 @@ export const getPrograms = RequestHandlerCustom(
     const programs = await handleGetPrograms({ featured: featuredBool });
 
     res.status(200).json({
+      success: true,
       message: "Get programs successfully",
       programs: programs
     });
@@ -24,6 +25,7 @@ export const getProgram = RequestHandlerCustom(
     const program = await handleGetProgramById({ id });
 
     res.status(200).json({
+      success: true,
       message: "Get program successfully",
       program: program
     });
@@ -79,6 +81,7 @@ export const createProgram = RequestHandlerCustom(
     const program = await handleCreateProgram(data);
 
     res.status(201).json({
+      success: true,
       message: "New program created",
       program: program
     });
@@ -114,6 +117,7 @@ export const updateProgram = RequestHandlerCustom(
     const updatedProgram = await handleUpdateProgram({ id, ...data });
 
     res.status(200).json({
+      success: true,
       message: "Program updated successfully",
       program: updatedProgram
     });

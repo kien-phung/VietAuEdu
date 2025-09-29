@@ -8,10 +8,9 @@ export const getAllJobs = RequestHandlerCustom(
     const jobs = await handleGetAllJobs();
 
     res.status(200).json({
+      success: true,
       message: "Get jobs successfully",
-      data: {
-        jobs: jobs
-      }
+      jobs: jobs
     });
   }
 );
@@ -23,10 +22,9 @@ export const getJob = RequestHandlerCustom(
     const job = await handleGetJobById({ id });
 
     res.status(200).json({
+      success: true,
       message: "Get job successfully",
-      data: {
-        job: job
-      }
+      job: job
     });
   }
 );
@@ -95,6 +93,7 @@ export const createJob = RequestHandlerCustom(
     const job = await handleCreateJob(data);
 
     res.status(201).json({
+      success: true,
       message: "New job created",
       job: job
     });
@@ -131,6 +130,7 @@ export const updateJob = RequestHandlerCustom(
     const updatedJob = await handleUpdateJob({ id, ...data });
 
     res.status(200).json({
+      success: true,
       message: "Job updated successfully",
       job: updatedJob
     });

@@ -41,22 +41,22 @@ const CreateProgramDialog = ({
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Create a default empty data object to prevent null errors
-  const programData = data || {
-    _id: "",
-    title: "",
-    description: "",
-    country: "",
-    duration: "",
-    tuition: "",
-    opportunities: "",
-    about: "",
-    requirements: [],
-    benefits: [],
-    imageUrl: "",
-    featured: false,
-    status: EStatus.INACTIVE,
-  };
+  // Create a default empty data? object to prevent null errors
+  // const data? = data? || {
+  //   _id: "",
+  //   title: "",
+  //   description: "",
+  //   country: "",
+  //   duration: "",
+  //   tuition: "",
+  //   opportunities: "",
+  //   about: "",
+  //   requirements: [],
+  //   benefits: [],
+  //   imageUrl: "",
+  //   featured: false,
+  //   status: EStatus.INACTIVE,
+  // };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
@@ -75,12 +75,12 @@ const CreateProgramDialog = ({
 
   useEffect(() => {
     // Hiển thị hình ảnh hiện tại nếu có
-    if (programData.imageUrl) {
-      setPreviewImage(programData.imageUrl);
+    if (data?.imageUrl) {
+      setPreviewImage(data?.imageUrl);
     } else {
       setPreviewImage(null);
     }
-  }, [programData.imageUrl]);
+  }, [data?.imageUrl]);
 
   const handleClose = () => {
     onOpenChange(false);
@@ -124,9 +124,10 @@ const CreateProgramDialog = ({
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="create-title">Title</Label>
+                     
                       <Input
                         id="create-title"
-                        value={programData.title || ""}
+                        value={data?.title || ""}
                         onChange={(e) => onChange("title", e.target.value)}
                       />
                     </div>
@@ -135,9 +136,10 @@ const CreateProgramDialog = ({
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="create-description">Description</Label>
+                    
                       <Textarea
                         id="create-description"
-                        value={programData.description || ""}
+                        value={data?.description || ""}
                         onChange={(e) =>
                           onChange("description", e.target.value)
                         }
@@ -148,9 +150,10 @@ const CreateProgramDialog = ({
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="create-country">Country</Label>
+                 
                       <Input
                         id="create-country"
-                        value={programData.country || ""}
+                        value={data?.country || ""}
                         onChange={(e) => onChange("country", e.target.value)}
                       />
                     </div>
@@ -159,9 +162,10 @@ const CreateProgramDialog = ({
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="create-duration">Duration</Label>
+                  
                       <Input
                         id="create-duration"
-                        value={programData.duration || ""}
+                        value={data?.duration || ""}
                         onChange={(e) => onChange("duration", e.target.value)}
                       />
                     </div>
@@ -170,9 +174,10 @@ const CreateProgramDialog = ({
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="create-tuition">Tuition</Label>
+                   
                       <Input
                         id="create-tuition"
-                        value={programData.tuition || ""}
+                        value={data?.tuition || ""}
                         onChange={(e) => onChange("tuition", e.target.value)}
                       />
                     </div>
@@ -180,10 +185,13 @@ const CreateProgramDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-opportunities">Opportunities</Label>
+                      <Label htmlFor="create-opportunities">
+                        Opportunities
+                      </Label>
+                   
                       <Textarea
                         id="create-opportunities"
-                        value={programData.opportunities || ""}
+                        value={data?.opportunities || ""}
                         onChange={(e) =>
                           onChange("opportunities", e.target.value)
                         }
@@ -194,12 +202,11 @@ const CreateProgramDialog = ({
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="create-about">About</Label>
+                  
                       <Textarea
                         id="create-about"
-                        value={programData.about || ""}
-                        onChange={(e) =>
-                          onChange("about", e.target.value)
-                        }
+                        value={data?.about || ""}
+                        onChange={(e) => onChange("about", e.target.value)}
                       />
                     </div>
                   </div>
@@ -207,6 +214,7 @@ const CreateProgramDialog = ({
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="create-image">Image</Label>
+                    
                       <div className="flex flex-col gap-2">
                         <input
                           type="file"
@@ -224,9 +232,7 @@ const CreateProgramDialog = ({
                           className="flex items-center gap-2"
                         >
                           <ImageIcon className="h-4 w-4" />
-                          {programData.imageUrl
-                            ? "Change Image"
-                            : "Upload Image"}
+                          {data?.imageUrl ? "Change Image" : "Upload Image"}
                         </Button>
 
                         {previewImage && (
@@ -248,33 +254,34 @@ const CreateProgramDialog = ({
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="create-requirements">Requirements</Label>
+                  
                       <Input
-                            id="update-requirements"
-                            value={data?.requirements}
-                            onChange={(e) =>
-                              onChange("requirements", e.target.value)
-                            }
-                          />
+                        id="update-requirements"
+                        value={data?.requirements}
+                        onChange={(e) =>
+                          onChange("requirements", e.target.value)
+                        }
+                      />
                     </div>
                   </div>
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="create-benefits">Benefits</Label>
+                  
                       <Input
-                            id="update-benefits"
-                            value={data?.benefits}
-                            onChange={(e) =>
-                              onChange("benefits", e.target.value)
-                            }
-                          />
+                        id="update-benefits"
+                        value={data?.benefits}
+                        onChange={(e) => onChange("benefits", e.target.value)}
+                      />
                     </div>
                   </div>
 
                   <div className="grid gap-2 mt-3">
                     <Label htmlFor="create-featured">Featured</Label>
+                 
                     <Select
-                      value={programData.featured ? "true" : "false"}
+                      value={data?.featured ? "true" : "false"}
                       onValueChange={(value) =>
                         onChange("featured", value === "true")
                       }
@@ -292,7 +299,7 @@ const CreateProgramDialog = ({
                   <div className="grid gap-2 mt-3">
                     <Label htmlFor="create-status">Status</Label>
                     <Select
-                      value={programData.status || EStatus.INACTIVE}
+                      value={data?.status || EStatus.INACTIVE}
                       onValueChange={(value) =>
                         onChange("status", value as EStatus)
                       }

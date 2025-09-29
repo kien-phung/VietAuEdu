@@ -2,7 +2,7 @@
 
 import {
   Home,
-  // Users,
+  Users,
   FileText,
   MessageSquare,
   Briefcase,
@@ -57,7 +57,7 @@ export default function AdminSidebar({
       href: "/admin/contact-dashboard",
     },
     { icon: FileText, label: "FAQ Dashboard", href: "/admin/faq-dashboard" },
-    // { icon: Users, label: "User Dashboard", href: "/admin/user-dashboard" },
+    { icon: Users, label: "User Dashboard", href: "/admin/user-dashboard" },
   ];
 
   return (

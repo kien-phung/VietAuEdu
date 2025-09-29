@@ -12,7 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FAQCategory, FAQStatus } from "./CreateFAQDialog";
+import { EStatus } from "@/utils/types/enum";
+import { FAQCategory, FAQStatus } from "@/utils/constants/faqConstants";
 
 interface UpdateFAQDialogProps {
   isOpen: boolean;
@@ -66,7 +67,7 @@ const UpdateFAQDialog = ({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
                 >
-                  Update FAQ
+                  Update
                 </Dialog.Title>
 
                 <ScrollArea className="h-[42vh] pr-4 mt-4">
@@ -74,7 +75,12 @@ const UpdateFAQDialog = ({
                     <>
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-question">Question</Label>
+                          <Label
+                            htmlFor="update-question"
+                            className="text-primary"
+                          >
+                            Question
+                          </Label>
 
                           <Input
                             id="update-question"
@@ -88,7 +94,12 @@ const UpdateFAQDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-answer">Answer</Label>
+                          <Label
+                            htmlFor="update-answer"
+                            className="text-primary"
+                          >
+                            Answer
+                          </Label>
 
                           <Input
                             id="update-answer"
@@ -101,10 +112,15 @@ const UpdateFAQDialog = ({
                       </div>
 
                       <div className="grid gap-2 mt-3">
-                        <Label htmlFor="update-category">Category</Label>
+                        <Label
+                          htmlFor="update-category"
+                          className="text-primary"
+                        >
+                          Category
+                        </Label>
 
                         <Select
-                          value={data?.category}
+                          value={data?.category || FAQCategory[0].value}
                           onValueChange={(value: string) =>
                             onChange("category", value)
                           }
@@ -126,10 +142,12 @@ const UpdateFAQDialog = ({
                       </div>
 
                       <div className="grid gap-2 mt-3">
-                        <Label htmlFor="update-status">Status</Label>
+                        <Label htmlFor="update-status" className="text-primary">
+                          Status
+                        </Label>
 
                         <Select
-                          value={data?.status}
+                          value={data.status || EStatus.ACTIVE}
                           onValueChange={(value: string) =>
                             onChange("status", value)
                           }
