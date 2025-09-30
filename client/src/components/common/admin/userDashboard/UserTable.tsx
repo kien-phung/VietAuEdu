@@ -4,7 +4,7 @@ interface UserTableProps {
   Users: IUser[];
   isLoading: boolean;
   onEdit?: (user: IUser) => void;
-  onDelete?: (userId: string) => void;
+  onResetPassword?: (user: IUser) => void;
 }
 
 const getStatusColor = (status: string) => {
@@ -24,7 +24,7 @@ export const UserTable = ({
   Users,
   isLoading,
   onEdit,
-  onDelete,
+  onResetPassword,
 }: UserTableProps) => {
   const columns = [
     {
@@ -64,11 +64,11 @@ export const UserTable = ({
       onClick: onEdit,
     });
   }
-
-  if (onDelete) {
+  
+  if (onResetPassword) {
     actions.push({
-      label: "Delete",
-      onClick: (user: IUser) => onDelete(user._id),
+      label: "Reset Password",
+      onClick: onResetPassword,
     });
   }
 

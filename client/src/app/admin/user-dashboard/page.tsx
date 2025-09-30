@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { RefreshCw } from "lucide-react";
 import { EUserStatus } from "@/utils/types/enum";
 import { Button } from "@/components/ui/button";
@@ -12,18 +13,21 @@ import UpdateUserDialog from "@/components/common/admin/userDashboard/UpdateUser
 import { TableSearch } from "@/components/common/admin/TableSearch";
 import { UserFilter } from "@/components/common/admin/userDashboard/UserFilter";
 import { UserTable } from "@/components/common/admin/userDashboard/UserTable";
+import { useAuthStore } from "@/utils/stores/authStore";
+import { toast } from "react-toastify";
 
 // Initialize empty filters
 const initialFilters = { status: [] as string[] };
 
-export default function UserDashboardPage() {
-  const { isLoading, getAllUsers, createUser, updateUser, deleteUser } =
-    useUserStore();
+function UserDashboardPage() {
+  const { isLoading, getAllUsers, createUser, updateUser } = useUserStore();
+  const { resetPassword } = useAuthStore();
 
   const [searchQuery, setSearchQuery] = useState("");
 
   const [isCreateUserOpen, setIsCreateUserOpen] = useState(false);
   const [isUpdateUserOpen, setIsUpdateUserOpen] = useState(false);
+  // const [isResetPasswordOpen, setIsResetPasswordOpen] = useState(false);
 
   const [activeFilters, setActiveFilters] = useState<{
     status: string[];
@@ -162,17 +166,18 @@ export default function UserDashboardPage() {
         data.status
       );
 
-      // Refresh the data after update
-      const res = await getAllUsers();
-      const updatedData = res?.data?.users || [];
-
-      // Update both original and filtered data
-      setAllUsers(updatedData);
-
-      // Re-apply current filters
-      filterData(searchQuery, activeFilters);
-
       setIsUpdateUserOpen(false);
+    }
+  };
+
+  const handleResetPassword = async (user: IUser) => {
+    if (user) {
+      const result = await resetPassword(user.email);
+      if (result?.data?.success) {
+        toast.success("Password reset email sent successfully");
+      } else {
+        toast.error("Failed to send password reset email");
+      }
     }
   };
 
@@ -186,34 +191,7 @@ export default function UserDashboardPage() {
         data.status
       );
 
-      // Refresh the data after creation
-      const res = await getAllUsers();
-      const updatedData = res?.data?.users || [];
-
-      // Update both original and filtered data
-      setAllUsers(updatedData);
-
-      // Re-apply current filters
-      filterData(searchQuery, activeFilters);
-
       setIsCreateUserOpen(false);
-    }
-  };
-
-  // Handle user deletion
-  const handleDelete = async (userId: string) => {
-    if (userId) {
-      await deleteUser(userId);
-
-      // Refresh data after deletion
-      const res = await getAllUsers();
-      const updatedData = res?.data?.users || [];
-
-      // Update both original and filtered data
-      setAllUsers(updatedData);
-
-      // Re-apply current filters
-      filterData(searchQuery, activeFilters);
     }
   };
 
@@ -325,10 +303,16 @@ export default function UserDashboardPage() {
               setData(user);
               setIsUpdateUserOpen(true);
             }}
-            onDelete={handleDelete}
+            onResetPassword={(user) => {
+              handleResetPassword(user);
+            }}
           />
         </Card>
       </div>
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(UserDashboardPage), {
+  ssr: false,
+});

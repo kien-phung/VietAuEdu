@@ -1,4 +1,4 @@
-import { ICreateAndUpdateUserData } from "../controllers/user.controller.js";
+import { ICreateUserData, IUpdateUserData } from "../controllers/user.controller.js";
 import { User } from "../models/user.model.js";
 import { SALT_ROUNDS } from "../utils/configs/constants.js";
 import { ErrorCustom, HandlerCustom } from "../utils/configs/custom.js";
@@ -38,21 +38,28 @@ export const handleUpdateUserStatusByEmail = HandlerCustom(async (data: { email:
     return user;
 });
 
-export const handleCreateUser = HandlerCustom(async (data: ICreateAndUpdateUserData) => {
-    const hashPassword = await bcrypt.hash(data.password, SALT_ROUNDS);
+export const handleCreateUser = HandlerCustom(async (data: ICreateUserData) => {
+    const hashPassword = await bcrypt.hash(data.password, Number(SALT_ROUNDS));
 
-    const user = await new User({
+    const user = new User({
         email: data.email,
         password: hashPassword,
         name: data.name || '',
         phone: data.phone || '',
         status: data.status || EUserStatus.PENDING,
-    }).save();
+    });
 
-    return user;
+    try {
+        return await user.save();
+    } catch (error: any) {
+        if (error.code === 11000) {
+            throw new ErrorCustom(400, "Email already exists");
+        }
+        throw error;
+    }
 });
 
-export const handleUpdateUser = HandlerCustom(async (data: { id: string } & Partial<ICreateAndUpdateUserData>) => {
+export const handleUpdateUser = HandlerCustom(async (data: { id: string } & IUpdateUserData) => {
     const user = await handleGetUserById({ id: data.id });
 
     if (!user) {
@@ -61,14 +68,22 @@ export const handleUpdateUser = HandlerCustom(async (data: { id: string } & Part
 
     // Chỉ cập nhật các trường được cung cấp
     if (data.password) {
-        const hashPassword = await bcrypt.hash(data.password, SALT_ROUNDS);
+        const hashPassword = await bcrypt.hash(data.password, Number(SALT_ROUNDS));
         user.password = hashPassword;
     }
     if (data.name) user.name = data.name;
     if (data.phone) user.phone = data.phone;
     if (data.status) user.status = data.status;
+    if (data.email) user.email = data.email;
 
-    return await user.save();
+    try {
+        return await user.save();
+    } catch (error: any) {
+        if (error.code === 11000) {
+            throw new ErrorCustom(400, "Email already exists");
+        }
+        throw error;
+    }
 });
 
 export const handleUpdateUserPasswordByEmail = HandlerCustom(async (data: { email: string, password: string }) => {

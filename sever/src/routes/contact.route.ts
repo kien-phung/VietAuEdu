@@ -18,7 +18,7 @@ contactRoute.get("/:id", isAuth, getContact);
 // POST /api/v1/contacts - submit new contact
 contactRoute.post("/", submitContact);
 
-// PUT /api/v1/contacts/:id/resolve/:userId - resolve contact
-contactRoute.put("/:id/resolve/:userId", isAuth, resolveContact);
+// POST /api/v1/contacts/:id/resolve/:userId - resolve contact
+contactRoute.post("/:id/resolve/:userId", isAuth, resolveContact);
 
 export default contactRoute;

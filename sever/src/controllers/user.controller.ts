@@ -14,7 +14,7 @@ export const getAllUsers = RequestHandlerCustom(
   }
 );
 
-export interface ICreateAndUpdateUserData {
+export interface ICreateUserData {
   email: string,
   password: string,
   name?: string,
@@ -22,9 +22,17 @@ export interface ICreateAndUpdateUserData {
   status?: string,
 }
 
+export interface IUpdateUserData {
+  email?: string,
+  password?: string,
+  name?: string,
+  phone?: string,
+  status?: string,
+}
+
 export const createUser = RequestHandlerCustom(
   async (req, res) => {
-    const data: ICreateAndUpdateUserData = parseRequestData(req);
+    const data: ICreateUserData = parseRequestData(req);
 
     const user = await handleCreateUser(data);
 
@@ -44,7 +52,7 @@ export const updateUser = RequestHandlerCustom(
       return next(new ErrorCustom(400, "User ID is required"));
     }
 
-    const data: ICreateAndUpdateUserData = parseRequestData(req);
+    const data: IUpdateUserData = parseRequestData(req);
 
     // Kiểm tra xem có dữ liệu để cập nhật không
     if (Object.keys(data).length === 0) {

@@ -97,23 +97,6 @@ const UpdateUserDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="update-password">
-                        Password (leave empty to keep current)
-                      </Label>
-                      <Input
-                        id="update-password"
-                        type="password"
-                        value={data?.password || ""}
-                        onChange={(e) =>
-                          onChange("password" as keyof IUser, e.target.value)
-                        }
-                        placeholder="Enter new password"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid gap-4">
-                    <div className="grid gap-2">
                       <Label htmlFor="update-phone">Phone</Label>
                       <Input
                         id="update-phone"

@@ -11,7 +11,7 @@ interface IUserDocument extends Document {
 
 const schema: Schema<IUserDocument> = new Schema(
     {
-        email: String,
+        email: { type: String, unique: true },
         password: String,
         name: String,
         phone: String,

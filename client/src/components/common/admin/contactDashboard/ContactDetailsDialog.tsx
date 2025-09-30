@@ -13,6 +13,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Label } from "@/components/ui/label";
 import { formatDateAgo } from "@/lib/utils";
+import { EContactStatus } from "@/utils/types/enum";
 
 interface IContactDetailsDialogProps {
   isOpen: boolean;
@@ -205,7 +206,7 @@ const ContactDetailsDialog = ({
                       variant="default"
                       onClick={handleResolveContact}
                       className="bg-green-600 hover:bg-green-700 text-white"
-                      disabled={isResolving}
+                      disabled={isResolving || selectedContact.status === EContactStatus.RESOLVED}
                     >
                       {isResolving ? (
                         <>Resolving...</>
