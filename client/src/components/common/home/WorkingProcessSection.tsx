@@ -99,7 +99,7 @@ export default function WorkingProcessSection() {
             animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Quy Trình Làm Việc Của Giáo Dục Quốc Tế ${COMPANY}
+            Quy Trình Làm Việc Của Giáo Dục Quốc Tế {COMPANY}
           </motion.h2>
         </motion.div>
 
