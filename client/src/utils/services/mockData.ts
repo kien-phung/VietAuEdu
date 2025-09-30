@@ -8,7 +8,6 @@ export const mockUsers: IUser[] = [
         password: "password123",
         name: "Alice Nguyen",
         phone: "0901234567",
-        role: "admin",
         status: EUserStatus.PENDING,
     },
     {
@@ -17,7 +16,6 @@ export const mockUsers: IUser[] = [
         password: "password456",
         name: "Bob Tran",
         phone: "0902345678",
-        role: "user",
         status: EUserStatus.PENDING,
     },
     {
@@ -26,7 +24,6 @@ export const mockUsers: IUser[] = [
         password: "password789",
         name: "Charlie Le",
         phone: "0903456789",
-        role: "user",
         status: EUserStatus.PENDING,
     },
     {
@@ -35,7 +32,6 @@ export const mockUsers: IUser[] = [
         password: "password101",
         name: "Diana Pham",
         phone: "0904567890",
-        role: "editor",
         status: EUserStatus.PENDING,
     },
     {
@@ -44,7 +40,6 @@ export const mockUsers: IUser[] = [
         password: "password202",
         name: "Edward Vo",
         phone: "0905678901",
-        role: "user",
         status: EUserStatus.PENDING,
     },
     {
@@ -53,7 +48,6 @@ export const mockUsers: IUser[] = [
         password: "password303",
         name: "Fiona Dang",
         phone: "0906789012",
-        role: "user",
         status: EUserStatus.PENDING,
     },
     {
@@ -62,7 +56,6 @@ export const mockUsers: IUser[] = [
         password: "password404",
         name: "George Bui",
         phone: "0907890123",
-        role: "user",
         status: EUserStatus.PENDING,
     },
     {
@@ -71,7 +64,6 @@ export const mockUsers: IUser[] = [
         password: "password505",
         name: "Hannah Ho",
         phone: "0908901234",
-        role: "user",
         status: EUserStatus.PENDING,
     },
     {
@@ -80,7 +72,6 @@ export const mockUsers: IUser[] = [
         password: "password606",
         name: "Ian Nguyen",
         phone: "0909012345",
-        role: "user",
         status: EUserStatus.PENDING,
     },
     {
@@ -89,7 +80,6 @@ export const mockUsers: IUser[] = [
         password: "password707",
         name: "Julia Phan",
         phone: "0910123456",
-        role: "user",
         status: EUserStatus.PENDING,
     },
 ];
