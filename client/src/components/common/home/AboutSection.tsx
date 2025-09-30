@@ -34,7 +34,7 @@ export default function AboutSection() {
               viewport={{ once: false }}
             >
               <Image
-                src="/images/logo1.png"
+                src="/images/about1.jpg"
                 alt={`${COMPANY} Academy Team`}
                 width={500}
                 height={300}
@@ -64,7 +64,7 @@ export default function AboutSection() {
               viewport={{ once: false }}
             >
               <Image
-                src="/images/logo1.png"
+                src="/images/about2.jpg"
                 alt={`${COMPANY} Academy Office`}
                 width={500}
                 height={300}

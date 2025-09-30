@@ -54,8 +54,8 @@ export default function Navbar() {
             {/* Logo - SSR */}
             <Link href="/" className="flex items-center space-x-2">
               <Image
-                src="/images/logo1.png"
-                alt="VietAuAcademy Logo"
+                src="/images/Logo.jpg"
+                alt={`${COMPANY} Logo`}
                 width={40}
                 height={30}
                 className="object-contain"
@@ -63,10 +63,10 @@ export default function Navbar() {
               />
               <div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                  {COMPANY} Edu
+                  {COMPANY}
                 </h1>
                 <p className="text-xs text-gray-600 dark:text-gray-300">
-                  Giáo dục quốc tế
+                  CÔNG TY TNHH GIẢI PHÁP CÔNG NGHỆ GIÁO DỤC
                 </p>
               </div>
             </Link>

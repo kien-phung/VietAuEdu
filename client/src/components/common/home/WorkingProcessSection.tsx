@@ -63,7 +63,7 @@ export default function WorkingProcessSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('/images/working-process-bg.jpg')",
+          backgroundImage: "url('/images/gate.jpg')",
         }}
       >
         <div className="absolute inset-0 bg-black/60"></div>

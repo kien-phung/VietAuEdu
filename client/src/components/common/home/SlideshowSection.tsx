@@ -8,20 +8,20 @@ const slides = [
     title: "Chương Trình Du Học Nhật Bản 2025",
     description:
       "Cơ hội học tập và làm việc tại Nhật Bản với học bổng lên đến 50%",
-    image: "/images/hero-image.jpg",
+    image: "/images/nhatban.jpg",
   },
   {
     id: "2",
     title: "Tuyển Sinh Khóa Học Ngoại Ngữ",
     description: "Khóa học tiếng Nhật cấp tốc chuẩn bị cho kỳ thi JLPT N5-N1",
-    image: "/images/cta-background.jpg",
+    image: "/images/nhatban.jpg",
   },
   {
     id: "3",
     title: "Hội Thảo Hướng Nghiệp Miễn Phí",
     description:
       "Gặp gỡ chuyên gia tư vấn và cựu du học sinh thành công tại Nhật",
-    image: "/images/placeholder-blog.jpg",
+    image: "/images/nhatban.jpg",
   },
 ];
 

@@ -60,18 +60,18 @@ export const sendOTP = RequestHandlerCustom(async (req, res, next) => {
         title: "Xác thực tài khoản của bạn",
         greeting: "Xin chào",
         name: userName,
-        message: "Cảm ơn bạn đã đăng ký tài khoản với VietAu Academy. Vui lòng sử dụng mã OTP dưới đây để xác thực tài khoản của bạn.",
+        message: "Cảm ơn bạn đã đăng ký tài khoản với ThuyTung Academy. Vui lòng sử dụng mã OTP dưới đây để xác thực tài khoản của bạn.",
         otp: otpResult.otp,
         expiry: "5", // OTP hết hạn sau 5 phút (được cài đặt trong handleCreateAndStoreOTP)
-        contactEmail: "VietAuAcademy@gmail.com",
+        contactEmail: "support@thuytung.edu.vn",
         year: currentYear.toString(),
-        address: "123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh, Việt Nam",
+        address: "24/22 Đường số 23, Phường Hiệp Bình Chánh, TP. Thủ Đức, Việt Nam",
     };
 
     // Gửi email
     await sendMail(
         email,
-        "Mã xác thực OTP từ VietAu Academy",
+        "Mã xác thực OTP từ ThuyTung Academy",
         EmailTemplate.SEND_OTP,
         templateData
     );
@@ -101,9 +101,9 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
         return next(new ErrorCustom(400, "Invalid credential"));
     }
 
-    const isActive = await user.status === EUserStatus.ACTIVE;
-    if (!isActive) {
-        return next(new ErrorCustom(400, "User is not active"));
+    const isInactive = await user.status === EUserStatus.INACTIVE;
+    if (isInactive) {
+        return next(new ErrorCustom(400, "User is not inactive"));
     }
 
     const loginKey = `login:${email}`;
@@ -139,9 +139,9 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
 
     res.status(200).json({
         success: true,
+        isActive: isInactive,
         message: "Login successful",
         user: userWithoutPassword,
-        isActive,
     });
 
 });

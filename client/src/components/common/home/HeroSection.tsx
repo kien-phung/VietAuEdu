@@ -112,7 +112,7 @@ export default function HeroSection() {
           <div className="relative">
             <div className="relative z-10">
               <Image
-                src="/images/hero-image.jpg"
+                src="/images/R.jpeg"
                 width={600}
                 height={500}
                 alt="Du học quốc tế"

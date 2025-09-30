@@ -5,7 +5,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     <div
       className="min-h-screen flex items-center justify-center text-gray-900 dark:text-gray-100 transition-colors"
       style={{
-        backgroundImage: "url(/images/logo1.png)",
+        backgroundImage: "url(/images/nhatban.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

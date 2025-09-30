@@ -14,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useProgramStore } from "@/utils/stores/programStore";
+import { ADDRESS, EMAIL, PHONE } from "@/utils/services/constants";
 
 const initialContact = {
   name: "",
@@ -297,7 +298,7 @@ export default function ContactPageClient() {
                     <h4 className="font-medium text-gray-900 dark:text-white">
                       Hotline 24/7
                     </h4>
-                    <p className="text-primary font-semibold">0782 748 863</p>
+                    <p className="text-primary font-semibold">{PHONE}</p>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       Tư vấn miễn phí mọi lúc
                     </p>
@@ -311,7 +312,7 @@ export default function ContactPageClient() {
                       Email
                     </h4>
                     <p className="text-gray-700 dark:text-gray-300">
-                      hainguyenhoang1205@gmail.com
+                      {EMAIL}
                     </p>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       Phản hồi trong 24h
@@ -326,9 +327,7 @@ export default function ContactPageClient() {
                       Văn phòng
                     </h4>
                     <p className="text-gray-700 dark:text-gray-300">
-                      Tầng 1, Trường đại học Sài Gòn
-                      <br />
-                      273 An Dương Vương, Q.5, TP.HCM
+                      {ADDRESS}   
                     </p>
                   </div>
                 </div>
