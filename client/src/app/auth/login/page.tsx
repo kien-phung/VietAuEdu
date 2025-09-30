@@ -55,12 +55,12 @@ const LoginPage: React.FC = () => {
       return;
     }
 
+    console.log(">>>", response);
     // If login is successful with active user
     if (response.data && response.data.isActive) {
       router.push("/admin");
       return;
     }
-    console.log(">>>", response);
     // If user is not active, send OTP and redirect to verification
     if (
       response.message === "User is not active" ||

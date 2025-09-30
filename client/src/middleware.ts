@@ -36,16 +36,20 @@ export function middleware(request: NextRequest) {
     }
 
     // Get the authentication token from cookies
-    const authToken = request.cookies.get('auth-storage')?.value
+    const authToken = request.cookies.get('token')?.value
 
     // Parse the user authentication status
     let isAuthenticated = false
     if (authToken) {
         try {
-            const authData = JSON.parse(decodeURIComponent(authToken))
-            isAuthenticated = !!authData.state?.userAuth
-        } catch {
+            // Decode JWT payload (second part)
+            const payload = authToken.split('.')[1]
+            const decodedPayload = JSON.parse(atob(payload.replace(/-/g, '+').replace(/_/g, '/')))
+            // Assuming the payload has the structure with state.userAuth
+            isAuthenticated = !!decodedPayload.id
+        } catch (error) {
             // If parsing fails, user is not authenticated
+            console.error('Error parsing auth token:', error)
             isAuthenticated = false
         }
     }
@@ -65,7 +69,7 @@ export function middleware(request: NextRequest) {
     if (pathname.startsWith('/admin')) {
         // If not authenticated, redirect to login page
         if (!isAuthenticated) {
-            // return NextResponse.redirect(new URL('/auth/login', request.url))
+            return NextResponse.redirect(new URL('/auth/login', request.url))
         }
     }
 

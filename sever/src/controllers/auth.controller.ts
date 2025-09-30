@@ -159,22 +159,15 @@ export const logout = RequestHandlerCustom(async (req, res, next) => {
         sameSite: "strict",
     });
 
-    // Try to find the user by ID
-    try {
-        // Clear any Redis login keys associated with this user
-        // This is a best-effort cleanup, but we'll log the user out regardless
-        const user = await mongoose.model('User').findById(req.userId);
-        if (user && user.email) {
-            const loginKey = `login:${user.email}`;
-            await redisClient.del(loginKey);
-        }
-    } catch (error) {
-        console.error("Error during Redis cleanup:", error);
-        // Continue with logout even if Redis cleanup fails
+    const user = await mongoose.model('User').findById(req.userId);
+    if (user && user.email) {
+        const loginKey = `login:${user.email}`;
+        await redisClient.del(loginKey);
     }
 
     res.status(200).json({
         success: true,
+        user: user,
         message: "Logout successful"
     });
 });

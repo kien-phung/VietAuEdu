@@ -20,10 +20,12 @@ export default function AdminLayout({
 }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(280);
+  const [mounted, setMounted] = useState(false);
   const isResizing = useRef(false);
 
   // Load sidebar state from localStorage on mount
   useEffect(() => {
+    setMounted(true);
     const savedCollapsed = localStorage.getItem("adminSidebarCollapsed");
     const savedWidth = localStorage.getItem("adminSidebarWidth");
 
@@ -79,7 +81,7 @@ export default function AdminLayout({
   return (
     <div className="bg-gray-50 dark:bg-gray-900 min-h-screen">
       <div className="flex relative">
-        {typeof window !== "undefined" && (
+        {mounted && (
           <div className="sticky top-0 h-screen">
             <AdminSidebar
               collapsed={sidebarCollapsed}
@@ -92,7 +94,7 @@ export default function AdminLayout({
         <div
           className="flex-1 transition-all duration-300"
           style={{
-            marginLeft: "8px", // Fixed small margin between sidebar and content
+            marginLeft: mounted ? "8px" : "0px", // Adjust margin based on sidebar presence
           }}
         >
           <main className="p-4 md:p-6 bg-gray-50 dark:bg-gray-900">

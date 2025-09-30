@@ -6,8 +6,7 @@ import { ENABLE_QPS_LOGGING } from "../constants.js";
  * Middleware ghi log các request
  */
 export const requestLogger = (req: Request, res: Response, next: NextFunction) => {
-    // Uncomment các dòng dưới đây nếu muốn ghi log chi tiết
-    // console.log(`[Gateway] ${req.method} ${req.path}`);
+    // console.log(`${req.method} ${req.path}`);
     // console.log('Headers:', req.headers);
     // console.log('Query:', req.query);
     // console.log('Body:', req.body);

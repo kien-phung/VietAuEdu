@@ -50,7 +50,6 @@ export const useAuthStore = createStore<IAuthStore>(
 
 			return await get().handleRequest(async () => {
 				const response = await handleRequest<IAuthDataResponse>(EHttpType.POST, "/auth/login", formData);
-
 				if (response && response.data) {
 					set({
 						userAuth: response?.data?.user,

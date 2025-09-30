@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import {
   Card,
   CardContent,
@@ -19,7 +20,7 @@ import {
 import { mockStats } from "@/utils/services/mockData";
 import { DashboardHeader } from "@/components/common/admin/DashboardHeader";
 
-export default function AdminDashboardPage() {
+function AdminDashboardPage() {
   const [stats] = useState(mockStats);
   const [loading, setLoading] = useState(true);
 
@@ -175,3 +176,7 @@ export default function AdminDashboardPage() {
     </div>
   );
 }
+
+export default dynamic(() => Promise.resolve(AdminDashboardPage), {
+  ssr: false,
+});
