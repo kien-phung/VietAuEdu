@@ -63,7 +63,7 @@ export default function WorkingProcessSection() {
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('/images/working-process-bg.jpg')",
+          backgroundImage: "url('/images/working-process.jpg')",
         }}
       >
         <div className="absolute inset-0 bg-black/60"></div>
@@ -86,15 +86,15 @@ export default function WorkingProcessSection() {
             animate={{ scale: isInView ? 1 : 0, opacity: isInView ? 1 : 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <div className="w-8 h-8 border-2 border-primary rounded-full flex items-center justify-center mr-3">
-              <div className="w-4 h-4 bg-primary rounded-full"></div>
+            <div className="w-8 h-8 border-2 border-primary-500 rounded-full flex items-center justify-center mr-3">
+              <div className="w-4 h-4 bg-primary-500 rounded-full"></div>
             </div>
-            <span className="text-primary text-lg font-medium tracking-wider">
+            <span className="text-primary-500 text-lg font-medium tracking-wider">
               WORKING PROCESS
             </span>
           </motion.div>
           <motion.h2
-            className="text-3xl lg:text-4xl font-bold text-primary mb-4"
+            className="text-3xl lg:text-4xl font-bold text-primary-500 mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}

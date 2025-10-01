@@ -9,17 +9,18 @@ import {
   DollarSign,
   Award,
   CheckCircle,
-  Users,
-  Calendar,
   Phone,
   Mail,
   ArrowLeft,
+  Send,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useProgramStore } from "@/utils/stores/programStore";
 import { stringToList } from "@/lib/utils";
+import { useContactStore } from "@/utils/stores/contactStore";
+import { initialContact } from "../../contact/ContactPageClient";
 
 interface ProgramDetailPageClientProps {
   programId: string;
@@ -29,10 +30,12 @@ export default function ProgramDetailPageClient({
   programId,
 }: ProgramDetailPageClientProps) {
   const { getProgram, isLoading } = useProgramStore();
+  const { submitContact } = useContactStore();
 
   const router = useRouter();
   const [program, setProgram] = useState<IProgram | null>(null);
   const [showContactForm, setShowContactForm] = useState(false);
+  const [formData, setFormData] = useState(initialContact);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,6 +46,29 @@ export default function ProgramDetailPageClient({
 
     fetchData();
   }, [getProgram, programId]);
+
+    const handleInputChange = (
+      e: React.ChangeEvent<
+        HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      >
+    ) => {
+      const { name, value } = e.target;
+      setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+      e.preventDefault();
+  
+      await submitContact(
+        formData.name,
+        formData.email,
+        program?.title || "",
+        formData.phone,
+        formData.message
+      );
+  
+      setFormData(initialContact);
+    };
 
   if (isLoading) {
     return (
@@ -242,41 +268,6 @@ export default function ProgramDetailPageClient({
                 </Button>
               </CardContent>
             </Card>
-
-            {/* Quick Stats */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Thống Kê Nhanh</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Users className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">
-                      Sinh viên đã tốt nghiệp
-                    </span>
-                  </div>
-                  <span className="font-semibold text-primary">150+</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Calendar className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">Kỳ nhập học</span>
-                  </div>
-                  <span className="font-semibold">Tháng 3, 9</span>
-                </div>
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Award className="w-4 h-4 text-gray-500" />
-                    <span className="text-sm text-gray-600">
-                      Tỷ lệ việc làm
-                    </span>
-                  </div>
-                  <span className="font-semibold text-primary">95%</span>
-                </div>
-              </CardContent>
-            </Card>
-
             {/* Contact Form */}
             {showContactForm && (
               <Card>
@@ -284,31 +275,114 @@ export default function ProgramDetailPageClient({
                   <CardTitle>Đăng Ký Tư Vấn</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <form className="space-y-4">
-                    <input
-                      type="text"
-                      placeholder="Họ và tên"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    />
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      >
+                        Họ và tên *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
+                        placeholder="Nguyễn Văn A"
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="phone"
+                        className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                      >
+                        Số điện thoại *
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
+                        placeholder="0987 654 321"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="email"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      Email *
+                    </label>
                     <input
                       type="email"
-                      placeholder="Email"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
+                      placeholder="email@example.com"
                     />
-                    <input
-                      type="tel"
-                      placeholder="Số điện thoại"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    />
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    >
+                      Câu hỏi hoặc yêu cầu tư vấn
+                    </label>
                     <textarea
-                      placeholder="Câu hỏi của bạn"
-                      rows={3}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-                    ></textarea>
-                    <Button type="submit" className="w-full">
-                      Gửi thông tin
-                    </Button>
-                  </form>
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      rows={5}
+                      className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400"
+                      placeholder="Chia sẻ về mục tiêu du học, ngành học quan tâm, hoặc bất kỳ câu hỏi nào bạn muốn được tư vấn..."
+                    />
+                  </div>
+
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="w-full"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <div className="flex items-center">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        Đang gửi...
+                      </div>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Gửi thông tin tư vấn
+                      </>
+                    )}
+                  </Button>
+
+                  <p className="text-sm text-gray-500 text-center">
+                    Bằng việc gửi thông tin, bạn đồng ý với{" "}
+                    <Link
+                      href="/privacy"
+                      className="text-primary hover:underline"
+                    >
+                      chính sách bảo mật
+                    </Link>{" "}
+                    của chúng tôi.
+                  </p>
+                </form>
                 </CardContent>
               </Card>
             )}

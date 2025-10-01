@@ -98,12 +98,17 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-        return next(new ErrorCustom(400, "Invalid credential"));
+        return next(new ErrorCustom(403, "Invalid credential"));
     }
 
     const isInactive = await user.status === EUserStatus.INACTIVE;
     if (isInactive) {
-        return next(new ErrorCustom(400, "User is not active"));
+        return next(new ErrorCustom(402, "User is not active"));
+    }
+
+    const isPending = await user.status === EUserStatus.PENDING;
+    if (isPending) {
+        return next(new ErrorCustom(401, "User is pending"));
     }
 
     const token = jwt.sign(

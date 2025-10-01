@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { useProgramStore } from "@/utils/stores/programStore";
 
-const initialContact = {
+export const initialContact = {
   name: "",
   email: "",
   phone: "",

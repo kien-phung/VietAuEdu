@@ -51,18 +51,19 @@ const LoginPage: React.FC = () => {
     }
 
     const response = await login(formData.email, formData.password);
-    if (!response) {
+
+    if (response?.status && response.status > 401) {
       return;
     }
 
-    if (!response?.data?.isActive) {
-      await sendOTP(formData.email);
-
+    if (response?.status && response.status === 401) {
       router.push(
         `/auth/verification?email=${encodeURIComponent(
           formData.email
         )}&isPasswordReset=false`
       );
+
+      await sendOTP(formData.email);
 
       return;
     }
@@ -139,7 +140,7 @@ const LoginPage: React.FC = () => {
           className="w-full bg-secondary hover:bg-secondary-700 text-white font-medium py-3 px-4 rounded-md transition-colors duration-200"
           disabled={isLoading}
         >
-          {isLoading ? "..." : "Đăng nhập"}
+          {isLoading ? "Đang đăng nhập..." : "Đăng nhập"}
         </Button>
       </form>
     </div>

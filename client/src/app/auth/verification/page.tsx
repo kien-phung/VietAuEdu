@@ -111,7 +111,10 @@ const VerificationPage: React.FC = () => {
       return;
     }
 
-    
+    if (res?.status && res.status !== 200) {
+      return;
+    }
+
     if (isPasswordReset) {
       router.push(`/auth/reset-password/?email=${encodeURIComponent(email)}`);
     } else {
@@ -152,13 +155,14 @@ const VerificationPage: React.FC = () => {
   }
 
   return (
-    <div className="bg-gray-800 rounded-lg p-8">
+    <div className="rounded-lg p-8">
       <h1 className="text-primary text-2xl font-bold text-center mb-6">
         Nhập mã xác thực
       </h1>
 
       <p className="text-gray-400 text-sm mb-2">
-        Chúng tôi đã gửi mã OTP về email của bạn, hãy nhập mã đó vào các ô bên dưới để
+        Chúng tôi đã gửi mã OTP về email của bạn, hãy nhập mã đó vào các ô bên
+        dưới để
         {isPasswordReset ? "đặt lại mật khẩu" : "xác thực tài khoản"}.
       </p>
 
