@@ -41,29 +41,11 @@ const CreateProgramDialog = ({
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Create a default empty data? object to prevent null errors
-  // const data? = data? || {
-  //   _id: "",
-  //   title: "",
-  //   description: "",
-  //   country: "",
-  //   duration: "",
-  //   tuition: "",
-  //   opportunities: "",
-  //   about: "",
-  //   requirements: [],
-  //   benefits: [],
-  //   imageUrl: "",
-  //   featured: false,
-  //   status: EStatus.INACTIVE,
-  // };
-
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     if (file) {
       onChange("image", file);
 
-      // Tạo URL để xem trước hình ảnh
       const previewUrl = URL.createObjectURL(file);
       setPreviewImage(previewUrl);
     }
@@ -74,7 +56,6 @@ const CreateProgramDialog = ({
   };
 
   useEffect(() => {
-    // Hiển thị hình ảnh hiện tại nếu có
     if (data?.imageUrl) {
       setPreviewImage(data?.imageUrl);
     } else {
@@ -117,13 +98,13 @@ const CreateProgramDialog = ({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
                 >
-                  Create Program
+                  Tạo chương trình
                 </Dialog.Title>
 
                 <ScrollArea className="h-[42vh] pr-4 mt-4">
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-title">Title</Label>
+                      <Label htmlFor="create-title">Chương trình</Label>
                      
                       <Input
                         id="create-title"
@@ -135,7 +116,7 @@ const CreateProgramDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-description">Description</Label>
+                      <Label htmlFor="create-description">Mô tả</Label>
                     
                       <Textarea
                         id="create-description"
@@ -149,7 +130,7 @@ const CreateProgramDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-country">Country</Label>
+                      <Label htmlFor="create-country">Quốc gia</Label>
                  
                       <Input
                         id="create-country"
@@ -161,7 +142,7 @@ const CreateProgramDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-duration">Duration</Label>
+                      <Label htmlFor="create-duration">Thời gian</Label>
                   
                       <Input
                         id="create-duration"
@@ -173,7 +154,7 @@ const CreateProgramDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-tuition">Tuition</Label>
+                      <Label htmlFor="create-tuition">Học phí</Label>
                    
                       <Input
                         id="create-tuition"
@@ -186,7 +167,7 @@ const CreateProgramDialog = ({
                   <div className="grid gap-4">
                     <div className="grid gap-2">
                       <Label htmlFor="create-opportunities">
-                        Opportunities
+                        Cơ hội
                       </Label>
                    
                       <Textarea
@@ -201,7 +182,7 @@ const CreateProgramDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-about">About</Label>
+                      <Label htmlFor="create-about">Giới thiệu</Label>
                   
                       <Textarea
                         id="create-about"
@@ -213,7 +194,7 @@ const CreateProgramDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-image">Image</Label>
+                      <Label htmlFor="create-image">Hình ảnh</Label>
                     
                       <div className="flex flex-col gap-2">
                         <input
@@ -253,7 +234,7 @@ const CreateProgramDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-requirements">Requirements</Label>
+                      <Label htmlFor="create-requirements">Yêu cầu (cách nhau bằng dấu phẩy)</Label>
                   
                       <Input
                         id="update-requirements"
@@ -267,7 +248,7 @@ const CreateProgramDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-benefits">Benefits</Label>
+                      <Label htmlFor="create-benefits">Lợi ích (cách nhau bằng dấu phẩy)</Label>
                   
                       <Input
                         id="update-benefits"
@@ -278,7 +259,7 @@ const CreateProgramDialog = ({
                   </div>
 
                   <div className="grid gap-2 mt-3">
-                    <Label htmlFor="create-featured">Featured</Label>
+                    <Label htmlFor="create-featured">Nổi bật</Label>
                  
                     <Select
                       value={data?.featured ? "true" : "false"}
@@ -290,8 +271,8 @@ const CreateProgramDialog = ({
                         <SelectValue placeholder="Select featured status" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="true">Yes</SelectItem>
-                        <SelectItem value="false">No</SelectItem>
+                        <SelectItem value="true">Có</SelectItem>
+                        <SelectItem value="false">Không</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -308,9 +289,9 @@ const CreateProgramDialog = ({
                         <SelectValue placeholder="Select status" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value={EStatus.ACTIVE}>Active</SelectItem>
+                        <SelectItem value={EStatus.ACTIVE}>Hoạt động</SelectItem>
                         <SelectItem value={EStatus.INACTIVE}>
-                          Inactive
+                          Không hoạt động
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -324,16 +305,16 @@ const CreateProgramDialog = ({
                     onClick={handleClose}
                     className="bg-gray-200 border-gray-300 text-gray-700 hover:bg-red-200 hover:text-red-600 hover:border-red-200 dark:bg-transparent dark:border-gray-700 dark:text-white dark:hover:bg-red-900 dark:hover:text-white"
                   >
-                    Cancel
+                    Hủy
                   </Button>
 
                   <Button onClick={onProgramCreated} disabled={isLoading}>
                     {isLoading ? (
-                      <>Saving...</>
+                      <>Đang lưu...</>
                     ) : (
                       <>
                         <Save className="h-4 w-4" />
-                        Save
+                        Lưu
                       </>
                     )}
                   </Button>

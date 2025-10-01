@@ -86,20 +86,20 @@ export default function WorkingProcessSection() {
             animate={{ scale: isInView ? 1 : 0, opacity: isInView ? 1 : 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <div className="w-8 h-8 border-2 border-white rounded-full flex items-center justify-center mr-3">
-              <div className="w-4 h-4 bg-white rounded-full"></div>
+            <div className="w-8 h-8 border-2 border-primary rounded-full flex items-center justify-center mr-3">
+              <div className="w-4 h-4 bg-primary rounded-full"></div>
             </div>
-            <span className="text-white text-lg font-medium tracking-wider">
+            <span className="text-primary text-lg font-medium tracking-wider">
               WORKING PROCESS
             </span>
           </motion.div>
           <motion.h2
-            className="text-3xl lg:text-4xl font-bold text-white mb-4"
+            className="text-3xl lg:text-4xl font-bold text-primary mb-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: isInView ? 1 : 0, y: isInView ? 0 : 20 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            Quy Trình Làm Việc Của Giáo Dục Quốc Tế ${COMPANY}
+            Quy Trình Làm Việc Của Giáo Dục Quốc Tế {COMPANY}
           </motion.h2>
         </motion.div>
 
@@ -158,7 +158,7 @@ export default function WorkingProcessSection() {
                   delay: isInView ? 0.8 + index * 0.15 : 0,
                 }}
               >
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-xl font-bold text-primary mb-2">
                   {step.title}
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">

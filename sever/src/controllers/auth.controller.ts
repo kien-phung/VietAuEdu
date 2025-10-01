@@ -101,15 +101,9 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
         return next(new ErrorCustom(400, "Invalid credential"));
     }
 
-    const isActive = await user.status === EUserStatus.ACTIVE;
-    if (!isActive) {
+    const isInactive = await user.status === EUserStatus.INACTIVE;
+    if (isInactive) {
         return next(new ErrorCustom(400, "User is not active"));
-    }
-
-    const loginKey = `login:${email}`;
-    const storedLogin = await redisClient.get(loginKey);
-    if (storedLogin) {
-        return next(new ErrorCustom(400, "User already logged in"));
     }
 
     const token = jwt.sign(
@@ -122,11 +116,6 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
             algorithm: "HS256",
         }
     );
-
-    // Store login status in Redis with the same expiration as token (7 days)
-    await redisClient.set(loginKey, 'true', {
-        EX: 7 * 24 * 60 * 60 // 7 days in seconds
-    });
 
     res.cookie("token", token as string, {
         httpOnly: true,
@@ -141,13 +130,12 @@ export const login = RequestHandlerCustom(async (req, res, next) => {
         success: true,
         message: "Login successful",
         user: userWithoutPassword,
-        isActive,
+        isActive: true,
     });
 
 });
 
 export const logout = RequestHandlerCustom(async (req, res, next) => {
-    // The isAuth middleware already validated the token and set req.userId
     if (!req.userId) {
         return next(new ErrorCustom(403, "Not authenticated"));
     }
@@ -159,15 +147,8 @@ export const logout = RequestHandlerCustom(async (req, res, next) => {
         sameSite: "strict",
     });
 
-    const user = await mongoose.model('User').findById(req.userId);
-    if (user && user.email) {
-        const loginKey = `login:${user.email}`;
-        await redisClient.del(loginKey);
-    }
-
     res.status(200).json({
         success: true,
-        user: user,
         message: "Logout successful"
     });
 });

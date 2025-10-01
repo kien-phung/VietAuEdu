@@ -12,7 +12,7 @@ import { TableSearch } from "@/components/common/admin/TableSearch";
 import { useFAQStore } from "@/utils/stores/faqStore";
 import { DashboardHeader } from "@/components/common/admin/DashboardHeader";
 import { EStatus } from "@/utils/types/enum";
-import { FAQCategory } from "@/utils/constants/faqConstants";
+import { FAQCategory } from "@/components/common/admin/faqDashboard/constant";
 
 // Initialize empty filters
 const initialFilters = { status: [] as string[], contentType: [] as string[] };

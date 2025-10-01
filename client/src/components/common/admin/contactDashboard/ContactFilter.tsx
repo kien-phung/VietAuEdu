@@ -32,8 +32,8 @@ export const ContactFilter = ({
 
   const filterOptions = {
     status: [
-      { label: "Pending", value: EContactStatus.PENDING },
-      { label: "Resolved", value: EContactStatus.RESOLVED },
+      { label: "Đang chờ", value: EContactStatus.PENDING },
+      { label: "Đã giải quyết", value: EContactStatus.RESOLVED },
     ],
   };
 

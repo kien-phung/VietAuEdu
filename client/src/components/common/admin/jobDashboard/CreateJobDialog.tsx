@@ -22,8 +22,8 @@ import Image from "next/image";
 import { Textarea } from "@/components/ui/textarea";
 
 export const JobStatus = [
-  { value: "active", label: "Active" },
-  { value: "inactive", label: "Inactive" },
+  { label: "Hoạt động", value: "active" },
+  { label: "Không hoạt động", value: "inactive" },
 ];
 
 interface CreateJobDialogProps {
@@ -68,14 +68,14 @@ const CreateJobDialog = ({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[525px] bg-white dark:bg-gray-800">
         <DialogHeader>
-          <DialogTitle>Create</DialogTitle>
+          <DialogTitle>Tạo công việc</DialogTitle>
         </DialogHeader>
 
         <ScrollArea className="h-[60vh] pr-4">
           <div className="grid gap-4 py-4">
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-title">Title</Label>
+                <Label htmlFor="create-title">Công việc</Label>
 
                 <Input
                   id="create-title"
@@ -87,7 +87,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-country">Country</Label>
+                <Label htmlFor="create-country">Quốc gia</Label>
 
                 <Input
                   id="create-country"
@@ -99,7 +99,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-image">Image</Label>
+                <Label htmlFor="create-image">Hình ảnh</Label>
 
                 <div className="flex flex-col gap-2">
                   <input
@@ -118,7 +118,7 @@ const CreateJobDialog = ({
                     className="flex items-center gap-2"
                   >
                     <ImageIcon className="h-4 w-4" />
-                    Upload Image
+                    Đăng tải hình ảnh lên
                   </Button>
 
                   {previewImage && (
@@ -138,7 +138,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-positions">Positions</Label>
+                <Label htmlFor="create-positions">Số lượng</Label>
 
                 <Input
                   id="create-positions"
@@ -150,7 +150,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-location">Location</Label>
+                <Label htmlFor="create-location">Địa điểm</Label>
 
                 <Input
                   id="create-location"
@@ -162,7 +162,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-salary">Salary</Label>
+                <Label htmlFor="create-salary">Mức lương</Label>
 
                 <Input
                   id="create-salary"
@@ -175,7 +175,7 @@ const CreateJobDialog = ({
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="create-application-deadline">
-                  Application Deadline
+                  Hạn nộp đơn
                 </Label>
 
                 <Input
@@ -191,7 +191,7 @@ const CreateJobDialog = ({
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="create-estimated-departure">
-                  Estimated Departure
+                  Dự kiến khởi hành
                 </Label>
 
                 <Input
@@ -207,7 +207,7 @@ const CreateJobDialog = ({
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="create-requirements">
-                  Requirements (comma-separated)
+                  Yêu cầu (cách nhau bằng dấu phẩy)
                 </Label>
 
                 <Input
@@ -223,7 +223,7 @@ const CreateJobDialog = ({
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="create-benefits">
-                  Benefits (comma-separated)
+                  Lợi ích (cách nhau bằng dấu phẩy)
                 </Label>
 
                 <Input
@@ -239,7 +239,7 @@ const CreateJobDialog = ({
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="create-description">
-                  Description
+                  Mô tả
                 </Label>
 
                 <Textarea
@@ -254,7 +254,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-company">company</Label>
+                <Label htmlFor="create-company">Công ty</Label>
 
                 <Input
                   id="create-company"
@@ -266,7 +266,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-workType">workType</Label>
+                <Label htmlFor="create-workType">Loại công việc</Label>
 
                 <Input
                   id="create-workType"
@@ -278,7 +278,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-featured">featured</Label>
+                <Label htmlFor="create-featured">Nổi bật</Label>
 
                 <Select
                   value={data?.featured ? "true" : "false"}
@@ -290,8 +290,8 @@ const CreateJobDialog = ({
                     <SelectValue placeholder="Select featured status" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="true">Yes</SelectItem>
-                    <SelectItem value="false">No</SelectItem>
+                    <SelectItem value="true">Có</SelectItem>
+                    <SelectItem value="false">Không</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -299,7 +299,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-workingHours">workingHours</Label>
+                <Label htmlFor="create-workingHours">Giờ làm việc</Label>
 
                 <Input
                   id="create-workingHours"
@@ -311,7 +311,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-overtime">overtime</Label>
+                <Label htmlFor="create-overtime">Giờ làm thêm</Label>
 
                 <Input
                   id="create-overtime"
@@ -323,7 +323,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-accommodation">accommodation</Label>
+                <Label htmlFor="create-accommodation">Chỗ ở</Label>
 
                 <Input
                   id="create-accommodation"
@@ -336,7 +336,7 @@ const CreateJobDialog = ({
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <Label htmlFor="create-work-environment">
-                  Work Environment
+                  Môi trường làm việc
                 </Label>
 
                 <Input
@@ -349,7 +349,7 @@ const CreateJobDialog = ({
 
             <div className="grid gap-4">
               <div className="grid gap-2">
-                <Label htmlFor="create-training-period">Training Period</Label>
+                <Label htmlFor="create-training-period">Thời gian đào tạo</Label>
 
                 <Input
                   id="create-training-period"
@@ -360,7 +360,7 @@ const CreateJobDialog = ({
             </div>
 
             <div className="grid gap-2 mt-3">
-              <Label htmlFor="create-country">Status</Label>
+              <Label htmlFor="create-country">Trạng thái</Label>
 
               <Select
                 value={data?.status ? data.status : JobStatus[0].value}
@@ -390,16 +390,16 @@ const CreateJobDialog = ({
             }}
             className="bg-gray-200 border-gray-300 text-gray-700 hover:bg-red-200 hover:text-red-600 hover:border-red-200 dark:bg-transparent dark:border-gray-700 dark:text-white dark:hover:bg-red-900 dark:hover:text-white"
           >
-            Cancel
+            Hủy
           </Button>
 
           <Button onClick={onJobCreated} disabled={isLoading}>
             {isLoading ? (
-              <>Creating...</>
+              <>Đang tạo...</>
             ) : (
               <>
                 <Save className="h-4 w-4" />
-                Create
+                Tạo
               </>
             )}
           </Button>

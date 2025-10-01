@@ -50,7 +50,7 @@ export default function CommitmentsSection({
             }
             transition={{ duration: 0.5 }}
           >
-            Cam Kết Của <span className="text-primary"> ${COMPANY}</span>
+            Cam Kết Của <span className="text-primary"> {COMPANY}</span>
           </motion.h2>
         </motion.div>
 

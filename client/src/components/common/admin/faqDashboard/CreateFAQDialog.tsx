@@ -1,4 +1,4 @@
-import { Loader2 } from "lucide-react";
+import { Loader2, Save } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { EStatus } from "@/utils/types/enum";
-import { FAQCategory, FAQStatus } from "@/utils/constants/faqConstants";
+import { FAQCategory, FAQStatus } from "./constant";
 
 interface CreateFAQDialogProps {
   isOpen: boolean;
@@ -41,10 +41,10 @@ const CreateFAQDialog = ({
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[525px] bg-white dark:bg-gray-800">
         <DialogHeader>
-          <DialogTitle className="text-primary">Create</DialogTitle>
+          <DialogTitle className="text-primary">Tạo mới</DialogTitle>
 
           <DialogDescription className="text-primary-200">
-            Create a new FAQ.
+            Tạo một câu hỏi thường gặp mới.
           </DialogDescription>
         </DialogHeader>
 
@@ -52,7 +52,7 @@ const CreateFAQDialog = ({
           <div className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="create-question" className="text-primary">
-                Question
+                Câu hỏi
               </Label>
 
               <Input
@@ -66,7 +66,7 @@ const CreateFAQDialog = ({
           <div className="grid gap-4">
             <div className="grid gap-2">
               <Label htmlFor="create-answer" className="text-primary">
-                Answer
+                Câu trả lời
               </Label>
 
               <Input
@@ -79,7 +79,7 @@ const CreateFAQDialog = ({
 
           <div className="grid gap-2 mt-3">
             <Label htmlFor="create-category" className="text-primary">
-              Category
+              Danh mục
             </Label>
 
             <Select
@@ -102,7 +102,7 @@ const CreateFAQDialog = ({
 
           <div className="grid gap-2 mt-3">
             <Label htmlFor="create-status" className="text-primary">
-              Status
+              Trạng thái
             </Label>
 
             <Select
@@ -132,17 +132,20 @@ const CreateFAQDialog = ({
             }}
             className="bg-gray-200 border-gray-300 text-gray-700 hover:bg-red-200 hover:text-red-600 hover:border-red-200 dark:bg-transparent dark:border-gray-700 dark:text-white dark:hover:bg-red-900 dark:hover:text-white"
           >
-            Cancel
+            Hủy
           </Button>
 
           <Button type="submit" disabled={isLoading} onClick={onFAQCreated}>
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Creating...
+                Đang tạo...
               </>
             ) : (
-              "Create FAQ"
+              <>
+                <Save className="h-4 w-4" />
+                Tạo
+              </>
             )}
           </Button>
         </DialogFooter>

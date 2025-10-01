@@ -39,7 +39,7 @@ export default function JobOpportunitiesSection() {
           </div>
 
           <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-8">
-            Cơ Hội Việc Làm <span className="text-primary">Tại Các Nước.</span>
+            <span className="text-primary">Cơ Hội Việc Làm Tại Các Nước.</span>
           </h2>
 
           {/* Country Filter Tabs */}
@@ -51,7 +51,7 @@ export default function JobOpportunitiesSection() {
                 className={`px-6 py-2 rounded-full font-medium transition-all duration-300 ${
                   selectedCountry === country
                     ? "bg-primary text-white shadow-lg"
-                    : "border-2 border-primary text-primary hover:bg-red-50"
+                    : "border-2 border-primary text-primary hover:text-white hover:bg-primary"
                 }`}
               >
                 {country}

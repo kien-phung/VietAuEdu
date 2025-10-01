@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { EMAIL, COMPANY } from "@/utils/services/constants";
+import { EMAIL, COMPANY, DESCRIPTION } from "@/utils/services/constants";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Menu, X } from "lucide-react";
@@ -54,7 +54,7 @@ export default function Navbar() {
             {/* Logo - SSR */}
             <Link href="/" className="flex items-center space-x-2">
               <Image
-                src="/images/logo1.png"
+                src="/images/logo.png"
                 alt="VietAuAcademy Logo"
                 width={40}
                 height={30}
@@ -63,10 +63,10 @@ export default function Navbar() {
               />
               <div>
                 <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                  {COMPANY} Edu
+                  {COMPANY}
                 </h1>
                 <p className="text-xs text-gray-600 dark:text-gray-300">
-                  Giáo dục quốc tế
+                  {DESCRIPTION}
                 </p>
               </div>
             </Link>

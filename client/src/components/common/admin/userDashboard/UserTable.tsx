@@ -32,7 +32,7 @@ export const UserTable = ({
       accessor: (_: IUser, index: number) => index + 1,
     },
     {
-      header: "Name",
+      header: "Tên Quản trị viên",
       accessor: (user: IUser) => user.name,
     },
     {
@@ -40,11 +40,11 @@ export const UserTable = ({
       accessor: (user: IUser) => user.email,
     },
     {
-      header: "Phone",
+      header: "Số điện thoại",
       accessor: (user: IUser) => user.phone,
     },
     {
-      header: "Status",
+      header: "Trạng thái",
       accessor: (user: IUser) => (
         <div className="inline-flex items-center justify-center gap-2">
           <span

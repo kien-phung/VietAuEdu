@@ -90,7 +90,7 @@ const ContactDetailsDialog = ({
                           <User className="h-5 w-5 text-blue-500" />
                           <div>
                             <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Name
+                              Tên người gửi
                             </Label>
                             <p className="text-gray-900 dark:text-white">
                               {selectedContact.name}
@@ -114,7 +114,7 @@ const ContactDetailsDialog = ({
                           <Phone className="h-5 w-5 text-purple-500" />
                           <div>
                             <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Phone
+                              Số điện thoại
                             </Label>
                             <p className="text-gray-900 dark:text-white">
                               {selectedContact.phone}
@@ -126,7 +126,7 @@ const ContactDetailsDialog = ({
                           <Tag className="h-5 w-5 text-orange-500" />
                           <div>
                             <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Program
+                              Chương trình
                             </Label>
                             <p className="text-gray-900 dark:text-white">
                               {selectedContact.program || "N/A"}
@@ -138,7 +138,7 @@ const ContactDetailsDialog = ({
                           <Calendar className="h-5 w-5 text-indigo-500" />
                           <div>
                             <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                              Created At
+                              Ngày gửi
                             </Label>
                             <p className="text-gray-900 dark:text-white">
                               {formatDateAgo(selectedContact?.createdAt || "")}

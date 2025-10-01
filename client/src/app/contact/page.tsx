@@ -7,18 +7,18 @@ import ContactPageClient from "@/components/common/contact/ContactPageClient";
 
 // Define metadata for SEO
 export const metadata: Metadata = {
-  title: `Liên Hệ | ${COMPANY} Academy`,
-  description: `Liên hệ với ${COMPANY} Academy để nhận tư vấn miễn phí về các chương trình du học và việc làm quốc tế. Đội ngũ tư vấn viên chuyên nghiệp của chúng tôi luôn sẵn sàng hỗ trợ bạn 24/7.`,
-  keywords: `liên hệ du học, tư vấn du học miễn phí, tư vấn việc làm quốc tế, đăng ký tư vấn, ${COMPANY} Academy`,
+  title: `Liên Hệ | ${COMPANY}`,
+  description: `Liên hệ với ${COMPANY} để nhận tư vấn miễn phí về các chương trình du học và việc làm quốc tế. Đội ngũ tư vấn viên chuyên nghiệp của chúng tôi luôn sẵn sàng hỗ trợ bạn 24/7.`,
+  keywords: `liên hệ du học, tư vấn du học miễn phí, tư vấn việc làm quốc tế, đăng ký tư vấn, ${COMPANY}`,
   openGraph: {
-    title: `Liên Hệ | ${COMPANY} Academy`,
-    description: `Liên hệ với ${COMPANY} Academy để nhận tư vấn miễn phí về các chương trình du học và việc làm quốc tế.`,
+    title: `Liên Hệ | ${COMPANY}`,
+    description: `Liên hệ với ${COMPANY} để nhận tư vấn miễn phí về các chương trình du học và việc làm quốc tế.`,
     images: [
       {
         url: "/images/office.svg",
         width: 800,
         height: 600,
-        alt: `${COMPANY} Academy Office`,
+        alt: `${COMPANY} Office`,
       },
     ],
     type: "website",

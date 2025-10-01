@@ -12,8 +12,8 @@ import { Filter } from "lucide-react";
 interface SharedFilterProps {
   openMenuFilters: boolean;
   setOpenMenuFilters: (open: boolean) => void;
-  activeFilters: { status: string[]; contentType?: string[] };
-  toggleFilter: (value: string, type: "status" | "contentType") => void;
+  activeFilters: { status: string[] };
+  toggleFilter: (value: string, type: "status") => void;
   clearFilters: () => void;
   applyFilters: () => void;
   closeMenuMenuFilters: () => void;
@@ -43,7 +43,7 @@ export const SharedFilter = ({
           onClick={() => setOpenMenuFilters(!openMenuFilters)}
         >
           <Filter className="h-4 w-4 text-gray-700 dark:text-gray-300" />
-          Filter
+          Bộ lọc
         </Button>
       </DropdownMenuTrigger>
 
@@ -52,7 +52,7 @@ export const SharedFilter = ({
         className="w-[250px] bg-white dark:bg-[#1e2735] border border-gray-200 dark:border-gray-700"
       >
         <DropdownMenuLabel className="text-gray-900 dark:text-gray-100">
-          Filter by
+          Bộ lọc theo
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-600" />
@@ -89,38 +89,6 @@ export const SharedFilter = ({
           <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-600" />
         )}
 
-        {filterOptions.contentType && (
-          <div className="p-2">
-            <h4 className="mb-2 text-sm font-medium text-gray-900 dark:text-gray-100">
-              Category
-            </h4>
-
-            <div className="space-y-2">
-              {filterOptions.contentType.map((type) => (
-                <div key={type.value} className="flex items-center">
-                  <Checkbox
-                    id={`type-${type.value}`}
-                    checked={
-                      activeFilters.contentType?.includes(type.value) || false
-                    }
-                    onCheckedChange={() =>
-                      toggleFilter(type.value, "contentType")
-                    }
-                    className="mr-2"
-                  />
-
-                  <label
-                    htmlFor={`type-${type.value}`}
-                    className="text-gray-900 dark:text-gray-100"
-                  >
-                    {type.label}
-                  </label>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
         <DropdownMenuSeparator className="bg-gray-200 dark:bg-gray-600" />
 
         <div className="p-2 flex justify-between">
@@ -130,7 +98,7 @@ export const SharedFilter = ({
             onClick={clearFilters}
             className="text-gray-700 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800"
           >
-            Clear Filters
+            Xóa bộ lọc
           </Button>
 
           <Button
@@ -139,7 +107,7 @@ export const SharedFilter = ({
             variant="secondary"
             className="text-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700"
           >
-            Apply Filters
+            Lọc
           </Button>
         </div>
       </DropdownMenuContent>

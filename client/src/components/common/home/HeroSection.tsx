@@ -38,8 +38,9 @@ export default function HeroSection() {
               </h1>
               <p className="text-xl text-gray-600 dark:text-gray-300 mt-6">
                 Bạn đang mơ ước học tiếp Thạc sĩ tại Hàn Quốc và có cơ hội phát
-                triển sự nghiệp trong môi trường quốc tế hiện đại? Giáo Dục Quốc
-                Tế  ${COMPANY} mang đến cho bạn những cơ hội du học chưa từng có!
+                triển sự nghiệp trong môi trường quốc tế hiện đại?{" "}
+                <span className="text-primary">Giáo Dục Quốc Tế {COMPANY}</span>{" "}
+                mang đến cho bạn những cơ hội du học chưa từng có!
               </p>
             </div>
 

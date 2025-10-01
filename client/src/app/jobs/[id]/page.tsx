@@ -17,7 +17,6 @@ import {
 import { useParams } from "next/navigation";
 import { useJobStore } from "@/utils/stores/jobStore";
 import { EMAIL, PHONE } from "@/utils/services/constants";
-// Removed import of PLACE_HODLER_URL
 
 // Helper function to convert string to array if needed
 const getStringArray = (value: string | string[] | undefined): string[] => {

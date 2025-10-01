@@ -29,19 +29,19 @@ export function ContactTable({
       accessor: (contact: IContact, index: number) => index + 1,
     },
     {
-      header: "User",
+      header: "Tên người gửi",
       accessor: (contact: IContact) => contact?.name || "",
     },
     {
-      header: "Program",
+      header: "Chương trình",
       accessor: (contact: IContact) => contact?.program || "",
     },
     {
-      header: "Submit Date",
+      header: "Ngày gửi",
       accessor: (contact: IContact) => formatDateAgo(contact?.createdAt || ""),
     },
     {
-      header: "Status",
+      header: "Trạng thái",
       accessor: (contact: IContact) => (
         <div className="inline-flex items-center justify-center gap-2">
           <span

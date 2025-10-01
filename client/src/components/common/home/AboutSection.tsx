@@ -34,10 +34,10 @@ export default function AboutSection() {
               viewport={{ once: false }}
             >
               <Image
-                src="/images/logo1.png"
+                src="/images/about-1.jpg"
                 alt={`${COMPANY} Academy Team`}
                 width={500}
-                height={300}
+                height={250}
                 className="w-full h-auto object-cover"
               />
             </motion.div>
@@ -64,10 +64,10 @@ export default function AboutSection() {
               viewport={{ once: false }}
             >
               <Image
-                src="/images/logo1.png"
+                src="/images/about-2.jpg"
                 alt={`${COMPANY} Academy Office`}
                 width={500}
-                height={300}
+                height={250}
                 className="w-full h-auto object-cover"
               />
             </motion.div>
@@ -76,7 +76,7 @@ export default function AboutSection() {
           {/* Right side with content */}
           <div className="lg:col-span-3">
             <motion.div
-              className="inline-flex items-center px-4 py-2 bg-primary/10 dark:bg-primary/20 text-primary rounded-full text-sm font-medium mb-6"
+              className="inline-flex items-center px-4 py-2 bg-primary/30 rounded-full text-sm font-medium mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
@@ -86,7 +86,7 @@ export default function AboutSection() {
             </motion.div>
 
             <motion.h2
-              className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6"
+              className="text-3xl lg:text-4xl font-bold text-primary mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.5 }}

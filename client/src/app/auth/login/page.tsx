@@ -55,29 +55,19 @@ const LoginPage: React.FC = () => {
       return;
     }
 
-    console.log(">>>", response);
-    // If login is successful with active user
-    if (response.data && response.data.isActive) {
-      router.push("/admin");
-      return;
-    }
-    // If user is not active, send OTP and redirect to verification
-    if (
-      response.message === "User is not active" ||
-      response.error === "User is not active" ||
-      (response.data && !response.data.isActive)
-    ) {
-      console.log("User is not active, sending OTP...");
+    if (!response?.data?.isActive) {
       await sendOTP(formData.email);
+
       router.push(
         `/auth/verification?email=${encodeURIComponent(
           formData.email
         )}&isPasswordReset=false`
       );
+
       return;
     }
 
-    // Other errors are handled by the store
+    router.push("/admin");
   };
 
   return (

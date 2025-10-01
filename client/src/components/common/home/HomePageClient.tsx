@@ -3,7 +3,6 @@
 import React, { useRef } from "react";
 import { useInView } from "framer-motion";
 import HeroSection from "@/components/common/home/HeroSection";
-import ProgramsSection from "@/components/common/home/ProgramsSection";
 import AboutSection from "@/components/common/home/AboutSection";
 import CountryFlagsSection from "@/components/common/home/CountryFlagsSection";
 import SlideshowSection from "@/components/common/home/SlideshowSection";
@@ -68,24 +67,26 @@ export default function HomePageClient() {
 
   return (
     <>
-      {/* Critical above-fold content - SSR for instant display */}
       <HeroSection />
+
       <SlideshowSection
         autoPlay={true}
         interval={5000}
         showIndicators={true}
         showNavigation={true}
       />
+
       <AboutSection />
 
-      {/* Progressive loading sections with immediate skeleton */}
       <WorkingProcessSection />
+
       <CountryFlagsSection />
+
       <StudyAbroadSection />
+
       <JobOpportunitiesSection />
 
-      {/* Critical content for SEO - SSR */}
-      <ProgramsSection />
+      {/* <ProgramsSection /> */}
 
       <CTASection
         ctaRef={ctaRef}
@@ -94,7 +95,6 @@ export default function HomePageClient() {
         itemVariants={itemVariants}
       />
 
-      {/* <LanguageTrainingSection /> */}
       <ContactInfoSection
         contactInfoRef={contactInfoRef}
         contactInfoInView={contactInfoInView}

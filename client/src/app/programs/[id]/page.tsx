@@ -12,24 +12,20 @@ export async function generateMetadata({
   const resolvedParams = await params;
   const id = resolvedParams.id;
 
-  // Trong tương lai, khi có API thực, bạn có thể fetch dữ liệu như sau:
-  // const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/programs/${id}`);
-  // const program = await response.json();
-
   // Default metadata trong trường hợp không fetch được dữ liệu
   return {
-    title: `Chương Trình Du Học ${id} | ${COMPANY} Academy`,
+    title: `Chương Trình Du Học ${id} | ${COMPANY}`,
     description: `Thông tin chi tiết về chương trình du học ${id}, điều kiện tuyển sinh, lợi ích và cơ hội nghề nghiệp.`,
-    keywords: `du học, chương trình du học, học bổng, điều kiện du học, ${COMPANY} Academy`,
+    keywords: `du học, chương trình du học, học bổng, điều kiện du học, ${COMPANY}`,
     openGraph: {
-      title: `Chương Trình Du Học ${id} | ${COMPANY} Academy`,
+      title: `Chương Trình Du Học ${id} | ${COMPANY}`,
       description: `Thông tin chi tiết về chương trình du học ${id}, điều kiện tuyển sinh, lợi ích và cơ hội nghề nghiệp.`,
       images: [
         {
           url: "/images/placeholder-program.jpg",
           width: 800,
           height: 600,
-          alt: `Chương trình du học ${id} tại ${COMPANY} Academy`,
+          alt: `Chương trình du học ${id} tại ${COMPANY}`,
         },
       ],
       type: "website",

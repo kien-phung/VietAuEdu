@@ -22,10 +22,9 @@ export const ProgramFilter = ({
   applyFilters,
   closeMenuMenuFilters,
 }: ProgramFilterProps) => {
-  // Create a wrapper function to match the expected signature
   const handleToggleFilter = (
     value: string,
-    type: "status" | "contentType"
+    type: "status"
   ) => {
     if (type === "status") {
       toggleFilter(value, "status");
@@ -34,8 +33,8 @@ export const ProgramFilter = ({
 
   const filterOptions = {
     status: [
-      { label: "Active", value: EStatus.ACTIVE },
-      { label: "Inactive", value: EStatus.INACTIVE },
+      { label: "Hoạt động", value: EStatus.ACTIVE },
+      { label: "Không hoạt động", value: EStatus.INACTIVE },
     ],
   };
 

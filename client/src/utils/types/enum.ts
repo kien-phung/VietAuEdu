@@ -1,6 +1,6 @@
 export enum ETheme {
-  LIGHT = "light",
-  DARK = "dark",
+    LIGHT = "light",
+    DARK = "dark",
 }
 
 export enum EStatus {
@@ -9,7 +9,9 @@ export enum EStatus {
 }
 
 export enum EUserStatus {
-    PENDING = "pending"
+    PENDING = "pending",
+    INACTIVE = "inactive",
+    ACTIVE = "active"
 }
 
 export enum EContactStatus {

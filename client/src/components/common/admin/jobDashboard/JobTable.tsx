@@ -24,31 +24,31 @@ export const JobTable = ({ Jobs, isLoading, onEdit }: IJobTableProps) => {
       accessor: (_: IJob, index: number) => index + 1,
     },
     {
-      header: "Title",
+      header: "Công việc",
       accessor: (job: IJob) => job.title,
     },
     {
-      header: "Country",
+      header: "Quốc gia",
       accessor: (job: IJob) => job.country,
     },
     {
-      header: "Company",
+      header: "Công ty",
       accessor: (job: IJob) => job.company,
     },
     {
-      header: "Positions",
+      header: "Số lượng",
       accessor: (job: IJob) => job.positions,
     },
     {
-      header: "Salary",
+      header: "Mức lương",
       accessor: (job: IJob) => job.salary,
     },
     {
-      header: "Work Type",
+      header: "Loại công việc",
       accessor: (job: IJob) => job.workType,
     },
     {
-      header: "Status",
+      header: "Trạng thái",
       accessor: (job: IJob) => (
         <div className="flex items-center justify-center gap-2">
           <span
@@ -77,7 +77,7 @@ export const JobTable = ({ Jobs, isLoading, onEdit }: IJobTableProps) => {
             ]
           : []
       }
-      emptyMessage="No jobs found"
+      emptyMessage="Không tìm thấy công việc nào"
     />
   );
 };

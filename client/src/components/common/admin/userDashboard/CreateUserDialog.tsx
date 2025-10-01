@@ -68,13 +68,13 @@ const CreateUserDialog = ({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
                 >
-                  Create User
+                  Tạo quản trị viên
                 </Dialog.Title>
 
                 <ScrollArea className="h-[42vh] pr-4 mt-4">
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-name">Name</Label>
+                      <Label htmlFor="create-name">Tên Quản trị viên</Label>
                       <Input
                         id="create-name"
                         value={data?.name || ""}
@@ -97,7 +97,7 @@ const CreateUserDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-password">Password</Label>
+                      <Label htmlFor="create-password">Mật khẩu</Label>
                       <Input
                         id="create-password"
                         type="password"
@@ -111,7 +111,7 @@ const CreateUserDialog = ({
 
                   <div className="grid gap-4">
                     <div className="grid gap-2">
-                      <Label htmlFor="create-phone">Phone</Label>
+                      <Label htmlFor="create-phone">Số điện thoại</Label>
                       <Input
                         id="create-phone"
                         value={data?.phone || ""}
@@ -121,7 +121,7 @@ const CreateUserDialog = ({
                   </div>
 
                   <div className="grid gap-2 mt-3">
-                    <Label htmlFor="create-status">Status</Label>
+                    <Label htmlFor="create-status">Trạng thái</Label>
                     <Select
                       value={data?.status || EUserStatus.PENDING}
                       onValueChange={(value) =>
@@ -129,13 +129,13 @@ const CreateUserDialog = ({
                       }
                     >
                       <SelectTrigger id="create-status">
-                        <SelectValue placeholder="Select status" />
+                        <SelectValue placeholder="Chọn trạng thái" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="active">Active</SelectItem>
-                        <SelectItem value="inactive">Inactive</SelectItem>
+                        <SelectItem value="active">Hoạt động</SelectItem>
+                        <SelectItem value="inactive">Ngừng hoạt động</SelectItem>
                         <SelectItem value={EUserStatus.PENDING}>
-                          Pending
+                          Đang chờ
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -149,16 +149,16 @@ const CreateUserDialog = ({
                     onClick={handleClose}
                     className="bg-gray-200 border-gray-300 text-gray-700 hover:bg-red-200 hover:text-red-600 hover:border-red-200 dark:bg-transparent dark:border-gray-700 dark:text-white dark:hover:bg-red-900 dark:hover:text-white"
                   >
-                    Cancel
+                    Hủy
                   </Button>
 
                   <Button onClick={onUserCreated} disabled={isLoading}>
                     {isLoading ? (
-                      <>Saving...</>
+                      <>Đang lưu...</>
                     ) : (
                       <>
                         <Save className="h-4 w-4" />
-                        Save
+                        Lưu
                       </>
                     )}
                   </Button>

@@ -33,7 +33,7 @@ export default function ContactInfoSection({
           transition={{ duration: 0.5 }}
         >
           <motion.h2
-            className="text-3xl font-bold text-gray-900 dark:text-white mb-4"
+            className="text-3xl font-bold text-primary mb-4"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={
               contactInfoInView
@@ -42,7 +42,7 @@ export default function ContactInfoSection({
             }
             transition={{ duration: 0.5 }}
           >
-            Liên Hệ <span className="text-primary">Với Chúng Tôi</span>
+            <span className="text-primary">Liên Hệ Với Chúng Tôi</span>
           </motion.h2>
         </motion.div>
 
@@ -62,13 +62,13 @@ export default function ContactInfoSection({
             }}
           >
             <motion.div
-              className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4"
+              className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4"
               whileHover={{ rotate: 15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <MapPin className="w-8 h-8 text-primary" />
             </motion.div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-bold text-primary mb-2">
               Địa chỉ
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
@@ -86,13 +86,13 @@ export default function ContactInfoSection({
             }}
           >
             <motion.div
-              className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4"
+              className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4"
               whileHover={{ rotate: 15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <Phone className="w-8 h-8 text-primary" />
             </motion.div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-bold text-primary mb-2">
               Điện thoại
             </h3>
             <p className="text-gray-600 dark:text-gray-300">
@@ -110,13 +110,13 @@ export default function ContactInfoSection({
             }}
           >
             <motion.div
-              className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4"
+              className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mx-auto mb-4"
               whileHover={{ rotate: 15, scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               <Mail className="w-8 h-8 text-primary" />
             </motion.div>
-            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 className="text-xl font-bold text-primary mb-2">
               Email
             </h3>
             <p className="text-gray-600 dark:text-gray-300">

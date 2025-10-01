@@ -43,15 +43,15 @@ export const FAQTable = ({ FAQs, isLoading, onEdit }: IFAQTableProps) => {
       accessor: (_: IFAQ, index: number) => index + 1,
     },
     {
-      header: "Question",
+      header: "Câu hỏi",
       accessor: (faq: IFAQ) => faq.question,
     },
     {
-      header: "Answer",
+      header: "Câu trả lời",
       accessor: (faq: IFAQ) => faq.answer,
     },
     {
-      header: "Category",
+      header: "Danh mục",
       accessor: (faq: IFAQ) => (
         <div className="inline-flex items-center justify-center gap-2">
           <span
@@ -64,7 +64,7 @@ export const FAQTable = ({ FAQs, isLoading, onEdit }: IFAQTableProps) => {
       ),
     },
     {
-      header: "Status",
+      header: "Trạng thái",
       accessor: (faq: IFAQ) => (
         <div className="inline-flex items-center justify-center gap-2">
           <span
@@ -87,13 +87,13 @@ export const FAQTable = ({ FAQs, isLoading, onEdit }: IFAQTableProps) => {
         onEdit
           ? [
               {
-                label: "Edit",
+                label: "Chỉnh sửa",
                 onClick: onEdit,
               },
             ]
           : []
       }
-      emptyMessage="No FAQs found"
+      emptyMessage="Không tìm thấy câu hỏi thường gặp nào"
     />
   );
 };

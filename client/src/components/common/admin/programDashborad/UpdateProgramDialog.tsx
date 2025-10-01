@@ -45,7 +45,6 @@ const UpdateProgramDialog = ({
     if (file) {
       onChange("image", file);
 
-      // Tạo URL để xem trước hình ảnh
       const previewUrl = URL.createObjectURL(file);
       setPreviewImage(previewUrl);
     }
@@ -56,7 +55,6 @@ const UpdateProgramDialog = ({
   };
 
   useEffect(() => {
-    // Hiển thị hình ảnh hiện tại nếu có
     if (data?.imageUrl) {
       setPreviewImage(data.imageUrl);
     } else {
@@ -99,7 +97,7 @@ const UpdateProgramDialog = ({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
                 >
-                  Update Program
+                  Chỉnh sửa chương trình
                 </Dialog.Title>
 
                 <ScrollArea className="h-[42vh] pr-4 mt-4">
@@ -107,7 +105,7 @@ const UpdateProgramDialog = ({
                     <>
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-title">Title</Label>
+                          <Label htmlFor="update-title">Chương trình</Label>
                           <Input
                             id="update-title"
                             value={data.title || ""}
@@ -119,7 +117,7 @@ const UpdateProgramDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-description">
-                            Description
+                            Mô tả
                           </Label>
                           <Textarea
                             id="update-description"
@@ -133,7 +131,7 @@ const UpdateProgramDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-country">Country</Label>
+                          <Label htmlFor="update-country">Quốc gia</Label>
                           <Input
                             id="update-country"
                             value={data.country || ""}
@@ -146,7 +144,7 @@ const UpdateProgramDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-duration">Duration</Label>
+                          <Label htmlFor="update-duration">Thời gian</Label>
                           <Input
                             id="update-duration"
                             value={data.duration || ""}
@@ -159,7 +157,7 @@ const UpdateProgramDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-tuition">Tuition</Label>
+                          <Label htmlFor="update-tuition">Học phí</Label>
                           <Input
                             id="update-tuition"
                             value={data.tuition || ""}
@@ -173,7 +171,7 @@ const UpdateProgramDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="create-opportunities">
-                            Opportunities
+                            Cơ hội
                           </Label>
                           <Textarea
                             id="create-opportunities"
@@ -187,7 +185,7 @@ const UpdateProgramDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="create-about">About</Label>
+                          <Label htmlFor="create-about">Giới thiệu</Label>
                           <Textarea
                             id="create-about"
                             value={data?.about || ""}
@@ -198,7 +196,7 @@ const UpdateProgramDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-image">Image</Label>
+                          <Label htmlFor="update-image">Hình ảnh</Label>
                           <div className="flex flex-col gap-2">
                             <input
                               type="file"
@@ -237,7 +235,7 @@ const UpdateProgramDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-requirements">
-                            Requirements
+                            Yêu cầu (cách nhau bằng dấu phẩy)
                           </Label>
                           <Input
                             id="update-requirements"
@@ -251,7 +249,7 @@ const UpdateProgramDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-benefits">Benefits</Label>
+                          <Label htmlFor="update-benefits">Lợi ích (cách nhau bằng dấu phẩy)</Label>
                           <Input
                             id="update-benefits"
                             value={data?.benefits}
@@ -263,7 +261,7 @@ const UpdateProgramDialog = ({
                       </div>
 
                       <div className="grid gap-2 mt-3">
-                        <Label htmlFor="update-featured">Featured</Label>
+                        <Label htmlFor="update-featured">Nổi bật</Label>
                         <Select
                           value={data.featured ? "true" : "false"}
                           onValueChange={(value) =>
@@ -274,14 +272,14 @@ const UpdateProgramDialog = ({
                             <SelectValue placeholder="Select featured status" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="true">Yes</SelectItem>
-                            <SelectItem value="false">No</SelectItem>
+                            <SelectItem value="true">Có</SelectItem>
+                            <SelectItem value="false">Không</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
 
                       <div className="grid gap-2 mt-3">
-                        <Label htmlFor="update-status">Status</Label>
+                        <Label htmlFor="update-status">Trạng thái</Label>
                         <Select
                           value={data.status || "inactive"}
                           onValueChange={(value: string) =>
@@ -292,8 +290,8 @@ const UpdateProgramDialog = ({
                             <SelectValue placeholder="Select status" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="active">Active</SelectItem>
-                            <SelectItem value="inactive">Inactive</SelectItem>
+                            <SelectItem value="active">Hoạt động</SelectItem>
+                            <SelectItem value="inactive">Không hoạt động</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -308,16 +306,16 @@ const UpdateProgramDialog = ({
                     onClick={handleClose}
                     className="bg-gray-200 border-gray-300 text-gray-700 hover:bg-red-200 hover:text-red-600 hover:border-red-200 dark:bg-transparent dark:border-gray-700 dark:text-white dark:hover:bg-red-900 dark:hover:text-white"
                   >
-                    Cancel
+                    Hủy
                   </Button>
 
                   <Button onClick={onProgramUpdated} disabled={isLoading}>
                     {isLoading ? (
-                      <>Saving...</>
+                      <>Đang lưu...</>
                     ) : (
                       <>
                         <Save className="h-4 w-4" />
-                        Save
+                        Lưu
                       </>
                     )}
                   </Button>

@@ -24,8 +24,8 @@ declare global {
         imageUrl: string;
         image?: File | null;
         featured: boolean;
-        createdAt?: Date;
-        updatedAt?: Date;
+        createdAt?: string;
+        updatedAt?: string;
         status: EStatus;
     }
 

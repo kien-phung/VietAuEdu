@@ -99,7 +99,7 @@ const UpdateJobDialog = ({
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 dark:text-white"
                 >
-                  Update
+                  Chỉnh sửa công việc
                 </Dialog.Title>
 
                 <ScrollArea className="h-[42vh] pr-4 mt-4">
@@ -107,7 +107,7 @@ const UpdateJobDialog = ({
                     <>
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-title">Title</Label>
+                          <Label htmlFor="update-title">Công việc</Label>
 
                           <Input
                             id="update-title"
@@ -121,7 +121,7 @@ const UpdateJobDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-country">Country</Label>
+                          <Label htmlFor="update-country">Quốc gia</Label>
 
                           <Input
                             id="update-country"
@@ -135,7 +135,7 @@ const UpdateJobDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-image">Image</Label>
+                          <Label htmlFor="update-image">Hình ảnh</Label>
 
                           <div className="flex flex-col gap-2">
                             <input
@@ -174,7 +174,7 @@ const UpdateJobDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-positions">Positions</Label>
+                          <Label htmlFor="update-positions">Số lượng</Label>
 
                           <Input
                             id="update-positions"
@@ -194,7 +194,7 @@ const UpdateJobDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-location">Location</Label>
+                          <Label htmlFor="update-location">Địa điểm</Label>
 
                           <Input
                             id="update-location"
@@ -208,7 +208,7 @@ const UpdateJobDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-salary">Salary</Label>
+                          <Label htmlFor="update-salary">Mức lương</Label>
 
                           <Input
                             id="update-salary"
@@ -221,7 +221,7 @@ const UpdateJobDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-application-deadline">
-                            Application Deadline
+                            Hạn nộp đơn
                           </Label>
 
                           <Input
@@ -237,7 +237,7 @@ const UpdateJobDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-estimatedDeparture">
-                            Estimated Departure
+                            Dự kiến khởi hành
                           </Label>
 
                           <Input
@@ -253,7 +253,7 @@ const UpdateJobDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-requirements">
-                            Requirements (comma-separated)
+                            Yêu cầu (cách nhau bằng dấu phẩy)
                           </Label>
                           <Textarea
                             id="update-requirements"
@@ -268,7 +268,7 @@ const UpdateJobDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-benefits">
-                            Benefits (comma-separated)
+                            Lợi ích (cách nhau bằng dấu phẩy)
                           </Label>
                           <Textarea
                             id="update-benefits"
@@ -283,7 +283,7 @@ const UpdateJobDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-description">
-                            Description
+                            Mô tả
                           </Label>
                           <Textarea
                             id="update-description"
@@ -297,7 +297,7 @@ const UpdateJobDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-company">company</Label>
+                          <Label htmlFor="update-company">Công ty</Label>
 
                           <Input
                             id="update-company"
@@ -311,7 +311,7 @@ const UpdateJobDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-workType">workType</Label>
+                          <Label htmlFor="update-workType">Loại công việc</Label>
 
                           <Input
                             id="update-workType"
@@ -325,7 +325,7 @@ const UpdateJobDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-featured">Featured</Label>
+                          <Label htmlFor="update-featured">Nổi bật</Label>
 
                           <Select
                             value={data?.featured ? "true" : "false"}
@@ -338,8 +338,8 @@ const UpdateJobDialog = ({
                             </SelectTrigger>
 
                             <SelectContent>
-                              <SelectItem value="true">Yes</SelectItem>
-                              <SelectItem value="false">No</SelectItem>
+                              <SelectItem value="true">Có</SelectItem>
+                              <SelectItem value="false">Không</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -348,7 +348,7 @@ const UpdateJobDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-workingHours">
-                            workingHours
+                            Giờ làm việc
                           </Label>
 
                           <Input
@@ -363,7 +363,7 @@ const UpdateJobDialog = ({
 
                       <div className="grid gap-4">
                         <div className="grid gap-2">
-                          <Label htmlFor="update-overtime">overtime</Label>
+                          <Label htmlFor="update-overtime">Giờ làm thêm</Label>
 
                           <Input
                             id="update-overtime"
@@ -378,7 +378,7 @@ const UpdateJobDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-accommodation">
-                            accommodation
+                            Chỗ ở
                           </Label>
 
                           <Input
@@ -394,7 +394,7 @@ const UpdateJobDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-work-environment">
-                            Work Environment
+                            Môi trường làm việc
                           </Label>
 
                           <Input
@@ -410,7 +410,7 @@ const UpdateJobDialog = ({
                       <div className="grid gap-4">
                         <div className="grid gap-2">
                           <Label htmlFor="update-training-period">
-                            Training Period
+                            Thời gian đào tạo
                           </Label>
 
                           <Input
@@ -424,7 +424,7 @@ const UpdateJobDialog = ({
                       </div>
 
                       <div className="grid gap-2 mt-3">
-                        <Label htmlFor="update-country">Status</Label>
+                        <Label htmlFor="update-country">Trạng thái</Label>
 
                         <Select
                           value={data.status || EStatus.INACTIVE}
@@ -458,16 +458,16 @@ const UpdateJobDialog = ({
                     onClick={handleClose}
                     className="bg-gray-200 border-gray-300 text-gray-700 hover:bg-red-200 hover:text-red-600 hover:border-red-200 dark:bg-transparent dark:border-gray-700 dark:text-white dark:hover:bg-red-900 dark:hover:text-white"
                   >
-                    Cancel
+                    Hủy
                   </Button>
 
                   <Button onClick={() => onJobUpdated()} disabled={isLoading}>
                     {isLoading ? (
-                      <>Saving...</>
+                      <>Đang lưu...</>
                     ) : (
                       <>
                         <Save className="h-4 w-4" />
-                        Save
+                        Lưu
                       </>
                     )}
                   </Button>

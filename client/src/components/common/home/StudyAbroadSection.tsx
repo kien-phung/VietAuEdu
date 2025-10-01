@@ -18,31 +18,31 @@ const studyPrograms: IStudyProgram[] = [
   {
     id: "representatives",
     title: `Các học viên tiêu biểu của ${COMPANY}`,
-    image: "/images/study-abroad/representatives.jpg",
+    image: "/images/study-abroad-representatives.jpg",
     icon: "📋",
   },
   {
     id: "language",
     title: "Hệ Ngôn Ngữ",
-    image: "/images/study-abroad/language.jpg",
+    image: "/images/study-abroad-language.jpg",
     icon: "🗣️",
   },
   {
     id: "college",
     title: "Học Cao Đẳng",
-    image: "/images/study-abroad/college.jpg",
+    image: "/images/study-abroad-college.jpg",
     icon: "🎓",
   },
   {
     id: "university",
     title: "Học Đại Học",
-    image: "/images/study-abroad/university.jpg",
+    image: "/images/study-abroad-university.jpg",
     icon: "✏️",
   },
   {
     id: "masters",
     title: "Học Thạc Sĩ",
-    image: "/images/study-abroad/masters.jpg",
+    image: "/images/study-abroad-masters.jpg",
     icon: "🎓",
   },
 ];

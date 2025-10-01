@@ -7,7 +7,7 @@ import { ThemeProvider } from "@/components/layout/theme/ThemeProvider";
 import Navbar from "@/components/layout/navigation/Navbar";
 import Footer from "@/components/layout/footer/Footer";
 import FloatingContactButtons from "@/components/layout/contact/FloatingContactButtons";
-import { COMPANY } from "@/utils/services/constants";
+import { COMPANY, DESCRIPTION } from "@/utils/services/constants";
 
 // Optimize font loading with display swap
 const inter = Inter({
@@ -18,22 +18,22 @@ const inter = Inter({
 
 // Enhanced metadata with performance hints
 export const metadata: Metadata = {
-  title: `VietAuAcademy - Giáo Dục Quốc Tế ${COMPANY}`,
+  title: `${COMPANY} - ${DESCRIPTION}`,
   description:
     "Kết nối giáo dục & nâng tầm cuộc sống. Chương trình du học chất lượng cao tại Hàn Quốc, Nhật Bản, Đài Loan, Đức, Mỹ, Úc.",
   keywords: "du học, giáo dục quốc tế, Hàn Quốc, Nhật Bản, Đài Loan, học bổng",
-  authors: [{ name: "VietAuAcademy Team" }],
-  metadataBase: new URL("https://VietAuAcademy.com"),
+  authors: [{ name: `${COMPANY} Team` }],
+  metadataBase: new URL("https://thuytung.com"),
   icons: {
-    icon: "/images/logo1.png",
-    shortcut: "/images/logo1.png",
-    apple: "/images/logo1.png",
+    icon: "/images/logo.png",
+    shortcut: "/images/logo.png",
+    apple: "/images/logo.png",
   },
   openGraph: {
-    title: `VietAuAcademy - Giáo Dục Quốc Tế ${COMPANY}`,
+    title: `${COMPANY} - ${DESCRIPTION}`,
     description: "Kết nối giáo dục & nâng tầm cuộc sống",
-    url: "https://VietAuAcademy.com",
-    siteName: "VietAuAcademy",
+    url: "https://thuytung.com",
+    siteName: `${COMPANY}`,
     locale: "vi_VN",
     type: "website",
   },
@@ -69,7 +69,7 @@ export default function RootLayout({
         {/* Preload critical images */}
         <link
           rel="preload"
-          href="/images/logo1.png"
+          href="/images/logo.png"
           as="image"
           type="image/png"
         />

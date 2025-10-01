@@ -22,7 +22,6 @@ export const ProgramTable = ({
   Programs,
   isLoading,
   onEdit,
-  onDelete,
 }: ProgramTableProps) => {
   const columns = [
     {
@@ -30,23 +29,23 @@ export const ProgramTable = ({
       accessor: (_: IProgram, index: number) => index + 1,
     },
     {
-      header: "Title",
+      header: "Chương trình",
       accessor: (program: IProgram) => program.title,
     },
     {
-      header: "Country",
+      header: "Quốc gia",
       accessor: (program: IProgram) => program.country,
     },
     {
-      header: "Duration",
+      header: "Thời gian",
       accessor: (program: IProgram) => program.duration,
     },
     {
-      header: "Tuition",
+      header: "Học phí",
       accessor: (program: IProgram) => program.tuition,
     },
     {
-      header: "Featured",
+      header: "Nổi bật",
       accessor: (program: IProgram) => (
         <div className="inline-flex items-center justify-center gap-2">
           <span
@@ -54,12 +53,12 @@ export const ProgramTable = ({
               program.featured ? "bg-green-500" : "bg-red-500"
             }`}
           />
-          <span className="capitalize">{program.featured ? "Yes" : "No"}</span>
+          <span className="capitalize">{program.featured ? "Có" : "Không"}</span>
         </div>
       ),
     },
     {
-      header: "Status",
+      header: "Trạng thái",
       accessor: (program: IProgram) => (
         <div className="inline-flex items-center justify-center gap-2">
           <span
@@ -75,15 +74,8 @@ export const ProgramTable = ({
 
   if (onEdit) {
     actions.push({
-      label: "Edit",
+      label: "Chỉnh sửa",
       onClick: onEdit,
-    });
-  }
-
-  if (onDelete) {
-    actions.push({
-      label: "Delete",
-      onClick: (program: IProgram) => onDelete(program._id),
     });
   }
 
